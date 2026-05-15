@@ -25,6 +25,12 @@
         <div class="ctrl-group"><span>THERMAL:</span><button id="toggleThermal">ON</button></div>
         <div class="ctrl-group"><span>EM FIELD:</span><button id="toggleEM">ON</button></div>
         <div class="ctrl-group"><span>CAUSTICS:</span><button id="toggleCaustics">ON</button></div>
+        <div class="ctrl-group"><span>🤖 AI:</span><button id="toggleAI" style="background:#4466aa">ASK GEMMA 4</button></div>
+    </div>
+    <div id="ai-panel" style="display:none;position:fixed;top:80px;left:20px;background:rgba(5,5,14,.94);border:1px solid #4466aa;border-radius:6px;padding:10px;width:300px;z-index:20;color:#ccc;font:10px monospace">
+      <div style="color:#88aaff;letter-spacing:1px;margin-bottom:6px">🤖 GEMMA 4 DESIGN ASSISTANT</div>
+      <div id="ai-response" style="max-height:200px;overflow-y:auto;margin-bottom:6px;line-height:1.4">Ask me about the design...</div>
+      <input id="ai-input" type="text" placeholder="e.g. Is the voice coil properly sized?" style="width:100%;background:#111;border:1px solid #4466aa;color:#ccc;padding:4px;font:10px monospace">
     </div>
     <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.128.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.128.0/examples/jsm/"}}</script>
     <script type="module">
@@ -67,6 +73,17 @@ function causticFalloff(x,y){const d=Math.sqrt(x*x+y*y)/2.5;return Math.exp(-d*2
         document.getElementById('toggleThermal').addEventListener('click',()=>{ten=!ten;document.getElementById('toggleThermal').innerText=ten?'ON':'OFF';if(!ten)uT(0,0)});
         document.getElementById('toggleEM').addEventListener('click',()=>{een=!een;EG.visible=een;document.getElementById('toggleEM').innerText=een?'ON':'OFF'});
         document.getElementById('toggleCaustics').addEventListener('click',()=>{cen=!cen;document.getElementById('toggleCaustics').innerText=cen?'ON':'OFF';if(!cen)cp.material.opacity=0});
+// Gemma 4 AI Assistant (Ollama local)
+let aiOn=false;document.getElementById('toggleAI').addEventListener('click',()=>{aiOn=!aiOn;document.getElementById('ai-panel').style.display=aiOn?'block':'none';document.getElementById('toggleAI').innerText=aiOn?'GEMMA 4 ON':'ASK GEMMA 4'});
+document.getElementById('ai-input').addEventListener('keydown',async(e)=>{
+  if(e.key!=='Enter')return;const q=e.target.value;e.target.value='';if(!q.trim())return;
+  document.getElementById('ai-response').innerHTML='<span style=\"color:#888\">Thinking...</span>';
+  try{
+    const r=await fetch('http://localhost:11434/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'gemma4:2b',prompt:`You are an architectural engineering and audio equipment design assistant. Be concise. Current scene: subwoofer with copper voice coil, ferrite magnet, paper cone, acrylic dome. Bass freq ${freq}Hz, amp ${amp}. User: ${q}`,stream:false})});
+    const d=await r.json();document.getElementById('ai-response').innerHTML=d.response.replace(/\n/g,'<br>');
+  }catch(er){document.getElementById('ai-response').innerHTML='<span style=\"color:#f66\">Ollama not running. Start with: ollama serve</span>'}
+});
         function anim(){tm2+=1/60;const d=Math.sin(tm2*freq*Math.PI*2)*amp*.045;cone.position.y=coy+d;coil.position.y=vcy+d*.6;const ip=amp*(.5+.5*Math.sin(tm2*freq*Math.PI*2)),hf=amp*.8+ip*.4;uT(hf,hf);const bloom=thermalBloom(0,.08,0,0,.08,0);mM.emissiveIntensity*=.7+.3*bloom;
         if(een){EG.rotation.y+=.012;pM.size=.012+Math.sin(tm2*35)*.006;pM.color.setHSL(.55+Math.sin(tm2*2.3)*.1,1,.6);for(let i=0;i<EG.children.length;i++){if(EG.children[i].isLine){const l=EG.children[i];const lp=l.geometry.attributes.position;let avgD=0;for(let j=0;j<lp.count;j++)avgD+=emDecay(lp.getX(j),lp.getY(j),lp.getZ(j));avgD/=lp.count;l.material.opacity=avgD*.9+.1}}}
         const ang=tm2*.9;al.position.x=Math.cos(ang)*1.9;al.position.z=Math.sin(ang)*1.9;al.intensity=.8+Math.sin(tm2*2)*.3;
