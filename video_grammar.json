@@ -1,0 +1,32 @@
+{
+  "CLIP_1_HOOK": {
+    "target_rgb": "(81,89,98)",
+    "target_brightness": "89",
+    "target_contrast": "55",
+    "color_temperature": "COOL",
+    "cut_style": "FAST CUTS (3+ per 8s)",
+    "energy": "DYNAMIC \u2014 fast cuts, high contrast, attention-grabbing",
+    "brightness_arc": "RISING",
+    "temp_arc": "WARMING"
+  },
+  "CLIP_2_RESOLUTION": {
+    "target_rgb": "(124,131,120)",
+    "target_brightness": "125",
+    "target_contrast": "72",
+    "color_temperature": "NEUTRAL",
+    "cut_style": "SMOOTH (no cuts)",
+    "energy": "RESOLUTION \u2014 bright, clear, confident, calm",
+    "brightness_arc": "RISING",
+    "temp_arc": "COOLING"
+  },
+  "CLIP_3_DEPTH": {
+    "target_rgb": "(87,55,62)",
+    "target_brightness": "68",
+    "target_contrast": "47",
+    "color_temperature": "WARM",
+    "cut_style": "MODERATE",
+    "energy": "NEUTRAL \u2014 balanced, ambient",
+    "brightness_arc": "STABLE",
+    "temp_arc": "WARMING"
+  }
+}
