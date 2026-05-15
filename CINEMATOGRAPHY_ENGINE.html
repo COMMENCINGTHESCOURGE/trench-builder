@@ -60,6 +60,7 @@ canvas{display:block}
   
   <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">🎮 CREATIVE MODE</div>
   <button data-shot="debug">🔧 DEBUG OVERLAY</button>
+  <button id="askGemma" style="background:#4466aa;color:#fff">🤖 ASK GEMMA 4</button>
   
   <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">PACKAGE</div>
   <button class="record" data-shot="record">⏺ RECORD B-ROLL PACKAGE</button>
@@ -303,6 +304,16 @@ function loop(){
 window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
 window.addEventListener('keydown',e=>{
   if(e.key==='w'&&debugMode){wireframeOn=!wireframeOn;copperMat.wireframe=wireframeOn}
+});
+// Gemma 4 AI Assistant for cinematography
+document.getElementById('askGemma').addEventListener('click',async()=>{
+  const q=prompt('Ask Gemma 4 about cinematography:','Which shot type works best for revealing the copper detail?');
+  if(!q)return;
+  try{
+    const r=await fetch('http://localhost:11434/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'gemma4:2b',prompt:`You are a cinematography and B-roll expert. Be concise. Available shot types: orbit, crane, drone, helta-copper, helta-thermal, helta-em, dolly, build, dutch, cold-open, title-card, victory, debug. User: ${q}`,stream:false})});
+    const d=await r.json();alert(d.response);
+  }catch(er){alert('Ollama not running. Start with: ollama serve')}
 });
 loop();
 
