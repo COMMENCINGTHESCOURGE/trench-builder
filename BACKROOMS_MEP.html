@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BACKROOMS MEP — Liminal Infrastructure</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;overflow:hidden;cursor:grab}
+body:active{cursor:grabbing}
+#hud{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:#8899aa;font:10px 'Courier New',monospace;background:rgba(0,0,0,.8);padding:5px 14px;border:1px solid #334455;border-radius:3px;pointer-events:none;z-index:10;display:flex;gap:16px}
+#info{position:fixed;top:10px;left:10px;color:#778899;font:9px 'Courier New',monospace;background:rgba(0,0,0,.8);padding:8px 12px;border:1px solid #334455;border-radius:3px;pointer-events:none;z-index:10;line-height:1.5}
+#info b{color:#99aabb}
+</style>
+</head>
+<body>
+<div id="info">
+<b>BACKROOMS MEP</b> — Liminal Infrastructure<br>
+Electrical · HVAC · Plumbing · Switches · Junction Boxes<br>
+<span style="color:#556677">Cold clinical palette — no tobacco residue</span>
+</div>
+<div id="hud">
+<span id="fps">60 FPS</span>
+<span>WASD: move</span>
+<span>Mouse: look</span>
+</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const W=innerWidth,H=innerHeight,
+$=id=>document.getElementById(id);
+
+// ═══════════════════════════════════════
+// SCENE — Cold clinical liminal
+// ═══════════════════════════════════════
+const S=new THREE.Scene();
+S.background=new THREE.Color(0x1a1f24); // dark blue-gray, not yellow
+S.fog=new THREE.FogExp2(0x1a1f24,0.003);
+
+const cam=new THREE.PerspectiveCamera(70,W/H,.1,200);
+cam.position.set(0,1.7,5);
+
+const R=new THREE.WebGLRenderer({antialias:true});
+R.setSize(W,H);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.1;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+
+// ── Lighting: cold fluorescent, harsh ──
+S.add(new THREE.AmbientLight(0x334455,0.4));
+const overhead=new THREE.PointLight(0xaaccdd,8,15,1.5);
+overhead.position.set(0,3.5,0);overhead.castShadow=true;
+overhead.shadow.mapSize.set(1024,1024);
+S.add(overhead);
+// Subtle fill from side corridor
+S.add(new THREE.PointLight(0x8899aa,3,8,2)).position.set(4,2.5,-2);
+
+// ═══════════════════════════════════════
+// MEP INFRASTRUCTURE BUILDER
+// ═══════════════════════════════════════
+
+const wallMat=new THREE.MeshStandardMaterial({color:0xc8ccd0,roughness:.85,metalness:.02}); // pale gray, not yellow
+const floorMat=new THREE.MeshStandardMaterial({color:0x889094,roughness:.7,metalness:.05});
+const ceilMat=new THREE.MeshStandardMaterial({color:0x9ba4a8,roughness:.9,metalness:.02});
+const metalMat=new THREE.MeshStandardMaterial({color:0x8899aa,metalness:.85,roughness:.25});
+const copperMat=new THREE.MeshStandardMaterial({color:0xcc8844,metalness:.95,roughness:.2});
+const plasticMat=new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.5,metalness:.05});
+const ventMat=new THREE.MeshStandardMaterial({color:0x99aabb,metalness:.7,roughness:.35});
+const glassMat=new THREE.MeshStandardMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.4});
+
+function box(w,h,d,mat,castShadow=true){
+  const g=new THREE.BoxGeometry(w,h,d);
+  const m=new THREE.Mesh(g,mat);m.castShadow=castShadow;m.receiveShadow=true;return m;
+}
+
+// ── Walls ──
+function makeWall(x,y,z,w,h,d,mat=wallMat){
+  return Object.assign(box(w,h,d,mat),{position:new THREE.Vector3(x,y,z)});
+}
+
+// Ceiling panels
+for(let x=-6;x<=6;x+=2.5)for(let z=-6;z<=6;z+=2.5)
+  S.add(makeWall(x,3.5,z-1.25,2.4,.05,2.4,ceilMat));
+
+// Floor tiles
+for(let x=-6;x<=6;x+=2)for(let z=-6;z<=6;z+=2)
+  S.add(makeWall(x,0,z-1,1.9,.03,1.9,floorMat));
+
+
+// ═══════════════════════════════════════
+// ELECTRICAL RECEPTACLES (outlets)
+// ═══════════════════════════════════════
+function makeOutlet(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  // Faceplate
+  const plate=box(.22,.005,.28,plasticMat,false);plate.position.set(0,0,0);g.add(plate);
+  // Top socket
+  const s1=box(.06,.01,.08,new THREE.MeshStandardMaterial({color:0x334455,roughness:.3,metalness:.6}),false);s1.position.set(-.04,.003,.04);g.add(s1);
+  // Bottom socket
+  const s2=box(.06,.01,.08,new THREE.MeshStandardMaterial({color:0x334455,roughness:.3,metalness:.6}),false);s2.position.set(-.04,.003,-.04);g.add(s2);
+  // Screw
+  const screw=new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.005,8),metalMat);screw.position.set(.08,.003,0);g.add(screw);
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+// ── Outlets along corridor walls ──
+for(let z=-5;z<=5;z+=3){
+  S.add(makeOutlet(-3.5,.8,z,Math.PI/2));  // left wall
+  S.add(makeOutlet(3.5,.8,z,-Math.PI/2));  // right wall
+}
+S.add(makeOutlet(-3.5,1.5,0,Math.PI/2)); // outlet near floor
+S.add(makeOutlet(3.5,1.5,0,-Math.PI/2));
+
+// ═══════════════════════════════════════
+// LIGHT SWITCHES
+// ═══════════════════════════════════════
+function makeSwitch(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  const plate=box(.16,.005,.24,plasticMat,false);plate.position.set(0,0,0);g.add(plate);
+  // Toggle
+  const toggle=box(.03,.015,.08,new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.4,metalness:.1}),false);
+  toggle.position.set(0,.008,0);g.add(toggle);
+  // Screws
+  const s1=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,.004,8),metalMat);s1.position.set(0,.003,.08);g.add(s1);
+  const s2=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,.004,8),metalMat);s2.position.set(0,.003,-.08);g.add(s2);
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+for(let z=-4;z<=4;z+=4){
+  S.add(makeSwitch(-3.5,1.3,z,Math.PI/2));
+  S.add(makeSwitch(3.5,1.3,z,-Math.PI/2));
+}
+
+// ═══════════════════════════════════════
+// JUNCTION BOXES
+// ═══════════════════════════════════════
+function makeJunctionBox(x,y,z){
+  const g=new THREE.Group();
+  const body=box(.3,.25,.3,new THREE.MeshStandardMaterial({color:0x667788,metalness:.8,roughness:.3}),false);
+  body.position.set(0,.12,0);g.add(body);
+  // Knockouts (circular punch-outs)
+  for(let i=0;i<4;i++){
+    const ko=new THREE.Mesh(new THREE.TorusGeometry(.04,.008,8,16),metalMat);
+    ko.position.set(0,.18,0);ko.rotation.x=Math.PI/2;
+    ko.position.x=Math.cos(i*Math.PI/2)*.15;
+    ko.position.z=Math.sin(i*Math.PI/2)*.15;
+    g.add(ko);
+  }
+  // Conduit stub
+  const stub=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.4,8),metalMat);
+  stub.position.set(0,.35,0);g.add(stub);
+  g.position.set(x,y,z);return g;
+}
+
+S.add(makeJunctionBox(-3.3,.7,-3));
+S.add(makeJunctionBox(3.3,.7,3));
+S.add(makeJunctionBox(-3.3,2.8,-3));
+
+// ═══════════════════════════════════════
+// THERMOSTAT
+// ═══════════════════════════════════════
+function makeThermostat(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  const body=box(.22,.005,.3,plasticMat,false);body.position.set(0,0,0);g.add(body);
+  // Screen
+  const screen=box(.14,.003,.1,new THREE.MeshStandardMaterial({color:0x334455,roughness:.1,emissive:0x111122,emissiveIntensity:.3}),false);
+  screen.position.set(0,.003,.04);g.add(screen);
+  // Display digits (tiny boxes pretending to be LCD segments)
+  for(let i=0;i<3;i++){
+    const seg=box(.02,.001,.005,new THREE.MeshStandardMaterial({color:0x88aacc,emissive:0x446688,emissiveIntensity:.5}),false);
+    seg.position.set(-.03+i*.03,.003,.03);g.add(seg);
+  }
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+S.add(makeThermostat(-3.5,1.5,3,Math.PI/2));
+S.add(makeThermostat(3.5,1.5,-3,-Math.PI/2));
+
+// ═══════════════════════════════════════
+// HVAC VENTS (supply + return)
+// ═══════════════════════════════════════
+function makeVent(x,y,z,rotX=0,rotZ=0,size=.6){
+  const g=new THREE.Group();
+  const frame=box(size,.04,.3,ventMat,false);frame.position.set(0,0,0);g.add(frame);
+  // Louvers
+  for(let i=0;i<6;i++){
+    const fin=box(.02,.005,size-.08,new THREE.MeshStandardMaterial({color:0xaabbcc,metalness:.6,roughness:.3}),false);
+    fin.position.set(0,0,-.1+i*.04);fin.rotation.x=.3;g.add(fin);
+  }
+  g.position.set(x,y,z);g.rotation.x=rotX;g.rotation.z=rotZ;return g;
+}
+
+// Ceiling vents
+S.add(makeVent(0,3.4,-3,0,0,.8));
+S.add(makeVent(-2,3.4,2,0,0,.6));
+S.add(makeVent(3,3.4,-1,0,0,.7));
+// Wall return vent
+S.add(makeVent(-3.3,1.8,0,0,-Math.PI/2,.5));
+
+// ═══════════════════════════════════════
+// DOORS (with frame + handle)
+// ═══════════════════════════════════════
+function makeDoorway(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  // Frame
+  const leftJamb=box(.08,2.4,.15,metalMat,false);leftJamb.position.set(-.5,1.2,0);g.add(leftJamb);
+  const rightJamb=box(.08,2.4,.15,metalMat,false);rightJamb.position.set(.5,1.2,0);g.add(rightJamb);
+  const header=box(1.08,.08,.15,metalMat,false);header.position.set(0,2.4,0);g.add(header);
+  // Door (slightly open)
+  const door=box(.9,2.3,.04,new THREE.MeshStandardMaterial({color:0x445566,roughness:.4,metalness:.3}),false);
+  door.position.set(.42,1.15,.1);door.rotation.y=.3;g.add(door);
+  // Handle
+  const handle=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.12,8),metalMat);
+  handle.position.set(.8,1.15,.1);handle.rotation.x=Math.PI/2;g.add(handle);
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+S.add(makeDoorway(0,.05,-5.9,0));   // far end
+S.add(makeDoorway(-5.9,.05,2,Math.PI/2)); // left side
+
+// ═══════════════════════════════════════
+// CONDUIT RUNS (surface-mounted)
+// ═══════════════════════════════════════
+function makeConduit(start,end){
+  const dx=end.x-start.x,dy=end.y-start.y,dz=end.z-start.z;
+  const length=Math.sqrt(dx*dx+dy*dy+dz*dz);
+  const mid={x:(start.x+end.x)/2,y:(start.y+end.y)/2,z:(start.z+end.z)/2};
+  const cyl=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,length,8,1),metalMat);
+  cyl.position.set(mid.x,mid.y,mid.z);
+  // Rotate to align with direction
+  cyl.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0,1,0),
+    new THREE.Vector3(dx,dy,dz).normalize()
+  );
+  cyl.castShadow=true;return cyl;
+}
+
+// Surface conduit along walls
+S.add(makeConduit({x:-3.4,y:2.5,z:-4},{x:-3.4,y:1,z:0}));
+S.add(makeConduit({x:3.4,y:2.5,z:-4},{x:3.4,y:1,z:0}));
+S.add(makeConduit({x:-3.4,y:2.8,z:-3},{x:0,y:3.3,z:-3})); // up to ceiling
+
+// ═══════════════════════════════════════
+// CORRIDOR WALLS (the space itself)
+// ═══════════════════════════════════════
+// Long corridor
+S.add(makeWall(0,1.75,-6,7.2,3.5,.1));    // back wall
+S.add(makeWall(-3.6,1.75,0,.1,3.5,12));   // left wall
+S.add(makeWall(3.6,1.75,0,.1,3.5,12));    // right wall
+S.add(makeWall(0,.05,0,7.2,.1,12,floorMat)); // floor
+S.add(makeWall(0,3.55,0,7.2,.1,12,ceilMat)); // ceiling
+
+// ═══════════════════════════════════════
+// FPS + CAMERA
+// ═══════════════════════════════════════
+const keys={};
+window.addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);
+window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+
+// Mouse look
+let yaw=Math.PI,pitch=0;
+let mouseDown=false;
+window.addEventListener('mousedown',()=>mouseDown=true);
+window.addEventListener('mouseup',()=>mouseDown=false);
+window.addEventListener('mousemove',e=>{
+  if(!mouseDown)return;
+  yaw-=e.movementX*.003;
+  pitch=Math.max(-1.2,Math.min(.5,pitch-e.movementY*.003));
+});
+
+let fc=0,lt=0;
+
+function loop(){
+  requestAnimationFrame(loop);
+  const dt=.016,t=performance.now()*.001;
+
+  // Movement
+  const speed=4*dt;
+  const fwd=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw));
+  const right=new THREE.Vector3(Math.cos(yaw),0,-Math.sin(yaw));
+
+  if(keys['w']){cam.position.addScaledVector(fwd,speed)}
+  if(keys['s']){cam.position.addScaledVector(fwd,-speed)}
+  if(keys['a']){cam.position.addScaledVector(right,-speed)}
+  if(keys['d']){cam.position.addScaledVector(right,speed)}
+
+  // Clamp to corridor
+  cam.position.x=Math.max(-3.2,Math.min(3.2,cam.position.x));
+  cam.position.z=Math.max(-5.5,Math.min(5.5,cam.position.z));
+  cam.position.y=Math.max(1.2,Math.min(3,cam.position.y));
+
+  // Look
+  const lookTarget=new THREE.Vector3(
+    cam.position.x-Math.sin(yaw)*Math.cos(pitch)*3,
+    cam.position.y+Math.sin(pitch)*3,
+    cam.position.z-Math.cos(yaw)*Math.cos(pitch)*3
+  );
+  cam.lookAt(lookTarget);
+
+  R.render(S,cam);
+
+  // FPS
+  fc++;if(t-lt>.5){$('fps').textContent=`${Math.round(fc/(t-lt))} FPS`;fc=0;lt=t}
+}
+
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+loop();
+
+console.log('BACKROOMS MEP — Cold clinical liminal with infrastructure');
+console.log('Receptacles · Switches · Junction Boxes · Thermostats · Vents · Conduit · Doors');
+</script>
+</body>
+</html>
