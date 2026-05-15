@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MANIFESTATION BRIDGE — Phase 4: The Body</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;overflow:hidden}
+canvas{display:block}
+#hud-overlay{position:fixed;bottom:10px;left:10px;right:10px;z-index:10;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none}
+.card{background:rgba(5,10,16,.9);border:1px solid #334466;border-radius:3px;padding:6px 10px;color:#88aacc;font:9px 'Courier New',monospace;min-width:100px}
+.card .v{font-size:16px;font-weight:bold;margin-top:2px}
+.card.ok{border-color:#224466}.card.ok .v{color:#88cc88}
+.card.warn{border-color:#664422}.card.warn .v{color:#ffaa44}
+.card.bad{border-color:#662222}.card.bad .v{color:#ff4444}
+#freq-viz{position:fixed;top:10px;right:10px;z-index:10;pointer-events:none;background:rgba(5,10,16,.85);border:1px solid #224466;border-radius:3px;padding:6px}
+#freq-viz canvas{display:block}
+#status{position:fixed;top:10px;left:10px;z-index:10;pointer-events:none;color:#557799;font:9px 'Courier New',monospace;letter-spacing:1px}
+#event{position:fixed;top:30px;left:10px;z-index:10;pointer-events:none;color:#88aacc;font:9px 'Courier New',monospace;max-width:300px}
+</style>
+</head>
+<body>
+<div id="status">⚡ MANIFESTATION BRIDGE — Phase 4</div>
+<div id="event"></div>
+<div id="freq-viz"><canvas id="fv" width="160" height="80"></canvas></div>
+<div id="hud-overlay">
+  <div class="card ok" id="c-grid"><div>GRID</div><div class="v">1.00 pu</div></div>
+  <div class="card ok" id="c-light"><div>LIGHT</div><div class="v">0.40</div></div>
+  <div class="card ok" id="c-acoustic"><div>HUM</div><div class="v">220 Hz</div></div>
+  <div class="card ok" id="c-thermal"><div>TEMP</div><div class="v">25°C</div></div>
+</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const $=id=>document.getElementById(id);
+const W=innerWidth,H=innerHeight;
+
+// ═══════════════════════════════════════
+// SCENE — Backrooms corner with streetlight
+// ═══════════════════════════════════════
+const S=new THREE.Scene();
+S.background=new THREE.Color(0x0a0f18);
+S.fog=new THREE.FogExp2(0x0a0f18,0.006);
+
+const cam=new THREE.PerspectiveCamera(55,W/H,.1,50);
+cam.position.set(3,2.5,6);cam.lookAt(0,1.5,0);
+
+const R=new THREE.WebGLRenderer({antialias:true});
+R.setSize(W,H);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.2;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+
+// ── Lighting ──
+S.add(new THREE.AmbientLight(0x223344,.3));
+const moon=new THREE.DirectionalLight(0x8899bb,.5);
+moon.position.set(5,8,-3);S.add(moon);
+
+// ── Building Corner ──
+const wallMat=new THREE.MeshStandardMaterial({color:0x889099,roughness:.8,metalness:.05});
+const floorMat2=new THREE.MeshStandardMaterial({color:0x667077,roughness:.7,metalness:.05});
+
+function box(w,h,d,mat){const g=new THREE.BoxGeometry(w,h,d);const m=new THREE.Mesh(g,mat);m.castShadow=true;m.receiveShadow=true;return m;}
+function wall(x,y,z,w,h,d){return Object.assign(box(w,h,d,wallMat),{position:new THREE.Vector3(x,y,z)});}
+
+// Corner walls
+S.add(wall(-2.5,2,0,.2,4,5)); // left wall
+S.add(wall(0,2,-2.5,5,4,.2)); // back wall
+S.add(wall(0,.05,0,5,.1,5,floorMat2)); // floor
+
+// ── STREETLIGHT — PBR mesh driven by light_system node ──
+const poleMat=new THREE.MeshStandardMaterial({color:0x556677,metalness:.8,roughness:.25});
+const bulbMat=new THREE.MeshStandardMaterial({color:0xffddaa,emissive:0x331100,emissiveIntensity:.4,roughness:.1});
+const glassMat2=new THREE.MeshStandardMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.5});
+
+const streetlight=new THREE.Group();
+// Pole
+streetlight.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.06,.08,3.5,12),poleMat),{position:{y:1.75}}));
+// Arm
+streetlight.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,1.2,8),poleMat),{position:{x:.6,y:3.4},rotation:{z:Math.PI/2}}));
+// Housing
+const housing=new THREE.Mesh(new THREE.CylinderGeometry(.15,.2,.4,16),poleMat);
+housing.position.set(1.2,3.4,0);streetlight.add(housing);
+// Bulb
+const bulb=new THREE.Mesh(new THREE.SphereGeometry(.08,12,8),bulbMat);
+bulb.position.set(1.2,3.2,0);bulb.name='streetlight_bulb';streetlight.add(bulb);
+// Glass dome
+const dome2=new THREE.Mesh(new THREE.SphereGeometry(.13,.15,.15,16,8,0,Math.PI*2,0,Math.PI/2),glassMat2);
+dome2.position.set(1.2,3.2,0);streetlight.add(dome2);
+streetlight.position.set(-1.5,.05,-1);S.add(streetlight);
+
+// ── Junction box on wall (responds to thermal) ──
+const jBox=new THREE.Group();
+jBox.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(.25,.3,.2),new THREE.MeshStandardMaterial({color:0x667788,metalness:.8,roughness:.3,emissive:0x000000})),{position:{y:.15}}));
+const jThermal=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.04,8),new THREE.MeshStandardMaterial({color:0x442200,emissive:0x220000,emissiveIntensity:0}));
+jThermal.position.set(0,.32,0);jThermal.name='junction_thermal';jBox.add(jThermal);
+jBox.position.set(-2.4,1,-.5);S.add(jBox);
+
+// ── Mouse orbit ──
+let yaw=Math.PI*.7,pitch=-.2,md=false;
+window.addEventListener('mousedown',()=>md=true);
+window.addEventListener('mouseup',()=>md=false);
+window.addEventListener('mousemove',e=>{if(!md)return;yaw-=e.movementX*.004;pitch=Math.max(-1,Math.min(.5,pitch-e.movementY*.004))});
+window.addEventListener('wheel',e=>{cam.position.addScaledVector(new THREE.Vector3(0,0,-e.deltaY*.005).applyQuaternion(cam.quaternion))});
+
+// ═══════════════════════════════════════
+// WEB AUDIO — Industrial hum
+// ═══════════════════════════════════════
+let audioCtx,osc60,osc120,osc30,gain60,gain120,gain30;
+try{
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  // 60Hz fundamental
+  osc60=audioCtx.createOscillator();osc60.type='sine';osc60.frequency.value=60;
+  gain60=audioCtx.createGain();gain60.gain.value=.03;
+  osc60.connect(gain60);gain60.connect(audioCtx.destination);
+  // 120Hz harmonic
+  osc120=audioCtx.createOscillator();osc120.type='triangle';osc120.frequency.value=120;
+  gain120=audioCtx.createGain();gain120.gain.value=.015;
+  osc120.connect(gain120);gain120.connect(audioCtx.destination);
+  // 30Hz sub-harmonic
+  osc30=audioCtx.createOscillator();osc30.type='sine';osc30.frequency.value=30;
+  gain30=audioCtx.createGain();gain30.gain.value=.01;
+  osc30.connect(gain30);gain30.connect(audioCtx.destination);
+  osc60.start();osc120.start();osc30.start();
+}catch(e){console.log('Web Audio not available')}
+
+// ═══════════════════════════════════════
+// MANIFESTATION BRIDGE — Subscriptions
+// ═══════════════════════════════════════
+const subscriptions={};
+
+function subscribe(nodeName,callback){
+  if(!subscriptions[nodeName])subscriptions[nodeName]=[];
+  subscriptions[nodeName].push(callback);
+}
+
+function notify(nodeName,value){
+  if(subscriptions[nodeName])subscriptions[nodeName].forEach(cb=>cb(value));
+}
+
+// ═══════════════════════════════════════
+// TRANSFER FUNCTIONS (Phase 2)
+// ═══════════════════════════════════════
+function lightTransfer(grid_v,t){
+  const L0=.4,G=1+.03*Math.sin(2*Math.PI*60*t);
+  const S=1-.2*((1-grid_v)**2);
+  return L0*G*S;
+}
+
+function acousticTransfer(grid_v,t){
+  const f1=120*(1+.05*(1-grid_v));
+  const f_sub=30*(1+.1*((1-grid_v)**2));
+  return {f1,f_sub};
+}
+
+function thermalTransfer(grid_v){
+  const I=1-grid_v;
+  const P=I*I*100;
+  return 22+P*.5;
+}
+
+// ═══════════════════════════════════════
+// SUBSCRIPTIONS — Bridge 3D objects to nodes
+// ═══════════════════════════════════════
+// Light system → streetlight bulb emissive
+subscribe('light_system',val=>{
+  bulb.material.emissiveIntensity=val;
+  bulb.material.emissive=new THREE.Color(
+    .2+val*.6,.15+val*.4,val*.15
+  );
+  // Glass opacity pulses with light
+  dome2.material.opacity=.3+val*.5;
+});
+
+// Thermal → junction box emissive
+subscribe('thermal_system',temp=>{
+  const t=(temp-22)/80; // normalize 22-100°C → 0-1
+  jThermal.material.emissiveIntensity=Math.max(0,t);
+  jThermal.material.emissive=new THREE.Color(
+    .3+t*.7,.05+t*.5,.02+t*.2
+  );
+});
+
+// Acoustic → Web Audio
+subscribe('acoustic_system',({f1,f_sub})=>{
+  if(osc120)osc120.frequency.setTargetAtTime(f1,audioCtx.currentTime,.1);
+  if(osc30)osc30.frequency.setTargetAtTime(f_sub,audioCtx.currentTime,.1);
+});
+
+// Grid voltage → hum amplitude
+subscribe('grid_system',grid_v=>{
+  const sag=1-grid_v;
+  if(gain60)gain60.gain.setTargetAtTime(.03+sag*.06,audioCtx.currentTime,.1);
+  if(gain120)gain120.gain.setTargetAtTime(.015+sag*.04,audioCtx.currentTime,.1);
+  if(gain30)gain30.gain.setTargetAtTime(.01+sag*.03,audioCtx.currentTime,.1);
+});
+
+// ═══════════════════════════════════════
+// SIMULATION LOOP
+// ═══════════════════════════════════════
+let gridVoltage=1.0,brownoutTimer=0,brownoutTarget=1.0;
+const fvCanvas=$('fv'),fvCtx=fvCanvas.getContext('2d');
+
+function updateHUD(gv,lo,ac,th){
+  const cls=gv>.85?'ok':gv>.65?'warn':'bad';
+  ['c-grid','c-light','c-acoustic','c-thermal'].forEach(id=>{
+    $(id).className='card '+cls;
+  });
+  $('c-grid').querySelector('.v').textContent=gv.toFixed(2)+' pu';
+  $('c-light').querySelector('.v').textContent=lo.toFixed(2);
+  $('c-acoustic').querySelector('.v').textContent=ac.f1.toFixed(0)+' Hz';
+  $('c-thermal').querySelector('.v').textContent=th.toFixed(0)+'°C';
+}
+
+function drawFreqViz(f1,f_sub,t){
+  const fw=fvCanvas.width,fh=fvCanvas.height;
+  fvCtx.fillStyle='rgba(5,10,16,.3)';fvCtx.fillRect(0,0,fw,fh);
+  for(let i=0;i<fw;i+=2){
+    const freq=i*(300/fw);
+    let amp=Math.exp(-((freq-f_sub)/5)**2)*.5+Math.exp(-((freq-f1)/10)**2)*.4;
+    const h=amp*fh*.6;
+    fvCtx.fillStyle=freq<60?`rgba(136,100,136,${amp})`:`rgba(136,170,204,${amp})`;
+    fvCtx.fillRect(i,fh-h,1,h);
+  }
+  fvCtx.strokeStyle='#224466';fvCtx.lineWidth=.5;
+  fvCtx.beginPath();fvCtx.moveTo(f1/300*fw,0);fvCtx.lineTo(f1/300*fw,fh);fvCtx.stroke();
+}
+
+let fc=0,lt=0;
+function loop(t){
+  requestAnimationFrame(loop);
+  const tm=t*.001;
+
+  // Brownout cycle every 8s
+  brownoutTimer+=1/60;
+  if(brownoutTimer>8){brownoutTimer=0;brownoutTarget=brownoutTarget===1.0?.45:.65;
+    $('event').textContent=`Brownout: grid ${brownoutTarget.toFixed(2)} pu`;
+    setTimeout(()=>$('event').textContent='',2000);
+  }
+  gridVoltage+=(brownoutTarget-gridVoltage)*.03;
+
+  // Transfer functions
+  const lightOut=lightTransfer(gridVoltage,tm);
+  const acoustic=acousticTransfer(gridVoltage,tm);
+  const thermal=thermalTransfer(gridVoltage);
+
+  // Notify bridge → 3D + Audio
+  notify('light_system',lightOut);
+  notify('acoustic_system',acoustic);
+  notify('thermal_system',thermal);
+  notify('grid_system',gridVoltage);
+
+  // Building corner vibration (structural resonance from acoustic)
+  const jitter=.002*(1-gridVoltage)*Math.sin(acoustic.f_sub*Math.PI*2*tm);
+  jBox.position.x=-2.4+jitter;
+  jBox.position.y=1+jitter*.5;
+
+  // HUD
+  updateHUD(gridVoltage,lightOut,acoustic,thermal);
+  drawFreqViz(acoustic.f1,acoustic.f_sub,tm);
+
+  // Camera
+  const look=new THREE.Vector3(
+    cam.position.x-Math.sin(yaw)*Math.cos(pitch)*3,
+    cam.position.y+Math.sin(pitch)*3,
+    cam.position.z-Math.cos(yaw)*Math.cos(pitch)*3
+  );
+  cam.lookAt(look);
+
+  R.render(S,cam);
+
+  // FPS
+  fc++;if(tm-lt>.5){$('status').textContent=`⚡ MANIFESTATION BRIDGE | ${Math.round(fc/(tm-lt))} FPS`;fc=0;lt=tm}
+}
+
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+requestAnimationFrame(loop);
+
+console.log('╔══════════════════════════════════════╗');
+console.log('║  MANIFESTATION BRIDGE — Phase 4     ║');
+console.log('║  3D PBR + Web Audio + Transfer Fns  ║');
+console.log('║  Streetlight + Building + Junction   ║');
+console.log('╚══════════════════════════════════════╝');
+</script>
+</body>
+</html>
