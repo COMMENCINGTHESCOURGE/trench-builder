@@ -195,20 +195,20 @@ class TransitionScorer:
     """Score how well two clips transition into each other."""
     
     @staticmethod
+    @staticmethod
     def score(clip_a_data, clip_b_data, grammar_a, grammar_b):
-        """Score 0-100 on transition quality."""
         score = 0
         notes = []
         
         # 1. Color harmony (30 points)
-        r_diff = abs(grammar_a["target_rgb"].split(",")[0] if "target_rgb" in grammar_a else "")
-        # Simplified: check if color temps are complementary
-        if grammar_a.get("color_temperature") == "COOL" and grammar_b.get("color_temperature") == "WARM":
+        temp_a = grammar_a.get("color_temperature", "NEUTRAL")
+        temp_b = grammar_b.get("color_temperature", "NEUTRAL")
+        if temp_a == "COOL" and temp_b == "WARM":
             score += 30
-            notes.append("✓ Complementary color temps (cool→warm) — strong visual transition")
-        elif grammar_a.get("color_temperature") == grammar_b.get("color_temperature"):
+            notes.append("✓ Complementary color temps (cool→warm)")
+        elif temp_a == temp_b:
             score += 15
-            notes.append("△ Same color temperature — softer transition, less dramatic")
+            notes.append("△ Same color temperature — softer transition")
         else:
             score += 22
         
