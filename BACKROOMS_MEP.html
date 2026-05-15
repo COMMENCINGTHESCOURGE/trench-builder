@@ -223,8 +223,152 @@ S.add(makeDoorway(0,.05,-5.9,0));   // far end
 S.add(makeDoorway(-5.9,.05,2,Math.PI/2)); // left side
 
 // ═══════════════════════════════════════
-// CONDUIT RUNS (surface-mounted)
+// BASEBOARDS — Floor-wall junction trim
 // ═══════════════════════════════════════
+const baseMat=new THREE.MeshStandardMaterial({color:0xbcc0c4,roughness:.6,metalness:.05});
+
+function makeBaseboard(x,y,z,length,rotY=0){
+  const g=new THREE.Group();
+  // Main board
+  g.add(Object.assign(box(length,.12,.03,baseMat),{position:new THREE.Vector3(0,.06,0)}));
+  // Top cap (slightly proud)
+  g.add(Object.assign(box(length,.015,.04,baseMat),{position:new THREE.Vector3(0,.12,0)}));
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+// Left wall baseboard
+S.add(makeBaseboard(-3.57,.06,0,12,0));
+// Right wall baseboard
+S.add(makeBaseboard(3.57,.06,0,12,0));
+// Back wall baseboard
+S.add(makeBaseboard(0,.06,-5.95,7.2,0));
+// Front wall baseboard (near door)
+S.add(makeBaseboard(0,.06,5.95,3,0));
+S.add(makeBaseboard(2.5,.06,5.95,2,0));
+S.add(makeBaseboard(-2.5,.06,5.95,2,0));
+
+// ═══════════════════════════════════════
+// CROWN MOLDING — Ceiling-wall junction
+// ═══════════════════════════════════════
+const crownMat=new THREE.MeshStandardMaterial({color:0xc8ccd0,roughness:.5,metalness:.08});
+
+function makeCrown(x,y,z,length,rotY=0){
+  const g=new THREE.Group();
+  // Main crown body
+  g.add(Object.assign(box(length,.08,.06,crownMat),{position:new THREE.Vector3(0,3.48,0)}));
+  // Bottom detail ledge
+  g.add(Object.assign(box(length,.015,.08,crownMat),{position:new THREE.Vector3(0,3.44,0)}));
+  // Top cove curve (approximated with small boxes)
+  for(let i=0;i<4;i++){
+    g.add(Object.assign(box(length,.01,.02,crownMat),{position:new THREE.Vector3(0,3.5+i*.01,.02+i*.005)}));
+  }
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+S.add(makeCrown(-3.57,0,0,12,0));
+S.add(makeCrown(3.57,0,0,12,0));
+S.add(makeCrown(0,0,-5.95,7.2,0));
+S.add(makeCrown(0,0,5.95,3,0));
+S.add(makeCrown(2.5,0,5.95,2,0));
+S.add(makeCrown(-2.5,0,5.95,2,0));
+
+// ═══════════════════════════════════════
+// RUNWAY RUGS — Long corridor runners
+// ═══════════════════════════════════════
+const rugMat=new THREE.MeshStandardMaterial({color:0x334455,roughness:.95,metalness:.02});
+
+function makeRug(x,z,length,color=null){
+  const mat=color||rugMat;
+  const g=new THREE.BoxGeometry(.8,.004,length);
+  const m=new THREE.Mesh(g,mat);
+  m.position.set(x,.053,z);m.receiveShadow=true;return m;
+}
+
+// Three staggered runway rugs down the corridor
+S.add(makeRug(-1.2,-4,5,new THREE.MeshStandardMaterial({color:0x2a3a4a,roughness:.95,metalness:.02})));
+S.add(makeRug(1.2,1,6,new THREE.MeshStandardMaterial({color:0x3a4a5a,roughness:.95,metalness:.02})));
+S.add(makeRug(-.8,4,3,new THREE.MeshStandardMaterial({color:0x253545,roughness:.95,metalness:.02})));
+
+// ═══════════════════════════════════════
+// FURNITURE — Liminal office pieces
+// ═══════════════════════════════════════
+
+// ── DESK ──
+function makeDesk(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  const deskMat2=new THREE.MeshStandardMaterial({color:0x556677,roughness:.4,metalness:.3});
+  // Top
+  g.add(Object.assign(box(1.4,.04,.7,deskMat2),{position:new THREE.Vector3(0,.75,0)}));
+  // Legs
+  for(let lx of [-.65,.65])for(let lz of [-.3,.3]){
+    g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.73,8),metalMat),{position:new THREE.Vector3(lx,.38,lz)}));
+  }
+  // Modesty panel
+  g.add(Object.assign(box(1.3,.5,.03,deskMat2),{position:new THREE.Vector3(0,.25,-.33)}));
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+// ── OFFICE CHAIR ──
+function makeChair(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  const chairMat2=new THREE.MeshStandardMaterial({color:0x334455,roughness:.5,metalness:.2});
+  // Seat
+  g.add(Object.assign(box(.4,.05,.4,chairMat2),{position:new THREE.Vector3(0,.48,0)}));
+  // Backrest
+  g.add(Object.assign(box(.38,.35,.04,chairMat2),{position:new THREE.Vector3(0,.68,-.18)}));
+  // Base + stem
+  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.44,8),metalMat),{position:new THREE.Vector3(0,.24,0)}));
+  // Caster base (5 spokes)
+  for(let i=0;i<5;i++){
+    const a=i/5*Math.PI*2;
+    g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.01,.01,.2,6),metalMat),{position:new THREE.Vector3(Math.cos(a)*.15,.06,Math.sin(a)*.15),rotation:{x:0,y:0,z:Math.PI/2}}));
+  }
+  // Casters
+  for(let i=0;i<5;i++){
+    const a=i/5*Math.PI*2;
+    g.add(Object.assign(new THREE.Mesh(new THREE.SphereGeometry(.025,8,6),new THREE.MeshStandardMaterial({color:0x222222,roughness:.3})),{position:new THREE.Vector3(Math.cos(a)*.25,.025,Math.sin(a)*.25)}));
+  }
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+// ── FLOOR LAMP ──
+function makeLamp(x,y,z){
+  const g=new THREE.Group();
+  // Base
+  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.15,.18,.04,16),metalMat),{position:new THREE.Vector3(0,.02,0)}));
+  // Pole
+  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.015,.015,1.5,8),metalMat),{position:new THREE.Vector3(0,.8,0)}));
+  // Shade (cone)
+  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.05,.25,.3,16,1,true),new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.4,metalness:.1,side:THREE.DoubleSide})),{position:new THREE.Vector3(0,1.6,0)}));
+  // Bulb glow
+  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.04,8,6),new THREE.MeshStandardMaterial({color:0xffeedd,emissive:0xffddaa,emissiveIntensity:.4}));
+  bulb.position.set(0,1.5,0);g.add(bulb);
+  g.position.set(x,y,z);return g;
+}
+
+// ── FILING CABINET ──
+function makeCabinet(x,y,z,rotY=0){
+  const g=new THREE.Group();
+  const cabMat=new THREE.MeshStandardMaterial({color:0x667788,roughness:.3,metalness:.4});
+  g.add(Object.assign(box(.4,.8,.5,cabMat),{position:new THREE.Vector3(0,.4,0)}));
+  // Drawer fronts
+  for(let i=0;i<3;i++){
+    g.add(Object.assign(box(.36,.22,.02,new THREE.MeshStandardMaterial({color:0x778899,roughness:.3,metalness:.4})),{position:new THREE.Vector3(0,.18+i*.25,.26)}));
+    // Handle
+    g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.1,8),metalMat),{position:new THREE.Vector3(0,.18+i*.25,.28),rotation:{x:Math.PI/2,y:0,z:0}}));
+  }
+  g.position.set(x,y,z);g.rotation.y=rotY;return g;
+}
+
+// Place furniture — sparse, unsettling
+S.add(makeDesk(-2.2,.05,-3,0));           // Left wall desk
+S.add(makeChair(-2.2,.05,-2.3,-.3));      // Chair pulled out slightly
+S.add(makeLamp(-2.5,.05,-2.5));            // Floor lamp beside desk
+S.add(makeCabinet(-3,.05,-3.5,0));         // Filing cabinet
+
+S.add(makeDesk(2.2,.05,1,Math.PI));        // Right wall desk (facing opposite)
+S.add(makeChair(2.2,.05,.3,Math.PI-.3));   // Chair
+S.add(makeCabinet(3,.05,1.5,0));           // Cabinet
 function makeConduit(start,end){
   const dx=end.x-start.x,dy=end.y-start.y,dz=end.z-start.z;
   const length=Math.sqrt(dx*dx+dy*dy+dz*dz);
