@@ -1,0 +1,125 @@
+{
+  "timestamp": "2026-05-15T13:43:44.095824",
+  "deltas": {
+    "total_principles": 38,
+    "status_breakdown": {
+      "implemented": 19,
+      "partial": 3,
+      "started": 9,
+      "planned": 5,
+      "missing": 2
+    },
+    "coverage_pct": 50.0,
+    "highest_leverage_deltas": [
+      {
+        "principle": "perceptual_ai",
+        "status": "planned",
+        "impact": 2,
+        "location": "training data ready, no model trained"
+      },
+      {
+        "principle": "procedural_entropy",
+        "status": "missing",
+        "impact": 2,
+        "location": "no aging/wear/dust systems"
+      },
+      {
+        "principle": "neural_rendering",
+        "status": "planned",
+        "impact": 1,
+        "location": "training data exported, no model yet"
+      },
+      {
+        "principle": "optical_illusions",
+        "status": "planned",
+        "impact": 1,
+        "location": "v5 roadmap \u2014 forced perspective"
+      },
+      {
+        "principle": "differentiable",
+        "status": "missing",
+        "impact": 1,
+        "location": "no differentiable renderer"
+      }
+    ],
+    "projects": {
+      "trench_builder": {
+        "exists": true,
+        "path": "C:\\Users\\dasha\\Projects\\trench_builder",
+        "total_files": 51,
+        "html_artifacts": 5,
+        "python_scripts": 5,
+        "cad_parts": 33,
+        "docs": 3,
+        "largest_html": 31383
+      },
+      "avatar": {
+        "exists": true,
+        "path": "C:\\Users\\dasha\\Projects\\avatar",
+        "total_files": 1,
+        "html_artifacts": 1,
+        "python_scripts": 0,
+        "cad_parts": 0,
+        "docs": 0,
+        "largest_html": 13943
+      },
+      "erdos_straus": {
+        "exists": true,
+        "path": "C:\\Users\\dasha\\Projects\\erdos-straus",
+        "total_files": 137,
+        "html_artifacts": 0,
+        "python_scripts": 2,
+        "cad_parts": 0,
+        "docs": 1,
+        "largest_html": 0
+      },
+      "ale": {
+        "exists": true,
+        "path": "C:\\Users\\dasha\\Projects\\ale",
+        "total_files": 33,
+        "html_artifacts": 0,
+        "python_scripts": 9,
+        "cad_parts": 0,
+        "docs": 1,
+        "largest_html": 0
+      }
+    }
+  },
+  "actions": [
+    {
+      "priority": 3,
+      "action": "Implement material aging: dust accumulation, scratch patterns",
+      "domain": "simulation",
+      "impact": "Increases perceptual realism (Principle 13)",
+      "effort": "low",
+      "file": "TRENCH_BUILDER_v5.html",
+      "technique": "Time-based procedural wear textures overlaid on materials"
+    }
+  ],
+  "insights": [
+    {
+      "source": "Gemini brain: 958519f9",
+      "technologies": [
+        "PBR",
+        "Three.js",
+        "Verlet"
+      ],
+      "summary": "# Hyper-Realistic Cloth & Skin Lofting Character\n\nWe are going to completely rebuild the character framework from the provided reference into a hyper-realistic implementation. We will escalate the abs"
+    },
+    {
+      "source": "Gemini brain: be3d04db",
+      "technologies": [
+        "PBR",
+        "SSS",
+        "WebGL",
+        "Verlet"
+      ],
+      "summary": "# Hyper-Realistic Character Evolution Plan\n\nThe objective is to synthesize a hyper-realistic character presentation over the existing Layer 1 mechanical integrity. We will replace basic WebGL material"
+    },
+    {
+      "source": "Kimi history: b82e1b739931b552e1b676bc999b6ea7.jsonl",
+      "size_kb": 313,
+      "extractable": true
+    }
+  ]
+}

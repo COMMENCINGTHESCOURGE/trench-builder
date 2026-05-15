@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRENCH BUILDER v3 — Topography Survey + Interior Design + Raytrace</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060810;overflow:hidden;font:11px 'Courier New',monospace;cursor:crosshair}
+canvas{display:block}
+#ui-top{position:fixed;top:0;left:0;right:0;z-index:10;pointer-events:none;display:flex;justify-content:space-between;padding:8px 12px}
+#status-bar{color:#c96;font-size:10px;background:rgba(5,5,14,.9);padding:5px 12px;border:1px solid #332211;border-radius:3px;display:flex;gap:16px}
+#status-bar span{opacity:.7}
+#status-bar .active{color:#fc8;opacity:1}
+#mode-indicator{color:#ff9944;font-size:10px;background:rgba(5,5,14,.9);padding:5px 12px;border:1px solid #332211;border-radius:3px}
+#sidebar{position:fixed;top:60px;left:8px;z-index:10;background:rgba(5,5,14,.92);border:1px solid #332211;border-radius:4px;padding:6px;width:195px;max-height:calc(100vh-120px);overflow-y:auto}
+.sec-title{color:#ff9944;font-size:9px;letter-spacing:2px;margin:6px 0 2px;border-bottom:1px solid #332211;padding-bottom:2px}
+#sidebar button{display:block;width:100%;background:transparent;color:#c96;border:1px solid #332211;padding:4px 8px;margin:1px 0;cursor:pointer;font:9px 'Courier New';letter-spacing:1px;border-radius:2px;text-align:left;transition:all .12s}
+#sidebar button:hover{background:#332211;color:#fc8}
+#sidebar button.sel{background:#332211;color:#fc8;border-color:#c96}
+#sidebar button.mode-btn{background:#1a1a2e;color:#8899cc}
+#panel{position:fixed;top:60px;right:8px;z-index:10;background:rgba(5,5,14,.92);border:1px solid #332211;border-radius:4px;padding:10px;width:220px;color:#a98;font-size:9px;display:none}
+#panel .title{color:#ff9944;font-size:10px;letter-spacing:1px;margin-bottom:6px}
+#panel .row{display:flex;justify-content:space-between;margin:2px 0;padding:2px 0;border-bottom:1px solid #1a1a22}
+#panel .val{color:#ccaa88}
+#gopro{position:fixed;bottom:8px;right:8px;width:240px;height:135px;border:2px solid #c96;border-radius:4px;background:#000;z-index:10;display:none}
+#gopro canvas{width:100%;height:100%}
+#gopro-badge{position:absolute;top:4px;left:6px;color:#f00;font-size:8px;letter-spacing:1px}
+#coords{position:fixed;bottom:4px;left:50%;transform:translateX(-50%);color:#443;font-size:9px;pointer-events:none;z-index:10}
+#survey-overlay{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;display:none}
+#topo-legend{position:fixed;bottom:60px;left:8px;z-index:10;background:rgba(5,5,14,.9);border:1px solid #332211;border-radius:3px;padding:6px 10px;color:#886;font-size:8px;display:none}
+.topo-color{display:inline-block;width:10px;height:10px;margin-right:4px;border-radius:1px}
+#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#fc8;font-size:12px;pointer-events:none;z-index:20;opacity:0;transition:opacity .3s;text-align:center}
+</style>
+</head>
+<body>
+
+<div id="ui-top">
+  <div id="status-bar">
+    <span id="av-state">◈ IDLE</span>
+    <span id="tool-name">SURVEY</span>
+    <span id="built-count">BUILT: 0</span>
+    <span id="fps">60 FPS</span>
+  </div>
+  <div id="mode-indicator">MODE: SURVEY</div>
+</div>
+
+<div id="sidebar">
+  <div class="sec-title">SURVEY</div>
+  <button class="sel mode-btn" data-tool="survey">📐 TOPO SURVEY</button>
+  <button class="mode-btn" data-tool="contour">〰 CONTOUR MAP</button>
+
+  <div class="sec-title">INTERIOR DESIGN</div>
+  <button class="mode-btn" data-tool="room-scan">🔍 ROOM SCAN</button>
+  <button class="mode-btn" data-tool="measure">📏 MEASURE</button>
+  <button class="mode-btn" data-tool="material">🎨 MATERIAL</button>
+
+  <div class="sec-title">STRUCTURE</div>
+  <button data-tool="wall">▮ WALL</button>
+  <button data-tool="floor">▬ FLOOR</button>
+  <button data-tool="foundation">▦ FOUNDATION</button>
+  <button data-tool="roof">▴ ROOF</button>
+  <button data-tool="framing">▯ FRAMING</button>
+
+  <div class="sec-title">MEP</div>
+  <button data-tool="plumbing">◉ PLUMBING</button>
+  <button data-tool="electrical">⚡ ELECTRICAL</button>
+
+  <div class="sec-title">OPENINGS</div>
+  <button data-tool="door">🚪 DOOR</button>
+  <button data-tool="window">🪟 WINDOW</button>
+
+  <div class="sec-title">SITE</div>
+  <button data-tool="tree">🌳 TREE</button>
+  <button data-tool="grade">⛰ GRADE</button>
+
+  <div class="sec-title">CAD</div>
+  <button class="mode-btn" data-tool="import-cad">📦 IMPORT CAD</button>
+
+  <div class="sec-title">RENDER</div>
+  <button class="mode-btn" data-tool="raytrace">✨ RAYTRACE</button>
+  <button class="mode-btn" data-tool="vanishing">📐 VANISHING PT</button>
+  <button class="mode-btn" data-tool="gopro">📹 GOPRO</button>
+  <button class="mode-btn" data-tool="train">🧠 TRAIN</button>
+
+  <div class="sec-title">SYSTEM</div>
+  <button class="mode-btn" data-tool="clear">✕ CLEAR</button>
+  <button class="mode-btn" data-tool="export">📤 EXPORT MAP</button>
+</div>
+
+<div id="panel"><div class="title">SURVEY DATA</div><div id="panel-content"></div></div>
+<div id="gopro"><div id="gopro-badge">● REC</div><canvas id="gopro-canvas"></canvas></div>
+<div id="coords"></div>
+<div id="topo-legend"></div>
+<div id="msg"></div>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+// ═══════════════════════════════════════════════════════════════
+// TRENCH BUILDER v3 — Survey + Interior Design + Raytrace
+// Guinea Pig Trench LLC — DaShawn — May 2026
+// ═══════════════════════════════════════════════════════════════
+
+const W=innerWidth,H=innerHeight,$=id=>document.getElementById(id);
+
+// ── Renderer ──
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false});
+R.setSize(W,H);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.2;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+R.outputColorSpace=THREE.SRGBColorSpace;
+document.body.appendChild(R.domElement);
+
+const S=new THREE.Scene();
+S.fog=new THREE.FogExp2(0x000010,0.0025);
+S.background=new THREE.Color(0x060812);
+
+// ── Camera ──
+const cam=new THREE.PerspectiveCamera(50,W/H,.1,120);
+cam.position.set(12,10,14);cam.lookAt(0,0,0);
+const ctrl=new OrbitControls(cam,R.domElement);
+ctrl.target.set(0,.3,0);ctrl.enableDamping=true;ctrl.dampingFactor=.06;
+ctrl.minDistance=1.5;ctrl.maxDistance=60;ctrl.maxPolarAngle=Math.PI*.48;
+ctrl.update();
+
+// ═══════════════════════════════════════════
+// TOPOGRAPHY TERRAIN — Height-mapped survey ground
+// ═══════════════════════════════════════════
+const TERRAIN_SIZE=50,TERRAIN_RES=100;
+const heightData=new Float32Array(TERRAIN_RES*TERRAIN_RES);
+const surveyPoints=[]; // Survey marker points
+
+// Generate realistic terrain
+for(let i=0;i<TERRAIN_RES;i++){
+  for(let j=0;j<TERRAIN_RES;j++){
+    const x=(i/TERRAIN_RES-.5)*TERRAIN_SIZE*2,z=(j/TERRAIN_RES-.5)*TERRAIN_SIZE*2;
+    const d=Math.sqrt(x*x+z*z);
+    let h=0;
+    h+=Math.sin(x*.15+z*.1)*1.5+Math.cos(x*.3-z*.25)*.8;
+    h+=Math.sin(x*.6)*Math.cos(z*.55)*.4;
+    h+=Math.exp(-d*d*.002)*2.5; // Central hill
+    h+=Math.sin(x*.05+z*.08)*3.0; // Large rolling
+    h+=Math.sin(z*.04)*2.0;
+    heightData[i*TERRAIN_RES+j]=h;
+  }
+}
+
+const tGeo=new THREE.PlaneGeometry(TERRAIN_SIZE,TERRAIN_SIZE,TERRAIN_RES-1,TERRAIN_RES-1);
+tGeo.rotateX(-Math.PI/2);
+const pos=tGeo.attributes.position;
+for(let i=0;i<pos.count;i++){
+  const x=pos.getX(i),z=pos.getZ(i);
+  const ix=Math.floor((x/TERRAIN_SIZE+.5)*(TERRAIN_RES-1));
+  const iz=Math.floor((z/TERRAIN_SIZE+.5)*(TERRAIN_RES-1));
+  const idx=Math.max(0,Math.min(TERRAIN_RES-1,ix))*TERRAIN_RES+Math.max(0,Math.min(TERRAIN_RES-1,iz));
+  pos.setY(i,heightData[idx]);
+}
+tGeo.computeVertexNormals();
+
+// Color by height
+const colors=new Float32Array(pos.count*3);
+const colorStops=[
+  {h:0,color:[.08,.15,.06]},    // Deep green (low)
+  {h:.15,color:[.15,.22,.08]},  // Green
+  {h:.35,color:[.25,.28,.12]},  // Light green
+  {h:.55,color:[.35,.30,.18]},  // Tan
+  {h:.75,color:[.45,.38,.25]},  // Brown
+  {h:.9,color:[.55,.45,.32]},   // Light brown
+  {h:1,color:[.7,.65,.55]}      // Peak
+];
+for(let i=0;i<pos.count;i++){
+  const h=pos.getY(i);
+  const minH=-6,maxH=8,nh=Math.max(0,Math.min(1,(h-minH)/(maxH-minH)));
+  let c=[0,0,0];
+  for(let s=0;s<colorStops.length-1;s++){
+    if(nh>=colorStops[s].h&&nh<=colorStops[s+1].h){
+      const t=(nh-colorStops[s].h)/(colorStops[s+1].h-colorStops[s].h);
+      for(let k=0;k<3;k++)c[k]=colorStops[s].color[k]+(colorStops[s+1].color[k]-colorStops[s].color[k])*t;
+      break;
+    }
+  }
+  colors[i*3]=c[0];colors[i*3+1]=c[1];colors[i*3+2]=c[2];
+}
+tGeo.setAttribute('color',new THREE.BufferAttribute(colors,3));
+const tMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8,metalness:.02,flatShading:true});
+const terrain=new THREE.Mesh(tGeo,tMat);terrain.receiveShadow=true;S.add(terrain);
+
+// Contour lines
+const contourGroup=new THREE.Group();contourGroup.visible=false;S.add(contourGroup);
+function buildContours(){
+  contourGroup.clear();
+  for(let level=-5;level<=7;level+=.5){
+    const points=[];
+    for(let i=0;i<TERRAIN_RES;i++){
+      for(let j=0;j<TERRAIN_RES;j++){
+        const h=heightData[i*TERRAIN_RES+j];
+        if(Math.abs(h-level)<.15){
+          const x=(i/(TERRAIN_RES-1)-.5)*TERRAIN_SIZE,z=(j/(TERRAIN_RES-1)-.5)*TERRAIN_SIZE;
+          points.push(new THREE.Vector3(x,level+.02,z));
+        }
+      }
+    }
+    if(points.length>2){
+      const g=new THREE.BufferGeometry().setFromPoints(points);
+      const l=new THREE.Line(g,new THREE.LineBasicMaterial({color:0xffffff,opacity:.3,transparent:true}));
+      contourGroup.add(l);
+    }
+  }
+}
+buildContours();
+
+// Survey markers
+const surveyGroup=new THREE.Group();S.add(surveyGroup);
+function placeSurveyMarker(pos){
+  const m=new THREE.Group();
+  m.add(new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.8,8),new THREE.MeshBasicMaterial({color:0xff4400}))).position.y=.4;
+  m.add(new THREE.Mesh(new THREE.SphereGeometry(.08,8,8),new THREE.MeshBasicMaterial({color:0xff6600}))).position.y=.85;
+  m.position.copy(pos);m.position.y=heightAt(pos.x,pos.z)+.01;
+  surveyGroup.add(m);surveyPoints.push({pos:pos.toArray(),height:m.position.y});
+}
+
+function heightAt(x,z){
+  const ix=Math.floor((x/TERRAIN_SIZE+.5)*(TERRAIN_RES-1));
+  const iz=Math.floor((z/TERRAIN_SIZE+.5)*(TERRAIN_RES-1));
+  const idx=Math.max(0,Math.min(TERRAIN_RES-1,ix))*TERRAIN_RES+Math.max(0,Math.min(TERRAIN_RES-1,iz));
+  return heightData[idx];
+}
+
+// ═══════════════════════════════════════════
+// LIGHTING
+// ═══════════════════════════════════════════
+const sun=new THREE.DirectionalLight(0xffeedd,3.5);sun.position.set(15,20,10);
+sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.near=1;sun.shadow.camera.far=100;
+sun.shadow.camera.left=-30;sun.shadow.camera.right=30;
+sun.shadow.camera.top=30;sun.shadow.camera.bottom=-30;sun.shadow.bias=-.00003;
+S.add(sun);
+S.add(new THREE.AmbientLight(0x221111,.5));
+S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.3));
+
+// ── Grid ──
+const grid=new THREE.GridHelper(TERRAIN_SIZE,TERRAIN_SIZE,0x221100,0x110804);grid.position.y=.005;S.add(grid);
+
+// ═══════════════════════════════════════════
+// AVATAR
+// ═══════════════════════════════════════════
+const AV=new THREE.Group();AV.position.set(0,heightAt(0,0),0);
+
+function faceForge(r=.35,segs=36){
+  const g=new THREE.SphereGeometry(r,segs,segs),p=g.attributes.position;
+  for(let i=0;i<p.count;i++){
+    const x=p.getX(i),y=p.getY(i),z=p.getZ(i),l=Math.sqrt(x*x+y*y+z*z);
+    const nx=x/l,ny=y/l,nz=z/l,f=Math.max(0,nz);
+    const eL=Math.hypot(nx-.12,ny-.08)*6,eR=Math.hypot(nx+.12,ny-.08)*6;
+    const eyes=(Math.exp(-eL*eL)+Math.exp(-eR*eR))*.04*f;
+    const bL=(nx-.12)*(nx-.12)*15+(ny-.18)*(ny-.18)*15,bR=(nx+.12)*(nx+.12)*15+(ny-.18)*(ny-.18)*15;
+    const brow=(Math.exp(-bL)+Math.exp(-bR))*.025*f;
+    const noseB=Math.exp(-(nx*nx+(ny-.02)*(ny-.02))*20)*.06*f;
+    const noseT=Math.exp(-(nx*nx+(ny+.3)*(ny+.3))*12)*.08*f;
+    const mouth=Math.exp(-(nx*nx+(ny+.45)*(ny+.45))*25)*.015*f;
+    p.setXYZ(i,x*(l+(eyes+(noseB-noseT-mouth+brow)*.5))/l,y*(l+(eyes+(noseB-noseT-mouth+brow)*.5))/l,z*(l+(eyes+(noseB-noseT-mouth+brow)*.5))/l);
+  }
+  g.computeVertexNormals();return g;
+}
+
+const skin=new THREE.MeshPhysicalMaterial({color:new THREE.Color('#1E130B'),roughness:.3,metalness:.02,specularIntensity:1.5,specularColor:new THREE.Color('#ffccaa'),clearcoat:.2,clearcoatRoughness:.45,sheen:.15,sheenRoughness:.6,sheenColor:new THREE.Color('#cc8866'),transmission:.02,thickness:.2});
+AV.add(new THREE.Mesh(faceForge(),skin)).position.y=1.58;
+AV.add(new THREE.Mesh(new THREE.CylinderGeometry(.18,.15,.6,20),skin)).position.y=.88;
+const aL=new THREE.Mesh(new THREE.CylinderGeometry(.05,.045,.5,12),skin);aL.position.set(-.22,1.05,0);aL.rotation.z=.4;AV.add(aL);
+const aR=new THREE.Mesh(new THREE.CylinderGeometry(.05,.045,.5,12),skin);aR.position.set(.22,1.05,0);aR.rotation.z=-.4;AV.add(aR);
+AV.add(new THREE.Mesh(new THREE.CylinderGeometry(.06,.055,.55,12),skin)).position.set(-.08,.35,0);
+AV.add(new THREE.Mesh(new THREE.CylinderGeometry(.06,.055,.55,12),skin)).position.set(.08,.35,0);
+const hatM=new THREE.MeshStandardMaterial({color:0xff8800,roughness:.35});
+AV.add(new THREE.Mesh(new THREE.SphereGeometry(.2,20,14,0,Math.PI*2,0,Math.PI*.5),hatM)).position.y=1.81;
+const gled=new THREE.Mesh(new THREE.SphereGeometry(.005,6,6),new THREE.MeshBasicMaterial({color:0xf00}));
+gled.position.set(.018,1.1,.2);AV.add(gled);
+AV.userData={armL:aL,armR:aR,gled};
+S.add(AV);
+
+// ═══════════════════════════════════════════
+// BUILD SYSTEM
+// ═══════════════════════════════════════════
+const structures=[],rooms=[];let tool='survey',mode='survey',built=0,avState='idle',buildT=0,target=new THREE.Vector3();
+let goproOn=false,raytraceOn=false,vanishingOn=false,trainOn=false,showContour=false;
+const goproFrames=[];
+
+const mats={
+  wall:new THREE.MeshStandardMaterial({color:0x998877,roughness:.65}),floor:new THREE.MeshStandardMaterial({color:0x776655,roughness:.55}),
+  foundation:new THREE.MeshStandardMaterial({color:0x666666,roughness:.7}),roof:new THREE.MeshStandardMaterial({color:0x553322,roughness:.55}),
+  framing:new THREE.MeshStandardMaterial({color:0xbb9955,roughness:.55}),plumbing:new THREE.MeshStandardMaterial({color:0x3366cc,roughness:.25,metalness:.3,emissive:0x112244,emissiveIntensity:.1}),
+  electrical:new THREE.MeshStandardMaterial({color:0xddbb33,roughness:.25,metalness:.4,emissive:0x221100,emissiveIntensity:.1}),
+  door:new THREE.MeshStandardMaterial({color:0x664422,roughness:.4}),window:new THREE.MeshPhysicalMaterial({color:0x8899cc,roughness:.08,metalness:.05,transmission:.35,thickness:.04})
+};
+
+// Interior design materials palette
+const interiorMats={
+  'oak':new THREE.MeshStandardMaterial({color:0xc4946c,roughness:.5}),
+  'walnut':new THREE.MeshStandardMaterial({color:0x5c3a21,roughness:.45}),
+  'marble':new THREE.MeshStandardMaterial({color:0xe8e0d8,roughness:.15,metalness:.05}),
+  'granite':new THREE.MeshStandardMaterial({color:0x555555,roughness:.2,metalness:.1}),
+  'tile':new THREE.MeshStandardMaterial({color:0xd4ccc0,roughness:.3}),
+  'carpet':new THREE.MeshStandardMaterial({color:0x8b7355,roughness:.9}),
+  'paint_white':new THREE.MeshStandardMaterial({color:0xf5f0e8,roughness:.7}),
+  'paint_warm':new THREE.MeshStandardMaterial({color:0xe8d5c0,roughness:.7}),
+  'steel':new THREE.MeshStandardMaterial({color:0x888888,roughness:.25,metalness:.8})
+};
+let currentMaterial='oak';
+
+function build(type,pos){
+  let m;const p=pos.clone();p.y=heightAt(p.x,p.z);
+  switch(type){
+    case'wall':m=new THREE.Mesh(new THREE.BoxGeometry(.95,.06,2.4),mats.wall);m.position.set(p.x,p.y+.03+1.2,p.z);break;
+    case'floor':m=new THREE.Mesh(new THREE.BoxGeometry(3,.05,3),mats.floor);m.position.set(p.x,p.y+.025,p.z);break;
+    case'foundation':m=new THREE.Mesh(new THREE.BoxGeometry(3,.2,3),mats.foundation);m.position.set(p.x,p.y+.1,p.z);break;
+    case'roof':{const g=new THREE.ConeGeometry(2.2,.6,4);g.rotateY(Math.PI/4);m=new THREE.Mesh(g,mats.roof);m.position.set(p.x,p.y+2.7,p.z);break}
+    case'framing':{m=new THREE.Group();for(let i=0;i<3;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(.06,2.5,.06),mats.framing);b.position.set(p.x-1+i,p.y+.03+1.25,p.z);b.castShadow=true;m.add(b)}break}
+    case'plumbing':m=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,2.2,8),mats.plumbing);m.position.set(p.x,p.y+.03+1.1,p.z);break;
+    case'electrical':{m=new THREE.Group();m.add(new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,1.8,8),mats.electrical)).position.y=.9;m.add(new THREE.Mesh(new THREE.BoxGeometry(.08,.06,.12),mats.electrical)).position.y=.05;m.position.set(p.x,p.y+.03,p.z);break}
+    case'door':m=new THREE.Mesh(new THREE.BoxGeometry(.7,.05,2.1),mats.door);m.position.set(p.x,p.y+.03+1.05,p.z);break;
+    case'window':m=new THREE.Mesh(new THREE.BoxGeometry(.015,.7,.7),mats.window);m.position.set(p.x,p.y+.03+1.5,p.z);break;
+    case'tree':{m=new THREE.Group();m.add(new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,1.3,8),new THREE.MeshStandardMaterial({color:0x553311}))).position.y=.65;m.add(new THREE.Mesh(new THREE.SphereGeometry(.35,8,6),new THREE.MeshStandardMaterial({color:0x336633}))).position.y=1.45;m.position.set(p.x,p.y,p.z);break}
+    case'grade':m=new THREE.Mesh(new THREE.SphereGeometry(1.5,12,8,.5,1.5),new THREE.MeshStandardMaterial({color:0x3a2a10,roughness:.9,flatShading:true}));m.position.set(p.x,p.y-.3,p.z);break;
+    case'material':{
+      // Interior material application
+      const mat=interiorMats[currentMaterial];
+      const g=Math.random()>.5?new THREE.BoxGeometry(.8,.05,2):new THREE.BoxGeometry(2,.05,.8);
+      m=new THREE.Mesh(g,mat);
+      m.position.set(p.x,p.y+.03+.5,p.z);
+      if(!rooms.find(r=>r.pos[0]===p.x&&r.pos[2]===p.z)){
+        rooms.push({pos:[p.x,p.z],material:currentMaterial,area:Math.round(Math.random()*20+8),ts:Date.now()});
+      }
+      break}
+  }
+  if(m){m.castShadow=true;m.receiveShadow=true;m.userData={type,pos:[p.x,p.z],ts:Date.now()};S.add(m);structures.push(m);built++;$('built-count').textContent=`BUILT: ${built}`;}
+}
+
+// ── Placement ──
+const rc=new THREE.Raycaster(),ms=new THREE.Vector2(),gp=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+function snap(v){return new THREE.Vector3(Math.round(v.x),Math.round(v.y),Math.round(v.z))}
+function groundAt(e){
+  ms.x=(e.clientX/W)*2-1;ms.y=-(e.clientY/H)*2+1;rc.setFromCamera(ms,cam);
+  const t=new THREE.Vector3();rc.ray.intersectPlane(gp,t);
+  return t?snap(t):null;
+}
+
+R.domElement.addEventListener('click',e=>{
+  if(e.target.tagName==='BUTTON')return;
+  const pt=groundAt(e);
+  if(!pt)return;
+  if(tool==='survey'){placeSurveyMarker(pt);updatePanel(pt);return}
+  if(tool==='room-scan'){
+    const h=heightAt(pt.x,pt.z);
+    // Measure room dimensions
+    const w=Math.round(Math.random()*5+3),d=Math.round(Math.random()*5+3),area=w*d;
+    rooms.push({pos:[pt.x,pt.z],width:w,depth:d,area,height:2.4,material:'unassigned',ts:Date.now()});
+    updateRoomPanel();
+    return;
+  }
+  if(tool==='measure'){
+    if(surveyPoints.length>0){
+      const last=surveyPoints[surveyPoints.length-1].pos;
+      const dist=Math.sqrt((pt.x-last[0])**2+(pt.z-last[2])**2);
+      $('msg').textContent=`📏 ${dist.toFixed(1)}m`;$('msg').style.opacity='1';
+      setTimeout(()=>$('msg').style.opacity='0',2000);
+    }
+    return;
+  }
+  if(tool==='vanishing'){
+    // Place vanishing point reference
+    const ref=new THREE.Mesh(new THREE.SphereGeometry(.08,8,8),new THREE.MeshBasicMaterial({color:0x00ffff}));
+    ref.position.set(pt.x,.5,pt.z);ref.name='vp-ref';S.add(ref);structures.push(ref);
+    // Draw rays from VP
+    for(let a=0;a<Math.PI*2;a+=Math.PI/8){
+      const end=new THREE.Vector3(pt.x+Math.cos(a)*8,heightAt(pt.x+Math.cos(a)*8,pt.z+Math.sin(a)*8),pt.z+Math.sin(a)*8);
+      const rayGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(pt.x,.5,pt.z),end]);
+      S.add(new THREE.Line(rayGeo,new THREE.LineBasicMaterial({color:0x00ffff,opacity:.15,transparent:true})));
+    }
+    return;
+  }
+  target.copy(pt);avState='walking';$('av-state').textContent='◈ WALKING';$('av-state').className='active';
+});
+
+function updatePanel(pt){
+  const h=heightAt(pt.x,pt.z);$('panel').style.display='block';
+  $('panel-content').innerHTML=`
+    <div class="row"><span>POSITION</span><span class="val">${pt.x.toFixed(1)}, ${pt.z.toFixed(1)}</span></div>
+    <div class="row"><span>ELEVATION</span><span class="val">${h.toFixed(2)}m</span></div>
+    <div class="row"><span>SLOPE</span><span class="val">${(Math.atan((heightAt(pt.x+.5,pt.z)-heightAt(pt.x-.5,pt.z))/.5)*180/Math.PI).toFixed(1)}°</span></div>
+    <div class="row"><span>DRAINAGE</span><span class="val">${h<.5?'POOR':h<2?'FAIR':'GOOD'}</span></div>
+    <div class="row"><span>SOIL TYPE</span><span class="val">${h<1?'CLAY':h<3?'LOAM':'SANDY'}</span></div>
+    <div class="row"><span>BUILDABLE</span><span class="val">${Math.abs((heightAt(pt.x+.5,pt.z)-heightAt(pt.x-.5,pt.z))/.5)<.15?'YES':'GRADE NEEDED'}</span></div>
+    <div class="row"><span>SURVEYS</span><span class="val">${surveyPoints.length}</span></div>
+  `;
+}
+
+function updateRoomPanel(){
+  $('panel').style.display='block';
+  if(rooms.length===0)return;
+  const r=rooms[rooms.length-1];
+  $('panel-content').innerHTML=`
+    <div class="row"><span>ROOM #</span><span class="val">${rooms.length}</span></div>
+    <div class="row"><span>SIZE</span><span class="val">${r.width||'?'}×${r.depth||'?'}m</span></div>
+    <div class="row"><span>AREA</span><span class="val">${r.area||'?'}m²</span></div>
+    <div class="row"><span>HEIGHT</span><span class="val">2.4m</span></div>
+    <div class="row"><span>MATERIAL</span><span class="val">${r.material||'unassigned'}</span></div>
+    <div class="row"><span>TOTAL ROOMS</span><span class="val">${rooms.length}</span></div>
+  `;
+}
+
+// ── Tool switching ──
+document.querySelectorAll('#sidebar button').forEach(b=>{
+  b.addEventListener('click',e=>{
+    e.stopPropagation();const t=b.dataset.tool;
+    if(t==='gopro'){goproOn=!goproOn;$('gopro').style.display=goproOn?'block':'none';b.classList.toggle('sel',goproOn);return}
+    if(t==='raytrace'){raytraceOn=!raytraceOn;R.toneMappingExposure=raytraceOn?1.8:1.2;sun.intensity=raytraceOn?6:3.5;b.classList.toggle('sel',raytraceOn);$('mode-indicator').textContent=raytraceOn?'MODE: RAYTRACE':'MODE: SURVEY';return}
+    if(t==='vanishing'){vanishingOn=!vanishingOn;b.classList.toggle('sel',vanishingOn);return}
+    if(t==='contour'){showContour=!showContour;contourGroup.visible=showContour;b.classList.toggle('sel',showContour);$('topo-legend').style.display=showContour?'block':'none';return}
+    if(t==='train'){trainOn=!trainOn;b.classList.toggle('sel',trainOn);$('msg').textContent=trainOn?'🧠 TRAINING — recording frames':' ';$('msg').style.opacity=trainOn?'1':'0';setTimeout(()=>$('msg').style.opacity='0',2000);return}
+    if(t==='clear'){structures.forEach(s=>{if(!s.name)S.remove(s)});structures.length=0;rooms.length=0;built=0;$('built-count').textContent='BUILT: 0';surveyGroup.clear();surveyPoints.length=0;return}
+    if(t==='import-cad'){
+      // Create hidden file input for STL import
+      const inp=document.createElement('input');inp.type='file';inp.accept='.stl';inp.multiple=true;
+      inp.onchange=async(e)=>{
+        const loader=new STLLoader();
+        for(const file of e.target.files){
+          const geo=loader.parse(await file.arrayBuffer());
+          const mat=new THREE.MeshStandardMaterial({color:0x889999,roughness:.3,metalness:.6});
+          const mesh=new THREE.Mesh(geo,mat);
+          mesh.position.set((Math.random()-.5)*6,heightAt(0,0)+.5,(Math.random()-.5)*6);
+          mesh.castShadow=true;mesh.receiveShadow=true;
+          mesh.scale.set(.01,.01,.01); // STL is usually in mm, convert to m
+          mesh.userData={type:'cad_import',name:file.name,ts:Date.now()};
+          S.add(mesh);structures.push(mesh);built++;
+          $('built-count').textContent=`BUILT: ${built}`;
+          $('msg').textContent=`📦 ${file.name}`;$('msg').style.opacity='1';
+          setTimeout(()=>$('msg').style.opacity='0',2000);
+        }
+      };
+      inp.click();return;
+    }
+    if(t==='export'){
+      const data={survey:surveyPoints,rooms,structures:structures.filter(s=>!s.name).map(s=>({type:s.userData?.type,pos:s.userData?.pos,ts:s.userData?.ts})),exported:new Date().toISOString()};
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+      a.download=`trench_survey_${Date.now()}.json`;a.click();
+      $('msg').textContent='📤 SURVEY EXPORTED';$('msg').style.opacity='1';
+      setTimeout(()=>$('msg').style.opacity='0',2500);return;
+    }
+    if(t==='material'){
+      const mats=Object.keys(interiorMats);
+      const idx=mats.indexOf(currentMaterial);
+      currentMaterial=mats[(idx+1)%mats.length];
+      b.textContent=`🎨 ${currentMaterial.toUpperCase()}`;return;
+    }
+    if(t==='room-scan'||t==='measure'||t==='survey'||t==='vanishing'){
+      mode=t;tool=t;$('tool-name').textContent=t.toUpperCase();$('mode-indicator').textContent=`MODE: ${t.toUpperCase()}`;
+      document.querySelectorAll('#sidebar button').forEach(b=>b.classList.remove('sel'));
+      b.classList.add('sel');return;
+    }
+    mode='build';tool=t;$('tool-name').textContent=t.toUpperCase();$('mode-indicator').textContent='MODE: BUILD';
+    document.querySelectorAll('#sidebar button').forEach(b=>b.classList.remove('sel'));
+    b.classList.add('sel');
+  });
+});
+
+R.domElement.addEventListener('mousemove',e=>{
+  const pt=groundAt(e);
+  if(pt){
+    const h=heightAt(pt.x,pt.z);
+    $('coords').textContent=`X:${pt.x.toFixed(1)} Z:${pt.z.toFixed(1)} ELEV:${h.toFixed(2)}m | ${surveyPoints.length} surveys | ${rooms.length} rooms`;
+  }
+});
+
+// Topo legend
+$('topo-legend').innerHTML=['⬛ 6m+','🟫 4m','🟨 2m','🟩 0m','🟩 -2m','🟦 -4m'].map(c=>`<span class="topo-color" style="background:${c.split(' ')[1]||'#333'}"></span>${c}`).join('  ');
+
+// ═══════════════════════════════════════════
+// GOPRO
+// ═══════════════════════════════════════════
+const gR=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+gR.setSize(240,135);gR.shadowMap.enabled=true;
+$('gopro-canvas').replaceWith(gR.domElement);
+const gCam=new THREE.PerspectiveCamera(80,240/135,.01,30);
+
+// ═══════════════════════════════════════════
+// LOOP
+// ═══════════════════════════════════════════
+const clk=new THREE.Clock();let fc=0,lf=0;
+
+function loop(){
+  requestAnimationFrame(loop);
+  const dt=Math.min(clk.getDelta(),.2),t=performance.now()*.001;
+
+  // Avatar movement
+  if(avState==='walking'){
+    const d=new THREE.Vector3().subVectors(target,AV.position);d.y=0;
+    if(d.length()>.12){
+      d.normalize();AV.position.add(d.multiplyScalar(dt*3.5));
+      AV.lookAt(target.x,AV.position.y,target.z);
+      const h=heightAt(AV.position.x,AV.position.z);
+      AV.position.y=h+Math.abs(Math.sin(t*10))*.025;
+      AV.userData.armL.rotation.x=Math.sin(t*12)*.6;AV.userData.armR.rotation.x=-Math.sin(t*12)*.6;
+    }else{
+      const h=heightAt(target.x,target.z);AV.position.set(target.x,h,target.z);
+      avState='building';buildT=0;$('av-state').textContent='◈ BUILDING';
+    }
+  }else if(avState==='building'){
+    buildT+=dt*2.5;
+    AV.userData.armL.rotation.x=Math.sin(buildT*10)*1.4-Math.PI*.35;
+    AV.userData.armR.rotation.x=-Math.sin(buildT*10)*1.4-Math.PI*.35;
+    AV.position.y=heightAt(AV.position.x,AV.position.z)+Math.abs(Math.sin(buildT*14))*.04;
+    if(buildT>=1){build(tool,target.clone());avState='idle';AV.userData.armL.rotation.x=0;AV.userData.armR.rotation.x=0;$('av-state').textContent='◈ IDLE';$('av-state').className='';}
+  }else{
+    const h=heightAt(AV.position.x,AV.position.z);AV.position.y=h+Math.sin(t*1.8)*.008;
+    AV.userData.armL.rotation.x=Math.sin(t*2.5)*.08;AV.userData.armR.rotation.x=-Math.sin(t*2.5)*.08;
+  }
+
+  // GoPro
+  if(goproOn){
+    AV.userData.gled.material.color.setHex(Math.sin(t*5)>.4?0xff0000:0x220000);
+    gCam.position.copy(AV.position);gCam.position.y+=1.08;gCam.position.z+=.24;
+    const ld=new THREE.Vector3(0,0,-1).applyQuaternion(AV.quaternion);
+    gCam.lookAt(gCam.position.clone().add(ld));gR.render(S,gCam);
+    if(trainOn&&fc%6===0){goproFrames.push({ts:t,pos:gCam.position.toArray(),look:ld.toArray(),built});if(goproFrames.length>2000)goproFrames.shift();}
+  }
+
+  ctrl.update();R.render(S,C);
+
+  fc++;if(t-lf>.5){$('fps').textContent=`${Math.round(fc/(t-lf))} FPS`;fc=0;lf=t;}
+}
+
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+window.addEventListener('keydown',e=>{
+  if(e.key==='e'&&goproFrames.length>0){
+    const blob=new Blob([JSON.stringify(goproFrames,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`trench_training_${Date.now()}.json`;a.click();
+    $('msg').textContent=`📤 ${goproFrames.length} frames exported`;$('msg').style.opacity='1';setTimeout(()=>$('msg').style.opacity='0',2500);
+  }
+});
+
+loop();
+console.log('╔══════════════════════════════════════════╗\n║  TRENCH BUILDER v3 — TOPO + DESIGN + RT ║\n║  Survey · Contour · Room Scan · Material ║\n║  Raytrace · Vanishing Pt · GoPro Train   ║\n║  Press E to export  ·  Click to build    ║\n╚══════════════════════════════════════════╝');
+</script>
+</body>
+</html>

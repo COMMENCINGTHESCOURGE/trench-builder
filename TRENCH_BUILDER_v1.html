@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRENCH BUILDER v1 — Avatar Construction System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;overflow:hidden;font-family:'Courier New',monospace;cursor:crosshair}
+canvas{display:block}
+#hud{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#c94;font-size:12px;letter-spacing:1px;background:rgba(5,5,16,0.9);padding:8px 20px;border:1px solid #332211;border-radius:3px;pointer-events:none;z-index:10;display:flex;gap:24px}
+#hud span{opacity:.7}
+#hud .active{color:#fc8;opacity:1}
+#mode{position:fixed;top:12px;left:12px;color:#c94;font-size:11px;background:rgba(5,5,16,0.9);padding:8px 14px;border:1px solid #332211;border-radius:3px;z-index:10;pointer-events:none}
+#tools{position:fixed;top:12px;right:12px;z-index:10;display:flex;flex-direction:column;gap:4px}
+#tools button{background:rgba(5,5,16,0.9);color:#c94;border:1px solid #332211;padding:6px 12px;cursor:pointer;font:11px 'Courier New';letter-spacing:1px;border-radius:3px;transition:all .2s}
+#tools button:hover{background:#332211;color:#fc8}
+#tools button.sel{background:#332211;color:#fc8;border-color:#c94}
+#gopro-view{position:fixed;bottom:70px;right:12px;width:200px;height:120px;border:2px solid #c94;border-radius:4px;background:#000;z-index:10;display:none;overflow:hidden}
+#gopro-view canvas{width:100%;height:100%}
+#coords{position:fixed;top:12px;left:50%;transform:translateX(-50%);color:#666;font-size:10px;pointer-events:none;z-index:10}
+</style>
+</head>
+<body>
+<div id="hud">
+  <span id="phase">◈ IDLE</span>
+  <span id="tool">TOOL: WALL</span>
+  <span id="count">BUILT: 0</span>
+  <span id="fps">FPS: --</span>
+</div>
+<div id="mode">MODE: BUILD</div>
+<div id="coords"></div>
+<div id="tools">
+  <button class="sel" data-tool="wall">WALL</button>
+  <button data-tool="floor">FLOOR</button>
+  <button data-tool="plumbing">PLUMBING</button>
+  <button data-tool="electrical">ELECTRICAL</button>
+  <button data-tool="framing">FRAMING</button>
+  <button data-tool="landscape">LANDSCAPE</button>
+  <button data-tool="door">DOOR</button>
+  <button data-tool="window">WINDOW</button>
+  <button id="gopro-toggle" data-tool="gopro">GOPRO</button>
+  <button data-tool="clear">CLEAR</button>
+</div>
+<div id="gopro-view"><canvas id="gopro-canvas"></canvas></div>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ═══════════════════════════════════════════
+// TRENCH BUILDER v1 — DaShawn / Guinea Pig Trench
+// Avatar + CAD + GoPro + Procedural Construction
+// Single-file, zero dependencies beyond Three.js CDN
+// ═══════════════════════════════════════════
+
+const W=window.innerWidth,H=window.innerHeight;
+
+// ── Renderer ──
+const r=new THREE.WebGLRenderer({antialias:true});
+r.setSize(W,H);r.setPixelRatio(Math.min(devicePixelRatio,2));
+r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.1;
+r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(r.domElement);
+
+// ── Scene ──
+const S=new THREE.Scene();
+S.fog=new THREE.FogExp2(0x000010,0.004);
+S.background=new THREE.Color(0x0a0a18);
+
+// ── Camera ──
+const C=new THREE.PerspectiveCamera(50,W/H,.1,80);
+C.position.set(8,5,8);C.lookAt(0,0,0);
+const ctrl=new OrbitControls(C,r.domElement);
+ctrl.target.set(0,0,0);ctrl.enableDamping=true;ctrl.dampingFactor=.08;
+ctrl.minDistance=2;ctrl.maxDistance=30;ctrl.maxPolarAngle=Math.PI*.48;
+ctrl.update();
+
+// ── Ground ──
+const groundGeo=new THREE.PlaneGeometry(40,40);
+const groundMat=new THREE.MeshStandardMaterial({color:0x1a1408,roughness:.9,metalness:0});
+const ground=new THREE.Mesh(groundGeo,groundMat);
+ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;S.add(ground);
+
+// Grid
+const grid=new THREE.GridHelper(40,40,0x332211,0x1a1408);S.add(grid);
+
+// ── Lighting ──
+const sun=new THREE.DirectionalLight(0xffeedd,3.5);
+sun.position.set(10,15,5);sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.near=.5;sun.shadow.camera.far=60;
+sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;
+sun.shadow.bias=-.0001;S.add(sun);
+
+const amb=new THREE.AmbientLight(0x221111,.6);S.add(amb);
+const hemi=new THREE.HemisphereLight(0x8899cc,0x332211,.3);S.add(hemi);
+
+// ═══════════════════════════════════════════
+// AVATAR — Face Forge + Construction Gear
+// ═══════════════════════════════════════════
+const avatar=new THREE.Group();
+avatar.position.set(0,0,0);
+
+function buildHead(){
+  const geo=new THREE.SphereGeometry(.35,36,36);
+  const pos=geo.attributes.position;
+  for(let i=0;i<pos.count;i++){
+    const x=pos.getX(i),y=pos.getY(i),z=pos.getZ(i);
+    const len=Math.sqrt(x*x+y*y+z*z);
+    const nx=x/len,ny=y/len,nz=z/len;
+    const fwd=Math.max(0,nz);
+    const edL=Math.hypot(nx-.12,ny-.08)*6;
+    const edR=Math.hypot(nx+.12,ny-.08)*6;
+    const eye=(Math.exp(-edL*edL)+Math.exp(-edR*edR))*.04*fwd;
+    const brow=(Math.exp(-(nx-.12)*(nx-.12)*15-(ny-.18)*(ny-.18)*15)+Math.exp(-(nx+.12)*(nx+.12)*15-(ny-.18)*(ny-.18)*15))*.025*fwd;
+    const noseB=Math.exp(-(nx*nx+(ny-.02)*(ny-.02))*20)*.06*fwd;
+    const noseT=Math.exp(-(nx*nx+(ny+.3)*(ny+.3))*12)*.08*fwd;
+    const mouth=Math.exp(-(nx*nx+(ny+.45)*(ny+.45))*25)*.015*fwd;
+    const disp=eye+(noseB-noseT-mouth+brow)*.5;
+    pos.setXYZ(i,x*(len+disp)/len,y*(len+disp)/len,z*(len+disp)/len);
+  }
+  geo.computeVertexNormals();return geo;
+}
+
+const skinMat=new THREE.MeshPhysicalMaterial({
+  color:new THREE.Color('#1E130B'),roughness:.3,metalness:.02,
+  specularIntensity:1.5,specularColor:new THREE.Color('#ffccaa'),
+  clearcoat:.2,clearcoatRoughness:.45,sheen:.15,sheenRoughness:.6,
+  sheenColor:new THREE.Color('#cc8866'),transmission:.02,thickness:.2,
+  emissive:new THREE.Color('#110800'),emissiveIntensity:.08
+});
+
+const head=new THREE.Mesh(buildHead(),skinMat);
+head.position.y=1.55;head.castShadow=true;avatar.add(head);
+
+const torso=new THREE.Mesh(new THREE.CylinderGeometry(.2,.16,.65,24),skinMat);
+torso.position.y=.85;torso.castShadow=true;avatar.add(torso);
+
+// Arms
+const armGeo=new THREE.CylinderGeometry(.06,.055,.55,16);
+const armL=new THREE.Mesh(armGeo,skinMat);armL.position.set(-.26,1.1,0);armL.rotation.z=.3;armL.castShadow=true;avatar.add(armL);
+const armR=new THREE.Mesh(armGeo,skinMat);armR.position.set(.26,1.1,0);armR.rotation.z=-.3;armR.castShadow=true;avatar.add(armR);
+
+// Legs
+const legGeo=new THREE.CylinderGeometry(.07,.065,.6,16);
+const legL=new THREE.Mesh(legGeo,skinMat);legL.position.set(-.1,.35,0);legL.castShadow=true;avatar.add(legL);
+const legR=new THREE.Mesh(legGeo,skinMat);legR.position.set(.1,.35,0);legR.castShadow=true;avatar.add(legR);
+
+// Hard hat (construction helmet)
+const hatGeo=new THREE.SphereGeometry(.22,24,16,0,Math.PI*2,0,Math.PI*.55);
+const hatMat=new THREE.MeshStandardMaterial({color:0xff8800,roughness:.4,metalness:.1});
+const hat=new THREE.Mesh(hatGeo,hatMat);
+hat.position.y=1.78;hat.castShadow=true;avatar.add(hat);
+const hatBrim=new THREE.Mesh(new THREE.TorusGeometry(.2,.04,8,32),hatMat);
+hatBrim.position.y=1.72;hatBrim.rotation.x=Math.PI/2;avatar.add(hatBrim);
+
+// GoPro on chest
+const goproBody=new THREE.Mesh(new THREE.BoxGeometry(.06,.04,.08),new THREE.MeshStandardMaterial({color:0x333333,roughness:.3}));
+goproBody.position.set(0,1.05,.22);avatar.add(goproBody);
+const goproLens=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.015,16),new THREE.MeshStandardMaterial({color:0x111111,roughness:.1,metalness:.8}));
+goproLens.position.set(0,1.05,.265);goproLens.rotation.x=Math.PI/2;avatar.add(goproLens);
+const goproLED=new THREE.Mesh(new THREE.SphereGeometry(.006,8,8),new THREE.MeshBasicMaterial({color:0xff0000}));
+goproLED.position.set(.02,1.07,.22);avatar.add(goproLED);
+avatar.userData.gopro={body:goproBody,lens:goproLens,led:goproLED};
+
+// Tool belt
+const beltGeo=new THREE.TorusGeometry(.18,.025,8,32);
+const belt=new THREE.Mesh(beltGeo,new THREE.MeshStandardMaterial({color:0x553311,roughness:.5}));
+belt.position.y=.8;belt.rotation.x=Math.PI/2;avatar.add(belt);
+
+S.add(avatar);
+
+// ═══════════════════════════════════════════
+// CONSTRUCTION SYSTEM
+// ═══════════════════════════════════════════
+const structures=[];
+let currentTool='wall';
+let builtCount=0;
+let targetPos=new THREE.Vector3(0,0,0);
+let avatarState='idle'; // idle, walking, building
+let buildProgress=0;
+let goproActive=false;
+
+// Raycaster for ground placement
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+const groundPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+
+function snapToGrid(v){return new THREE.Vector3(Math.round(v.x),Math.round(v.y),Math.round(v.z))}
+
+function getGroundPoint(e){
+  mouse.x=(e.clientX/W)*2-1;mouse.y=-(e.clientY/H)*2+1;
+  raycaster.setFromCamera(mouse,C);
+  const target=new THREE.Vector3();
+  raycaster.ray.intersectPlane(groundPlane,target);
+  return target?snapToGrid(target):null;
+}
+
+// Building materials
+const wallMat=new THREE.MeshStandardMaterial({color:0x887766,roughness:.7,metalness:.05});
+const floorMat=new THREE.MeshStandardMaterial({color:0x665544,roughness:.6,metalness:.05});
+const plumbingMat=new THREE.MeshStandardMaterial({color:0x3366cc,roughness:.3,metalness:.4,emissive:0x112244,emissiveIntensity:.2});
+const electricalMat=new THREE.MeshStandardMaterial({color:0xccaa33,roughness:.3,metalness:.5,emissive:0x221100,emissiveIntensity:.2});
+const framingMat=new THREE.MeshStandardMaterial({color:0xaa8855,roughness:.6,metalness:.1});
+const doorMat=new THREE.MeshStandardMaterial({color:0x553311,roughness:.4,metalness:.2});
+const windowMat=new THREE.MeshPhysicalMaterial({color:0x8899cc,roughness:.1,metalness:.1,transmission:.3,thickness:.05});
+
+function buildStructure(type,pos){
+  let mesh;
+  switch(type){
+    case'wall':{
+      const geo=new THREE.BoxGeometry(1,.05,2.5);
+      mesh=new THREE.Mesh(geo,wallMat);
+      mesh.position.set(pos.x,.05+1.25,pos.z);
+      break}
+    case'floor':{
+      const geo=new THREE.BoxGeometry(3,.05,3);
+      mesh=new THREE.Mesh(geo,floorMat);
+      mesh.position.set(pos.x,.05,pos.z);
+      break}
+    case'plumbing':{
+      const geo=new THREE.CylinderGeometry(.03,.03,2,8);
+      mesh=new THREE.Mesh(geo,plumbingMat);
+      mesh.position.set(pos.x,.05+1,pos.z);
+      break}
+    case'electrical':{
+      const geo=new THREE.CylinderGeometry(.02,.02,1.5,8);
+      mesh=new THREE.Mesh(geo,electricalMat);
+      mesh.position.set(pos.x,.05+.75,pos.z);
+      break}
+    case'framing':{
+      const geo=new THREE.BoxGeometry(.08,2.5,.08);
+      mesh=new THREE.Mesh(geo,framingMat);
+      mesh.position.set(pos.x,.05+1.25,pos.z);
+      break}
+    case'landscape':{
+      const types=['tree','bush','rock','path'];
+      const t=types[Math.floor(Math.random()*types.length)];
+      if(t==='tree'){
+        const trunkGeo=new THREE.CylinderGeometry(.08,.12,1.5,8);
+        const trunk=new THREE.Mesh(trunkGeo,new THREE.MeshStandardMaterial({color:0x553311,roughness:.8}));
+        trunk.position.set(pos.x,.75,pos.z);
+        const crownGeo=new THREE.SphereGeometry(.4,8,8);
+        const crown=new THREE.Mesh(crownGeo,new THREE.MeshStandardMaterial({color:0x336633,roughness:.9}));
+        crown.position.set(pos.x,1.6,pos.z);
+        const tree=new THREE.Group();tree.add(trunk);tree.add(crown);
+        mesh=tree;mesh.position.set(0,0,0);
+      }else if(t==='bush'){
+        mesh=new THREE.Mesh(new THREE.SphereGeometry(.25,8,6),new THREE.MeshStandardMaterial({color:0x335533,roughness:.9}));
+      }else if(t==='rock'){
+        mesh=new THREE.Mesh(new THREE.IcosahedronGeometry(.2,1),new THREE.MeshStandardMaterial({color:0x666666,roughness:.7}));
+      }else{
+        mesh=new THREE.Mesh(new THREE.BoxGeometry(.8,.02,.8),new THREE.MeshStandardMaterial({color:0x998877,roughness:.9}));
+      }
+      mesh.position.set(pos.x,.02,pos.z);
+      break}
+    case'door':{
+      const geo=new THREE.BoxGeometry(.8,.05,2.2);
+      mesh=new THREE.Mesh(geo,doorMat);
+      mesh.position.set(pos.x,.05+1.1,pos.z);
+      break}
+    case'window':{
+      const geo=new THREE.BoxGeometry(.02,.8,.8);
+      mesh=new THREE.Mesh(geo,windowMat);
+      mesh.position.set(pos.x,.05+1.5,pos.z);
+      break}
+  }
+  if(mesh){
+    mesh.castShadow=true;mesh.receiveShadow=true;
+    mesh.userData={type,created:Date.now()};
+    S.add(mesh);structures.push(mesh);builtCount++;
+    document.getElementById('count').textContent=`BUILT: ${builtCount}`;
+  }
+}
+
+// ═══════════════════════════════════════════
+// GOPRO FIRST-PERSON CAMERA
+// ═══════════════════════════════════════════
+const goproRenderer=new THREE.WebGLRenderer({antialias:true});
+goproRenderer.setSize(200,120);
+goproRenderer.shadowMap.enabled=true;
+document.getElementById('gopro-canvas').replaceWith(goproRenderer.domElement);
+const goproCamera=new THREE.PerspectiveCamera(70,200/120,.01,50);
+
+// ═══════════════════════════════════════════
+// INTERACTION
+// ═══════════════════════════════════════════
+r.domElement.addEventListener('click',e=>{
+  if(e.target.tagName==='BUTTON')return;
+  const pt=getGroundPoint(e);
+  if(pt&&currentTool!=='gopro'&&currentTool!=='clear'){
+    targetPos.copy(pt);
+    avatarState='walking';
+    document.getElementById('phase').textContent='◈ WALKING';
+    document.getElementById('phase').className='active';
+  }
+});
+
+// Tool buttons
+document.querySelectorAll('#tools button').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(btn.id==='gopro-toggle'){
+      goproActive=!goproActive;
+      document.getElementById('gopro-view').style.display=goproActive?'block':'none';
+      btn.classList.toggle('sel',goproActive);
+      return;
+    }
+    if(btn.dataset.tool==='clear'){
+      structures.forEach(s=>S.remove(s));
+      structures.length=0;builtCount=0;
+      document.getElementById('count').textContent='BUILT: 0';
+      return;
+    }
+    currentTool=btn.dataset.tool;
+    document.getElementById('tool').textContent=`TOOL: ${currentTool.toUpperCase()}`;
+    document.querySelectorAll('#tools button').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+  });
+});
+
+// Mouse move for coords display
+r.domElement.addEventListener('mousemove',e=>{
+  const pt=getGroundPoint(e);
+  if(pt)document.getElementById('coords').textContent=`X:${pt.x} Z:${pt.z}`;
+});
+
+// ═══════════════════════════════════════════
+// ANIMATION LOOP
+// ═══════════════════════════════════════════
+const clock=new THREE.Clock();
+let fc=0,lastFps=0;
+
+function animate(){
+  requestAnimationFrame(animate);
+  const dt=Math.min(clock.getDelta(),.15);
+  const t=performance.now()*.001;
+
+  // Avatar movement
+  if(avatarState==='walking'){
+    const dir=new THREE.Vector3().subVectors(targetPos,avatar.position);
+    dir.y=0;
+    const dist=dir.length();
+    if(dist>.15){
+      dir.normalize();
+      avatar.position.add(dir.multiplyScalar(dt*3));
+      avatar.lookAt(targetPos.x,avatar.position.y,targetPos.z);
+      // Walk bob
+      avatar.position.y=Math.abs(Math.sin(t*8))*.03;
+      // Arm swing
+      armL.rotation.x=Math.sin(t*10)*.5;
+      armR.rotation.x=-Math.sin(t*10)*.5;
+    }else{
+      avatar.position.set(targetPos.x,0,targetPos.z);
+      avatarState='building';
+      buildProgress=0;
+      document.getElementById('phase').textContent='◈ BUILDING';
+    }
+  }else if(avatarState==='building'){
+    buildProgress+=dt*2;
+    // Build animation — arms move up and down
+    armL.rotation.x=Math.sin(buildProgress*8)*1.2-Math.PI*.3;
+    armR.rotation.x=-Math.sin(buildProgress*8)*1.2-Math.PI*.3;
+    avatar.position.y=Math.abs(Math.sin(buildProgress*12))*.05;
+    if(buildProgress>=1){
+      buildStructure(currentTool,targetPos.clone());
+      avatarState='idle';
+      armL.rotation.x=0;armR.rotation.x=0;
+      avatar.position.y=0;
+      document.getElementById('phase').textContent='◈ IDLE';
+      document.getElementById('phase').className='';
+    }
+  }else{
+    // Idle sway
+    avatar.position.y=Math.sin(t*1.5)*.01;
+    armL.rotation.x=Math.sin(t*2)*.1;
+    armR.rotation.x=-Math.sin(t*2)*.1;
+  }
+
+  // GoPro LED blink
+  if(goproActive){
+    goproLED.material.color.setHex(Math.sin(t*4)>.5?0xff0000:0x330000);
+  }
+
+  // GoPro first-person render
+  if(goproActive){
+    goproCamera.position.copy(avatar.position);
+    goproCamera.position.y+=1.05;
+    goproCamera.position.z+=.25;
+    const lookDir=new THREE.Vector3(0,0,-1);
+    lookDir.applyQuaternion(avatar.quaternion);
+    goproCamera.lookAt(goproCamera.position.clone().add(lookDir));
+    goproRenderer.render(S,goproCamera);
+  }
+
+  ctrl.update();
+  r.render(S,C);
+
+  // FPS
+  fc++;
+  if(t-lastFps>.5){document.getElementById('fps').textContent=`FPS: ${Math.round(fc/(t-lastFps))}`;fc=0;lastFps=t;}
+}
+
+window.addEventListener('resize',()=>{
+  C.aspect=window.innerWidth/window.innerHeight;C.updateProjectionMatrix();
+  r.setSize(window.innerWidth,window.innerHeight);
+});
+
+animate();
+
+console.log('╔══════════════════════════════════════╗');
+console.log('║  TRENCH BUILDER v1 — ACTIVE          ║');
+console.log('║  Click ground to place structures    ║');
+console.log('║  Avatar walks → builds procedurally  ║');
+console.log('║  GOPRO toggle for first-person view  ║');
+console.log('║  Drag to orbit · Scroll to zoom      ║');
+console.log('╚══════════════════════════════════════╝');
+</script>
+</body>
+</html>

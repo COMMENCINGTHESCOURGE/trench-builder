@@ -1,0 +1,12 @@
+{
+  "id": "commencethescourge/trench-builder-training",
+  "title": "TRENCH BUILDER — Color Theory + Vanishing Point Training",
+  "code_file": "trench_training_kaggle.py",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["commencethescourge/erdos-straus-sieve-data"],
+  "keywords": ["rendering", "color-theory", "vanishing-point", "pbr", "raytracing", "training-data"]
+}

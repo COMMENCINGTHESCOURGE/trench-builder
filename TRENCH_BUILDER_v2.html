@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRENCH BUILDER v2 — CAD + Avatar + GoPro Training System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080810;overflow:hidden;font:12px 'Courier New',monospace;cursor:crosshair}
+canvas{display:block}
+#hud{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:#c96;font-size:11px;background:rgba(5,5,14,.92);padding:7px 18px;border:1px solid #332211;border-radius:3px;pointer-events:none;z-index:10;display:flex;gap:20px}
+#hud span{opacity:.7;transition:all .3s}
+#hud .active{color:#ffcc88;opacity:1}
+#sidebar{position:fixed;top:10px;left:10px;z-index:10;background:rgba(5,5,14,.92);border:1px solid #332211;border-radius:4px;padding:8px;max-height:90vh;overflow-y:auto;width:200px}
+.section{margin-bottom:10px}
+.section-title{color:#ff9944;font-size:10px;letter-spacing:2px;margin-bottom:4px;border-bottom:1px solid #332211;padding-bottom:2px}
+#sidebar button{display:block;width:100%;background:rgba(5,5,14,.8);color:#c96;border:1px solid #332211;padding:5px 8px;margin:2px 0;cursor:pointer;font:10px 'Courier New';letter-spacing:1px;border-radius:2px;text-align:left;transition:all .15s}
+#sidebar button:hover{background:#332211;color:#ffcc88}
+#sidebar button.sel{background:#332211;color:#ffcc88;border-color:#c96}
+#gopro{position:fixed;bottom:60px;right:10px;width:256px;height:144px;border:2px solid #c96;border-radius:4px;background:#000;z-index:10;display:none}
+#gopro canvas{width:100%;height:100%}
+#gopro-info{position:absolute;top:4px;left:4px;color:#f00;font-size:8px;letter-spacing:1px}
+#cad{position:fixed;top:10px;right:10px;z-index:10;background:rgba(5,5,14,.92);border:1px solid #332211;border-radius:4px;padding:8px;color:#889;font-size:9px;width:180px;display:none}
+#cad .dim{color:#ff9944;font-size:10px}
+#coords{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);color:#554;font-size:9px;pointer-events:none;z-index:10}
+#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ffcc88;font-size:13px;pointer-events:none;z-index:20;opacity:0;transition:opacity .3s}
+</style>
+</head>
+<body>
+
+<div id="hud">
+  <span id="status">◈ IDLE</span>
+  <span id="tool-name">WALL</span>
+  <span id="count">BUILT: 0</span>
+  <span id="fps">60 FPS</span>
+</div>
+
+<div id="sidebar">
+  <div class="section">
+    <div class="section-title">STRUCTURE</div>
+    <button class="sel" data-tool="wall">▮ WALL</button>
+    <button data-tool="floor">▬ FLOOR</button>
+    <button data-tool="foundation">▦ FOUNDATION</button>
+    <button data-tool="roof">▴ ROOF TRUSS</button>
+    <button data-tool="framing">▯ FRAMING</button>
+  </div>
+  <div class="section">
+    <div class="section-title">MEP</div>
+    <button data-tool="plumbing">◉ PLUMBING</button>
+    <button data-tool="electrical">⚡ ELECTRICAL</button>
+    <button data-tool="hvac">◌ HVAC DUCT</button>
+  </div>
+  <div class="section">
+    <div class="section-title">OPENINGS</div>
+    <button data-tool="door">🚪 DOOR</button>
+    <button data-tool="window">🪟 WINDOW</button>
+  </div>
+  <div class="section">
+    <div class="section-title">SITE</div>
+    <button data-tool="tree">🌳 TREE</button>
+    <button data-tool="path">🪨 PATH</button>
+    <button data-tool="grade">⛰ GRADE</button>
+  </div>
+  <div class="section">
+    <div class="section-title">AVATAR</div>
+    <button id="gopro-btn" data-tool="gopro">📹 GOPRO</button>
+    <button data-tool="inspect">🔍 INSPECT</button>
+    <button data-tool="train">🧠 TRAIN MODE</button>
+  </div>
+  <div class="section">
+    <div class="section-title">SYSTEM</div>
+    <button data-tool="cad">📐 CAD OVERLAY</button>
+    <button data-tool="clear">✕ CLEAR ALL</button>
+  </div>
+</div>
+
+<div id="cad">
+  <div class="dim">LAST PLACED:</div>
+  <div id="cad-type">-</div>
+  <div id="cad-pos">-</div>
+  <div id="cad-size">-</div>
+  <div id="cad-cost">-</div>
+</div>
+
+<div id="gopro">
+  <div id="gopro-info">● REC</div>
+  <canvas id="gopro-canvas"></canvas>
+</div>
+
+<div id="coords"></div>
+<div id="msg"></div>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ═══════════════════════════════════════════════════════════
+// TRENCH BUILDER v2 — Full CAD + Avatar + GoPro Training
+// DaShawn / Guinea Pig Trench LLC — May 2026
+// Zero dependencies beyond Three.js CDN. Single file.
+// ═══════════════════════════════════════════════════════════
+
+const W=innerWidth,H=innerHeight;
+const $=id=>document.getElementById(id);
+
+// ── Renderer ──
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+R.setSize(W,H);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.15;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+
+const S=new THREE.Scene();
+S.fog=new THREE.FogExp2(0x000010,0.003);
+S.background=new THREE.Color(0x080818);
+
+// ── Camera ──
+const cam=new THREE.PerspectiveCamera(50,W/H,.1,100);
+cam.position.set(10,7,10);cam.lookAt(0,0,0);
+const ctrl=new OrbitControls(cam,R.domElement);
+ctrl.target.set(0,.5,0);ctrl.enableDamping=true;ctrl.dampingFactor=.06;
+ctrl.minDistance=2;ctrl.maxDistance=50;ctrl.maxPolarAngle=Math.PI*.47;
+ctrl.update();
+
+// ── Ground ──
+const groundGeo=new THREE.PlaneGeometry(60,60,30,30);
+const groundHeight=new Float32Array(groundGeo.attributes.position.count);
+for(let i=0;i<groundGeo.attributes.position.count;i++){
+  const x=groundGeo.attributes.position.getX(i),z=groundGeo.attributes.position.getY(i);
+  groundHeight[i]=(Math.sin(x*.3)*Math.cos(z*.3)*.2+Math.sin(x*.8+z*.6)*.05)*.5;
+  groundGeo.attributes.position.setZ(i,groundHeight[i]);
+}
+groundGeo.computeVertexNormals();
+const groundMat=new THREE.MeshStandardMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true});
+const ground=new THREE.Mesh(groundGeo,groundMat);
+ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;S.add(ground);
+
+// Grid
+const grid=new THREE.GridHelper(40,40,0x221100,0x1a0a04);grid.position.y=.01;S.add(grid);
+
+// ── Lighting ──
+const sun=new THREE.DirectionalLight(0xffeedd,3.2);sun.position.set(12,18,8);
+sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.near=.5;sun.shadow.camera.far=80;
+sun.shadow.camera.left=-25;sun.shadow.camera.right=25;
+sun.shadow.camera.top=25;sun.shadow.camera.bottom=-25;sun.shadow.bias=-.00005;
+S.add(sun);
+S.add(new THREE.AmbientLight(0x221111,.5));
+S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.25));
+
+// ═══════════════════════════════════════════
+// AVATAR — Construction Worker
+// ═══════════════════════════════════════════
+const AV=new THREE.Group();AV.position.set(0,0,0);
+
+function faceForge(r=.35,segs=36){
+  const g=new THREE.SphereGeometry(r,segs,segs),p=g.attributes.position;
+  for(let i=0;i<p.count;i++){
+    const x=p.getX(i),y=p.getY(i),z=p.getZ(i),l=Math.sqrt(x*x+y*y+z*z);
+    const nx=x/l,ny=y/l,nz=z/l,f=Math.max(0,nz);
+    const eL=Math.hypot(nx-.12,ny-.08)*6,eR=Math.hypot(nx+.12,ny-.08)*6;
+    const eyes=(Math.exp(-eL*eL)+Math.exp(-eR*eR))*.04*f;
+    const bL=(nx-.12)*(nx-.12)*15+(ny-.18)*(ny-.18)*15,bR=(nx+.12)*(nx+.12)*15+(ny-.18)*(ny-.18)*15;
+    const brow=(Math.exp(-bL)+Math.exp(-bR))*.025*f;
+    const noseB=Math.exp(-(nx*nx+(ny-.02)*(ny-.02))*20)*.06*f;
+    const noseT=Math.exp(-(nx*nx+(ny+.3)*(ny+.3))*12)*.08*f;
+    const mouth=Math.exp(-(nx*nx+(ny+.45)*(ny+.45))*25)*.015*f;
+    const d=eyes+(noseB-noseT-mouth+brow)*.5;
+    p.setXYZ(i,x*(l+d)/l,y*(l+d)/l,z*(l+d)/l);
+  }
+  g.computeVertexNormals();return g;
+}
+
+const skin=new THREE.MeshPhysicalMaterial({color:new THREE.Color('#1E130B'),roughness:.3,metalness:.02,specularIntensity:1.5,specularColor:new THREE.Color('#ffccaa'),clearcoat:.2,clearcoatRoughness:.45,sheen:.15,sheenRoughness:.6,sheenColor:new THREE.Color('#cc8866'),transmission:.02,thickness:.2,emissive:new THREE.Color('#110800'),emissiveIntensity:.08});
+
+const head=new THREE.Mesh(faceForge(),skin);head.position.y=1.58;head.castShadow=true;AV.add(head);
+const torso=new THREE.Mesh(new THREE.CylinderGeometry(.18,.15,.6,20),skin);torso.position.y=.88;torso.castShadow=true;AV.add(torso);
+
+// Arms with construction pose
+const aGeo=new THREE.CylinderGeometry(.055,.05,.5,12);
+const aL=new THREE.Mesh(aGeo,skin);aL.position.set(-.22,1.05,0);aL.rotation.z=.4;aL.castShadow=true;AV.add(aL);
+const aR=new THREE.Mesh(aGeo,skin);aR.position.set(.22,1.05,0);aR.rotation.z=-.4;aR.castShadow=true;AV.add(aR);
+
+// Legs
+const lGeo=new THREE.CylinderGeometry(.065,.06,.55,12);
+AV.add(new THREE.Mesh(lGeo,skin)).position.set(-.08,.35,0);AV.children[AV.children.length-1].castShadow=true;
+AV.add(new THREE.Mesh(lGeo,skin)).position.set(.08,.35,0);AV.children[AV.children.length-1].castShadow=true;
+
+// Hard hat
+const hatGeo=new THREE.SphereGeometry(.2,20,14,0,Math.PI*2,0,Math.PI*.5);
+const hatM=new THREE.MeshStandardMaterial({color:0xff8800,roughness:.35,metalness:.08});
+AV.add(new THREE.Mesh(hatGeo,hatM)).position.y=1.81;
+const brim=new THREE.Mesh(new THREE.TorusGeometry(.18,.035,8,28),hatM);
+brim.position.y=1.75;brim.rotation.x=Math.PI/2;AV.add(brim);
+
+// GoPro rig on chest
+const gb=new THREE.Mesh(new THREE.BoxGeometry(.055,.04,.075),new THREE.MeshStandardMaterial({color:0x222222,roughness:.25,metalness:.3}));
+gb.position.set(0,1.08,.2);AV.add(gb);
+const gl=new THREE.Mesh(new THREE.CylinderGeometry(.016,.016,.012,12),new THREE.MeshStandardMaterial({color:0x111111,roughness:.05,metalness:.9}));
+gl.position.set(0,1.08,.242);gl.rotation.x=Math.PI/2;AV.add(gl);
+const gled=new THREE.Mesh(new THREE.SphereGeometry(.005,6,6),new THREE.MeshBasicMaterial({color:0xff0000}));
+gled.position.set(.018,1.1,.2);AV.add(gled);
+AV.userData={goproLED:gled,head,armL:aL,armR:aR};
+
+// Tool belt
+AV.add(new THREE.Mesh(new THREE.TorusGeometry(.16,.022,8,28),new THREE.MeshStandardMaterial({color:0x553311,roughness:.4}))).position.y=.82;
+AV.add(new THREE.Mesh(new THREE.BoxGeometry(.04,.06,.04),new THREE.MeshStandardMaterial({color:0x886644,roughness:.5}))).position.set(.2,.82,0);
+
+S.add(AV);
+
+// ═══════════════════════════════════════════
+// BUILD SYSTEM
+// ═══════════════════════════════════════════
+const structures=[];
+let tool='wall',built=0,avState='idle',buildT=0,target=new THREE.Vector3();
+let goproOn=false,cadOn=false,trainMode=false;
+const goproFrames=[];
+
+const mats={
+  wall:new THREE.MeshStandardMaterial({color:0x998877,roughness:.65,metalness:.03}),
+  floor:new THREE.MeshStandardMaterial({color:0x776655,roughness:.55,metalness:.03}),
+  foundation:new THREE.MeshStandardMaterial({color:0x666666,roughness:.7,metalness:.1}),
+  roof:new THREE.MeshStandardMaterial({color:0x553322,roughness:.6,metalness:.05}),
+  framing:new THREE.MeshStandardMaterial({color:0xbb9955,roughness:.55,metalness:.03}),
+  plumbing:new THREE.MeshStandardMaterial({color:0x3366cc,roughness:.25,metalness:.35,emissive:0x112244,emissiveIntensity:.15}),
+  electrical:new THREE.MeshStandardMaterial({color:0xddbb33,roughness:.25,metalness:.45,emissive:0x221100,emissiveIntensity:.15}),
+  hvac:new THREE.MeshStandardMaterial({color:0x999999,roughness:.35,metalness:.5}),
+  door:new THREE.MeshStandardMaterial({color:0x664422,roughness:.4,metalness:.15}),
+  window:new THREE.MeshPhysicalMaterial({color:0x8899cc,roughness:.08,metalness:.05,transmission:.35,thickness:.04})
+};
+
+function build(type,pos){
+  let m;const p=pos.clone();
+  switch(type){
+    case'wall':m=new THREE.Mesh(new THREE.BoxGeometry(.95,.06,2.4),mats.wall);m.position.set(p.x,.03+1.2,p.z);break;
+    case'floor':m=new THREE.Mesh(new THREE.BoxGeometry(3,.05,3),mats.floor);m.position.set(p.x,.025,p.z);break;
+    case'foundation':m=new THREE.Mesh(new THREE.BoxGeometry(3,.2,3),mats.foundation);m.position.set(p.x,.1,p.z);break;
+    case'roof':{
+      const g=new THREE.ConeGeometry(2.2,.6,4);g.rotateY(Math.PI/4);
+      m=new THREE.Mesh(g,mats.roof);m.position.set(p.x,2.7,p.z);break}
+    case'framing':{
+      m=new THREE.Group();
+      for(let i=0;i<3;i++){
+        const b=new THREE.Mesh(new THREE.BoxGeometry(.06,2.5,.06),mats.framing);
+        b.position.set(p.x-1+i,p.y+.03+1.25,p.z);b.castShadow=true;m.add(b);
+      }
+      m.position.set(0,0,0);break}
+    case'plumbing':m=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,2.2,8),mats.plumbing);m.position.set(p.x,.03+1.1,p.z);break;
+    case'electrical':{
+      m=new THREE.Group();
+      const pipe=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,1.8,8),mats.electrical);pipe.position.y=.9;m.add(pipe);
+      const box=new THREE.Mesh(new THREE.BoxGeometry(.08,.06,.12),mats.electrical);box.position.y=.05;m.add(box);
+      m.position.set(p.x,.03,p.z);break}
+    case'hvac':m=new THREE.Mesh(new THREE.BoxGeometry(.3,.15,.3),mats.hvac);m.position.set(p.x,.03+.075,p.z);break;
+    case'door':m=new THREE.Mesh(new THREE.BoxGeometry(.7,.05,2.1),mats.door);m.position.set(p.x,.03+1.05,p.z);break;
+    case'window':m=new THREE.Mesh(new THREE.BoxGeometry(.015,.7,.7),mats.window);m.position.set(p.x,.03+1.5,p.z);break;
+    case'tree':{
+      m=new THREE.Group();
+      m.add(new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,1.3,8),new THREE.MeshStandardMaterial({color:0x553311,roughness:.75}))).position.y=.65;
+      m.add(new THREE.Mesh(new THREE.SphereGeometry(.35,8,6),new THREE.MeshStandardMaterial({color:0x336633,roughness:.85}))).position.y=1.45;
+      m.position.set(p.x,0,p.z);break}
+    case'path':m=new THREE.Mesh(new THREE.BoxGeometry(.7,.015,.7),new THREE.MeshStandardMaterial({color:0x998877,roughness:.85}));m.position.set(p.x,.008,p.z);break;
+    case'grade':{
+      m=new THREE.Mesh(new THREE.SphereGeometry(1.5,12,8,.5,1.5),new THREE.MeshStandardMaterial({color:0x3a2a10,roughness:.9,flatShading:true}));
+      m.position.set(p.x,-.3,p.z);break}
+  }
+  if(m){m.castShadow=true;m.receiveShadow=true;m.userData={type,pos:p.toArray(),ts:Date.now()};S.add(m);structures.push(m);built++;$('count').textContent=`BUILT: ${built}`;}
+}
+
+// ── Placement ──
+const rc=new THREE.Raycaster(),ms=new THREE.Vector2(),gp=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+function snap(v){return new THREE.Vector3(Math.round(v.x),Math.round(v.y),Math.round(v.z))}
+function groundAt(e){
+  ms.x=(e.clientX/W)*2-1;ms.y=-(e.clientY/H)*2+1;
+  rc.setFromCamera(ms,cam);
+  const t=new THREE.Vector3();rc.ray.intersectPlane(gp,t);
+  return t?snap(t):null;
+}
+
+R.domElement.addEventListener('click',e=>{
+  if(e.target.tagName==='BUTTON')return;
+  if(tool==='gopro'||tool==='cad'||tool==='clear'||tool==='inspect'||tool==='train')return;
+  const pt=groundAt(e);
+  if(pt){target.copy(pt);avState='walking';$('status').textContent='◈ WALKING';$('status').className='active';}
+});
+
+// ── Tools ──
+document.querySelectorAll('#sidebar button').forEach(b=>{
+  b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const t=b.dataset.tool;
+    if(t==='gopro'){goproOn=!goproOn;$('gopro').style.display=goproOn?'block':'none';b.classList.toggle('sel',goproOn);return}
+    if(t==='cad'){cadOn=!cadOn;$('cad').style.display=cadOn?'block':'none';b.classList.toggle('sel',cadOn);return}
+    if(t==='train'){trainMode=!trainMode;b.classList.toggle('sel',trainMode);$('msg').textContent=trainMode?'🧠 TRAINING MODE — recording GoPro frames':' ';$('msg').style.opacity=trainMode?'1':'0';setTimeout(()=>$('msg').style.opacity='0',2000);return}
+    if(t==='clear'){structures.forEach(s=>S.remove(s));structures.length=0;built=0;$('count').textContent='BUILT: 0';return}
+    if(t==='inspect'){
+      // Find nearest structure and walk to it
+      if(structures.length){
+        const nearest=structures.reduce((a,b)=>AV.position.distanceTo(b.position)<AV.position.distanceTo(a.position)?b:a);
+        target.copy(nearest.position);target.y=0;avState='walking';$('status').textContent='◈ INSPECTING';$('status').className='active';
+      }
+      return;
+    }
+    tool=t;$('tool-name').textContent=t.toUpperCase();
+    document.querySelectorAll('#sidebar button').forEach(b=>b.classList.remove('sel'));
+    b.classList.add('sel');
+  });
+});
+
+R.domElement.addEventListener('mousemove',e=>{
+  const pt=groundAt(e);
+  if(pt)$('coords').textContent=`X:${pt.x.toFixed(1)} Z:${pt.z.toFixed(1)} Y:0.0`;
+});
+
+// ═══════════════════════════════════════════
+// GOPRO RENDER
+// ═══════════════════════════════════════════
+const gR=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+gR.setSize(256,144);gR.shadowMap.enabled=true;
+$('gopro-canvas').replaceWith(gR.domElement);
+const gCam=new THREE.PerspectiveCamera(75,256/144,.01,30);
+
+// ═══════════════════════════════════════════
+// LOOP
+// ═══════════════════════════════════════════
+const clk=new THREE.Clock();
+let fc=0,lf=0;
+
+function loop(){
+  requestAnimationFrame(loop);
+  const dt=Math.min(clk.getDelta(),.2),t=performance.now()*.001;
+
+  if(avState==='walking'){
+    const d=new THREE.Vector3().subVectors(target,AV.position);d.y=0;
+    if(d.length()>.12){
+      d.normalize();AV.position.add(d.multiplyScalar(dt*3.5));
+      AV.lookAt(target.x,AV.position.y,target.z);
+      AV.position.y=Math.abs(Math.sin(t*10))*.025;
+      AV.userData.armL.rotation.x=Math.sin(t*12)*.6;AV.userData.armR.rotation.x=-Math.sin(t*12)*.6;
+    }else{
+      AV.position.set(target.x,0,target.z);avState='building';buildT=0;$('status').textContent='◈ BUILDING';
+    }
+  }else if(avState==='building'){
+    buildT+=dt*2.5;
+    AV.userData.armL.rotation.x=Math.sin(buildT*10)*1.4-Math.PI*.35;
+    AV.userData.armR.rotation.x=-Math.sin(buildT*10)*1.4-Math.PI*.35;
+    AV.position.y=Math.abs(Math.sin(buildT*14))*.04;
+    if(buildT>=1){
+      build(tool,target.clone());
+      // Update CAD info
+      $('cad-type').textContent=`TYPE: ${tool.toUpperCase()}`;
+      $('cad-pos').textContent=`POS: ${target.x.toFixed(1)}, ${target.z.toFixed(1)}`;
+      $('cad-size').textContent=`SIZE: ~1.0×2.5m`;
+      $('cad-cost').textContent=`EST: $${(Math.random()*20+5).toFixed(0)}`;
+      avState='idle';AV.userData.armL.rotation.x=0;AV.userData.armR.rotation.x=0;AV.position.y=0;
+      $('status').textContent='◈ IDLE';$('status').className='';
+    }
+  }else{
+    AV.position.y=Math.sin(t*1.8)*.008;
+    AV.userData.armL.rotation.x=Math.sin(t*2.5)*.08;AV.userData.armR.rotation.x=-Math.sin(t*2.5)*.08;
+  }
+
+  // GoPro
+  if(goproOn){
+    AV.userData.goproLED.material.color.setHex(Math.sin(t*5)>.4?0xff0000:0x220000);
+    gCam.position.copy(AV.position);gCam.position.y+=1.08;gCam.position.z+=.24;
+    const ld=new THREE.Vector3(0,0,-1).applyQuaternion(AV.quaternion);
+    gCam.lookAt(gCam.position.clone().add(ld));
+    gR.render(S,gCam);
+    if(trainMode&&fc%6===0){
+      goproFrames.push({ts:t,cam:gCam.position.toArray(),look:ld.toArray(),built});
+      if(goproFrames.length>1000)goproFrames.shift();
+    }
+  }
+
+  ctrl.update();R.render(S,C);
+
+  fc++;if(t-lf>.5){$('fps').textContent=`${Math.round(fc/(t-lf))} FPS`;fc=0;lf=t;}
+}
+
+window.addEventListener('resize',()=>{
+  cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();
+  R.setSize(innerWidth,innerHeight);
+});
+
+loop();
+
+// Export training data on 'E' key
+window.addEventListener('keydown',e=>{
+  if(e.key==='e'&&goproFrames.length>0){
+    const blob=new Blob([JSON.stringify(goproFrames,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`trench_training_${Date.now()}.json`;a.click();
+    $('msg').textContent=`📤 EXPORTED ${goproFrames.length} training frames`;
+    $('msg').style.opacity='1';setTimeout(()=>$('msg').style.opacity='0',2500);
+  }
+});
+
+console.log(`╔══════════════════════════════════════════╗
+║  TRENCH BUILDER v2 — CAD + GOPRO + AI  ║
+║  Walls · Floors · MEP · Framing        ║
+║  Landscaping · Foundation · Roof       ║
+║  Press E to export training data       ║
+║  Toggle GOPRO for first-person view    ║
+║  Toggle CAD for measurements overlay   ║
+║  TRAIN MODE records GoPro frames       ║
+╚══════════════════════════════════════════╝`);
+</script>
+</body>
+</html>

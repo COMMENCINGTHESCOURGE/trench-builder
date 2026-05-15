@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Trench Builder v5 – Perceptual Physics Subwoofer</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', 'Roboto', monospace; }
+        #info { position: absolute; top: 20px; left: 20px; color: white; background: rgba(0,0,0,0.7); padding: 12px 20px; border-radius: 8px; backdrop-filter: blur(5px); pointer-events: none; z-index: 10; font-size: 14px; border-left: 4px solid #ffaa44; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        #controls { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(30,30,40,0.85); backdrop-filter: blur(8px); border-radius: 12px; padding: 12px 20px; color: white; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; z-index: 20; font-family: monospace; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); pointer-events: auto; }
+        .ctrl-group { display: flex; gap: 12px; align-items: center; background: rgba(0,0,0,0.5); padding: 6px 12px; border-radius: 40px; }
+        .ctrl-group label { font-size: 12px; letter-spacing: 1px; }
+        input { cursor: pointer; background: #222; border: 1px solid #ffaa44; border-radius: 4px; color: white; padding: 4px 8px; }
+        button { background: #ffaa44; border: none; padding: 6px 14px; border-radius: 24px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: monospace; }
+        button:hover { background: #ffcc66; transform: scale(1.02); }
+        .status { color: #ffaa44; font-weight: bold; }
+        @media (max-width: 700px) { .ctrl-group { font-size: 10px; } input { width: 80px; } }
+    </style>
+</head>
+<body>
+    <div id="info">⚡ TRENCH BUILDER v5.14 | PERCEPTUAL PHYSICS + DISTANCE FIELDS<br>Thermal bloom (smoothstep) | EM decay (1/d²) | Caustic falloff (exp) | Wave optics</div>
+    <div id="controls">
+        <div class="ctrl-group"><span>BASS FREQ:</span><input type="range" id="freq" min="20" max="120" step="1" value="45"><span id="freqVal" class="status">45 Hz</span></div>
+        <div class="ctrl-group"><span>AMPLITUDE:</span><input type="range" id="amp" min="0" max="1" step="0.01" value="0.6"><span id="ampVal" class="status">0.60</span></div>
+        <div class="ctrl-group"><span>THERMAL:</span><button id="toggleThermal">ON</button></div>
+        <div class="ctrl-group"><span>EM FIELD:</span><button id="toggleEM">ON</button></div>
+        <div class="ctrl-group"><span>CAUSTICS:</span><button id="toggleCaustics">ON</button></div>
+    </div>
+    <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.128.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.128.0/examples/jsm/"}}</script>
+    <script type="module">
+        import * as THREE from 'three';import { OrbitControls } from 'three/addons/controls/OrbitControls.js';import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        const S=new THREE.Scene();S.background=new THREE.Color(0x050b1a);S.fog=new THREE.FogExp2(0x050b1a,0.008);
+        const C=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.1,1000);C.position.set(3,2,4);C.lookAt(0,0,0);
+        const R=new THREE.WebGLRenderer({antialias:true});R.setSize(innerWidth,innerHeight);R.setPixelRatio(devicePixelRatio);R.toneMapping=THREE.ReinhardToneMapping;R.toneMappingExposure=1.2;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;document.body.appendChild(R.domElement);
+        const rp=new RenderPass(S,C);const bp=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.6,.3,.2);bp.threshold=.1;bp.strength=.45;bp.radius=.5;const EC=new EffectComposer(R);EC.addPass(rp);EC.addPass(bp);
+        const ctrl=new OrbitControls(C,R.domElement);ctrl.enableDamping=true;ctrl.dampingFactor=.05;ctrl.target.set(0,.1,0);
+        S.add(new THREE.AmbientLight(0x222222));const kl=new THREE.DirectionalLight(0xffcc88,1.2);kl.position.set(2,3,1.5);kl.castShadow=true;kl.shadow.mapSize.width=1024;kl.shadow.mapSize.height=1024;S.add(kl);S.add(new THREE.PointLight(0x6688ff,.5)).position.set(-1.5,1,2);S.add(new THREE.PointLight(0xffaa66,.7)).position.set(1,1.5,-2);
+        const al=new THREE.PointLight(0xffaa55,.9);S.add(al);
+        const gh=new THREE.GridHelper(8,20,0x88aaff,0x335588);gh.position.y=-.8;gh.material.transparent=true;gh.material.opacity=.25;S.add(gh);
+        const WG=new THREE.Group();
+        const mg=new THREE.CylinderGeometry(.85,.85,.65,64,64);const mM=new THREE.MeshStandardMaterial({color:0x444455,metalness:.7,roughness:.45,emissive:0x111122});const magnet=new THREE.Mesh(mg,mM);magnet.position.y=-.45;magnet.castShadow=true;WG.add(magnet);
+        const sm=new THREE.MeshStandardMaterial({color:0xaaaacc,metalness:.85,roughness:.25});WG.add(new THREE.Mesh(new THREE.CylinderGeometry(.78,.82,.12,64),sm)).position.y=-.08;
+        const cm=new THREE.MeshStandardMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100});const coil=new THREE.Mesh(new THREE.CylinderGeometry(.55,.55,.28,48),cm);coil.position.y=.08;coil.castShadow=true;WG.add(coil);
+        const wrg=new THREE.TorusGeometry(.58,.045,64,120);for(let i=-.05;i<=.22;i+=.09){const r=new THREE.Mesh(wrg,cm);r.rotation.x=Math.PI/2;r.position.y=i;r.castShadow=true;WG.add(r)}
+        const coneM=new THREE.MeshStandardMaterial({color:0xccaa88,roughness:.55,metalness:.1,emissive:0x221100});const cone=new THREE.Mesh(new THREE.ConeGeometry(1.05,.32,80,1),coneM);cone.position.y=.27;cone.castShadow=true;WG.add(cone);
+        WG.add(new THREE.Mesh(new THREE.TorusGeometry(1.08,.065,48,120),new THREE.MeshStandardMaterial({color:0x222222,roughness:.7,metalness:.05}))).position.y=.42;
+        const bm=new THREE.MeshStandardMaterial({color:0xbbaa99,metalness:.65,roughness:.4});WG.add(new THREE.Mesh(new THREE.CylinderGeometry(1.22,1.28,.18,8),bm)).position.y=.05;
+        const sg=new THREE.BoxGeometry(.12,.04,1.2);for(let i=0;i<6;i++){const a=i/6*Math.PI*2;const s=new THREE.Mesh(sg,bm);s.position.set(Math.cos(a)*1.05,.12,Math.sin(a)*1.05);s.rotation.z=a;s.castShadow=true;WG.add(s)}
+        const tm=new THREE.MeshStandardMaterial({color:0xffaa77,metalness:.88,roughness:.18,emissive:0x442200});const tg=new THREE.BoxGeometry(.22,.08,.18);WG.add(new THREE.Mesh(tg,tm)).position.set(-1.05,-.25,.72);WG.add(new THREE.Mesh(tg,tm)).position.set(1.05,-.25,.72);
+        const im=new THREE.MeshStandardMaterial({color:0xff77aa,metalness:.4,roughness:.1,emissive:0x551133});const ig=new THREE.TorusGeometry(.15,.02,32,48);const irL=new THREE.Mesh(ig,im);irL.position.set(-1.05,-.2,.72);irL.rotation.x=Math.PI/2;WG.add(irL);const irR=new THREE.Mesh(ig,im);irR.position.set(1.05,-.2,.72);irR.rotation.x=Math.PI/2;WG.add(irR);
+        S.add(WG);
+        let ten=true;function uT(pf){if(!ten){cm.emissiveIntensity=.05;mM.emissiveIntensity=.02;return}const t=Math.min(.8,pf*.9+.05);cm.emissive=new THREE.Color(.6+t*.8,.2+t*.9,t*.3);cm.emissiveIntensity=.35+t*.65;mM.emissive=new THREE.Color((.6+t*.8)*.5,(.2+t*.9)*.4,(t*.3)*.2);mM.emissiveIntensity=.2+t*.4}
+// DISTANCE FIELD 1: Thermal bloom smoothstep — heat radiates from coil center
+function thermalBloom(px,py,pz,cx,cy,cz){const d=Math.sqrt((px-cx)**2+(py-cy)**2+(pz-cz)**2);const R=.8;if(d>R)return 0;const t=1-d/R;return 3*t*t-2*t*t*t}
+        const EG=new THREE.Group();for(let ri=0;ri<3;ri++){const rad=.72+ri*.12;const v=[];for(let i=0;i<=64;i++){const a=i/64*Math.PI*2;v.push(Math.cos(a)*rad,.12,Math.sin(a)*rad)}const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.BufferAttribute(new Float32Array(v),3));EG.add(new THREE.Line(lg,new THREE.LineBasicMaterial({color:[0xff3366,0xff8833,0xffaa44][ri%3],transparent:true,opacity:.7})))}
+        const pc=400;const pp=new Float32Array(pc*3);for(let i=0;i<pc;i++){const rad=.6+Math.random()*.65,ang=Math.random()*Math.PI*2;pp[i*3]=Math.cos(ang)*rad;pp[i*3+1]=-.1+Math.random()*.55;pp[i*3+2]=Math.sin(ang)*rad}const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pp,3));const pM=new THREE.PointsMaterial({color:0xff6688,size:.018,transparent:true,blending:THREE.AdditiveBlending});EG.add(new THREE.Points(pg,pM));S.add(EG);let een=true;
+// DISTANCE FIELD 2: EM inverse-square — flux opacity decays 1/(1+d²) from coil center
+function emDecay(px,py,pz){const d2=(px*px+(py-.12)*(py-.12)+pz*pz);return 1/(1+d2*4)}
+// DISTANCE FIELD 3: Caustic exponential — intensity falls as exp(-d*k) from dome
+function causticFalloff(x,y){const d=Math.sqrt(x*x+y*y)/2.5;return Math.exp(-d*2.5)}
+        const dome=new THREE.Mesh(new THREE.SphereGeometry(1.55,64,64,0,Math.PI*2,0,Math.PI/2.8),new THREE.MeshPhysicalMaterial({color:0xcceeff,metalness:.1,roughness:.18,transparent:true,opacity:.28,clearcoat:.9,clearcoatRoughness:.15,reflectivity:.25}));dome.position.y=.2;S.add(dome);
+        const cc=document.createElement('canvas');cc.width=512;cc.height=512;const ctx=cc.getContext('2d');const ct=new THREE.CanvasTexture(cc);const cp=new THREE.Mesh(new THREE.PlaneGeometry(4.5,4.5),new THREE.MeshStandardMaterial({map:ct,side:THREE.DoubleSide,transparent:true,opacity:.35,emissive:0x88aaff}));cp.rotation.x=-Math.PI/2;cp.position.y=-.78;S.add(cp);let cen=true;
+        function uC(){if(!cen){cp.material.opacity=0;return}cp.material.opacity=.38;ctx.fillStyle='#000';ctx.fillRect(0,0,512,512);const t=performance.now()*.003;for(let i=0;i<180;i++){const x=(Math.sin(i*.23+t)*.4+Math.cos(i*.17)*.3)*256+256,y=(Math.sin(i*.37+t*1.3)*.5+Math.cos(i*.19+t*.7)*.4)*256+256;const falloff=causticFalloff(x-256,y-256);const alpha=(.3+Math.sin(i+t)*.15)*falloff;ctx.beginPath();ctx.arc(x,y,8+Math.sin(i)*5,0,Math.PI*2);ctx.fillStyle=`rgba(255,200,100,${alpha})`;ctx.fill();ctx.strokeStyle=`rgba(255,255,180,${0.6*falloff})`;ctx.lineWidth=2;ctx.stroke()}ct.needsUpdate=true}
+        let freq=45,amp=.6,tm2=0;const coy=.27,vcy=.08;
+        document.getElementById('freq').addEventListener('input',e=>{freq=+e.target.value;document.getElementById('freqVal').innerText=freq+' Hz'});
+        document.getElementById('amp').addEventListener('input',e=>{amp=+e.target.value;document.getElementById('ampVal').innerText=amp.toFixed(2)});
+        document.getElementById('toggleThermal').addEventListener('click',()=>{ten=!ten;document.getElementById('toggleThermal').innerText=ten?'ON':'OFF';if(!ten)uT(0,0)});
+        document.getElementById('toggleEM').addEventListener('click',()=>{een=!een;EG.visible=een;document.getElementById('toggleEM').innerText=een?'ON':'OFF'});
+        document.getElementById('toggleCaustics').addEventListener('click',()=>{cen=!cen;document.getElementById('toggleCaustics').innerText=cen?'ON':'OFF';if(!cen)cp.material.opacity=0});
+        function anim(){tm2+=1/60;const d=Math.sin(tm2*freq*Math.PI*2)*amp*.045;cone.position.y=coy+d;coil.position.y=vcy+d*.6;const ip=amp*(.5+.5*Math.sin(tm2*freq*Math.PI*2)),hf=amp*.8+ip*.4;uT(hf,hf);const bloom=thermalBloom(0,.08,0,0,.08,0);mM.emissiveIntensity*=.7+.3*bloom;
+        if(een){EG.rotation.y+=.012;pM.size=.012+Math.sin(tm2*35)*.006;pM.color.setHSL(.55+Math.sin(tm2*2.3)*.1,1,.6);for(let i=0;i<EG.children.length;i++){if(EG.children[i].isLine){const l=EG.children[i];const lp=l.geometry.attributes.position;let avgD=0;for(let j=0;j<lp.count;j++)avgD+=emDecay(lp.getX(j),lp.getY(j),lp.getZ(j));avgD/=lp.count;l.material.opacity=avgD*.9+.1}}}
+        const ang=tm2*.9;al.position.x=Math.cos(ang)*1.9;al.position.z=Math.sin(ang)*1.9;al.intensity=.8+Math.sin(tm2*2)*.3;
+        if(cen)uC();im.color.setHSL((tm2*.5)%1,.9,.6);tm.color.setHSL(.09,.9,.55);
+        ctrl.update();EC.render();requestAnimationFrame(anim)}
+        anim();window.addEventListener('resize',()=>{C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();EC.setSize(innerWidth,innerHeight)});
+        console.log('Trench Builder v5 — perceptual physics subwoofer');
+    </script>
+</body>
+</html>

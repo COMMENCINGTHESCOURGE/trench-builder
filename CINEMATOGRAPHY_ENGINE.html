@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TRENCH BUILDER v6 — Cinematography & B-Roll Engine</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050510;overflow:hidden;font:11px 'Courier New',monospace;cursor:default}
+canvas{display:block}
+#hud{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);color:#c96;font-size:10px;background:rgba(5,5,14,.92);padding:6px 16px;border:1px solid #332211;border-radius:3px;pointer-events:none;z-index:10;display:flex;gap:18px}
+#hud span{opacity:.7}#hud .active{color:#fc8;opacity:1}
+#panel{position:fixed;top:8px;right:8px;z-index:10;background:rgba(5,5,14,.92);border:1px solid #332211;border-radius:4px;padding:10px;width:240px;color:#c96;font-size:10px}
+#panel .title{color:#ff9944;font-size:11px;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #332211;padding-bottom:4px}
+#panel button{display:block;width:100%;background:transparent;color:#c96;border:1px solid #332211;padding:5px 10px;margin:2px 0;cursor:pointer;font:9px 'Courier New';letter-spacing:1px;border-radius:2px;text-align:left;transition:all .12s}
+#panel button:hover{background:#332211;color:#fc8}
+#panel button.sel{background:#332211;color:#fc8;border-color:#c96}
+#panel button.record{background:#331111;color:#ff6644;border-color:#663322}
+#panel button.record:hover{background:#442222;color:#ff8866}
+#shot-label{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:24px;letter-spacing:4px;pointer-events:none;z-index:20;opacity:0;transition:opacity .4s;text-shadow:0 0 20px rgba(255,170,68,.5)}
+#viewfinder{position:fixed;top:0;left:0;right:0;bottom:0;border:2px solid rgba(255,170,68,.3);pointer-events:none;z-index:15;opacity:0;transition:opacity .3s}
+#viewfinder .cross{position:absolute;top:50%;left:50%;width:40px;height:40px;transform:translate(-50%,-50%)}
+#viewfinder .cross::before,#viewfinder .cross::after{content:'';position:absolute;background:rgba(255,170,68,.4)}
+#viewfinder .cross::before{width:40px;height:1px;top:20px;left:0}
+#viewfinder .cross::after{width:1px;height:40px;top:0;left:20px}
+#rec-dot{position:fixed;top:12px;left:12px;width:12px;height:12px;background:#f00;border-radius:50%;z-index:20;opacity:0;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+#clapper{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:30;opacity:0;pointer-events:none;transition:opacity .1s;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;letter-spacing:3px}
+</style>
+</head>
+<body>
+
+<div id="hud">
+  <span id="shot-name">◈ IDLE</span>
+  <span id="cam-info">CAM: ORBIT</span>
+  <span id="take-count">TAKE: 0</span>
+  <span id="fps">60 FPS</span>
+</div>
+
+<div id="panel">
+  <div class="title">🎬 CINEMATOGRAPHY DECK</div>
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">ESTABLISHING</div>
+  <button data-shot="orbit">🌐 ORBIT REVEAL</button>
+  <button data-shot="crane">🏗 CRANE SWEEP</button>
+  <button data-shot="drone">🚁 DRONE FLYOVER</button>
+  
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">B-ROLL / HELTA</div>
+  <button data-shot="helta-copper">🔶 COPPER CLOSE-UP</button>
+  <button data-shot="helta-thermal">🔥 THERMAL BLOOM</button>
+  <button data-shot="helta-em">⚡ EM FIELD PULSE</button>
+  <button data-shot="dolly">🎥 DOLLY PUSH</button>
+  
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">ACTION</div>
+  <button data-shot="build">🔨 BUILD SEQUENCE</button>
+  <button data-shot="dutch">📐 DUTCH ANGLE</button>
+  
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">SENTAI BEATS</div>
+  <button data-shot="cold-open">❄ COLD OPEN</button>
+  <button data-shot="title-card">📋 TITLE CARD</button>
+  <button data-shot="victory">🏆 VICTORY POSE</button>
+  
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">🎮 CREATIVE MODE</div>
+  <button data-shot="debug">🔧 DEBUG OVERLAY</button>
+  
+  <div style="color:#ff9944;font-size:9px;letter-spacing:1px;margin:6px 0 2px">PACKAGE</div>
+  <button class="record" data-shot="record">⏺ RECORD B-ROLL PACKAGE</button>
+  <button data-shot="export">📤 EXPORT SHOT LIST</button>
+</div>
+
+<div id="shot-label"></div>
+<div id="viewfinder"><div class="cross"></div></div>
+<div id="rec-dot"></div>
+<div id="clapper">🎬 ROLLING</div>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ═══════════════════════════════════════════════════════════════
+// CINEMATOGRAPHY ENGINE v1 — B-Roll & Camera Path System
+// Power Rangers model: Sentai footage + Original B-roll assembly
+// "Helta" = iconic close-up (helmet shot → detail close-up)
+// ═══════════════════════════════════════════════════════════════
+
+const W=innerWidth,H=innerHeight,$=id=>document.getElementById(id);
+
+// ── Renderer ──
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+R.setSize(W,H);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.3;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(R.domElement);
+
+const S=new THREE.Scene();S.background=new THREE.Color(0x060812);S.fog=new THREE.FogExp2(0x000010,0.003);
+
+// ── Camera (cinematography rig) ──
+const cam=new THREE.PerspectiveCamera(45,W/H,.05,200);
+cam.position.set(8,5,8);cam.lookAt(0,0,0);
+
+// ═══════════════════════════════════════════
+// SET — The Scene We're Filming
+// ═══════════════════════════════════════════
+
+// Ground
+const gGeo=new THREE.PlaneGeometry(30,30,40,40);gGeo.rotateX(-Math.PI/2);
+const gMat=new THREE.MeshStandardMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true});
+const terrainHeights=new Float32Array(gGeo.attributes.position.count);
+for(let i=0;i<gGeo.attributes.position.count;i++){
+  const x=gGeo.attributes.position.getX(i),z=gGeo.attributes.position.getY(i);
+  terrainHeights[i]=Math.sin(x*.3)*Math.cos(z*.25)*.8+Math.sin(x*.7+z*.5)*.3;
+  gGeo.attributes.position.setZ(i,terrainHeights[i]);
+}
+gGeo.computeVertexNormals();S.add(new THREE.Mesh(gGeo,gMat)).receiveShadow=true;
+function hAt(x,z){return Math.sin(x*.3)*Math.cos(z*.25)*.8+Math.sin(x*.7+z*.5)*.3}
+
+// Grid
+S.add(new THREE.GridHelper(30,30,0x221100,0x110804)).position.y=.005;
+
+// ── Lighting ──
+const sun=new THREE.DirectionalLight(0xffeedd,3.5);sun.position.set(10,15,8);
+sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.near=.5;sun.shadow.camera.far=80;
+sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;
+S.add(sun);S.add(new THREE.AmbientLight(0x221111,.5));S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.3));
+
+// ── Subject: Copper winding ring (our "helta" target) ──
+const copperMat=new THREE.MeshStandardMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100,emissiveIntensity:.15});
+const subject=new THREE.Group();
+// Magnet core
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.8,48),new THREE.MeshStandardMaterial({color:0x444455,metalness:.7,roughness:.45}))).position.y=-.4;
+// Copper windings (the helta shot target)
+for(let i=0;i<5;i++){
+  const r=new THREE.Mesh(new THREE.TorusGeometry(.65,.04,32,80),copperMat);
+  r.rotation.x=Math.PI/2;r.position.y=-.2+i*.2;subject.add(r);
+}
+// Top plate
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.58,.64,.1,48),new THREE.MeshStandardMaterial({color:0xaaaacc,metalness:.85,roughness:.25}))).position.y=.4;
+// EM field ring (subtle glow)
+const emRing=new THREE.Mesh(new THREE.TorusGeometry(.72,.015,16,120),new THREE.MeshBasicMaterial({color:0xff6644,transparent:true,opacity:.3}));
+emRing.rotation.x=Math.PI/2;emRing.position.y=.25;emRing.name='emRing';subject.add(emRing);
+subject.position.set(0,.5,0);S.add(subject);
+
+// ── Background structures (B-roll context) ──
+for(let i=0;i<6;i++){
+  const a=i/6*Math.PI*2,r=4+Math.random()*3;
+  const p=new THREE.Mesh(new THREE.BoxGeometry(.3,.05,1.5+Math.random()),new THREE.MeshStandardMaterial({color:0x887766,roughness:.7}));
+  p.position.set(Math.cos(a)*r,hAt(Math.cos(a)*r,Math.sin(a)*r)+.75,Math.sin(a)*r);p.castShadow=true;S.add(p);
+}
+
+// ═══════════════════════════════════════════
+// CINEMATOGRAPHY SYSTEM
+// ═══════════════════════════════════════════
+
+// Power Rangers model explanation:
+// "Sentai footage" = our existing 3D scene (the set, subject, lighting)
+// "American footage" = the B-roll we generate (camera moves, close-ups, transitions)
+// "Helta" = helmet shot → iconic close-up of key detail (copper, thermal, EM)
+// "Morphing sequence" = camera transition + material/lighting transformation
+// "Zord combination" = multiple elements assembling into one shot
+
+const shotTypes={
+  orbit:{name:'ORBIT REVEAL',desc:'360° product reveal — sentai establishing shot',duration:8,
+    path:(t,d)=>{const a=t/d*Math.PI*2;return{x:Math.cos(a)*6,y:3+Math.sin(t*.5)*.5,z:Math.sin(a)*6,lookX:0,lookY:.5,lookZ:0}}},
+
+  crane:{name:'CRANE SWEEP',desc:'Vertical boom — reveals scale and context',duration:6,
+    path:(t,d)=>{const p=t/d;return{x:5-p*3,y:1+p*6,z:5-p*2,lookX:0,lookY:.5+p*1.5,lookZ:0}}},
+
+  drone:{name:'DRONE FLYOVER',desc:'Aerial establishing — terrain + structures',duration:10,
+    path:(t,d)=>{const p=t/d;return{x:Math.sin(p*Math.PI*2)*8,y:6+Math.sin(t*.3)*2,z:Math.cos(p*Math.PI*2)*8,lookX:0,lookY:0,lookZ:0}}},
+
+  'helta-copper':{name:'COPPER CLOSE-UP',desc:'Helta shot — anisotropic brushing detail',duration:4,
+    path:(t,d)=>{const p=t/d;return{x:Math.sin(t*1.5)*.4,y:.8+Math.sin(t)*.15,z:1.5-Math.cos(t)*.3,lookX:0,lookY:.5,lookZ:0}}},
+
+  'helta-thermal':{name:'THERMAL BLOOM',desc:'Helta shot — heat radiating from windings',duration:4,
+    path:(t,d)=>{const p=t/d;return{x:Math.cos(t*2)*.3,y:.6+Math.sin(t)*.1,z:1.2+p*.3,lookX:0,lookY:.4,lookZ:0}}},
+
+  'helta-em':{name:'EM FIELD PULSE',desc:'Helta shot — magnetic flux lines pulsing',duration:3,
+    path:(t,d)=>{return{x:Math.sin(t*3)*.25,y:.7,z:1.4,lookX:0,lookY:.4,lookZ:0}}},
+
+  dolly:{name:'DOLLY PUSH',desc:'Slow push-in — increasing tension',duration:5,
+    path:(t,d)=>{const p=t/d;return{x:0,y:1.5,z:6-p*5,lookX:0,lookY:.5,lookZ:0}}},
+
+  build:{name:'BUILD SEQUENCE',desc:'Action shot — structure assembly',duration:7,
+    path:(t,d)=>{const p=t/d;return{x:Math.sin(p*Math.PI)*3,y:2+Math.cos(p*Math.PI)*1.5,z:4-Math.cos(p*Math.PI)*2,lookX:0,lookY:.5+p*.8,lookZ:0}}},
+
+  dutch:{name:'DUTCH ANGLE',desc:'Dramatic tilt — tension/disorientation',duration:3,
+    path:(t,d)=>{return{x:2,y:1.8,z:3,lookX:0,lookY:.5,lookZ:0,tilt:Math.sin(t*2)*.15}}},
+
+  'cold-open':{name:'COLD OPEN',desc:'Sentai beat 1 — monster attacks, civilians flee',duration:5,
+    path:(t,d)=>{const p=t/d;return{x:Math.sin(p*Math.PI*3)*6,y:2+Math.sin(t*4)*.5,z:Math.cos(p*Math.PI*3)*6-2,lookX:0,lookY:.5,lookZ:0}}},
+
+  'title-card':{name:'TITLE CARD',desc:'Sentai beat 2 — brand reveal with dramatic pause',duration:3,
+    path:(t,d)=>{return{x:0,y:1.5,z:5,lookX:0,lookY:.5,lookZ:0}}},
+
+  victory:{name:'VICTORY POSE',desc:'Sentai beat 12 — team stands against explosion',duration:5,
+    path:(t,d)=>{const p=t/d;return{x:Math.sin(p*Math.PI)*2,y:2+Math.cos(p*Math.PI)*1.5,z:5-Math.cos(p*Math.PI)*3,lookX:0,lookY:.5,lookZ:0}}},
+
+  debug:{name:'DEBUG OVERLAY',desc:'GameShark Creative Mode — wireframe + inspector',duration:99,
+    path:(t,d)=>{return{x:Math.sin(t*.3)*3,y:3+Math.sin(t*.2),z:5,lookX:0,lookY:.5,lookZ:0}}},
+};
+
+let currentShot=null,shotTime=0,shotDuration=0,takeCount=0;
+let recording=false,recordedShots=[],recordStartTime=0;
+let manualControl=false;
+let debugMode=false,wireframeOn=false;
+
+// ── Execute shot ──
+function executeShot(shotId){
+  const shot=shotTypes[shotId];if(!shot)return;
+  if(shotId==='debug'){debugMode=!debugMode;wireframeOn=debugMode;
+    $('viewfinder').style.opacity=debugMode?'1':'0';
+    $('shot-name').textContent=debugMode?'◈ DEBUG MODE':'◈ IDLE';
+    $('shot-name').className=debugMode?'active':'';
+    if(debugMode){currentShot=shot;shotTime=0;shotDuration=99}
+    else{currentShot=null}
+    return;
+  }
+  currentShot=shot;shotTime=0;shotDuration=shot.duration;
+  $('shot-name').textContent='◈ '+shot.name;$('shot-name').className='active';
+  $('cam-info').textContent='CAM: '+shotId.toUpperCase();
+  $('viewfinder').style.opacity='1';
+  $('clapper').style.opacity='1';setTimeout(()=>$('clapper').style.opacity='0',300);
+  flashLabel(shot.name);
+  if(recording)recordedShots.push({shot:shotId,name:shot.name,startTime:performance.now()*.001,duration:shot.duration});
+}
+
+function flashLabel(text){const l=$('shot-label');l.textContent=text;l.style.opacity='1';setTimeout(()=>l.style.opacity='0',1500)}
+
+// ── Button handlers ──
+document.querySelectorAll('#panel button').forEach(b=>{b.addEventListener('click',e=>{
+  e.stopPropagation();const s=b.dataset.shot;
+  if(s==='record'){
+    recording=!recording;b.classList.toggle('sel',recording);$('rec-dot').style.opacity=recording?'1':'0';
+    if(recording){recordedShots=[];recordStartTime=performance.now()*.001;$('take-count').textContent='TAKE: REC';}
+    else{$('take-count').textContent=`TAKE: ${takeCount}`;exportShotList();}
+    return;
+  }
+  if(s==='export'){exportShotList();return}
+  executeShot(s);takeCount++;$('take-count').textContent=`TAKE: ${takeCount}`;
+  document.querySelectorAll('#panel button').forEach(b=>b.classList.remove('sel'));
+  b.classList.add('sel');
+})});
+
+function exportShotList(){
+  if(recordedShots.length===0)return;
+  const data={cinematography_session:{date:new Date().toISOString(),total_shots:recordedShots.length,duration:recordedShots.reduce((a,s)=>a+s.duration,0),shots:recordedShots}};
+  console.log('🎬 SHOT LIST:',JSON.stringify(data,null,2));
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`broll_shotlist_${Date.now()}.json`;a.click();
+  $('shot-name').textContent='◈ EXPORTED '+recordedShots.length+' SHOTS';$('shot-name').className='active';
+  setTimeout(()=>{$('shot-name').textContent='◈ IDLE';$('shot-name').className=''},3000);
+}
+
+// Allow click-to-orbit for manual camera control
+R.domElement.addEventListener('click',e=>{if(e.target.tagName==='BUTTON')return;manualControl=!manualControl;if(manualControl){currentShot=null;$('shot-name').textContent='◈ MANUAL';$('shot-name').className='active';$('viewfinder').style.opacity='0'}else{$('shot-name').textContent='◈ IDLE';$('shot-name').className=''}});
+
+// ═══════════════════════════════════════════
+// ANIMATION LOOP — Cinematography Driver
+// ═══════════════════════════════════════════
+const clk=new THREE.Clock();let fc=0,lf=0;
+
+function loop(){
+  requestAnimationFrame(loop);
+  const dt=Math.min(clk.getDelta(),.2),t=performance.now()*.001;
+
+  // Execute current shot
+  if(currentShot){
+    shotTime+=dt;
+    if(shotTime>=shotDuration){currentShot=null;$('shot-name').textContent='◈ CUT';$('shot-name').className='';$('viewfinder').style.opacity='0';setTimeout(()=>{$('shot-name').textContent='◈ IDLE'},1000)}
+    else{
+      const p=currentShot.path(shotTime,shotDuration);
+      cam.position.lerp(new THREE.Vector3(p.x,p.y,p.z),.15);
+      cam.lookAt(p.lookX,p.lookY,p.lookZ);
+      if(p.tilt)cam.rotation.z+=(p.tilt-cam.rotation.z)*.1;
+    }
+  }
+
+  // Copper emissive pulse
+  const pulse=.15+Math.abs(Math.sin(t*3))*.35;
+  copperMat.emissiveIntensity=.15+Math.sin(t*2.5)*.1;
+  copperMat.emissive=new THREE.Color(.2+Math.sin(t)*.1,.1+Math.sin(t*1.3)*.05,0);
+  emRing.material.opacity=.2+Math.sin(t*4)*.15;
+  subject.rotation.y+=dt*.15;
+
+  // GameShark Creative Mode — wireframe + parameter inspection
+  if(debugMode){
+    copperMat.wireframe=wireframeOn;
+    $('cam-info').textContent=`WIRE:${wireframeOn?'ON':'OFF'} | Cu-emiss:${copperMat.emissiveIntensity.toFixed(2)} | EM-opac:${emRing.material.opacity.toFixed(2)} | Rot:${(subject.rotation.y%6.283).toFixed(2)}`;
+    // Cycle wireframe with 'W' key
+  }
+
+  R.render(S,cam);
+
+  // FPS
+  fc++;if(t-lf>.5){$('fps').textContent=`${Math.round(fc/(t-lf))} FPS`;fc=0;lf=t;}
+}
+
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+window.addEventListener('keydown',e=>{
+  if(e.key==='w'&&debugMode){wireframeOn=!wireframeOn;copperMat.wireframe=wireframeOn}
+});
+loop();
+
+console.log('╔══════════════════════════════════════╗');
+console.log('║  CINEMATOGRAPHY ENGINE v1 — ACTIVE  ║');
+console.log('║  Sentai footage + Original B-roll    ║');
+console.log('║  9 shot types · Helta close-ups      ║');
+console.log('║  RECORD packages · EXPORT shot lists ║');
+console.log('║  Power Rangers assembly model:        ║');
+console.log('║  Existing scene = Sentai footage      ║');
+console.log('║  Generated shots = American B-roll    ║');
+console.log('╚══════════════════════════════════════╝');
+</script>
+</body>
+</html>
