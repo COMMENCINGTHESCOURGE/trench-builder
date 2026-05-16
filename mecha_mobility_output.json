@@ -1,0 +1,366 @@
+{
+  "joint_analysis": {
+    "toe": {
+      "joint": "toe",
+      "frame": 30,
+      "intent_mm": 2250.0,
+      "resistance_mm": 525.0,
+      "realized_mm": 1725.0,
+      "error_mm": 525.0,
+      "efficiency": 76.7
+    },
+    "ankle": {
+      "joint": "ankle",
+      "frame": 30,
+      "intent_mm": 977.1,
+      "resistance_mm": 228.0,
+      "realized_mm": 749.1,
+      "error_mm": 228.0,
+      "efficiency": 76.7
+    },
+    "knee": {
+      "joint": "knee",
+      "frame": 30,
+      "intent_mm": 5108.8,
+      "resistance_mm": 1192.1,
+      "realized_mm": 3916.7,
+      "error_mm": 1192.1,
+      "efficiency": 76.7
+    },
+    "hip": {
+      "joint": "hip",
+      "frame": 30,
+      "intent_mm": 3375.0,
+      "resistance_mm": 787.5,
+      "realized_mm": 2587.5,
+      "error_mm": 787.5,
+      "efficiency": 76.7
+    },
+    "shoulder": {
+      "joint": "shoulder",
+      "frame": 30,
+      "intent_mm": 0.0,
+      "resistance_mm": 0.0,
+      "realized_mm": 0.0,
+      "error_mm": 0.0,
+      "efficiency": 0.0
+    },
+    "neck": {
+      "joint": "neck",
+      "frame": 30,
+      "intent_mm": 360.0,
+      "resistance_mm": 210.0,
+      "realized_mm": 150.0,
+      "error_mm": 210.0,
+      "efficiency": 41.7
+    }
+  },
+  "checkpoint_mobility": [
+    {
+      "checkpoint": "SUPINE",
+      "joints": 0,
+      "total_error_mm": 0,
+      "efficiency_pct": 100,
+      "note": "No movement \u2014 supine rest"
+    },
+    {
+      "checkpoint": "SCOOT",
+      "joints": 1,
+      "joints_active": [
+        "shoulder"
+      ],
+      "total_intent_mm": 0.0,
+      "total_error_mm": 0.0,
+      "efficiency_pct": 100.0,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 0mm"
+    },
+    {
+      "checkpoint": "CRAWL",
+      "joints": 2,
+      "joints_active": [
+        "shoulder",
+        "hip"
+      ],
+      "total_intent_mm": 3796.6,
+      "total_error_mm": 885.9,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 886mm"
+    },
+    {
+      "checkpoint": "STAND",
+      "joints": 4,
+      "joints_active": [
+        "ankle",
+        "knee",
+        "hip",
+        "neck"
+      ],
+      "total_intent_mm": 7186.0,
+      "total_error_mm": 1676.8,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 1677mm"
+    },
+    {
+      "checkpoint": "BOUNCE",
+      "joints": 6,
+      "joints_active": [
+        "toe",
+        "ankle",
+        "knee",
+        "hip",
+        "shoulder",
+        "neck"
+      ],
+      "total_intent_mm": 9436.0,
+      "total_error_mm": 2201.8,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 2202mm"
+    },
+    {
+      "checkpoint": "WALK",
+      "joints": 5,
+      "joints_active": [
+        "toe",
+        "ankle",
+        "knee",
+        "hip",
+        "shoulder"
+      ],
+      "total_intent_mm": 9436.0,
+      "total_error_mm": 2201.8,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 2202mm"
+    },
+    {
+      "checkpoint": "JUMP",
+      "joints": 5,
+      "joints_active": [
+        "toe",
+        "ankle",
+        "knee",
+        "hip",
+        "shoulder"
+      ],
+      "total_intent_mm": 9436.0,
+      "total_error_mm": 2201.8,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 2202mm"
+    },
+    {
+      "checkpoint": "RUN",
+      "joints": 5,
+      "joints_active": [
+        "toe",
+        "ankle",
+        "knee",
+        "hip",
+        "shoulder"
+      ],
+      "total_intent_mm": 9436.0,
+      "total_error_mm": 2201.8,
+      "efficiency_pct": 76.7,
+      "suit_mass_kg": 30,
+      "vinculum": "A_realized = A_intent - 2202mm"
+    }
+  ],
+  "bounce_sprites": {
+    "checkpoint": "BOUNCE",
+    "frames": 6,
+    "layout": "3x2",
+    "sprites": [
+      {
+        "frame": 0,
+        "joints": {
+          "toe": {
+            "angle_deg": 7.5,
+            "displacement_mm": 2250.0
+          },
+          "ankle": {
+            "angle_deg": 6.7,
+            "displacement_mm": 2022.9
+          },
+          "knee": {
+            "angle_deg": -8.0,
+            "displacement_mm": -2391.2
+          },
+          "hip": {
+            "angle_deg": 6.2,
+            "displacement_mm": 1875.0
+          },
+          "shoulder": {
+            "angle_deg": 0.0,
+            "displacement_mm": 0.0
+          },
+          "neck": {
+            "angle_deg": 3.0,
+            "displacement_mm": 360.0
+          }
+        }
+      },
+      {
+        "frame": 1,
+        "joints": {
+          "toe": {
+            "angle_deg": 40.0,
+            "displacement_mm": 11992.8
+          },
+          "ankle": {
+            "angle_deg": 23.1,
+            "displacement_mm": 6937.8
+          },
+          "knee": {
+            "angle_deg": 4.4,
+            "displacement_mm": 1321.1
+          },
+          "hip": {
+            "angle_deg": 15.0,
+            "displacement_mm": 4500.0
+          },
+          "shoulder": {
+            "angle_deg": -10.4,
+            "displacement_mm": -3117.7
+          },
+          "neck": {
+            "angle_deg": 1.5,
+            "displacement_mm": 180.0
+          }
+        }
+      },
+      {
+        "frame": 2,
+        "joints": {
+          "toe": {
+            "angle_deg": 40.0,
+            "displacement_mm": 11992.8
+          },
+          "ankle": {
+            "angle_deg": 21.4,
+            "displacement_mm": 6414.9
+          },
+          "knee": {
+            "angle_deg": -0.1,
+            "displacement_mm": -37.7
+          },
+          "hip": {
+            "angle_deg": 6.3,
+            "displacement_mm": 1875.0
+          },
+          "shoulder": {
+            "angle_deg": -10.4,
+            "displacement_mm": -3117.7
+          },
+          "neck": {
+            "angle_deg": -1.5,
+            "displacement_mm": -180.0
+          }
+        }
+      },
+      {
+        "frame": 3,
+        "joints": {
+          "toe": {
+            "angle_deg": 7.5,
+            "displacement_mm": 2250.0
+          },
+          "ankle": {
+            "angle_deg": 3.3,
+            "displacement_mm": 977.1
+          },
+          "knee": {
+            "angle_deg": -17.0,
+            "displacement_mm": -5108.8
+          },
+          "hip": {
+            "angle_deg": -11.2,
+            "displacement_mm": -3375.0
+          },
+          "shoulder": {
+            "angle_deg": -0.0,
+            "displacement_mm": -0.0
+          },
+          "neck": {
+            "angle_deg": -3.0,
+            "displacement_mm": -360.0
+          }
+        }
+      },
+      {
+        "frame": 4,
+        "joints": {
+          "toe": {
+            "angle_deg": -25.0,
+            "displacement_mm": -7492.8
+          },
+          "ankle": {
+            "angle_deg": -13.1,
+            "displacement_mm": -3937.8
+          },
+          "knee": {
+            "angle_deg": -29.4,
+            "displacement_mm": -8821.1
+          },
+          "hip": {
+            "angle_deg": -20.0,
+            "displacement_mm": -6000.0
+          },
+          "shoulder": {
+            "angle_deg": 10.4,
+            "displacement_mm": 3117.7
+          },
+          "neck": {
+            "angle_deg": -1.5,
+            "displacement_mm": -180.0
+          }
+        }
+      },
+      {
+        "frame": 5,
+        "joints": {
+          "toe": {
+            "angle_deg": -25.0,
+            "displacement_mm": -7492.8
+          },
+          "ankle": {
+            "angle_deg": -11.4,
+            "displacement_mm": -3414.9
+          },
+          "knee": {
+            "angle_deg": -24.9,
+            "displacement_mm": -7462.3
+          },
+          "hip": {
+            "angle_deg": -11.2,
+            "displacement_mm": -3375.0
+          },
+          "shoulder": {
+            "angle_deg": 10.4,
+            "displacement_mm": 3117.7
+          },
+          "neck": {
+            "angle_deg": 1.5,
+            "displacement_mm": 180.0
+          }
+        }
+      }
+    ]
+  },
+  "suit_params": {
+    "mass_kg": 30,
+    "joint_friction": 0.15,
+    "lag_ms": 50,
+    "power_assist": 0.3
+  },
+  "data_sources": [
+    "checkpoint_system.py",
+    "coupled_forge_sim.py",
+    "biomechanical_denominator",
+    "joint_angles",
+    "limb_lengths"
+  ]
+}
