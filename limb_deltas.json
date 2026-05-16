@@ -1,0 +1,302 @@
+{
+  "cases": {
+    "baseline": {
+      "label": "Baseline (human)",
+      "limbs": {
+        "foot": 0.26,
+        "tibia": 0.42,
+        "femur": 0.45,
+        "forearm": 0.28,
+        "humerus": 0.34,
+        "neck": 0.12
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 240.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 41.7
+        }
+      },
+      "total_displacement_mm": 21205.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.3
+    },
+    "extended": {
+      "label": "Extended (+30%)",
+      "limbs": {
+        "foot": 0.34,
+        "tibia": 0.55,
+        "femur": 0.59,
+        "forearm": 0.36,
+        "humerus": 0.44,
+        "neck": 0.16
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 320.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 56.3
+        }
+      },
+      "total_displacement_mm": 21285.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.4
+    },
+    "shortened": {
+      "label": "Shortened (-30%)",
+      "limbs": {
+        "foot": 0.18,
+        "tibia": 0.29,
+        "femur": 0.32,
+        "forearm": 0.2,
+        "humerus": 0.24,
+        "neck": 0.08
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 160.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 12.5
+        }
+      },
+      "total_displacement_mm": 21125.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.2
+    },
+    "power_legs": {
+      "label": "Power legs (+30%), short arms (-20%)",
+      "limbs": {
+        "foot": 0.34,
+        "tibia": 0.55,
+        "femur": 0.59,
+        "forearm": 0.22,
+        "humerus": 0.27,
+        "neck": 0.12
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 240.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 41.7
+        }
+      },
+      "total_displacement_mm": 21205.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.3
+    },
+    "long_arms": {
+      "label": "Long arms (+40%), short legs (-10%)",
+      "limbs": {
+        "foot": 0.23,
+        "tibia": 0.38,
+        "femur": 0.41,
+        "forearm": 0.39,
+        "humerus": 0.48,
+        "neck": 0.12
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 240.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 41.7
+        }
+      },
+      "total_displacement_mm": 21205.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.3
+    },
+    "equal": {
+      "label": "Equal (all 0.30m)",
+      "limbs": {
+        "foot": 0.3,
+        "tibia": 0.3,
+        "femur": 0.3,
+        "forearm": 0.3,
+        "humerus": 0.3,
+        "neck": 0.3
+      },
+      "joints": {
+        "toe": {
+          "displacement_mm": 7245.2,
+          "resistance_mm": 1690.5,
+          "efficiency_pct": 76.7
+        },
+        "ankle": {
+          "displacement_mm": 3950.9,
+          "resistance_mm": 921.9,
+          "efficiency_pct": 76.7
+        },
+        "knee": {
+          "displacement_mm": 4190.4,
+          "resistance_mm": 977.8,
+          "efficiency_pct": 76.7
+        },
+        "hip": {
+          "displacement_mm": 3500.0,
+          "resistance_mm": 816.7,
+          "efficiency_pct": 76.7
+        },
+        "shoulder": {
+          "displacement_mm": 2078.5,
+          "resistance_mm": 485.0,
+          "efficiency_pct": 76.7
+        },
+        "neck": {
+          "displacement_mm": 600.0,
+          "resistance_mm": 140.0,
+          "efficiency_pct": 76.7
+        }
+      },
+      "total_displacement_mm": 21565.0,
+      "total_resistance_mm": 5031.9,
+      "net_efficiency_pct": 76.7
+    }
+  },
+  "deltas": {
+    "extended": {
+      "disp_delta_mm": 80.0,
+      "eff_delta_pct": 0.1
+    },
+    "shortened": {
+      "disp_delta_mm": -80.0,
+      "eff_delta_pct": -0.1
+    },
+    "power_legs": {
+      "disp_delta_mm": 0.0,
+      "eff_delta_pct": 0.0
+    },
+    "long_arms": {
+      "disp_delta_mm": 0.0,
+      "eff_delta_pct": 0.0
+    },
+    "equal": {
+      "disp_delta_mm": 360.0,
+      "eff_delta_pct": 0.4
+    }
+  }
+}
