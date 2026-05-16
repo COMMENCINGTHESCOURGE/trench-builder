@@ -69,6 +69,8 @@ h2{color:#aac;font-size:13px;letter-spacing:3px;margin-bottom:4px}
 // STATE
 // ═══════════════════════════════════════════════════════
 const LAYERS = [
+  {num:0,name:"INFRARED THERMAL",color:"#ff2200",rule:"POTENTIAL HEAT",build:"Subsurface Prep",cp:"PRE-SUPINE",verb:"—",
+   desc:"Heat before movement. Potential energy. Preparation."},
   {num:1,name:"STRATO-RUBY",color:"#ff3333",rule:"DENSE GRAVITY",build:"Brutalist Mega",cp:"SUPINE",verb:"EXTRUDE",
    desc:"2G gravity. Heavy foundations. Slow crushing falls."},
   {num:2,name:"AERO-TANGERINE",color:"#ff8833",rule:"THERMAL UPDRAFTS",build:"Wind-Catchers",cp:"SCOOT",verb:"EXTRUDE",
@@ -81,8 +83,10 @@ const LAYERS = [
    desc:"You float. Momentum is king. Drifting platforms."},
   {num:6,name:"INDIGO VOID",color:"#6633cc",rule:"REVERSE GRAVITY",build:"Cantilevered",cp:"WALK",verb:"PAINT",
    desc:"Down is sideways. Buildings hang inward."},
-  {num:7,name:"VIOLET SINGULARITY",color:"#cc33ff",rule:"TIME DILATION",build:"Afterimage",cp:"RUN",verb:"PAINT",
-   desc:"1s=20s at peak. Instant builds. Rapid decay."},
+  {num:7,name:"VIOLET SINGULARITY",color:"#cc33ff",rule:"TIME DILATION",build:"Afterimage",cp:"JUMP",verb:"PAINT",
+   desc:"1s=20s at peak. First flight. Instant build, rapid decay."},
+  {num:8,name:"ULTRAVIOLET SPECTRAL",color:"#9944ff",rule:"PURE ENERGY",build:"Light-Form",cp:"RUN",verb:"—",
+   desc:"Beyond visible. Pure sustained energy. Transcendence."},
 ];
 
 let currentLayer = 0;
@@ -118,7 +122,7 @@ function renderDome(){
   canvas.height = canvas.parentElement.clientHeight;
   
   const w = canvas.width, h = canvas.height;
-  const bandH = h / 7;
+  const bandH = h / 9;  // 9 layers: IR + 7 visible + UV
   
   // Draw rainbow bands
   LAYERS.forEach((l,i) => {
@@ -233,7 +237,7 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('wheel', e => {
-  if(e.deltaY > 0) currentLayer = Math.min(6, currentLayer+1);
+  if(e.deltaY > 0) currentLayer = Math.min(8, currentLayer+1);
   else currentLayer = Math.max(0, currentLayer-1);
   updateAll();
 });

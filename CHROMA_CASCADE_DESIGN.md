@@ -3,18 +3,24 @@
 # May 16, 2026
 
 # ═══════════════════════════════════════════════════════
-# CHECKPOINT MAPPING: 7 Layers = 7 Stages
+# CHECKPOINT MAPPING: 9 Layers = 9 Stages (IR + UV added)
 # ═══════════════════════════════════════════════════════
 
 CHROMA_CHECKPOINTS = """
-  RED (Ruby)        = SUPINE    Dense gravity, heavy foundations
-  ORANGE (Tangerine) = SCOOT     Thermal updrafts, wind power
-  YELLOW (Gold)      = CRAWL     Photon saturation, light bending
-  GREEN (Viridian)   = STAND     Bio-responsive, organic growth
-  BLUE (Cobalt)      = BOUNCE    Zero-G, momentum-based movement
-  INDIGO (Void)      = WALK      Reverse gravity, sideways building
-  VIOLET (Singularity)= RUN      Time dilation, rapid-fire construction
+  0. INFRARED (Thermal)  = PRE-SUPINE  Heat before movement. Potential energy.
+  1. RED (Ruby)          = SUPINE      Dense gravity, heavy foundations
+  2. ORANGE (Tangerine)  = SCOOT       Thermal updrafts, wind power
+  3. YELLOW (Gold)       = CRAWL       Photon saturation, light bending
+  4. GREEN (Viridian)    = STAND       Bio-responsive, organic growth
+  5. BLUE (Cobalt)       = BOUNCE      Zero-G, momentum-based movement
+  6. INDIGO (Void)       = WALK        Reverse gravity, sideways building
+  7. VIOLET (Singularity)= JUMP        Time dilation, first flight
+  8. ULTRAVIOLET (Spectral)= RUN       Beyond visible. Pure energy. Sustained.
 """
+
+# Infrared = the heat you feel before you move. The preparation.
+# Ultraviolet = what you can't see but you know is there. The transcendence.
+# 7 visible + 2 invisible = 9 total. The full spectrum.
 
 # ═══════════════════════════════════════════════════════
 # VINCULUM MAPPING: Each layer IS a fraction
