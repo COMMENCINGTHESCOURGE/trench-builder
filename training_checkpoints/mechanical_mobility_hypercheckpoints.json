@@ -1,0 +1,123 @@
+[
+  {
+    "id": "M1",
+    "phase": "DESIGN",
+    "front": "Phase: Requirements Analysis",
+    "back": "Define what the engine must do before designing how it does it. Torque, RPM range, thermal limits.",
+    "deliverables": [
+      "torque curve spec",
+      "thermal envelope",
+      "material constraints",
+      "cost target"
+    ],
+    "validation": "Stakeholder sign-off on spec document"
+  },
+  {
+    "id": "M2",
+    "phase": "DESIGN",
+    "front": "Phase: Conceptual Design",
+    "back": "Wankel cycle: intake\u2192compression\u2192ignition\u2192exhaust. Rotor has 3 faces, each fires once per revolution.",
+    "deliverables": [
+      "rotor geometry",
+      "housing profile",
+      "port timing diagram"
+    ],
+    "validation": "CFD simulation of combustion chamber"
+  },
+  {
+    "id": "M3",
+    "phase": "MATERIALS",
+    "front": "Phase: Material Selection",
+    "back": "Apex seals: carbon-aluminum or ceramic. Housing: Nikasil-coated aluminum. Thermal expansion must match.",
+    "deliverables": [
+      "apex seal material",
+      "housing coating",
+      "rotor alloy"
+    ],
+    "validation": "Thermal expansion compatibility check"
+  },
+  {
+    "id": "M4",
+    "phase": "ENGINEERING",
+    "front": "Phase: Tolerance Stack Analysis",
+    "back": "Every dimension has a tolerance. The stack of tolerances determines whether parts fit at temperature.",
+    "deliverables": [
+      "GD&T drawing",
+      "clearance budget",
+      "thermal gap prediction"
+    ],
+    "validation": "Worst-case stack < 0.05mm at operating temp"
+  },
+  {
+    "id": "M5",
+    "phase": "PROTOTYPE",
+    "front": "Phase: Prototype Fabrication",
+    "back": "First physical article. Differences from CAD are inevitable \u2014 CMM measures exactly how much.",
+    "deliverables": [
+      "CNC rotor",
+      "cast housing",
+      "ground apex seals"
+    ],
+    "validation": "CMM inspection against CAD model"
+  },
+  {
+    "id": "M6",
+    "phase": "PROTOTYPE",
+    "front": "Phase: Assembly",
+    "back": "Assembly order matters. Apex seals inserted last. Housing bolts torqued in spiral pattern from center.",
+    "deliverables": [
+      "assembled engine",
+      "torque sequence log",
+      "seal gap measurements"
+    ],
+    "validation": "Leak-down test < 5% at TDC"
+  },
+  {
+    "id": "M7",
+    "phase": "TEST",
+    "front": "Phase: Break-In Cycle",
+    "back": "First 10 hours: vary RPM, no full load. Seals bed into housing. Compression rises then stabilizes.",
+    "deliverables": [
+      "temperature log",
+      "compression curve",
+      "oil analysis"
+    ],
+    "validation": "Compression stabilizes within 5% across all 3 chambers"
+  },
+  {
+    "id": "M8",
+    "phase": "TEST",
+    "front": "Phase: Performance Mapping",
+    "back": "Full-throttle sweep from idle to redline. Measures actual output against design predictions.",
+    "deliverables": [
+      "torque/RPM curve",
+      "BSFC map",
+      "emissions profile"
+    ],
+    "validation": "Within 3% of design targets across RPM range"
+  },
+  {
+    "id": "M9",
+    "phase": "VALIDATE",
+    "front": "Phase: Durability Validation",
+    "back": "Extended run at peak torque RPM. Measures how the engine ages. Catches fatigue before production.",
+    "deliverables": [
+      "100hr endurance log",
+      "wear measurements",
+      "failure mode analysis"
+    ],
+    "validation": "No catastrophic failure, wear within spec"
+  },
+  {
+    "id": "M10",
+    "phase": "DEPLOY",
+    "front": "Phase: Production Release",
+    "back": "Design frozen. Manufacturing process documented. Quality gates defined at every station.",
+    "deliverables": [
+      "final BOM",
+      "work instructions",
+      "QC checklist"
+    ],
+    "validation": "First article inspection passed, PPAP approved"
+  }
+]

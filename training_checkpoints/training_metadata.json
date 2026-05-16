@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "generated": "2026-05-16T10:02:25.949891",
+  "total_flashcards": 21,
+  "total_sprite_frames": 11,
+  "domains": [
+    "human_mobility",
+    "mechanical_mobility"
+  ],
+  "output_files": [
+    "human_mobility_flashcards.json",
+    "human_mobility_sprite_sheet.json",
+    "mechanical_mobility_hypercheckpoints.json",
+    "cross_domain_mapping.json"
+  ],
+  "usage": "Feed these JSON files to an AI training pipeline. Each flashcard is an image/text pair. Each sprite sheet maps to pixel coordinates for procedural rendering."
+}

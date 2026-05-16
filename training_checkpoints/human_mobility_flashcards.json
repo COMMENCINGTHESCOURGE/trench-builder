@@ -1,0 +1,152 @@
+[
+  {
+    "id": "H1",
+    "front": "State: Supine Rest",
+    "back": "Body at rest. Zero energy expenditure. All joints neutral.",
+    "muscles": [
+      "none active"
+    ],
+    "energy_percent": 0,
+    "balance": "N/A",
+    "next_state": "H2",
+    "hash": "bc41f11f"
+  },
+  {
+    "id": "H2",
+    "front": "State: Core Engagement",
+    "back": "Deep core activates. Foundation for all movement. Brace without holding breath.",
+    "muscles": [
+      "rectus abdominis",
+      "transversus abdominis",
+      "pelvic floor"
+    ],
+    "energy_percent": 5,
+    "balance": "N/A",
+    "next_state": "H3",
+    "hash": "cbcd6329"
+  },
+  {
+    "id": "H3",
+    "front": "State: Roll to Side",
+    "back": "Weight transfers to one side. Obliques fire. Arm pushes against surface.",
+    "muscles": [
+      "obliques",
+      "latissimus dorsi",
+      "gluteus medius"
+    ],
+    "energy_percent": 15,
+    "balance": "Lateral 30%",
+    "next_state": "H4",
+    "hash": "e29a3b84"
+  },
+  {
+    "id": "H4",
+    "front": "State: Quadruped Position",
+    "back": "Four points of contact. Spine parallel to ground. Shoulders over wrists. Hips over knees.",
+    "muscles": [
+      "erector spinae",
+      "deltoids",
+      "quadriceps"
+    ],
+    "energy_percent": 25,
+    "balance": "4-point base",
+    "next_state": "H5",
+    "hash": "ed42c6c6"
+  },
+  {
+    "id": "H5",
+    "front": "State: Kneeling",
+    "back": "Vertical torso from kneeling. Hip flexors engage. Arms free for balance.",
+    "muscles": [
+      "gluteus maximus",
+      "hamstrings",
+      "core stabilizers"
+    ],
+    "energy_percent": 35,
+    "balance": "Knee base, narrow",
+    "next_state": "H6",
+    "hash": "e937c0b2"
+  },
+  {
+    "id": "H6",
+    "front": "State: Half-Kneeling",
+    "back": "Asymmetric stance. Front foot flat. Back knee and toes on ground. Core holds vertical.",
+    "muscles": [
+      "quadriceps (front leg)",
+      "glutes (both)",
+      "hip flexors"
+    ],
+    "energy_percent": 50,
+    "balance": "Tripod base",
+    "next_state": "H7",
+    "hash": "43e67dc6"
+  },
+  {
+    "id": "H7",
+    "front": "State: Standing",
+    "back": "Full upright posture. Ankles constantly micro-adjust. Center of mass over midfoot.",
+    "muscles": [
+      "gastrocnemius",
+      "soleus",
+      "quadriceps",
+      "glutes",
+      "core"
+    ],
+    "energy_percent": 60,
+    "balance": "Biped base, narrow",
+    "next_state": "H8",
+    "hash": "a01d107a"
+  },
+  {
+    "id": "H8",
+    "front": "State: Weight Shift",
+    "back": "Shift weight to stance leg. Glute med fires to prevent hip drop. Swing leg unweights.",
+    "muscles": [
+      "gluteus medius",
+      "tibialis anterior",
+      "peroneals"
+    ],
+    "energy_percent": 65,
+    "balance": "Single-leg transition",
+    "next_state": "H9",
+    "hash": "25b9e092"
+  },
+  {
+    "id": "H9",
+    "front": "State: Step Initiation",
+    "back": "Swing leg lifts and advances. Hip flexors drive. Ankle dorsiflexes for heel clearance.",
+    "muscles": [
+      "iliopsoas",
+      "rectus femoris",
+      "tibialis anterior"
+    ],
+    "energy_percent": 75,
+    "balance": "Dynamic single-leg",
+    "next_state": "H10",
+    "hash": "48d6a3b5"
+  },
+  {
+    "id": "H10",
+    "front": "State: Walking",
+    "back": "Reciprocal gait cycle. 60% stance phase, 40% swing. Heel strike \u2192 mid-stance \u2192 toe-off.",
+    "muscles": [
+      "all lower body cycling"
+    ],
+    "energy_percent": 85,
+    "balance": "Dynamic bipedal",
+    "next_state": "H11",
+    "hash": "86016499"
+  },
+  {
+    "id": "H11",
+    "front": "State: Running",
+    "back": "Both feet leave ground during stride. Arms counter-rotate. 3\u00d7 energy of walking.",
+    "muscles": [
+      "all lower body + arms"
+    ],
+    "energy_percent": 100,
+    "balance": "Dynamic with flight",
+    "next_state": null,
+    "hash": "f9b68b1a"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "sequence_step": 1,
+    "human": "Supine Rest (0% energy)",
+    "mechanical": "Requirements Analysis [DESIGN]",
+    "parallel": "Both progress from supine rest \u2192 requirements analysis: state transition + validation"
+  },
+  {
+    "sequence_step": 2,
+    "human": "Core Engagement (5% energy)",
+    "mechanical": "Conceptual Design [DESIGN]",
+    "parallel": "Both progress from core engagement \u2192 conceptual design: state transition + validation"
+  },
+  {
+    "sequence_step": 3,
+    "human": "Roll to Side (15% energy)",
+    "mechanical": "Material Selection [MATERIALS]",
+    "parallel": "Both progress from roll to side \u2192 material selection: state transition + validation"
+  },
+  {
+    "sequence_step": 4,
+    "human": "Quadruped Position (25% energy)",
+    "mechanical": "Tolerance Stack Analysis [ENGINEERING]",
+    "parallel": "Both progress from quadruped position \u2192 tolerance stack analysis: state transition + validation"
+  },
+  {
+    "sequence_step": 5,
+    "human": "Kneeling (35% energy)",
+    "mechanical": "Prototype Fabrication [PROTOTYPE]",
+    "parallel": "Both progress from kneeling \u2192 prototype fabrication: state transition + validation"
+  },
+  {
+    "sequence_step": 6,
+    "human": "Half-Kneeling (50% energy)",
+    "mechanical": "Assembly [PROTOTYPE]",
+    "parallel": "Both progress from half-kneeling \u2192 assembly: state transition + validation"
+  },
+  {
+    "sequence_step": 7,
+    "human": "Standing (60% energy)",
+    "mechanical": "Break-In Cycle [TEST]",
+    "parallel": "Both progress from standing \u2192 break-in cycle: state transition + validation"
+  },
+  {
+    "sequence_step": 8,
+    "human": "Weight Shift (65% energy)",
+    "mechanical": "Performance Mapping [TEST]",
+    "parallel": "Both progress from weight shift \u2192 performance mapping: state transition + validation"
+  },
+  {
+    "sequence_step": 9,
+    "human": "Step Initiation (75% energy)",
+    "mechanical": "Durability Validation [VALIDATE]",
+    "parallel": "Both progress from step initiation \u2192 durability validation: state transition + validation"
+  },
+  {
+    "sequence_step": 10,
+    "human": "Walking (85% energy)",
+    "mechanical": "Production Release [DEPLOY]",
+    "parallel": "Both progress from walking \u2192 production release: state transition + validation"
+  }
+]
