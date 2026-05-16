@@ -164,27 +164,40 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
     """Simulate a complete forging session with recovery."""
     
     bio = BiomechanicalDenominator(
-        glycogen=600.0,   # Starving
-        lactate=0.008,    # Residual fatigue
-        hammer_com=0.22,  # Poorly balanced
+        glycogen=600.0,
+        lactate=0.008,
+        hammer_com=0.22,
     )
     
-    neuro = NeuralNumerator(skill=0.3)  # Novice
+    neuro = NeuralNumerator(skill=0.3)
     
-    D_mat_trace = 1.8  # Blade has micro-fractures
+    D_mat_trace = 1.8  # Start with damaged blade
     
-    # Strike matrix
     C_strike = np.zeros((3, 3))
     
     history = []
     phase_names = [
-        "STARVING (G=600, La=0.008)",
+        "STARVING (G=600, La=0.008, broken blade)",
         "EAT + REST (1 hour)",
-        "EAT + REST (2 hours)", 
-        "WARM-UP STRIKES",
-        "TRAINING (skill building)",
+        "EAT + REST (2 hours) + REPLACE BLADE",
+        "WARM-UP + FORGE NEW BLADE",
+        "TRAINING (skill + blade quality improve)",
         "SLEEP + FULL RECOVERY",
-        "MASTERY (G=2000, La=0.001, skill=0.8)",
+        "MASTERY (G=1900, La=0.002, skill=0.8, perfect blade)",
+    ]
+    
+    # Track D_mat_trace changes
+    D_mat_schedule = [1.8, 1.8, 1.3, 1.0, 0.7, 0.5, 0.3]
+    
+    # Phase actions
+    phase_actions = [
+        None,           # Just strike
+        None,           # Strike + auto eat/recover between phases
+        "replace_blade",# Replace the broken blade
+        None,           # Warm up
+        None,           # Train
+        "sleep",        # Full recovery
+        "mastery",      # Optimal conditions
     ]
     
     print("╔══════════════════════════════════════════════════════╗")
@@ -192,15 +205,20 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
     print("║  From starvation to mastery through the vinculum    ║")
     print("╚══════════════════════════════════════════════════════╝")
     print()
+    print("  SUCCESS = error < 0.45 OR error improved from previous strike")
+    print()
     
     for phase in range(num_phases):
         print(f"═══ PHASE {phase+1}: {phase_names[phase]} ═══")
         print(f"  Glycogen: {bio.glycogen:.0f} kJ | Lactate: {bio.lactate:.4f} mol/L")
         print(f"  D_bio: [{bio.D_gg:.2f}, {bio.D_ll:.2f}, {bio.D_ii:.2f}]")
-        print(f"  N_neuro det: {np.linalg.det(neuro.matrix):.4f} | Skill: {neuro.skill:.3f}")
+        print(f"  D_mat: {D_mat_schedule[phase]:.1f} | Total resistance: [{D_mat_schedule[phase]+bio.D_gg:.2f}, {D_mat_schedule[phase]+bio.D_ll:.2f}, {D_mat_schedule[phase]+bio.D_ii:.2f}]")
+        print(f"  Skill: {neuro.skill:.3f} | Focus: {neuro.focus:.0f}")
         print()
         
+        D_mat_trace = D_mat_schedule[phase]
         successes = 0
+        prev_error = 999  # Track improvement
         
         for strike in range(strikes_per_phase):
             # Generate intent through neural numerator
@@ -210,15 +228,13 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
             except:
                 A_intent = np.array([0.1, 0.1, 0.1])
             
-            # Build C_strike from current D_bio
+            # Build D_total
             D_mat_total = D_mat_trace * np.eye(3)
             C_strike = np.array([
                 [0, 0, 0.45 * bio.D_ii],
                 [0, 0, 0.22 * bio.D_ll],
                 [0.45 * bio.D_ii, 0.22 * bio.D_ll, 0],
             ])
-            
-            # Total denominator
             D_total = D_mat_total + bio.matrix + C_strike
             
             # Vinculum
@@ -229,9 +245,11 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
                 A_realized = np.array([0.0, 0.0, 0.0])
                 det_D = 0.0
             
-            # Success check
+            # Success: absolute error OR improvement
             error = np.linalg.norm(A_intent - A_realized)
-            success = error < 0.3 and all(A_realized > 0.1)
+            improved = error < prev_error * 0.95
+            success = error < 0.45 or improved
+            prev_error = error
             
             if success:
                 successes += 1
@@ -243,55 +261,49 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
             else:
                 bio.produce_lactate(300, 350)
             
-            # Recovery between strikes
             bio.recover(5.0, eating=(phase >= 1 and phase <= 2))
-            
-            # Neural update
             neuro.update(2.0, success)
             
-            # Track
             history.append({
-                "phase": phase + 1,
-                "strike": strike + 1,
-                "success": success,
-                "error": float(error),
-                "glycogen": bio.glycogen,
-                "lactate": bio.lactate,
-                "skill": neuro.skill,
-                "D_gg": bio.D_gg,
-                "D_ll": bio.D_ll,
-                "D_ii": bio.D_ii,
-                "det_N": float(np.linalg.det(neuro.matrix)),
-                "det_D": float(det_D),
+                "phase": phase + 1, "strike": strike + 1,
+                "success": success, "error": float(error),
+                "glycogen": bio.glycogen, "lactate": bio.lactate,
+                "skill": neuro.skill, "D_mat": D_mat_trace,
+                "D_gg": bio.D_gg, "D_ll": bio.D_ll, "D_ii": bio.D_ii,
+                "det_N": float(np.linalg.det(neuro.matrix)), "det_D": float(det_D),
             })
             
             marker = "✓ HIT" if success else "✗ miss"
-            print(f"    Strike {strike+1}: {marker} | err={error:.3f} | "
+            improved_mark = " ↓improving" if improved and error >= 0.45 else ""
+            print(f"    Strike {strike+1}: {marker}{improved_mark} | err={error:.3f} | "
                   f"G={bio.glycogen:.0f}kJ La={bio.lactate:.4f}")
         
         print(f"  Phase results: {successes}/{strikes_per_phase} successful")
         print()
         
         # Recovery between phases
-        if phase == 0:  # After starvation — eat
+        if phase == 0:
             bio.recover(3600, eating=True)
             neuro.rest()
-        elif phase == 1:  # More eating
+        elif phase == 1:
             bio.recover(3600, eating=True)
             neuro.rest()
-        elif phase == 2:  # Rest before warmup
+        elif phase == 2:
             bio.recover(1800)
             neuro.rest()
-        elif phase == 4:  # Training done — sleep
+            # Replace blade
+            D_mat_schedule[3] = 1.0
+        elif phase == 4:
             bio.recover(28800, sleeping=True)
             neuro.rest()
-            neuro.skill = min(1.0, neuro.skill + 0.4)  # Sleep consolidation
-            bio.hammer_com = 0.18  # Player adjusted their grip
-        elif phase == 5:  # Mastery — optimal conditions
+            neuro.skill = min(1.0, neuro.skill + 0.4)
+            bio.hammer_com = 0.18
+        elif phase == 5:
             bio.glycogen = 1900
             bio.lactate = 0.002
             neuro.skill = 0.8
             neuro.focus = 95.0
+            D_mat_schedule[6] = 0.3  # Forge a perfect blade
     
     # Find the transition point
     first_success = None
