@@ -59,7 +59,7 @@
   {
     "id": "H5",
     "front": "State: Bounce",
-    "back": "Knees become springs. Body oscillates vertically without moving forward. The stretch-shortening cycle activates. Achilles tendon stores and releases energy. This is where rhythm is born \u2014 the metronome before the step.",
+    "back": "Knees become springs. Body oscillates vertically without moving forward. Glutes are the primary engine \u2014 they drive the bounce through a sequence of angles: hip extension (glute max fires)\u2192 knee extension (quadriceps follow) \u2192 ankle plantarflexion (gastrocnemius releases stored energy). The stretch-shortening cycle activates. Achilles tendon stores and releases. Energy flows hip\u2192knee\u2192ankle in a cascading angular chain. This is where rhythm is born \u2014 the metronome before the step.",
     "muscles": [
       "quadriceps (eccentric\u2192concentric)",
       "gastrocnemius (spring)",
@@ -69,7 +69,7 @@
     "energy_percent": 65,
     "balance": "Dynamic vertical, no translation",
     "next_state": "H6",
-    "hash": "46c148f5"
+    "hash": "b8b4d00a"
   },
   {
     "id": "H6",

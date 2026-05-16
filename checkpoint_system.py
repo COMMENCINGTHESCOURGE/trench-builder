@@ -72,7 +72,7 @@ HUMAN_MOBILITY = {
         {"id": "H5", "name": "Bounce", "state": "Rhythmic knee flexion/extension, pre-walk weight oscillation",
          "muscles": ["quadriceps (eccentric→concentric)", "gastrocnemius (spring)", "tibialis anterior (stabilize)", "glutes (rhythmic)"],
          "energy": 65, "balance": "Dynamic vertical, no translation", "next": "H6",
-         "flashcard": "Knees become springs. Body oscillates vertically without moving forward. The stretch-shortening cycle activates. Achilles tendon stores and releases energy. This is where rhythm is born — the metronome before the step."},
+         "flashcard": "Knees become springs. Body oscillates vertically without moving forward. Glutes are the primary engine — they drive the bounce through a sequence of angles: hip extension (glute max fires)→ knee extension (quadriceps follow) → ankle plantarflexion (gastrocnemius releases stored energy). The stretch-shortening cycle activates. Achilles tendon stores and releases. Energy flows hip→knee→ankle in a cascading angular chain. This is where rhythm is born — the metronome before the step."},
         {"id": "H6", "name": "Walk", "state": "Reciprocal gait, alternating stance/swing",
          "muscles": ["all lower body cycling", "arm swing for counter-rotation"],
          "energy": 80, "balance": "Dynamic bipedal", "next": "H7",
