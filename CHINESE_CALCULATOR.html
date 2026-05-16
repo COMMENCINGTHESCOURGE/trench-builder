@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chinese Calculator — Checkpoint Abacus</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1208;color:#d4a854;font:13px 'Segoe UI',monospace;padding:30px;max-width:900px;margin:0 auto}
+h1{color:#e8c864;font-size:16px;letter-spacing:6px;text-align:center;margin-bottom:4px}
+h1 span{font-size:22px}
+.sub{color:#8a6832;font-size:10px;text-align:center;letter-spacing:2px;margin-bottom:30px}
+.bead-row{display:flex;align-items:center;margin:8px 0;padding:6px 0;border-bottom:1px solid #2a1e0e}
+.bead-label{width:150px;font-size:10px;color:#8a6832;letter-spacing:1px;flex-shrink:0}
+.bead-track{flex:1;height:28px;background:#0d0a04;border-radius:14px;position:relative;overflow:visible;border:1px solid #2a1e0e;margin:0 12px}
+.bead{position:absolute;top:2px;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#d4a854,#8a6832);box-shadow:0 2px 4px rgba(0,0,0,.5);transition:left .8s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.bead.heaven{background:linear-gradient(135deg,#e8c864,#aa8822);top:1px;width:26px;height:26px}
+.bead-count{width:60px;text-align:right;font-size:11px;color:#e8c864;flex-shrink:0}
+.wire{position:absolute;top:50%;left:12px;right:12px;height:1px;background:#2a1e0e;transform:translateY(-50%)}
+.legend{display:flex;justify-content:center;gap:30px;margin:20px 0;font-size:9px;color:#8a6832}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.legend .dot.earth{background:#d4a854}
+.legend .dot.heaven{background:#e8c864}
+.status{text-align:center;margin-top:20px;font-size:10px;color:#8a6832}
+.status span{color:#e8c864}
+.total-bar{height:6px;background:#0d0a04;border-radius:3px;margin:20px 0;border:1px solid #2a1e0e;overflow:hidden}
+.total-fill{height:100%;background:linear-gradient(90deg,#8a6832,#e8c864);border-radius:3px;transition:width 1s}
+</style>
+</head>
+<body>
+<h1><span>��</span> CHECKPOINT ABACUS</h1>
+<div class="sub">SCOOT → CRAWL → STAND → BOUNCE → WALK → JUMP → RUN</div>
+
+<div class="legend">
+  <span><div class="dot earth"></div> Earth beads (progress)</span>
+  <span><div class="dot heaven"></div> Heaven beads (milestone)</span>
+</div>
+
+<div id="abacus"></div>
+
+<div class="total-bar"><div class="total-fill" id="total-bar"></div></div>
+<div class="status">COMPLETION: <span id="total-pct">0</span>%</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// ABACUS DATA
+// ═══════════════════════════════════════════════════════
+const PROJECTS = [
+  {name:"TRENCH BUILDER", earth:5, heaven:2, total:7,
+   stages:["v1","v5.14","MEP","Bridge","Agents","Blueprint","SaaS"]},
+  {name:"ERDOS-STRAUS", earth:3, heaven:4, total:7,
+   stages:["Sieve","Workers","5-Node","L40S","Manifest","Verify","1T Done"]},
+  {name:"HACKATHON", earth:4, heaven:2, total:6,
+   stages:["Writeup","Code","Veo","Script","Video","Submit"]},
+  {name:"HYPERREAL LOWPOLY", earth:3, heaven:4, total:7,
+   stages:["Systems","Blueprint","HYPERPOLY","Materials","Minicity","GoPro","City-Scale"]},
+  {name:"INFRASTRUCTURE", earth:3, heaven:4, total:7,
+   stages:["Agents","Cron","Kaggle","Keys","Consolidate","All Green","Autonomous"]},
+  {name:"MYCELIA GAME", earth:0, heaven:7, total:7,
+   stages:["Germinate","Connect","Anastomose","Nutrients","Explore","Memory","Conscious"]},
+];
+
+const TRACKS = document.getElementById('abacus');
+let totalEarth = 0, totalHeaven = 0, grandTotal = 0;
+
+PROJECTS.forEach((proj,i) => {
+  const row = document.createElement('div');
+  row.className = 'bead-row';
+  
+  // Label
+  const label = document.createElement('div');
+  label.className = 'bead-label';
+  label.textContent = proj.name;
+  row.appendChild(label);
+  
+  // Track
+  const track = document.createElement('div');
+  track.className = 'bead-track';
+  const wire = document.createElement('div');
+  wire.className = 'wire';
+  track.appendChild(wire);
+  
+  const trackWidth = track.offsetWidth || 600;
+  const beadSpacing = (trackWidth - 40) / Math.max(1, proj.total - 1);
+  
+  // Heaven beads (milestones — top of track)
+  for (let h = 0; h < proj.heaven; h++) {
+    const bead = document.createElement('div');
+    bead.className = 'bead heaven';
+    bead.style.left = (10 + (proj.earth + h) * beadSpacing) + 'px';
+    bead.title = proj.stages[proj.earth + h] || '';
+    track.appendChild(bead);
+  }
+  
+  // Earth beads (progress — left side)
+  for (let e = 0; e < proj.earth; e++) {
+    const bead = document.createElement('div');
+    bead.className = 'bead';
+    bead.style.left = (10 + e * beadSpacing) + 'px';
+    bead.title = proj.stages[e] || '';
+    track.appendChild(bead);
+  }
+  
+  row.appendChild(track);
+  
+  // Count
+  const count = document.createElement('div');
+  count.className = 'bead-count';
+  count.textContent = `${proj.earth}/${proj.total}`;
+  row.appendChild(count);
+  
+  TRACKS.appendChild(row);
+  
+  totalEarth += proj.earth;
+  totalHeaven += proj.heaven;
+  grandTotal += proj.total;
+});
+
+// Total bar
+const pct = Math.round((totalEarth / grandTotal) * 100);
+document.getElementById('total-bar').style.width = pct + '%';
+document.getElementById('total-pct').textContent = pct;
+</script>
+</body>
+</html>
