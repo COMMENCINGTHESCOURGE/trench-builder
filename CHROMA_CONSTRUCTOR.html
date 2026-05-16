@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CHROMA CASCADE — Radial Constructor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#ccc;font:12px monospace;overflow:hidden;height:100vh}
+#app{display:flex;height:100vh}
+#viewport{flex:1;position:relative;background:radial-gradient(ellipse at center,#1a1a30,#0a0a12)}
+#dome{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+#dome-band{position:absolute;top:0;left:0;width:100%;height:100%}
+#sidebar{width:280px;background:#0d0d18;border-left:1px solid #1a1a2a;padding:20px;overflow-y:auto}
+h2{color:#aac;font-size:13px;letter-spacing:3px;margin-bottom:4px}
+.sub{color:#556;font-size:9px;margin-bottom:20px}
+.layer{display:flex;align-items:center;padding:8px 10px;margin:4px 0;border-radius:4px;cursor:pointer;transition:all .2s;border:1px solid transparent;font-size:10px}
+.layer:hover{border-color:#334}
+.layer.active{background:#111122;border-color:#445}
+.layer-num{width:20px;height:20px;border-radius:50%;margin-right:10px;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;flex-shrink:0}
+.layer-info{flex:1}
+.layer-name{color:#ccc;font-size:10px;letter-spacing:1px}
+.layer-desc{color:#556;font-size:8px;margin-top:2px}
+.layer-check{color:#5a5;font-size:9px}
+#radial-menu{position:absolute;width:200px;height:200px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .15s}
+#radial-menu.visible{opacity:1;pointer-events:auto}
+.verb{position:absolute;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;border:2px solid rgba(255,255,255,.2);transition:all .15s;color:#fff}
+.verb:hover{border-color:#fff;transform:scale(1.1)}
+.verb.extrude{top:10px;left:70px;background:rgba(255,50,50,.3)}
+.verb.bevel{top:70px;right:10px;background:rgba(255,200,0,.3)}
+.verb.weld{bottom:10px;left:70px;background:rgba(50,200,255,.3)}
+.verb.paint{top:70px;left:10px;background:rgba(200,50,255,.3)}
+#hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#556;font-size:10px;letter-spacing:1px;pointer-events:none}
+#tech-tree{position:absolute;bottom:60px;left:20px;font-size:9px;color:#556;pointer-events:none}
+#tech-tree div{margin:2px 0}
+#tech-tree .unlocked{color:#5a5}
+#tech-tree .locked{color:#444}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="viewport">
+  <div id="dome">
+    <canvas id="dome-band" width="800" height="600"></canvas>
+  </div>
+  <div id="radial-menu">
+    <div class="verb extrude" title="Extrude">▲</div>
+    <div class="verb bevel" title="Bevel">◆</div>
+    <div class="verb weld" title="Weld">⬒</div>
+    <div class="verb paint" title="Paint">🖌</div>
+  </div>
+  <div id="tech-tree"></div>
+  <div id="hint">RIGHT-CLICK → Radial Menu | SCROLL → Layer | CLICK LAYER → Select</div>
+</div>
+<div id="sidebar">
+  <h2>CHROMA CASCADE</h2>
+  <div class="sub">7 LAYERS • 4 VERBS • ∞ BUILDS</div>
+  <div id="layers"></div>
+  <div style="margin-top:20px;border-top:1px solid #1a1a2a;padding-top:12px">
+    <div class="sub">CHECKPOINT STAGE</div>
+    <div id="checkpoint-display" style="color:#e8c864;font-size:11px;letter-spacing:1px;margin-top:4px">SUPINE</div>
+    <div class="sub" style="margin-top:8px">BUILDING VERB</div>
+    <div id="verb-display" style="color:#5af;font-size:11px;letter-spacing:1px;margin-top:4px">EXTRUDE</div>
+  </div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+const LAYERS = [
+  {num:1,name:"STRATO-RUBY",color:"#ff3333",rule:"DENSE GRAVITY",build:"Brutalist Mega",cp:"SUPINE",verb:"EXTRUDE",
+   desc:"2G gravity. Heavy foundations. Slow crushing falls."},
+  {num:2,name:"AERO-TANGERINE",color:"#ff8833",rule:"THERMAL UPDRAFTS",build:"Wind-Catchers",cp:"SCOOT",verb:"EXTRUDE",
+   desc:"Hot winds rise. Turbines and spires with sails."},
+  {num:3,name:"HELIO-GOLD",color:"#ffcc00",rule:"PHOTON SATURATION",build:"Prism Arrays",cp:"CRAWL",verb:"BEVEL",
+   desc:"Light bends. Mirror bridges. Blinding beams."},
+  {num:4,name:"VIRIDIAN PULSE",color:"#33cc44",rule:"BIO-RESPONSIVE",build:"Living Scaffolds",cp:"STAND",verb:"WELD",
+   desc:"Structures grow and heal. Organic vine bridges."},
+  {num:5,name:"COBALT DRIFT",color:"#3388ff",rule:"ZERO-G FLUID",build:"Bubble Domes",cp:"BOUNCE",verb:"WELD",
+   desc:"You float. Momentum is king. Drifting platforms."},
+  {num:6,name:"INDIGO VOID",color:"#6633cc",rule:"REVERSE GRAVITY",build:"Cantilevered",cp:"WALK",verb:"PAINT",
+   desc:"Down is sideways. Buildings hang inward."},
+  {num:7,name:"VIOLET SINGULARITY",color:"#cc33ff",rule:"TIME DILATION",build:"Afterimage",cp:"RUN",verb:"PAINT",
+   desc:"1s=20s at peak. Instant builds. Rapid decay."},
+];
+
+let currentLayer = 0;
+let radialVisible = false;
+
+// ═══════════════════════════════════════════════════════
+// RENDER SIDEBAR
+// ═══════════════════════════════════════════════════════
+function renderLayers(){
+  const container = document.getElementById('layers');
+  container.innerHTML = '';
+  LAYERS.forEach((l,i) => {
+    const div = document.createElement('div');
+    div.className = 'layer' + (i===currentLayer?' active':'');
+    div.innerHTML = '<div class="layer-num" style="background:'+l.color+'">'+l.num+'</div>'+
+      '<div class="layer-info"><div class="layer-name">'+l.name+'</div>'+
+      '<div class="layer-desc">'+l.rule+' • '+l.build+'</div></div>'+
+      '<div class="layer-check">'+(i<=currentLayer?'✓':'')+'</div>';
+    div.onclick = () => { currentLayer = i; updateAll(); };
+    container.appendChild(div);
+  });
+  document.getElementById('checkpoint-display').textContent = LAYERS[currentLayer].cp;
+  document.getElementById('verb-display').textContent = LAYERS[currentLayer].verb;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER DOME
+// ═══════════════════════════════════════════════════════
+function renderDome(){
+  const canvas = document.getElementById('dome-band');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+  
+  const w = canvas.width, h = canvas.height;
+  const bandH = h / 7;
+  
+  // Draw rainbow bands
+  LAYERS.forEach((l,i) => {
+    const y = h - (i+1)*bandH;
+    const grad = ctx.createLinearGradient(0,y,0,y+bandH);
+    grad.addColorStop(0,l.color+'44');
+    grad.addColorStop(0.5,l.color+'88');
+    grad.addColorStop(1,l.color+'44');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,y,w,bandH);
+    
+    // Layer label
+    ctx.fillStyle = l.color;
+    ctx.font = '10px monospace';
+    ctx.fillText(l.name, 20, y+bandH/2+4);
+    
+    // Active layer highlight
+    if(i === currentLayer){
+      ctx.strokeStyle = l.color;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(2,y+2,w-4,bandH-4);
+      
+      // Glow
+      ctx.shadowColor = l.color;
+      ctx.shadowBlur = 20;
+      ctx.strokeRect(2,y+2,w-4,bandH-4);
+      ctx.shadowBlur = 0;
+    }
+  });
+  
+  // Title
+  ctx.fillStyle = '#aac';
+  ctx.font = '12px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('THE RAINBOW DOME', w/2, 24);
+  ctx.fillStyle = '#556';
+  ctx.font = '9px monospace';
+  ctx.fillText(LAYERS[currentLayer].name+' — '+LAYERS[currentLayer].rule, w/2, 40);
+}
+
+// ═══════════════════════════════════════════════════════
+// TECH TREE
+// ═══════════════════════════════════════════════════════
+function renderTechTree(){
+  const el = document.getElementById('tech-tree');
+  let html = 'TECH TREE<br>';
+  LAYERS.forEach((l,i) => {
+    const unlocked = i <= currentLayer;
+    html += '<div class="'+(unlocked?'unlocked':'locked')+'">'+
+      (unlocked?'✓':'○')+' '+l.name+' — '+l.build+'</div>';
+  });
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════
+// RADIAL MENU
+// ═══════════════════════════════════════════════════════
+function showRadial(x,y){
+  const menu = document.getElementById('radial-menu');
+  menu.style.left = (x-100)+'px';
+  menu.style.top = (y-100)+'px';
+  menu.classList.add('visible');
+  radialVisible = true;
+  
+  // Atmosphere feedback on verbs
+  const layer = LAYERS[currentLayer];
+  const verbs = document.querySelectorAll('.verb');
+  verbs.forEach(v => {
+    if(layer.rule.includes('GRAVITY')){
+      v.style.transform = 'scale(0.9)';
+      v.style.transition = 'all 0.3s ease';
+    }else if(layer.rule.includes('PHOTON')){
+      v.style.boxShadow = '0 0 20px '+layer.color;
+    }else if(layer.rule.includes('BIO')){
+      v.style.animation = 'pulse 1s infinite';
+    }else if(layer.rule.includes('ZERO')){
+      v.style.transform = 'translateY(-4px)';
+    }else{
+      v.style.transform = '';
+      v.style.boxShadow = '';
+      v.style.animation = '';
+    }
+  });
+}
+
+function hideRadial(){
+  document.getElementById('radial-menu').classList.remove('visible');
+  radialVisible = false;
+}
+
+// ═══════════════════════════════════════════════════════
+// UPDATE ALL
+// ═══════════════════════════════════════════════════════
+function updateAll(){
+  renderLayers();
+  renderDome();
+  renderTechTree();
+}
+
+// ═══════════════════════════════════════════════════════
+// EVENTS
+// ═══════════════════════════════════════════════════════
+document.getElementById('viewport').addEventListener('contextmenu', e => {
+  e.preventDefault();
+  showRadial(e.clientX, e.clientY);
+});
+
+document.addEventListener('click', e => {
+  if(radialVisible && !e.target.classList.contains('verb')){
+    hideRadial();
+  }
+});
+
+document.addEventListener('wheel', e => {
+  if(e.deltaY > 0) currentLayer = Math.min(6, currentLayer+1);
+  else currentLayer = Math.max(0, currentLayer-1);
+  updateAll();
+});
+
+document.querySelectorAll('.verb').forEach(v => {
+  v.addEventListener('click', e => {
+    e.stopPropagation();
+    const verb = v.classList.contains('extrude')?'EXTRUDE':
+                v.classList.contains('bevel')?'BEVEL':
+                v.classList.contains('weld')?'WELD':'PAINT';
+    document.getElementById('verb-display').textContent = verb;
+    hideRadial();
+  });
+});
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+updateAll();
+window.addEventListener('resize', renderDome);
+
+// Pulse animation for bio-responsive layer
+const style = document.createElement('style');
+style.textContent = '@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
