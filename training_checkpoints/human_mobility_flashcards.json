@@ -44,33 +44,48 @@
   {
     "id": "H4",
     "front": "State: Stand",
-    "back": "Full upright posture. Ankles micro-adjust continuously. Center of mass over midfoot. The hardest checkpoint \u2014 balance against gravity.",
+    "back": "Full upright posture. Ankles micro-adjust continuously. Center of mass over midfoot. Static balance achieved \u2014 but no rhythm yet.",
     "muscles": [
       "gluteus maximus",
       "quadriceps",
       "gastrocnemius",
       "core"
     ],
-    "energy_percent": 60,
+    "energy_percent": 50,
     "balance": "Biped base, narrow",
     "next_state": "H5",
-    "hash": "7805b1ce"
+    "hash": "7d570f7d"
   },
   {
     "id": "H5",
+    "front": "State: Bounce",
+    "back": "Knees become springs. Body oscillates vertically without moving forward. The stretch-shortening cycle activates. Achilles tendon stores and releases energy. This is where rhythm is born \u2014 the metronome before the step.",
+    "muscles": [
+      "quadriceps (eccentric\u2192concentric)",
+      "gastrocnemius (spring)",
+      "tibialis anterior (stabilize)",
+      "glutes (rhythmic)"
+    ],
+    "energy_percent": 65,
+    "balance": "Dynamic vertical, no translation",
+    "next_state": "H6",
+    "hash": "46c148f5"
+  },
+  {
+    "id": "H6",
     "front": "State: Walk",
-    "back": "Reciprocal gait cycle. 60% stance, 40% swing. Heel strike \u2192 mid-stance \u2192 toe-off. Arms counter-rotate for stability.",
+    "back": "Reciprocal gait cycle. 60% stance, 40% swing. Heel strike \u2192 mid-stance \u2192 toe-off. Arms counter-rotate for stability. Bounce taught the springs \u2014 walk releases them forward.",
     "muscles": [
       "all lower body cycling",
       "arm swing for counter-rotation"
     ],
-    "energy_percent": 75,
+    "energy_percent": 80,
     "balance": "Dynamic bipedal",
-    "next_state": "H6",
-    "hash": "831a0504"
+    "next_state": "H7",
+    "hash": "e0ad9600"
   },
   {
-    "id": "H6",
+    "id": "H7",
     "front": "State: Jump",
     "back": "First intentional flight. Both feet push simultaneously. Knees and hips triple-extend. Arms swing upward for momentum. Landing absorbs 3-5\u00d7 bodyweight. The bridge between walk and run.",
     "muscles": [
@@ -81,11 +96,11 @@
     ],
     "energy_percent": 90,
     "balance": "Flight phase, then landing",
-    "next_state": "H7",
+    "next_state": "H8",
     "hash": "44c9be85"
   },
   {
-    "id": "H7",
+    "id": "H8",
     "front": "State: Run",
     "back": "Both feet leave ground during stride. Arms drive forward/back. 3\u00d7 energy of walking. Flight phase distinguishes run from walk. Jump taught the body flight \u2014 run sustains it.",
     "muscles": [

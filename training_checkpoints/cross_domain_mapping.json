@@ -19,26 +19,32 @@
   },
   {
     "sequence_step": 4,
-    "human": "Stand (60% energy)",
+    "human": "Stand (50% energy)",
     "mechanical": "Tolerance Stack Analysis [ENGINEERING]",
     "parallel": "Both progress from stand \u2192 tolerance stack analysis: state transition + validation"
   },
   {
     "sequence_step": 5,
-    "human": "Walk (75% energy)",
+    "human": "Bounce (65% energy)",
     "mechanical": "Prototype Fabrication [PROTOTYPE]",
-    "parallel": "Both progress from walk \u2192 prototype fabrication: state transition + validation"
+    "parallel": "Both progress from bounce \u2192 prototype fabrication: state transition + validation"
   },
   {
     "sequence_step": 6,
-    "human": "Jump (90% energy)",
+    "human": "Walk (80% energy)",
     "mechanical": "Assembly [PROTOTYPE]",
-    "parallel": "Both progress from jump \u2192 assembly: state transition + validation"
+    "parallel": "Both progress from walk \u2192 assembly: state transition + validation"
   },
   {
     "sequence_step": 7,
-    "human": "Run (100% energy)",
+    "human": "Jump (90% energy)",
     "mechanical": "Break-In Cycle [TEST]",
-    "parallel": "Both progress from run \u2192 break-in cycle: state transition + validation"
+    "parallel": "Both progress from jump \u2192 break-in cycle: state transition + validation"
+  },
+  {
+    "sequence_step": 8,
+    "human": "Run (100% energy)",
+    "mechanical": "Performance Mapping [TEST]",
+    "parallel": "Both progress from run \u2192 performance mapping: state transition + validation"
   }
 ]

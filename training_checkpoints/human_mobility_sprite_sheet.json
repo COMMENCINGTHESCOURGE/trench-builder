@@ -1,7 +1,7 @@
 {
   "layout": "6\u00d72",
   "cell_size": "64\u00d764px",
-  "total_frames": 7,
+  "total_frames": 8,
   "frames": [
     {
       "frame": 0,
@@ -34,20 +34,27 @@
     {
       "frame": 4,
       "grid_pos": "(4, 0)",
-      "label": "Walk",
-      "state": "Reciprocal gait, alternating stance/swing",
+      "label": "Bounce",
+      "state": "Rhythmic knee flexion/extension, pre-walk weight oscillation",
       "transition_to": "H6"
     },
     {
       "frame": 5,
       "grid_pos": "(5, 0)",
-      "label": "Jump",
-      "state": "Explosive bilateral push-off, both feet leave ground",
+      "label": "Walk",
+      "state": "Reciprocal gait, alternating stance/swing",
       "transition_to": "H7"
     },
     {
       "frame": 6,
       "grid_pos": "(0, 1)",
+      "label": "Jump",
+      "state": "Explosive bilateral push-off, both feet leave ground",
+      "transition_to": "H8"
+    },
+    {
+      "frame": 7,
+      "grid_pos": "(1, 1)",
       "label": "Run",
       "state": "Aerial phase, increased cadence",
       "transition_to": null
