@@ -64,15 +64,30 @@
       "all lower body cycling",
       "arm swing for counter-rotation"
     ],
-    "energy_percent": 80,
+    "energy_percent": 75,
     "balance": "Dynamic bipedal",
     "next_state": "H6",
     "hash": "831a0504"
   },
   {
     "id": "H6",
+    "front": "State: Jump",
+    "back": "First intentional flight. Both feet push simultaneously. Knees and hips triple-extend. Arms swing upward for momentum. Landing absorbs 3-5\u00d7 bodyweight. The bridge between walk and run.",
+    "muscles": [
+      "gluteus maximus (max)",
+      "quadriceps (max)",
+      "gastrocnemius (max)",
+      "core (brace)"
+    ],
+    "energy_percent": 90,
+    "balance": "Flight phase, then landing",
+    "next_state": "H7",
+    "hash": "44c9be85"
+  },
+  {
+    "id": "H7",
     "front": "State: Run",
-    "back": "Both feet leave ground during stride. Arms drive forward/back. 3\u00d7 energy of walking. Flight phase distinguishes run from walk.",
+    "back": "Both feet leave ground during stride. Arms drive forward/back. 3\u00d7 energy of walking. Flight phase distinguishes run from walk. Jump taught the body flight \u2014 run sustains it.",
     "muscles": [
       "all lower body + arms pumping",
       "increased fast-twitch recruitment"
@@ -80,6 +95,6 @@
     "energy_percent": 100,
     "balance": "Dynamic with flight phase",
     "next_state": null,
-    "hash": "27963989"
+    "hash": "c046ce87"
   }
 ]

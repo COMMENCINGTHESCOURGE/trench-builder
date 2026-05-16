@@ -40,12 +40,16 @@ HUMAN_MOBILITY = {
          "flashcard": "Full upright posture. Ankles micro-adjust continuously. Center of mass over midfoot. The hardest checkpoint — balance against gravity."},
         {"id": "H5", "name": "Walk", "state": "Reciprocal gait, alternating stance/swing",
          "muscles": ["all lower body cycling", "arm swing for counter-rotation"],
-         "energy": 80, "balance": "Dynamic bipedal", "next": "H6",
+         "energy": 75, "balance": "Dynamic bipedal", "next": "H6",
          "flashcard": "Reciprocal gait cycle. 60% stance, 40% swing. Heel strike → mid-stance → toe-off. Arms counter-rotate for stability."},
-        {"id": "H6", "name": "Run", "state": "Aerial phase, increased cadence",
+        {"id": "H6", "name": "Jump", "state": "Explosive bilateral push-off, both feet leave ground",
+         "muscles": ["gluteus maximus (max)", "quadriceps (max)", "gastrocnemius (max)", "core (brace)"],
+         "energy": 90, "balance": "Flight phase, then landing", "next": "H7",
+         "flashcard": "First intentional flight. Both feet push simultaneously. Knees and hips triple-extend. Arms swing upward for momentum. Landing absorbs 3-5× bodyweight. The bridge between walk and run."},
+        {"id": "H7", "name": "Run", "state": "Aerial phase, increased cadence",
          "muscles": ["all lower body + arms pumping", "increased fast-twitch recruitment"],
          "energy": 100, "balance": "Dynamic with flight phase", "next": None,
-         "flashcard": "Both feet leave ground during stride. Arms drive forward/back. 3× energy of walking. Flight phase distinguishes run from walk."},
+         "flashcard": "Both feet leave ground during stride. Arms drive forward/back. 3× energy of walking. Flight phase distinguishes run from walk. Jump taught the body flight — run sustains it."},
     ]
 }
 

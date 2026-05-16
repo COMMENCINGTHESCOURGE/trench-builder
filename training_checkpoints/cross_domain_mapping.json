@@ -25,14 +25,20 @@
   },
   {
     "sequence_step": 5,
-    "human": "Walk (80% energy)",
+    "human": "Walk (75% energy)",
     "mechanical": "Prototype Fabrication [PROTOTYPE]",
     "parallel": "Both progress from walk \u2192 prototype fabrication: state transition + validation"
   },
   {
     "sequence_step": 6,
-    "human": "Run (100% energy)",
+    "human": "Jump (90% energy)",
     "mechanical": "Assembly [PROTOTYPE]",
-    "parallel": "Both progress from run \u2192 assembly: state transition + validation"
+    "parallel": "Both progress from jump \u2192 assembly: state transition + validation"
+  },
+  {
+    "sequence_step": 7,
+    "human": "Run (100% energy)",
+    "mechanical": "Break-In Cycle [TEST]",
+    "parallel": "Both progress from run \u2192 break-in cycle: state transition + validation"
   }
 ]

@@ -1,7 +1,7 @@
 {
-  "layout": "6\u00d71",
+  "layout": "6\u00d72",
   "cell_size": "64\u00d764px",
-  "total_frames": 6,
+  "total_frames": 7,
   "frames": [
     {
       "frame": 0,
@@ -41,6 +41,13 @@
     {
       "frame": 5,
       "grid_pos": "(5, 0)",
+      "label": "Jump",
+      "state": "Explosive bilateral push-off, both feet leave ground",
+      "transition_to": "H7"
+    },
+    {
+      "frame": 6,
+      "grid_pos": "(0, 1)",
       "label": "Run",
       "state": "Aerial phase, increased cadence",
       "transition_to": null
