@@ -1,0 +1,72 @@
+[
+  {
+    "id": "TB1",
+    "front": "State: Supine \u2014 Single HTML Proof",
+    "back": "First breath. Can we even render a 3D scene in a single HTML file? Yes.",
+    "muscles": [],
+    "energy_percent": 0,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "9ccba97a"
+  },
+  {
+    "id": "TB2",
+    "front": "State: Scoot \u2014 Physics Approximation",
+    "back": "Upper body pulls. Physics approximated \u2014 patterns right, not physically accurate yet.",
+    "muscles": [],
+    "energy_percent": 20,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "f3636948"
+  },
+  {
+    "id": "TB3",
+    "front": "State: Crawl \u2014 MEP Infrastructure",
+    "back": "Cross-pattern coordination emerges. Outlets, switches, vents, conduits, stairs. Real infrastructure.",
+    "muscles": [],
+    "energy_percent": 40,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "592ee1fa"
+  },
+  {
+    "id": "TB4",
+    "front": "State: Stand \u2014 Systemic Simulation",
+    "back": "Full upright. Electrical\u2192Optical/Acoustic/Thermal simultaneously. Simulation stands on its own.",
+    "muscles": [],
+    "energy_percent": 60,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "25f36bcd"
+  },
+  {
+    "id": "TB5",
+    "front": "State: Walk \u2014 Multi-Agent Pipeline",
+    "back": "Reciprocal gait. Supervisor watches. Retroactive fixes. Orchestrator coordinates 5 nodes.",
+    "muscles": [],
+    "energy_percent": 75,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "60e9a48e"
+  },
+  {
+    "id": "TB6",
+    "front": "State: Jump \u2014 Cross-Domain Convergence",
+    "back": "First intentional flight. 10 systems \u2192 one aesthetic. The blueprint proves they connect.",
+    "muscles": [],
+    "energy_percent": 90,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "5f31fc13"
+  },
+  {
+    "id": "TB7",
+    "front": "State: Run \u2014 Production SaaS",
+    "back": "Sustained flight. API has billing. Hackathon validates. Not prototype \u2014 product.",
+    "muscles": [],
+    "energy_percent": 100,
+    "balance": "N/A",
+    "next_state": null,
+    "hash": "e939c549"
+  }
+]

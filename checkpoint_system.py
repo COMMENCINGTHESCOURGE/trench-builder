@@ -20,6 +20,37 @@ from collections import OrderedDict
 # DOMAIN CHECKPOINT TEMPLATES
 # ═══════════════════════════════════════════════════════
 
+# ═══════════════════════════════════════════════════════
+# DOMAIN CHECKPOINT TEMPLATES
+# ═══════════════════════════════════════════════════════
+
+TRENCH_BUILDER = {
+    "goal": "Full-stack hyperreal lowpoly construction simulation",
+    "checkpoints": [
+        {"id": "TB1", "name": "Supine — Single HTML Proof", "energy": 0,
+         "deliverable": "TRENCH_BUILDER_v1.html",
+         "flashcard": "First breath. Can we even render a 3D scene in a single HTML file? Yes."},
+        {"id": "TB2", "name": "Scoot — Physics Approximation", "energy": 20,
+         "deliverable": "TRENCH_BUILDER_v5.14 — thermal, EM, caustics, distance fields",
+         "flashcard": "Upper body pulls. Physics approximated — patterns right, not physically accurate yet."},
+        {"id": "TB3", "name": "Crawl — MEP Infrastructure", "energy": 40,
+         "deliverable": "BACKROOMS_MEP.html — 35 components, building realm validation",
+         "flashcard": "Cross-pattern coordination emerges. Outlets, switches, vents, conduits, stairs. Real infrastructure."},
+        {"id": "TB4", "name": "Stand — Systemic Simulation", "energy": 60,
+         "deliverable": "MANIFESTATION_BRIDGE.html — transfer functions, brownout, Web Audio, PBR",
+         "flashcard": "Full upright. Electrical→Optical/Acoustic/Thermal simultaneously. Simulation stands on its own."},
+        {"id": "TB5", "name": "Walk — Multi-Agent Pipeline", "energy": 75,
+         "deliverable": "supervisor_agent.py + retroactive_agent.py + master_orchestrator.py",
+         "flashcard": "Reciprocal gait. Supervisor watches. Retroactive fixes. Orchestrator coordinates 5 nodes."},
+        {"id": "TB6", "name": "Jump — Cross-Domain Convergence", "energy": 90,
+         "deliverable": "HYPERREAL_LOWPOLY_BLUEPRINT.md + checkpoint_system.py",
+         "flashcard": "First intentional flight. 10 systems → one aesthetic. The blueprint proves they connect."},
+        {"id": "TB7", "name": "Run — Production SaaS", "energy": 100,
+         "deliverable": "api_server.py :8090 + Stripe + Gemma 4 Hackathon submission",
+         "flashcard": "Sustained flight. API has billing. Hackathon validates. Not prototype — product."},
+    ]
+}
+
 HUMAN_MOBILITY = {
     "goal": "Full bipedal locomotion — developmental sequence",
     "checkpoints": [
@@ -222,6 +253,16 @@ def export_training_data(output_dir=None):
     with open(output_dir / "human_mobility_sprite_sheet.json", 'w') as f:
         json.dump(sprite_sheet, f, indent=2)
     
+    # TRENCH BUILDER
+    print("\n═══ TRENCH BUILDER ═══")
+    tb = CheckpointSystem(TRENCH_BUILDER)
+    tb_cards = tb.generate_flashcards()
+    print(f"  Flashcards: {len(tb_cards)} generated")
+    for card in tb_cards:
+        print(f"    {card['id']} | {card['energy_percent']:>3}% | {card['front']:<35} → {card['back'][:80]}")
+    with open(output_dir / "trench_builder_checkpoints.json", 'w') as f:
+        json.dump(tb_cards, f, indent=2)
+    
     # Mechanical mobility
     print("\n═══ MECHANICAL MOBILITY ═══")
     mm = CheckpointSystem(MECHANICAL_MOBILITY)
@@ -265,10 +306,11 @@ def export_training_data(output_dir=None):
         "generated": datetime.now().isoformat(),
         "total_flashcards": len(flashcards) + len(mech_cards),
         "total_sprite_frames": sprite_sheet["total_frames"],
-        "domains": ["human_mobility", "mechanical_mobility"],
+        "domains": ["human_mobility", "trench_builder", "mechanical_mobility"],
         "output_files": [
             "human_mobility_flashcards.json",
             "human_mobility_sprite_sheet.json",
+            "trench_builder_checkpoints.json",
             "mechanical_mobility_hypercheckpoints.json",
             "cross_domain_mapping.json",
         ],
