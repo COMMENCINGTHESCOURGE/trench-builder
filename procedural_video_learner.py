@@ -13,7 +13,7 @@ NEW CAPABILITIES (4x the v1):
 
 DaShawn / Guinea Pig Trench LLC — May 2026
 """
-import os, json, statistics, math, struct, subprocess
+import os, json, math, struct, subprocess, numpy as np
 from collections import defaultdict
 from PIL import Image
 
@@ -38,22 +38,34 @@ class SpatialAnalyzer:
     
     @staticmethod
     def analyze(img):
-        w, h = img.size
+        """Analyze 9-region spatial composition using NumPy."""
+        arr = np.array(img, dtype=np.float32)
+        h, w = arr.shape[:2]
+        # Convert to brightness channel
+        if len(arr.shape) == 3:
+            bright_arr = arr[:,:,0]*0.299 + arr[:,:,1]*0.587 + arr[:,:,2]*0.114
+        else:
+            bright_arr = arr
+        
         regions = {}
         for name, (rx1, ry1, rx2, ry2) in SpatialAnalyzer.REGIONS.items():
             x1, y1 = int(w*rx1), int(h*ry1)
             x2, y2 = int(w*rx2), int(h*ry2)
-            crop = img.crop((x1, y1, x2, y2))
-            px = list(crop.getdata())
-            if not px: continue
-            r = sum(p[0] for p in px) / len(px)
-            g = sum(p[1] for p in px) / len(px)
-            b = sum(p[2] for p in px) / len(px)
-            bright = [(p[0]+p[1]+p[2])/3 for p in px]
+            crop = bright_arr[y1:y2, x1:x2]
+            if crop.size == 0: continue
+            
+            if len(arr.shape) == 3:
+                crop_rgb = arr[y1:y2, x1:x2]
+                r = float(np.mean(crop_rgb[:,:,0]))
+                g = float(np.mean(crop_rgb[:,:,1]))
+                b = float(np.mean(crop_rgb[:,:,2]))
+            else:
+                r = g = b = float(np.mean(crop))
+            
             regions[name] = {
                 "rgb": (r, g, b),
-                "brightness": sum(bright)/len(bright),
-                "contrast": statistics.stdev(bright) if len(bright) > 1 else 0
+                "brightness": float(np.mean(crop)),
+                "contrast": float(np.std(crop)) if crop.size > 1 else 0
             }
         return regions
     
@@ -142,35 +154,27 @@ class AudioAnalyzer:
             if result.returncode != 0:
                 return {"error": "ffmpeg extraction failed"}
             
-            # Parse PCM samples
-            samples = []
-            raw = result.stdout
-            for i in range(0, len(raw)-1, 2):
-                try:
-                    val = struct.unpack('<h', raw[i:i+2])[0]
-                    samples.append(abs(val))
-                except:
-                    pass
+            # Parse PCM samples with NumPy
+            raw = np.frombuffer(result.stdout, dtype=np.int16).astype(np.float32)
+            samples = np.abs(raw)
             
-            if not samples:
+            if len(samples) == 0:
                 return {"error": "no audio samples"}
             
             # Normalize
-            max_val = max(samples) if max(samples) > 0 else 1
-            samples = [s/max_val for s in samples]
+            max_val = float(np.max(samples)) if np.max(samples) > 0 else 1.0
+            samples = samples / max_val
             
             # Features
-            energy = sum(s**2 for s in samples) / len(samples)
+            energy = float(np.mean(samples**2))
             
             # Zero-crossing rate (proxy for spectral centroid)
-            zcr = sum(1 for i in range(1, len(samples)) 
-                     if (samples[i] >= 0.3) != (samples[i-1] >= 0.3)) / len(samples)
+            zcr = float(np.mean(np.abs(np.diff(samples >= 0.3))))
             
             # Tempo estimation via peak detection
-            peaks = 0
-            for i in range(1, len(samples)-1):
-                if samples[i] > 0.5 and samples[i] > samples[i-1] and samples[i] > samples[i+1]:
-                    peaks += 1
+            peaks = int(np.sum((samples[1:-1] > 0.5) & 
+                              (samples[1:-1] > samples[:-2]) & 
+                              (samples[1:-1] > samples[2:])))
             tempo_bpm = (peaks / 8) * 60  # 8 seconds of audio
             
             return {
@@ -195,8 +199,7 @@ class TransitionScorer:
     """Score how well two clips transition into each other."""
     
     @staticmethod
-    @staticmethod
-    def score(clip_a_data, clip_b_data, grammar_a, grammar_b):
+    def score(grammar_a, grammar_b):
         score = 0
         notes = []
         
@@ -421,23 +424,31 @@ if __name__ == "__main__":
         dir_path = frame_dirs[clip_name]
         frame_files = sorted([f for f in os.listdir(dir_path) if f.endswith('.png')])
         
-        # Load full-resolution frames
+        # Load frames efficiently — only 2 in memory at a time
         frames = []
         for fname in frame_files:
-            img = Image.open(f"{dir_path}/{fname}")
-            frames.append(img)
+            frames.append(fname)  # store filename only
         
-        # 1. Spatial composition
-        spatial_data = [SpatialAnalyzer.analyze(f) for f in frames]
+        # Process spatial + motion in a single pass (RAM-efficient)
+        spatial_data = []
+        motion_data = []
+        prev_frame = None
+        for fname in frame_files:
+            img = np.array(Image.open(f"{dir_path}/{fname}"), dtype=np.float32)
+            spatial_data.append(SpatialAnalyzer.analyze(Image.fromarray(img.astype(np.uint8))))
+            if prev_frame is not None:
+                prev_img = Image.fromarray(prev_frame.astype(np.uint8))
+                curr_img = Image.fromarray(img.astype(np.uint8))
+                motion_data.append(MotionEstimator.estimate(prev_img, curr_img))
+            prev_frame = img
+        
+        # 1. Spatial composition results
         all_spatial[clip_name] = spatial_data
         comp_types = [SpatialAnalyzer.composition_type(s) for s in spatial_data]
         dominant_comp = max(set(comp_types), key=comp_types.count)
         print(f"  Composition: {dominant_comp}")
         
-        # 2. Motion estimation
-        motion_data = []
-        for i in range(1, len(frames)):
-            motion_data.append(MotionEstimator.estimate(frames[i-1], frames[i]))
+        # 2. Motion estimation results
         all_motion[clip_name] = motion_data
         all_motions = [m for mlist in motion_data for m in mlist]
         motion_counts = {m: all_motions.count(m) for m in set(all_motions)}
@@ -448,28 +459,35 @@ if __name__ == "__main__":
         all_audio[clip_name] = audio_data
         print(f"  Audio: {audio_data.get('character','?')} | {audio_data.get('tempo_bpm',0):.0f} BPM | energy={audio_data.get('energy',0):.3f}")
         
-        # 4. Quality scoring
-        # Build grammar from frame data
+        # 4. Quality scoring — build grammar from frame data (NumPy)
         n_frames = len(frame_files)
-        px_samples = [list(f.resize((60,60)).getdata()) for f in frames]
-        all_px = [p for sample in px_samples for p in sample]
-        avg_r = sum(p[0] for p in all_px) / len(all_px)
-        avg_g = sum(p[1] for p in all_px) / len(all_px)
-        avg_b = sum(p[2] for p in all_px) / len(all_px)
-        bright = [(p[0]+p[1]+p[2])/3 for p in all_px[:5000]]
-        avg_brt = sum(bright) / len(bright)
-        avg_ctr = statistics.stdev(bright)
+        # Sample every frame at 60x60 for grammar stats
+        all_px_r, all_px_g, all_px_b, all_bright = [], [], [], []
+        for fname in frame_files:
+            img = Image.open(f"{dir_path}/{fname}").resize((60, 60))
+            arr = np.array(img, dtype=np.float32)
+            if len(arr.shape) == 3:
+                all_px_r.extend(arr[:,:,0].ravel())
+                all_px_g.extend(arr[:,:,1].ravel())
+                all_px_b.extend(arr[:,:,2].ravel())
+                brt = arr[:,:,0]*0.299 + arr[:,:,1]*0.587 + arr[:,:,2]*0.114
+                all_bright.extend(brt.ravel()[:5000])
         
-        # Detect cuts
+        avg_r = float(np.mean(all_px_r)) if all_px_r else 0
+        avg_g = float(np.mean(all_px_g)) if all_px_g else 0
+        avg_b = float(np.mean(all_px_b)) if all_px_b else 0
+        avg_brt = float(np.mean(all_bright)) if all_bright else 0
+        avg_ctr = float(np.std(all_bright)) if len(all_bright) > 1 else 0
+        
+        # Detect cuts (single-frame loading, NumPy)
         cuts = []
         prev_rgb = None
         for fname in frame_files:
-            img = Image.open(f"{dir_path}/{fname}")
-            small = img.resize((60,60))
-            px = list(small.getdata())
-            r = sum(p[0] for p in px)/len(px)
-            g = sum(p[1] for p in px)/len(px)
-            b = sum(p[2] for p in px)/len(px)
+            img = Image.open(f"{dir_path}/{fname}").resize((60, 60))
+            arr = np.array(img, dtype=np.float32)
+            r = float(np.mean(arr[:,:,0])) if len(arr.shape) == 3 else float(np.mean(arr))
+            g = float(np.mean(arr[:,:,1])) if len(arr.shape) == 3 else float(np.mean(arr))
+            b = float(np.mean(arr[:,:,2])) if len(arr.shape) == 3 else float(np.mean(arr))
             if prev_rgb:
                 shift = abs(r-prev_rgb[0]) + abs(g-prev_rgb[1]) + abs(b-prev_rgb[2])
                 if shift > 50: cuts.append({"at": len(cuts)+1, "shift": shift})
@@ -485,7 +503,7 @@ if __name__ == "__main__":
         }
         grammar_rules[clip_name] = grammar
         
-        quality = QualityScorer.score(clip_name, frames, grammar, spatial_data, motion_data, audio_data, cuts)
+        quality = QualityScorer.score(clip_name, frame_files, grammar, spatial_data, motion_data, audio_data, cuts)
         quality_scores[clip_name] = quality
         print(f"  Quality: {quality['total_score']}/100 ({quality['grade']})")
         for rec in quality['recommendations']:
@@ -496,7 +514,7 @@ if __name__ == "__main__":
     print("═══ TRANSITION HARMONY ═══")
     pairs = [("CLIP_1_HOOK", "CLIP_3_DEPTH"), ("CLIP_3_DEPTH", "CLIP_2_RESOLUTION")]
     for a, b in pairs:
-        result = TransitionScorer.score([], [], grammar_rules[a], grammar_rules[b])
+        result = TransitionScorer.score(grammar_rules[a], grammar_rules[b])
         print(f"  {a} → {b}: {result['score']}/100")
         for note in result['notes']:
             print(f"    {note}")
@@ -515,8 +533,8 @@ if __name__ == "__main__":
         "quality_scores": {k: v['total_score'] for k, v in quality_scores.items()},
         "grades": {k: v['grade'] for k, v in quality_scores.items()},
         "transition_scores": {
-            "hook_to_depth": TransitionScorer.score([], [], grammar_rules["CLIP_1_HOOK"], grammar_rules["CLIP_3_DEPTH"])["score"],
-            "depth_to_resolution": TransitionScorer.score([], [], grammar_rules["CLIP_3_DEPTH"], grammar_rules["CLIP_2_RESOLUTION"])["score"],
+            "hook_to_depth": TransitionScorer.score(grammar_rules["CLIP_1_HOOK"], grammar_rules["CLIP_3_DEPTH"])["score"],
+            "depth_to_resolution": TransitionScorer.score(grammar_rules["CLIP_3_DEPTH"], grammar_rules["CLIP_2_RESOLUTION"])["score"],
         },
         "audio_summary": {k: v.get("character", "?") for k, v in all_audio.items()},
         "motion_vocabulary": {k: list(set(m for mlist in v for m in mlist)) for k, v in all_motion.items()},
