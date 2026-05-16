@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TRENCH BUILDER — Index</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f18;color:#88aacc;font:13px 'Segoe UI',monospace;padding:30px;max-width:1000px;margin:0 auto}
+h1{color:#aaccee;font-size:18px;letter-spacing:4px;margin-bottom:6px}
+.sub{color:#557799;font-size:11px;margin-bottom:30px;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.card{background:#0f1620;border:1px solid #224466;border-radius:6px;padding:16px;cursor:pointer;transition:all .2s;text-decoration:none;display:block}
+.card:hover{background:#141d2a;border-color:#4488aa;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.card h3{color:#aaccee;font-size:12px;letter-spacing:1px;margin-bottom:6px}
+.card p{color:#557799;font-size:10px;line-height:1.5}
+.tag{display:inline-block;font-size:8px;padding:2px 6px;border-radius:3px;margin-right:4px;margin-top:6px;letter-spacing:.5px}
+.tag.phys{background:#224422;color:#44aa44}
+.tag.mep{background:#332200;color:#aa8844}
+.tag.sim{background:#220033;color:#aa44aa}
+.tag.vis{background:#002244;color:#4488cc}
+.tag.meta{background:#222222;color:#888888}
+.section{margin-top:30px;border-top:1px solid #1a2a3a;padding-top:16px}
+.section h2{color:#6688aa;font-size:11px;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase}
+.stat{display:flex;justify-content:space-between;font-size:10px;color:#557799;padding:3px 0}
+.stat .val{color:#aaccee}
+</style>
+</head>
+<body>
+<h1>TRENCH BUILDER</h1>
+<div class="sub">HYPERREAL LOWPOLY — 10 artifacts · 11 scripts · 48 files · 89MB</div>
+
+<div class="section"><h2>Core Simulators</h2></div>
+<div class="grid">
+<a class="card" href="TRENCH_BUILDER_v5.html"><h3>⚡ TRENCH BUILDER v5.14</h3><p>Subwoofer physics: thermal bloom, EM decay, caustics, distance fields. 7 simultaneous systems.</p><span class="tag phys">PHYSICS</span><span class="tag sim">DISTANCE FIELD</span></a>
+<a class="card" href="MANIFESTATION_BRIDGE.html"><h3>🌉 Manifestation Bridge</h3><p>Electrical→Optical/Acoustic/Thermal. Brownout propagation. Web Audio hum. Phase 4.</p><span class="tag sim">SIMULATION</span><span class="tag phys">TRANSFER FN</span></a>
+<a class="card" href="RESONANCE_HUD.html"><h3>📊 Resonance HUD</h3><p>Live frequency spectrum. Transfer functions. Brownout cycle. The Eye — Phase 3.</p><span class="tag vis">DIAGNOSTIC</span><span class="tag phys">SPECTRUM</span></a>
+</div>
+
+<div class="section"><h2>Infrastructure & Environment</h2></div>
+<div class="grid">
+<a class="card" href="BACKROOMS_MEP.html"><h3>🏭 Backrooms MEP</h3><p>35 infrastructure components. Outlets, switches, junction boxes, thermostats, HVAC, conduit, doors, stairs, baseboards, crown molding, furniture.</p><span class="tag mep">MEP</span><span class="tag sim">BUILDING REALM</span></a>
+<a class="card" href="HYPERPOLY_v5.html"><h3>🔷 HYPERPOLY v5</h3><p>Faceted structural survival. Weather, structural stress, audio, generators, crafting.</p><span class="tag sim">GAME</span><span class="tag phys">STRUCTURAL</span></a>
+</div>
+
+<div class="section"><h2>Creative & Cinematography</h2></div>
+<div class="grid">
+<a class="card" href="CINEMATOGRAPHY_ENGINE.html"><h3>🎥 Cinematography Engine</h3><p>12-beat B-roll system. GameShark Creative Mode. Veo grammar auto-generates camera paths.</p><span class="tag vis">CAMERA</span><span class="tag meta">GAMESHARK</span></a>
+<a class="card" href="AVATAR_AGENT_v1.html"><h3>🧑 Digital Avatar</h3><p>Hyperreal skin rendering. 315 black shades. MeshPhysicalMaterial SSS.</p><span class="tag vis">PBR</span><span class="tag phys">MELANIN</span></a>
+</div>
+
+<div class="section"><h2>Classic Versions</h2></div>
+<div class="grid">
+<a class="card" href="TRENCH_BUILDER_v1.html"><h3>📐 TRENCH BUILDER v1</h3><p>First proof: single HTML scene with materials and lighting.</p><span class="tag meta">ARCHIVE</span></a>
+<a class="card" href="TRENCH_BUILDER_v2.html"><h3>📐 TRENCH BUILDER v2</h3><p>Added post-processing: UnrealBloom, SSAO.</p><span class="tag meta">ARCHIVE</span></a>
+<a class="card" href="TRENCH_BUILDER_v3.html"><h3>📐 TRENCH BUILDER v3</h3><p>Added thermal visualization and EM fields.</p><span class="tag meta">ARCHIVE</span></a>
+<a class="card" href="TRENCH_BUILDER_v4.html"><h3>📐 TRENCH BUILDER v4</h3><p>Added 22 rendering principles, film grain, god rays.</p><span class="tag meta">ARCHIVE</span></a>
+</div>
+
+<div class="section"><h2>Meta & Tools</h2></div>
+<div class="card" style="background:#0a0f14">
+<div class="stat"><span>API Server</span><span class="val">:8090</span></div>
+<div class="stat"><span>GitHub</span><span class="val">github.com/COMMENCINGTHESCOURGE/trench-builder</span></div>
+<div class="stat"><span>G: Drive</span><span class="val">G:/My Drive/Trench_Builder/</span></div>
+<div class="stat"><span>Erdos-Straus</span><span class="val">~/Projects/erdos-straus/</span></div>
+<div class="stat"><span>Checkpoint System</span><span class="val">~/Projects/trench_builder/checkpoint_system.py</span></div>
+<div class="stat"><span>Gemma 4 Hackathon</span><span class="val">Deadline: May 18 7:59PM EDT</span></div>
+</div>
+</body>
+</html>
