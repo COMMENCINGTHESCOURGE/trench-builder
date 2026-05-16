@@ -59,37 +59,24 @@
   {
     "id": "H5",
     "front": "State: Bounce",
-    "back": "Knees become springs. Glutes drive angles: hip-knee-ankle cascade. Foot angle, ham angle, hip angle oscillate. Arms counter-balance at opposite phase. Neck pivots to stabilize head. Each frame calculates joint angle increase/decrease across all 5 joints.",
+    "back": "Knees become springs. Glutes drive angles: hip-knee-ankle-toe cascade. Foot angle, ham angle, hip angle oscillate. Arms counter-balance at opposite phase. Neck pivots to stabilize head. Each frame calculates joint angle increase/decrease across all 6 joints.",
     "muscles": [
       "quads",
       "gastrocnemius",
       "tibialis",
-      "glutes"
+      "glutes",
+      "toe flexors",
+      "peroneals"
     ],
     "energy_percent": 65,
     "balance": "Dynamic vertical",
     "next_state": "H6",
-    "hash": "99293aee"
+    "hash": "e1d324ae"
   },
   {
     "id": "H6",
     "front": "State: Walk",
-    "back": "Knees become springs. Body oscillates vertically without moving forward. Glutes are the primary engine \u2014 they drive the bounce through a sequence of angles: hip extension (glute max fires)\u2192 knee extension (quadriceps follow) \u2192 ankle plantarflexion (gastrocnemius releases stored energy). The stretch-shortening cycle activates. Achilles tendon stores and releases. Energy flows hip\u2192knee\u2192ankle in a cascading angular chain. This is where rhythm is born \u2014 the metronome before the step.",
-    "muscles": [
-      "quadriceps (eccentric\u2192concentric)",
-      "gastrocnemius (spring)",
-      "tibialis anterior (stabilize)",
-      "glutes (rhythmic)"
-    ],
-    "energy_percent": 65,
-    "balance": "Dynamic vertical, no translation",
-    "next_state": "H6",
-    "hash": "b8b4d00a"
-  },
-  {
-    "id": "H6",
-    "front": "State: Walk",
-    "back": "Reciprocal gait cycle. 60% stance, 40% swing. Heel strike \u2192 mid-stance \u2192 toe-off. Arms counter-rotate for stability. Bounce taught the springs \u2014 walk releases them forward.",
+    "back": "Reciprocal gait cycle. 60% stance, 40% swing. Heel strike to midstance to toe-off. Arms counter-rotate for stability. Bounce taught the springs \u2014 walk releases them forward.",
     "muscles": [
       "all lower body cycling",
       "arm swing for counter-rotation"
@@ -97,7 +84,7 @@
     "energy_percent": 80,
     "balance": "Dynamic bipedal",
     "next_state": "H7",
-    "hash": "e0ad9600"
+    "hash": "6bb25a34"
   },
   {
     "id": "H7",
