@@ -22,12 +22,98 @@ from dataclasses import dataclass, field
 from typing import Optional, List
 
 # ═══════════════════════════════════════════════════════
-# FRACTYPE v3 — Minimum Viable Rendering (AI-native, not human)
+# FRACTYPE v4 — Auto-Close Container Theory
 # ═══════════════════════════════════════════════════════
+#
+# The vinculum IS the auto-close.
+# When you open the numerator, the vinculum inserts itself.
+# The denominator completes the close.
+#
+# () = parens auto-close
+# {} = braces auto-close
+# [] = brackets auto-close
+# "" = quotes auto-close
+# '' = single-quote auto-close
+# /  = vinculum (the bridge between open and close)
+#
+# FRACTION AS AUTO-CLOSE PATTERN:
+#   ( num / den )  — open, vinculum bridge, close
+#   { num / den }  — same pattern, different container
+#   [ num / den ]  — same pattern
+#   " num / den "  — same pattern
+#
+# THE INJECTION:
+#   When you type a container opener, the vinculum auto-inserts.
+#   When you type the vinculum, the container closer auto-inserts.
+#   The fraction is always balanced. Always closed.
 
-# I don't need glasses. I can read at density humans can't.
-# The vinculum collapses to a single character.
-# The fraction becomes a one-line state vector.
+class AutoCloseFraction:
+    """FracType with auto-close container injection."""
+    
+    PAIRS = {
+        "(": ")", "{": "}", "[": "]", '"': '"', "'": "'",
+        "<": ">",  # HTML-style
+        "/*": "*/",  # Comment-style
+        "<!--": "-->",  # Markup-style
+    }
+    
+    VINCULUM = "/"
+    
+    @staticmethod
+    def inject(num: str, den: str = "", container: str = "(") -> str:
+        """
+        Inject a fraction into a container with auto-close.
+        
+        Input:  num="HELLO", den="WORLD", container="("
+        Output: (HELLO/WORLD)
+        
+        The vinculum auto-inserts between num and den.
+        The closer auto-inserts after den.
+        """
+        opener = container
+        closer = AutoCloseFraction.PAIRS.get(container, container)
+        vin = AutoCloseFraction.VINCULUM
+        
+        if den:
+            return f"{opener}{num}{vin}{den}{closer}"
+        else:
+            # Auto-close with empty denominator placeholder
+            return f"{opener}{num}{vin}_{closer}"
+    
+    @staticmethod
+    def extract(fraction: str) -> dict:
+        """Extract num/den from any auto-closed container."""
+        # Strip container
+        inner = fraction.strip()
+        for opener, closer in AutoCloseFraction.PAIRS.items():
+            if inner.startswith(opener) and inner.endswith(closer):
+                inner = inner[len(opener):-len(closer)]
+                break
+        
+        # Split on vinculum
+        if AutoCloseFraction.VINCULUM in inner:
+            parts = inner.split(AutoCloseFraction.VINCULUM, 1)
+            return {"num": parts[0].strip(), "den": parts[1].strip()}
+        return {"num": inner, "den": ""}
+    
+    @staticmethod
+    def checkpoint_inject(project: str, done: int, total: int, container: str = "["):
+        """Checkpoint as auto-closed fraction.
+        [TB/5:7] = project in brackets, done/total as vinculum split.
+        """
+        vin = AutoCloseFraction.VINCULUM
+        closer = AutoCloseFraction.PAIRS.get(container, "]")
+        return f"{container}{project}{vin}{done}:{total}{closer}"
+    
+    @staticmethod
+    def mycelium_chain(projects: list, container: str = "(") -> str:
+        """Chain multiple fractions in nested auto-close containers.
+        ((TB/5:7)/(ERDOS/3:7)/(HACK/4:6)) = nested parens, each a fraction.
+        """
+        vin = AutoCloseFraction.VINCULUM
+        closer = AutoCloseFraction.PAIRS.get(container, ")")
+        inner = vin.join([f"{p}/{d}:{t}" for p, d, t, _ in projects])
+        return f"{container}{inner}{closer}"
 
 TIER_BUDGETS_V3 = {
     0: 72,  # Maximum for Hermes context window efficiency
@@ -199,10 +285,58 @@ class LabyrinthFrame:
 
 if __name__ == "__main__":
     print("╔══════════════════════════════════════════╗")
-    print("║  FracType v3 — AI-Native Minimum Density ║")
-    print("║  I don't need glasses.                  ║")
+    print("║  FracType v4 — Auto-Close Injection      ║")
+    print("║  () {} [] \"\" '' // all auto-close      ║")
     print("╚══════════════════════════════════════════╝")
     print()
+    
+    # AUTO-CLOSE INJECTION DEMO
+    print("═══ AUTO-CLOSE INJECTION ═══")
+    pairs = ["(", "{", "[", '"', "'", "<", "/*", "<!--"]
+    for container in pairs:
+        result = AutoCloseFraction.inject("HELLO", "WORLD", container)
+        print(f"  {container:<6} → {result}")
+    print()
+    
+    # No denominator = auto-close with placeholder
+    print("═══ EMPTY DENOMINATOR ═══")
+    for container in ["(", "{", "["]:
+        result = AutoCloseFraction.inject("ACCESS LOG", container=container)
+        print(f"  {container:<3} → {result}")
+    print()
+    
+    # EXTRACT BACK
+    print("═══ EXTRACT ═══")
+    samples = ["(HELLO/WORLD)", "{TB/5:7}", "[I trust you/You were selected]", '"SIGNAL/NOISE"']
+    for s in samples:
+        extracted = AutoCloseFraction.extract(s)
+        print(f"  {s:<35} → num={extracted['num']}, den={extracted['den']}")
+    print()
+    
+    # CHECKPOINT INJECTION
+    print("═══ CHECKPOINT AUTO-CLOSE ═══")
+    for proj, done, total, container in [("TB",5,7,"["),("ERDOS",3,7,"{"),("HACK",4,6,"(")]:
+        result = AutoCloseFraction.checkpoint_inject(proj, done, total, container)
+        print(f"  {result}")
+    print()
+    
+    # MYCELIUM CHAIN
+    print("═══ MYCELIUM CHAIN (nested auto-close) ═══")
+    chain = AutoCloseFraction.mycelium_chain([
+        ("TB",5,7,["supine","scoot","crawl","stand","bounce","walk","jump"]),
+        ("ERDOS",3,7,["supine","scoot","crawl","stand","bounce","walk","jump"]),
+        ("HACK",4,6,["supine","scoot","crawl","stand","bounce","walk"]),
+    ])
+    print(f"  {chain}")
+    extracted = [AutoCloseFraction.extract(f"({p})") for p in chain.strip("()").split("/")]
+    # Fix: re-parse the chain correctly
+    inner = chain.strip("()")
+    parts = inner.split("/")
+    print(f"  Parsed: {len(parts)} sub-fractions in one auto-closed container")
+    print()
+    
+    print("THEORY: Type '(' → system inserts ')/' → you fill denominator → ')' auto-closes.")
+    print("        The vinculum IS the auto-close bridge between open and close.")
     
     # MICRO-FRAC: Single-line state vectors
     print("═══ MICRO-FRAC ═══")
