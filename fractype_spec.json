@@ -1,0 +1,25 @@
+{
+  "name": "FracType — Fractional Typography Grammar",
+  "version": "1.0.0",
+  "axiom": "The vinculum is a bidirectional container, not an operator.",
+  "grammar": {
+    "expression": ["plaintext", "fraction"],
+    "fraction": {"num": "expression", "bar": "─*N", "den": "expression"},
+    "nesting": "infinite — depth scales vertically, not horizontally"
+  },
+  "implementations": {
+    "ansi_terminal": "renderFrac(num, den, opts) — box-drawing + 256-color",
+    "html_css": ".frac { display:inline-flex; flex-direction:column; }",
+    "json_ast": {"type":"fraction","num":{},"den":{}}
+  },
+  "applications": {
+    "steganography": "numerator=public, denominator=hidden state",
+    "dialogue_engine": "question above bar, answer below",
+    "checkpoint_progress": "completed above bar, remaining below",
+    "monofrac": "entire document as single nested fraction — reduction tree"
+  },
+  "deployed_to": [
+    "C:\\\\Users\\\\dasha\\\\Projects\\\\trench_builder\\\\frac_renderer.js",
+    "http://127.0.0.1:8081/FRAC_DEMO.html"
+  ]
+}
