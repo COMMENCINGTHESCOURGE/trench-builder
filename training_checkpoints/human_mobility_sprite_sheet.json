@@ -1,7 +1,7 @@
 {
-  "layout": "6\u00d72",
+  "layout": "6\u00d71",
   "cell_size": "64\u00d764px",
-  "total_frames": 11,
+  "total_frames": 6,
   "frames": [
     {
       "frame": 0,
@@ -13,70 +13,35 @@
     {
       "frame": 1,
       "grid_pos": "(1, 0)",
-      "label": "Core Engagement",
-      "state": "Abdominal brace, pelvic tilt",
+      "label": "Scoot",
+      "state": "Dragging body across surface, arms pull, legs drag",
       "transition_to": "H3"
     },
     {
       "frame": 2,
       "grid_pos": "(2, 0)",
-      "label": "Roll to Side",
-      "state": "Lateral weight shift, arm assist",
+      "label": "Crawl",
+      "state": "Hands and knees, reciprocal pattern",
       "transition_to": "H4"
     },
     {
       "frame": 3,
       "grid_pos": "(3, 0)",
-      "label": "Quadruped Position",
-      "state": "Hands and knees, neutral spine",
+      "label": "Stand",
+      "state": "Pull to vertical, both feet planted",
       "transition_to": "H5"
     },
     {
       "frame": 4,
       "grid_pos": "(4, 0)",
-      "label": "Kneeling",
-      "state": "Both knees down, torso vertical",
+      "label": "Walk",
+      "state": "Reciprocal gait, alternating stance/swing",
       "transition_to": "H6"
     },
     {
       "frame": 5,
       "grid_pos": "(5, 0)",
-      "label": "Half-Kneeling",
-      "state": "One knee up, one down, lunge position",
-      "transition_to": "H7"
-    },
-    {
-      "frame": 6,
-      "grid_pos": "(0, 1)",
-      "label": "Standing",
-      "state": "Both feet planted, full extension",
-      "transition_to": "H8"
-    },
-    {
-      "frame": 7,
-      "grid_pos": "(1, 1)",
-      "label": "Weight Shift",
-      "state": "Lateral weight transfer, single-leg prep",
-      "transition_to": "H9"
-    },
-    {
-      "frame": 8,
-      "grid_pos": "(2, 1)",
-      "label": "Step Initiation",
-      "state": "Swing leg forward, heel strike prep",
-      "transition_to": "H10"
-    },
-    {
-      "frame": 9,
-      "grid_pos": "(3, 1)",
-      "label": "Walking",
-      "state": "Reciprocal gait, alternating stance/swing",
-      "transition_to": "H11"
-    },
-    {
-      "frame": 10,
-      "grid_pos": "(4, 1)",
-      "label": "Running",
+      "label": "Run",
       "state": "Aerial phase, increased cadence",
       "transition_to": null
     }
