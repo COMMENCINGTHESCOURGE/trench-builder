@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 ONSHAPE AUTONOMOUS PULL AGENT v1.0
 Pulls every part from every Onshape document until it hits a wall.

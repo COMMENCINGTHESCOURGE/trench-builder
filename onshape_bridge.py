@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 ONSHAPE → TRENCH BUILDER BRIDGE v1.0
 Auto-imports parametric CAD geometry into the construction environment.

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 IMAGE INSPECTOR v1.0 — 3% Vision Improvement
 Extracts metadata + color profile when vision API fails.

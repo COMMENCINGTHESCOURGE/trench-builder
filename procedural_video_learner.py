@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 PROCEDURAL VIDEO LEARNER v2.0 — 300% Improvement
 ═══════════════════════════════════════════════════

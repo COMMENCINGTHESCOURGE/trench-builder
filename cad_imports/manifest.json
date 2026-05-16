@@ -1,0 +1,286 @@
+{
+  "total_parts": 33,
+  "total_size": 204531899,
+  "failures": [
+    {
+      "element": "FUEL AND POWER TRAIN",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 3dcd747f9d8bb6a6687fcb53. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "FUEL AND POWER TRAIN",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element ab273e0308c83b70f09f035e. Element type APPLICATION is not a part studio.\",\n  \"sta"
+    },
+    {
+      "element": "BOM : DRILL Assembly",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element f2c2bc9388aa45c6e6a40cf6. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    },
+    {
+      "element": "Drill Rendering.png",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 426c472eb87b027d84f83a01. Element type BLOB is not a part studio.\",\n  \"status\" : "
+    },
+    {
+      "element": "CRANK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 086eadae21290c9e67e582d2. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "DRILL_BIT",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 4edb4245a9c0121c2d5b4fd2. Element type APPLICATION is not a part studio.\",\n  \"sta"
+    },
+    {
+      "element": "CARBURETOR",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 682b5d2ab0c4cfee8b81deed. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "BOM : CARBURETOR",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element f346a8f152cbc58aa5f16587. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    },
+    {
+      "element": "PISTON",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 23a9385cd48c50167c32d6d1. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "GEARBOX_CHUCK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element f5ba6c7bdb355e3476750e38. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "BOM : GEARBOX_CHUCK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 3ba3acc0f041fa5298e77ada. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    },
+    {
+      "element": "GEARBOX_CHUCK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 15b07287508246ccd038e31e. Element type APPLICATION is not a part studio.\",\n  \"sta"
+    },
+    {
+      "element": "DRILL_CHUCK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element bfc8e0f5a1b9e7f91d4bcea7. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "FUEL TANK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element d7fb87f0bec1b0d96bee26a3. Element type APPLICATION is not a part studio.\",\n  \"sta"
+    },
+    {
+      "element": "FUEL TANK.pdf",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 69166325cb7fc6c570ceaad7. Element type BLOB is not a part studio.\",\n  \"status\" : "
+    },
+    {
+      "element": "ENGINE",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element f371143975c777f1e223bc74. Element type ASSEMBLY is not a part studio.\",\n  \"status"
+    },
+    {
+      "element": "BOM : CRANK",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 352300e0a416324a1cf716b9. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    },
+    {
+      "element": "BOM : ENGINE",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element f7b758f755a0c84a830a5d97. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    },
+    {
+      "element": "BOM : DRILL_CHUCK",
+      "error": "{\n  \"message\" : \"Cannot get parts from element 5ad0b95a98a4ebaa19cb4834. Element type BILLOFMATERIALS is not a part studio.\",\n  \"status\" : 400,\n  \"cod"
+    },
+    {
+      "element": "BOM : PISTON",
+      "error": "{\n  \"moreInfoUrl\" : \"\",\n  \"message\" : \"Cannot get parts from element 77e88e23f32eedfb86f68b68. Element type BILLOFMATERIALS is not a part studio.\",\n  "
+    }
+  ],
+  "parts": [
+    {
+      "element": "ENG_BLOCK",
+      "part": "ENG_BLOCK_REAR",
+      "size": 15020674,
+      "status": "cached"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "ENG_BLOCK_FRONT",
+      "size": 9685208,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "CYLINDER",
+      "size": 9113016,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "FUEL_TANK",
+      "size": 21661226,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "Surface 1",
+      "size": 28525,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "Curve 1",
+      "size": 25,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BLOCK",
+      "part": "FUEL_CAP",
+      "size": 6609276,
+      "status": "exported"
+    },
+    {
+      "element": "CRANK",
+      "part": "CRANKSHAFT",
+      "size": 3104896,
+      "status": "cached"
+    },
+    {
+      "element": "CRANK",
+      "part": "FLYWHEEL",
+      "size": 44539864,
+      "status": "exported"
+    },
+    {
+      "element": "NEW_PART",
+      "part": "PISTON",
+      "size": 3578908,
+      "status": "cached"
+    },
+    {
+      "element": "NEW_PART",
+      "part": "PISTON_PIN",
+      "size": 111321,
+      "status": "exported"
+    },
+    {
+      "element": "NEW_PART",
+      "part": "PISTON_RING",
+      "size": 109905,
+      "status": "exported"
+    },
+    {
+      "element": "CONNECTING_ROD",
+      "part": "CONNECTING_ROD",
+      "size": 2625994,
+      "status": "cached"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "MANIFOLD",
+      "size": 2284315,
+      "status": "cached"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "CARBURETOR",
+      "size": 4146734,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "CARBURETOR_LEVER",
+      "size": 255793,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "CARBURETOR_PLATE",
+      "size": 2904976,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "CARBURETOR_CONTROL_ARM",
+      "size": 165025,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "Surface 1",
+      "size": 1938629,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "Surface 2",
+      "size": 63552,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "AIR_FILTER_COVER",
+      "size": 13460709,
+      "status": "exported"
+    },
+    {
+      "element": "CARBURETOR",
+      "part": "CARBURETOR_GASKET",
+      "size": 289227,
+      "status": "exported"
+    },
+    {
+      "element": "GEARBOX",
+      "part": "GEARBOX_REAR",
+      "size": 29175125,
+      "status": "exported"
+    },
+    {
+      "element": "GEARBOX",
+      "part": "PRIMARY_GEAR_SHAFT",
+      "size": 1717474,
+      "status": "exported"
+    },
+    {
+      "element": "GEARBOX",
+      "part": "REDUCTION_GEAR_SHAFT",
+      "size": 3065768,
+      "status": "exported"
+    },
+    {
+      "element": "GEARBOX",
+      "part": "GEARBOX_FRONT",
+      "size": 17453214,
+      "status": "exported"
+    },
+    {
+      "element": "GEARBOX",
+      "part": "FINAL_GEAR_SHAFT",
+      "size": 2440479,
+      "status": "exported"
+    },
+    {
+      "element": "DRILL_CHUCK",
+      "part": "CHUCK",
+      "size": 1443937,
+      "status": "exported"
+    },
+    {
+      "element": "DRILL_CHUCK",
+      "part": "CHUCK_COLLAR",
+      "size": 603586,
+      "status": "exported"
+    },
+    {
+      "element": "DRILL_BIT",
+      "part": "Main",
+      "size": 26652,
+      "status": "exported"
+    },
+    {
+      "element": "DRILL_BIT",
+      "part": "Curve 1",
+      "size": 25,
+      "status": "exported"
+    },
+    {
+      "element": "DRILL_BIT",
+      "part": "DRILL_BIT",
+      "size": 6578173,
+      "status": "exported"
+    },
+    {
+      "element": "ENG_BEARING",
+      "part": "ENG_BEARING",
+      "size": 329668,
+      "status": "exported"
+    }
+  ]
+}

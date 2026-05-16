@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 DELTA FINDER v1.0 — Research Gap Analysis & Knowledge Catapult
 =============================================================

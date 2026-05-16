@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 RETROACTIVE CORRECTION AGENT — The Auditor
 ═══════════════════════════════════════════════════
@@ -88,7 +88,7 @@ RULES = [
         "id": "python_uses_python3_not_python",
         "description": "Flag scripts using 'python3' in shebang — should use explicit Python path or 'python'",
         "pattern": "*.py",
-        "check_content": "#!/usr/bin/env python3",
+        "check_content": "#!/usr/bin/env python",
         "suggest": "Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
         "action": "flag_for_review",
         "severity": "info"

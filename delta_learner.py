@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 DELTA LEARNER — Extracts patterns from ALL accumulated data
 Feeds learning back into the checkpoint system, mistake reviewer,

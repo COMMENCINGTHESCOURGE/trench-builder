@@ -1,0 +1,130 @@
+{
+  "clips": {
+    "CLIP_1_HOOK": {
+      "target_rgb": "(81,89,98)",
+      "target_brightness": "72",
+      "target_contrast": "52",
+      "color_temperature": "COOL",
+      "cut_style": "FAST CUTS (3 per 8s)",
+      "energy": "DYNAMIC"
+    },
+    "CLIP_2_RESOLUTION": {
+      "target_rgb": "(124,131,120)",
+      "target_brightness": "121",
+      "target_contrast": "82",
+      "color_temperature": "NEUTRAL",
+      "cut_style": "SMOOTH (no cuts)",
+      "energy": "RESOLUTION"
+    },
+    "CLIP_3_DEPTH": {
+      "target_rgb": "(87,55,62)",
+      "target_brightness": "59",
+      "target_contrast": "40",
+      "color_temperature": "WARM",
+      "cut_style": "MODERATE",
+      "energy": "DEPTH"
+    }
+  },
+  "quality_scores": {
+    "CLIP_1_HOOK": 100,
+    "CLIP_2_RESOLUTION": 100,
+    "CLIP_3_DEPTH": 100
+  },
+  "grades": {
+    "CLIP_1_HOOK": "A",
+    "CLIP_2_RESOLUTION": "A",
+    "CLIP_3_DEPTH": "A"
+  },
+  "transition_scores": {
+    "hook_to_depth": 83,
+    "depth_to_resolution": 67
+  },
+  "audio_summary": {
+    "CLIP_1_HOOK": "BALANCED",
+    "CLIP_2_RESOLUTION": "BALANCED",
+    "CLIP_3_DEPTH": "BALANCED"
+  },
+  "motion_vocabulary": {
+    "CLIP_1_HOOK": [
+      "ORBIT",
+      "PAN",
+      "TILT_UP",
+      "ZOOM_IN",
+      "ZOOM_OUT",
+      "TILT_DOWN",
+      "PAN_REVERSE"
+    ],
+    "CLIP_2_RESOLUTION": [
+      "TILT_DOWN",
+      "ORBIT",
+      "PAN",
+      "TILT_UP",
+      "ZOOM_IN",
+      "PAN_REVERSE"
+    ],
+    "CLIP_3_DEPTH": [
+      "TILT_DOWN",
+      "ORBIT",
+      "TILT_UP",
+      "ZOOM_OUT",
+      "ZOOM_IN",
+      "PAN_REVERSE"
+    ]
+  },
+  "cinematography_paths": {
+    "CLIP_1_HOOK": {
+      "shot_type": "cold-open",
+      "duration": 8,
+      "path": {
+        "type": "orbit",
+        "speed": 1.5,
+        "radius": 6,
+        "height": 3,
+        "cuts": 3,
+        "cut_timing": [
+          0,
+          2.5,
+          5.5
+        ]
+      },
+      "visual_params": {
+        "target_rgb": "(81,89,98)",
+        "target_brightness": "72",
+        "target_contrast": "52"
+      }
+    },
+    "CLIP_2_RESOLUTION": {
+      "shot_type": "crane",
+      "duration": 8,
+      "path": {
+        "type": "crane",
+        "speed": 0.6,
+        "start_height": 1,
+        "end_height": 6,
+        "cuts": 0,
+        "transition": "continuous_dolly"
+      },
+      "visual_params": {
+        "target_rgb": "(124,131,120)",
+        "target_brightness": "121",
+        "target_contrast": "82"
+      }
+    },
+    "CLIP_3_DEPTH": {
+      "shot_type": "helta-copper",
+      "duration": 8,
+      "path": {
+        "type": "helta",
+        "speed": 0.3,
+        "radius": 0.4,
+        "height": 0.8,
+        "target": "copper_winding"
+      },
+      "visual_params": {
+        "target_rgb": "(87,55,62)",
+        "target_brightness": "59",
+        "target_contrast": "40"
+      }
+    }
+  }
+}
