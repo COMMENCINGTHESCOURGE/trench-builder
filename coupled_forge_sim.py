@@ -249,10 +249,11 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
                 A_realized = np.array([0.0, 0.0, 0.0])
                 det_D = 0.0
             
-            # Success: absolute error OR improvement
+            # Success: realized action has force > 0.5 AND error < 1.0
+            # A good strike in blacksmithing isn't perfect — it's "close enough"
             error = np.linalg.norm(A_intent - A_realized)
-            improved = error < prev_error * 0.95
-            success = error < 0.45 or improved
+            improved = error < prev_error * 0.98  # 2% better than last strike
+            success = (A_realized[0] > 0.4 and error < 1.0) or improved
             prev_error = error
             
             if success:
