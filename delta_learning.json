@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-05-16T16:29:07.132874",
+  "sources": 6,
+  "learnings": {
+    "total_mistakes": "31",
+    "categories": "{'windows': 1, 'api_tool': 1, 'python': 1, 'hermes': 1, 'process': 1}",
+    "top_pattern": "windows",
+    "insight": "18/35 checkpoints done (51%). Priority: Jump \u2014 finish unified launcher, wire API server static files.",
+    "total_flagged": "72",
+    "auto_fixed": "1",
+    "top_issue": "('python_uses_python3_not_python', 34)",
+    "clips_analyzed": "3",
+    "all_a_grade": "True",
+    "best_transition": "hook_to_depth",
+    "transition_scores": "{'hook_to_depth': 83, 'depth_to_resolution': 67}",
+    "total_outputs": "361",
+    "stable": "0",
+    "breach": "0",
+    "stable_ratio": "0",
+    "avg_torsion": "2355276896.38",
+    "total_flashcards": "8",
+    "domains": "['cross', 'trench', 'human', 'training', 'mechanical']",
+    "checkpoints_complete": "18",
+    "checkpoints_remaining": "17",
+    "completion_pct": "51.42857142857142",
+    "next_actions": "['Jump \u2014 finish unified launcher, wire API server static files', 'Bounce \u2014 launch Lightning L40S, push v113 kernel', 'Walk \u2014 assemble final video from Veo clips + screen record', 'Bounce \u2014 apply 72 re"
+  },
+  "synthesis": {
+    "cross_source_insights": [
+      "29 documented mistakes \u2014 most are windows-related",
+      "72 retroactive flags \u2014 top issue: python_uses_python3_not_python",
+      "Goals: 51% complete \u2014 17 remaining",
+      "Erdos: 0% STABLE \u2014 need GPU on mod24=9",
+      "Veo video quality: all A-grade \u2014 grammar is solid"
+    ],
+    "primary_action": "Fix the most common mistake category first, then address the biggest retroactive gap.",
+    "learning_velocity": "We learn from 6 data sources simultaneously. Each source feeds the others."
+  }
+}
