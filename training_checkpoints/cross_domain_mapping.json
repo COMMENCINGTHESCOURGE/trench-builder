@@ -31,20 +31,26 @@
   },
   {
     "sequence_step": 6,
-    "human": "Walk (80% energy)",
+    "human": "Walk (65% energy)",
     "mechanical": "Assembly [PROTOTYPE]",
     "parallel": "Both progress from walk \u2192 assembly: state transition + validation"
   },
   {
     "sequence_step": 7,
-    "human": "Jump (90% energy)",
+    "human": "Walk (80% energy)",
     "mechanical": "Break-In Cycle [TEST]",
-    "parallel": "Both progress from jump \u2192 break-in cycle: state transition + validation"
+    "parallel": "Both progress from walk \u2192 break-in cycle: state transition + validation"
   },
   {
     "sequence_step": 8,
-    "human": "Run (100% energy)",
+    "human": "Jump (90% energy)",
     "mechanical": "Performance Mapping [TEST]",
-    "parallel": "Both progress from run \u2192 performance mapping: state transition + validation"
+    "parallel": "Both progress from jump \u2192 performance mapping: state transition + validation"
+  },
+  {
+    "sequence_step": 9,
+    "human": "Run (100% energy)",
+    "mechanical": "Durability Validation [VALIDATE]",
+    "parallel": "Both progress from run \u2192 durability validation: state transition + validation"
   }
 ]

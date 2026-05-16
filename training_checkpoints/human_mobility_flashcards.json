@@ -44,7 +44,7 @@
   {
     "id": "H4",
     "front": "State: Stand",
-    "back": "Full upright posture. Ankles micro-adjust continuously. Center of mass over midfoot. Static balance achieved \u2014 but no rhythm yet.",
+    "back": "Full upright posture. Static balance achieved but no rhythm yet.",
     "muscles": [
       "gluteus maximus",
       "quadriceps",
@@ -54,11 +54,26 @@
     "energy_percent": 50,
     "balance": "Biped base, narrow",
     "next_state": "H5",
-    "hash": "7d570f7d"
+    "hash": "f385da73"
   },
   {
     "id": "H5",
     "front": "State: Bounce",
+    "back": "Knees become springs. Glutes drive angles: hip-knee-ankle cascade. Foot angle, ham angle, hip angle oscillate. Arms counter-balance at opposite phase. Neck pivots to stabilize head. Each frame calculates joint angle increase/decrease across all 5 joints.",
+    "muscles": [
+      "quads",
+      "gastrocnemius",
+      "tibialis",
+      "glutes"
+    ],
+    "energy_percent": 65,
+    "balance": "Dynamic vertical",
+    "next_state": "H6",
+    "hash": "99293aee"
+  },
+  {
+    "id": "H6",
+    "front": "State: Walk",
     "back": "Knees become springs. Body oscillates vertically without moving forward. Glutes are the primary engine \u2014 they drive the bounce through a sequence of angles: hip extension (glute max fires)\u2192 knee extension (quadriceps follow) \u2192 ankle plantarflexion (gastrocnemius releases stored energy). The stretch-shortening cycle activates. Achilles tendon stores and releases. Energy flows hip\u2192knee\u2192ankle in a cascading angular chain. This is where rhythm is born \u2014 the metronome before the step.",
     "muscles": [
       "quadriceps (eccentric\u2192concentric)",
