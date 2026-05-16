@@ -50,11 +50,15 @@ class BiomechanicalDenominator:
     
     @property
     def D_ll(self) -> float:
-        """Lactic acid damping."""
+        """Lactic acid damping — smoother pH transition."""
         la_ratio = self.lactate / self.La_crit
-        pH = 7.2 - np.log10(1 + self.lactate / 10**-3.86)
-        phi = 1.0 / (1.0 + np.exp(-10 * (pH - 6.8)))
-        return la_ratio / phi if phi > 0.01 else 10.0
+        # Hill-type pH curve: midpoint at 6.9, Hill coefficient 8
+        # This gives a smooth transition rather than a cliff
+        la_norm = min(1.0, la_ratio)
+        phi = 1.0 - 0.85 * (la_norm ** 3)  # Cubic rolloff
+        if phi < 0.05:
+            phi = 0.05
+        return la_ratio / phi
     
     @property
     def D_ii(self) -> float:
