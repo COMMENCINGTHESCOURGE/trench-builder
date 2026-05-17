@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VINCULUM INTERIORS — Checkpoint Room Viewer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a10;overflow:hidden;font-family:'Rajdhani',sans-serif}
+#hud{position:absolute;top:12px;left:12px;z-index:10;pointer-events:none;color:#00d4ff;font-size:12px;letter-spacing:2px}
+#hud .title{font-size:18px;font-weight:700;text-shadow:0 0 15px rgba(0,212,255,0.5)}
+#hud .stage{color:#ffaa00;margin-top:4px}
+#controls{position:absolute;bottom:12px;left:12px;z-index:10;color:#5a6b7f;font-size:10px}
+#minimap{position:absolute;bottom:12px;right:12px;width:140px;height:140px;border:1px solid rgba(0,212,255,0.2);z-index:10}
+#legend{position:absolute;top:12px;right:12px;z-index:10;font-size:9px;color:#5a6b7f;text-align:right;line-height:1.6}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+</style>
+</head>
+<body>
+<div id="hud">
+  <div class="title">VINCULUM INTERIORS</div>
+  <div class="stage" id="stage-name">SUPINE — Bedroom</div>
+  <div id="room-dims" style="font-size:10px;color:#5a6b7f;margin-top:4px;">12m × 10m × 4m</div>
+</div>
+<div id="legend">
+  <div><span class="legend-dot" style="background:#00ff88"></span> DOOR (entry/exit)</div>
+  <div><span class="legend-dot" style="background:#ffaa00"></span> LIGHT SOURCE</div>
+  <div><span class="legend-dot" style="background:#ff2a4d"></span> COLLISION OBJ</div>
+  <div><span class="legend-dot" style="background:#00d4ff"></span> NAVIGATION NODE</div>
+  <div><span class="legend-dot" style="background:#aa66ff"></span> INTERACTIVE</div>
+</div>
+<div id="controls">←→ ARROWS: cycle rooms | MOUSE: orbit | SCROLL: zoom | R: reset view</div>
+<canvas id="minimap" width="140" height="140"></canvas>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ═══════════════════════════════════════════════
+// ROOM TEMPLATES — 8 checkpoint stages
+// ═══════════════════════════════════════════════
+const ROOMS = {
+  SUPINE: {
+    name: 'SUPINE — Crew Quarters',
+    dims: { w: 12, d: 10, h: 4 },
+    chroma: { hue: 220, light: 0.3 },  // Blue — calm/rest
+    mod9: 1,
+    walls: [
+      { x: 0, y: 2, z: 5, w: 12, h: 4, d: 0.2 },   // back
+      { x: 0, y: 2, z: -5, w: 12, h: 4, d: 0.2 },  // front
+      { x: -6, y: 2, z: 0, w: 0.2, h: 4, d: 10 },  // left
+      { x: 6, y: 2, z: 0, w: 0.2, h: 4, d: 10 },   // right
+    ],
+    props: [
+      { type: 'box', x: -3, z: 2, w: 4, h: 1.2, d: 3, color: '#445566', tag: 'bed' },
+      { type: 'box', x: 3, z: -2, w: 2, h: 1.5, d: 2, color: '#556644', tag: 'locker' },
+      { type: 'sphere', x: 3, z: 2, r: 0.4, color: '#ffaa00', tag: 'lamp' },
+    ],
+    doors: [{ x: 0, z: -5, w: 2, h: 3.5 }],
+    navmesh: [[-5, -4], [5, -4], [5, 4], [-5, 4]],
+    interactives: [{ type: 'circle', x: 3, z: -2, r: 0.5, color: '#aa66ff', tag: 'locker_open' }],
+    description: 'Private crew quarters. Bed against north wall. Locker for gear storage.'
+  },
+  SCOOT: {
+    name: 'SCOOT — Access Corridor',
+    dims: { w: 4, d: 18, h: 3.5 },
+    chroma: { hue: 200, light: 0.35 },
+    mod9: 2,
+    walls: [
+      { x: 0, y: 1.75, z: 0, w: 0.2, h: 3.5, d: 18 },
+      { x: 2, y: 1.75, z: 0, w: 0.2, h: 3.5, d: 18 },
+    ],
+    props: [
+      { type: 'box', x: 1, z: -6, w: 0.5, h: 0.8, d: 0.5, color: '#884444', tag: 'fire_extinguisher' },
+      { type: 'cylinder', x: 1, z: 4, r: 0.3, h: 0.1, color: '#ff8800', tag: 'floor_light' },
+    ],
+    doors: [{ x: 1, z: -9, w: 2, h: 3.5 }, { x: 1, z: 9, w: 2, h: 3.5 }],
+    navmesh: [[0, -8], [2, -8], [2, 8], [0, 8]],
+    interactives: [{ type: 'circle', x: 1, z: -6, r: 0.3, color: '#aa66ff', tag: 'extinguisher' }],
+    description: 'Narrow corridor connecting crew quarters to common areas.'
+  },
+  CRAWL: {
+    name: 'CRAWL — Maintenance Tunnel',
+    dims: { w: 3, d: 14, h: 2.8 },
+    chroma: { hue: 30, light: 0.25 },
+    mod9: 3,
+    walls: [
+      { x: 0, y: 1.4, z: 0, w: 0.2, h: 2.8, d: 14 },
+      { x: 1.5, y: 1.4, z: 0, w: 0.2, h: 2.8, d: 14 },
+    ],
+    props: [
+      { type: 'cylinder', x: 0.75, z: -2, r: 0.25, h: 2, color: '#555544', tag: 'pipe' },
+      { type: 'cylinder', x: 0.75, z: 3, r: 0.3, h: 1.5, color: '#665544', tag: 'valve' },
+    ],
+    doors: [{ x: 0.75, z: -7, w: 1.5, h: 2.5 }, { x: 0.75, z: 7, w: 1.5, h: 2.5 }],
+    navmesh: [[0, -6], [1.5, -6], [1.5, 6], [0, 6]],
+    interactives: [{ type: 'circle', x: 0.75, z: 3, r: 0.4, color: '#aa66ff', tag: 'valve_turn' }],
+    description: 'Cramped maintenance tunnel with pipes and valves.'
+  },
+  STAND: {
+    name: 'STAND — Command Center',
+    dims: { w: 16, d: 14, h: 5 },
+    chroma: { hue: 170, light: 0.4 },
+    mod9: 4,
+    walls: [
+      { x: 0, y: 2.5, z: 7, w: 16, h: 5, d: 0.2 },
+      { x: 0, y: 2.5, z: -7, w: 16, h: 5, d: 0.2 },
+      { x: -8, y: 2.5, z: 0, w: 0.2, h: 5, d: 14 },
+      { x: 8, y: 2.5, z: 0, w: 0.2, h: 5, d: 14 },
+    ],
+    props: [
+      { type: 'box', x: 0, z: 3, w: 8, h: 1.5, d: 3, color: '#334455', tag: 'hologram_table' },
+      { type: 'box', x: -5, z: -3, w: 2, h: 2, d: 1, color: '#223344', tag: 'server' },
+      { type: 'box', x: 5, z: -3, w: 2, h: 2, d: 1, color: '#223344', tag: 'server' },
+      { type: 'sphere', x: 0, z: 3, r: 1.5, color: '#00d4ff', tag: 'hologram', opacity: 0.3 },
+    ],
+    doors: [{ x: 0, z: -7, w: 3, h: 4.5 }, { x: -7, z: 0, w: 3, h: 4.5 }],
+    navmesh: [[-7, -6], [7, -6], [7, 6], [-7, 6]],
+    interactives: [{ type: 'circle', x: 0, z: 3, r: 1, color: '#aa66ff', tag: 'hologram_control' }],
+    description: 'Central command with holographic tactical table.'
+  },
+  BOUNCE: {
+    name: 'BOUNCE — Training Bay',
+    dims: { w: 20, d: 18, h: 8 },
+    chroma: { hue: 140, light: 0.5 },
+    mod9: 5,
+    walls: [
+      { x: 0, y: 4, z: 9, w: 20, h: 8, d: 0.2 },
+      { x: 0, y: 4, z: -9, w: 20, h: 8, d: 0.2 },
+      { x: -10, y: 4, z: 0, w: 0.2, h: 8, d: 18 },
+      { x: 10, y: 4, z: 0, w: 0.2, h: 8, d: 18 },
+    ],
+    props: [
+      { type: 'box', x: -5, z: 3, w: 4, h: 0.3, d: 4, color: '#445555', tag: 'training_mat' },
+      { type: 'box', x: 5, z: -3, w: 3, h: 2, d: 2, color: '#554444', tag: 'target_dummy' },
+      { type: 'cylinder', x: -7, z: -4, r: 0.5, h: 3, color: '#554455', tag: 'pole' },
+    ],
+    doors: [{ x: 0, z: -9, w: 4, h: 6 }],
+    navmesh: [[-9, -8], [9, -8], [9, 8], [-9, 8]],
+    interactives: [{ type: 'circle', x: -5, z: -4, r: 0.8, color: '#aa66ff', tag: 'wall_panel' }],
+    description: 'High-ceiling training bay with mats and targets.'
+  },
+  WALK: {
+    name: 'WALK — Transit Hub',
+    dims: { w: 14, d: 20, h: 6 },
+    chroma: { hue: 190, light: 0.45 },
+    mod9: 6,
+    walls: [
+      { x: 0, y: 3, z: 10, w: 14, h: 6, d: 0.3 },
+      { x: 0, y: 3, z: -10, w: 14, h: 6, d: 0.3 },
+      { x: -7, y: 3, z: 0, w: 0.3, h: 6, d: 20 },
+      { x: 7, y: 3, z: 0, w: 0.3, h: 6, d: 20 },
+    ],
+    props: [
+      { type: 'box', x: -3, z: -4, w: 6, h: 0.3, d: 8, color: '#445544', tag: 'platform' },
+      { type: 'box', x: 3, z: 4, w: 4, h: 2, d: 2, color: '#334455', tag: 'ticket_kiosk' },
+    ],
+    doors: [
+      { x: 0, z: 10, w: 4, h: 5.5 },
+      { x: 0, z: -10, w: 4, h: 5.5 },
+      { x: -7, z: 0, w: 3, h: 5.5 },
+      { x: 7, z: 0, w: 3, h: 5.5 },
+    ],
+    navmesh: [[-6, -9], [6, -9], [6, 9], [-6, 9]],
+    interactives: [{ type: 'circle', x: 3, z: 4, r: 0.6, color: '#aa66ff', tag: 'kiosk_screen' }],
+    description: 'Transit hub with platforms and ticket kiosks. Multiple exits.'
+  },
+  JUMP: {
+    name: 'JUMP — Launch Bay',
+    dims: { w: 24, d: 24, h: 12 },
+    chroma: { hue: 10, light: 0.5 },
+    mod9: 7,
+    walls: [
+      { x: 0, y: 6, z: 12, w: 24, h: 12, d: 0.3 },
+      { x: 0, y: 6, z: -12, w: 24, h: 12, d: 0.3 },
+      { x: -12, y: 6, z: 0, w: 0.3, h: 12, d: 24 },
+      { x: 12, y: 6, z: 0, w: 0.3, h: 12, d: 24 },
+    ],
+    props: [
+      { type: 'cylinder', x: 0, z: 0, r: 3, h: 0.5, color: '#ff4400', tag: 'launch_pad' },
+      { type: 'box', x: -7, z: -6, w: 4, h: 3, d: 3, color: '#554444', tag: 'fuel_tank' },
+      { type: 'box', x: 7, z: -6, w: 4, h: 2, d: 2, color: '#334455', tag: 'console' },
+    ],
+    doors: [{ x: 0, z: 12, w: 6, h: 10 }],
+    navmesh: [[-11, -11], [11, -11], [11, 11], [-11, 11]],
+    interactives: [{ type: 'circle', x: 7, z: -6, r: 0.8, color: '#aa66ff', tag: 'launch_console' }],
+    description: 'Massive hangar with launch pad. Ceiling opens.'
+  },
+  RUN: {
+    name: 'RUN — Engineering Core',
+    dims: { w: 10, d: 10, h: 5 },
+    chroma: { hue: 0, light: 0.4 },
+    mod9: 0,
+    walls: [
+      { x: 0, y: 2.5, z: 5, w: 10, h: 5, d: 0.2 },
+      { x: 0, y: 2.5, z: -5, w: 10, h: 5, d: 0.2 },
+      { x: -5, y: 2.5, z: 0, w: 0.2, h: 5, d: 10 },
+      { x: 5, y: 2.5, z: 0, w: 0.2, h: 5, d: 10 },
+    ],
+    props: [
+      { type: 'cylinder', x: 0, z: 0, r: 1.5, h: 4, color: '#ff2244', tag: 'reactor_core' },
+      { type: 'box', x: -3, z: 3, w: 2, h: 2, d: 1, color: '#445555', tag: 'coolant' },
+      { type: 'box', x: 3, z: 3, w: 2, h: 2, d: 1, color: '#445555', tag: 'coolant' },
+    ],
+    doors: [{ x: 0, z: -5, w: 2.5, h: 4.5 }],
+    navmesh: [[-4, -4], [4, -4], [4, 2], [2, 2], [2, 4], [-2, 4], [-2, 2], [-4, 2]],
+    interactives: [{ type: 'circle', x: -3, z: 3, r: 0.5, color: '#aa66ff', tag: 'coolant_valve' }],
+    description: 'Reactor engineering bay. Hot core in center. Coolant stations.'
+  }
+};
+
+const STAGES = ['SUPINE','SCOOT','CRAWL','STAND','BOUNCE','WALK','JUMP','RUN'];
+
+// ═══════════════════════════════════════
+// THREE.JS SCENE
+// ═══════════════════════════════════════
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#0a0a10');
+scene.fog = new THREE.Fog('#0a0a10', 10, 50);
+
+const cam = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.5, 200);
+cam.position.set(10, 12, 18);
+cam.lookAt(0, 1.5, 0);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(devicePixelRatio);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 1.5, 0);
+controls.enableDamping = true;
+controls.update();
+
+scene.add(new THREE.AmbientLight('#334455', 0.6));
+const dirLight = new THREE.DirectionalLight('#ffeedd', 1.2);
+dirLight.position.set(10, 15, 5);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.set(512, 512);
+scene.add(dirLight);
+
+let currentStage = 0;
+const objects = [];
+const minimap = document.getElementById('minimap');
+const mmCtx = minimap.getContext('2d');
+
+function buildRoom(stage) {
+  objects.forEach(o => scene.remove(o));
+  objects.length = 0;
+
+  const room = ROOMS[stage];
+  const { w, d, h } = room.dims;
+  const chroma = room.chroma;
+
+  // Floor
+  const floorGeo = new THREE.PlaneGeometry(w + 0.1, d + 0.1);
+  const floorMat = new THREE.MeshStandardMaterial({color:'#1a1a2e', roughness:0.9});
+  const floor = new THREE.Mesh(floorGeo, floorMat);
+  floor.rotation.x = -Math.PI/2;
+  floor.position.y = -0.05;
+  floor.receiveShadow = true;
+  scene.add(floor);
+  objects.push(floor);
+
+  // Walls
+  room.walls.forEach(wall => {
+    const geo = new THREE.BoxGeometry(wall.w, wall.h, wall.d);
+    const mat = new THREE.MeshStandardMaterial({
+      color: '#2a2a3e',
+      roughness: 0.85,
+      transparent: true,
+      opacity: 0.7
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(wall.x, wall.y, wall.z);
+    mesh.receiveShadow = true;
+    mesh.castShadow = true;
+    scene.add(mesh);
+    objects.push(mesh);
+  });
+
+  // Doors (cut out areas — rendered as different color)
+  room.doors.forEach(door => {
+    const geo = new THREE.BoxGeometry(door.w, door.h, 0.15);
+    const mat = new THREE.MeshStandardMaterial({
+      color: '#00ff88',
+      roughness: 0.3,
+      emissive: '#004422',
+      emissiveIntensity: 0.5
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(door.x, door.h/2, door.z);
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+    objects.push(mesh);
+
+    // Nav light above door
+    const lightGeo = new THREE.SphereGeometry(0.1, 8, 8);
+    const lightMat = new THREE.MeshBasicMaterial({color:'#00ff88'});
+    const light = new THREE.Mesh(lightGeo, lightMat);
+    light.position.set(door.x, door.h + 0.1, door.z);
+    scene.add(light);
+    objects.push(light);
+  });
+
+  // Props
+  room.props.forEach(prop => {
+    let geo, mat;
+    if (prop.type === 'box') {
+      geo = new THREE.BoxGeometry(prop.w, prop.h, prop.d);
+    } else if (prop.type === 'cylinder') {
+      geo = new THREE.CylinderGeometry(prop.r, prop.r, prop.h, 16);
+    } else if (prop.type === 'sphere') {
+      geo = new THREE.SphereGeometry(prop.r, 16, 16);
+    }
+    if (geo) {
+      mat = new THREE.MeshStandardMaterial({
+        color: prop.color,
+        roughness: 0.6,
+        transparent: prop.opacity ? true : false,
+        opacity: prop.opacity || 1
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(prop.x, prop.type === 'box' ? prop.h/2 : (prop.type === 'cylinder' ? prop.h/2 : prop.r), prop.z);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      scene.add(mesh);
+      objects.push(mesh);
+
+      // Tag label
+      if (prop.tag) {
+        const tagDiv = document.createElement('div');
+        tagDiv.style.cssText = 'position:absolute;color:#aabbcc;font-size:8px;pointer-events:none;text-shadow:0 0 4px black;';
+        tagDiv.textContent = prop.tag;
+        tagDiv.className = 'tag-label';
+        document.body.appendChild(tagDiv);
+        objects.push({isTag:true, div:tagDiv, worldPos:new THREE.Vector3(prop.x, 3, prop.z)});
+      }
+    }
+  });
+
+  // Interactive hotspots
+  room.interactives.forEach(inter => {
+    const ringGeo = new THREE.RingGeometry(inter.r - 0.1, inter.r, 32);
+    const ringMat = new THREE.MeshBasicMaterial({color: inter.color, side: THREE.DoubleSide, transparent: true, opacity: 0.5});
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = -Math.PI/2;
+    ring.position.set(inter.x, 0.05, inter.z);
+    ring.userData = {tag: inter.tag};
+    ring.visible = true;
+    scene.add(ring);
+    objects.push(ring);
+  });
+
+  // Chroma light
+  const chromaLight = new THREE.PointLight(
+    `hsl(${chroma.hue}, 60%, ${chroma.light * 100}%)`,
+    2, 20
+  );
+  chromaLight.position.set(0, room.dims.h - 0.5, 0);
+  scene.add(chromaLight);
+  objects.push(chromaLight);
+
+  // Update HUD
+  document.getElementById('stage-name').textContent = room.name;
+  document.getElementById('room-dims').textContent = 
+    `${room.dims.w}m × ${room.dims.d}m × ${room.dims.h}m | mod9=${room.mod9} | ${room.chroma.hue}°`;
+
+  // Minimap
+  drawMinimap(room);
+}
+
+function drawMinimap(room) {
+  mmCtx.fillStyle = '#0a0a10';
+  mmCtx.fillRect(0, 0, 140, 140);
+
+  const scale = 130 / Math.max(room.dims.w, room.dims.d);
+  const ox = 70 - room.dims.w * scale / 2;
+  const oy = 70 - room.dims.d * scale / 2;
+
+  mmCtx.fillStyle = '#1a1a2e';
+  mmCtx.fillRect(ox, oy, room.dims.w * scale, room.dims.d * scale);
+
+  room.doors.forEach(door => {
+    mmCtx.fillStyle = '#00ff88';
+    const dx = door.x + room.dims.w/2;
+    const dz = door.z + room.dims.d/2;
+    mmCtx.fillRect(ox + dx * scale - door.w*scale/2, oy + dz * scale - 1, door.w * scale, 2);
+  });
+
+  room.props.forEach(prop => {
+    mmCtx.fillStyle = prop.tag === 'bed' || prop.tag === 'hologram_table' ? '#445566' : '#ff2a4d';
+    const px = prop.x + room.dims.w/2;
+    const pz = prop.z + room.dims.d/2;
+    mmCtx.fillRect(ox + px * scale - 3, oy + pz * scale - 3, 6, 6);
+  });
+
+  room.interactives.forEach(inter => {
+    mmCtx.fillStyle = '#aa66ff';
+    const ix = inter.x + room.dims.w/2;
+    const iz = inter.z + room.dims.d/2;
+    mmCtx.beginPath();
+    mmCtx.arc(ox + ix * scale, oy + iz * scale, 3, 0, Math.PI*2);
+    mmCtx.fill();
+  });
+}
+
+// ═══════════════════════════════════
+// ANIMATION
+// ═══════════════════════════════════
+buildRoom('SUPINE');
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') {
+    currentStage = (currentStage + 1) % STAGES.length;
+    buildRoom(STAGES[currentStage]);
+  }
+  if (e.key === 'ArrowLeft') {
+    currentStage = (currentStage - 1 + STAGES.length) % STAGES.length;
+    buildRoom(STAGES[currentStage]);
+  }
+  if (e.key === 'r' || e.key === 'R') {
+    cam.position.set(10, 12, 18);
+    controls.target.set(0, 1.5, 0);
+    controls.update();
+    buildRoom(STAGES[currentStage]);
+  }
+});
+
+function updateTagLabels() {
+  objects.forEach(obj => {
+    if (obj.isTag && obj.div) {
+      const pos = obj.worldPos.clone().project(cam);
+      const x = (pos.x * 0.5 + 0.5) * innerWidth;
+      const y = (-pos.y * 0.5 + 0.5) * innerHeight;
+      if (pos.z < 1) {
+        obj.div.style.left = x + 'px';
+        obj.div.style.top = y + 'px';
+        obj.div.style.display = 'block';
+      } else {
+        obj.div.style.display = 'none';
+      }
+    }
+  });
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  updateTagLabels();
+  renderer.render(scene, cam);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  cam.aspect = innerWidth/innerHeight;
+  cam.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
