@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FACIAL CITY GRID — Roads, Plots, Dead Ends</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a10;overflow:hidden;font:10px monospace;color:#888}
+#hud{position:absolute;top:10px;left:10px;z-index:10;pointer-events:none}
+#hud .title{color:#d4a854;font-size:12px}
+#stats{position:absolute;top:10px;right:10px;z-index:10;text-align:right;pointer-events:none;font-size:9px}
+#legend{position:absolute;bottom:10px;left:10px;z-index:10;pointer-events:none;font-size:8px;line-height:1.6}
+#info{position:absolute;bottom:10px;right:10px;z-index:10;pointer-events:none;font-size:8px;color:#556}
+</style>
+</head>
+<body>
+<div id="hud">
+  <div class="title">FACIAL CITY — Vinculum Grid</div>
+  <div id="mode-display">MODE: CITY VIEW</div>
+</div>
+<div id="stats">
+  <div id="road-count">Roads: 20</div>
+  <div id="plot-count">Plots: 81</div>
+  <div id="bisect-count">Bisections: 0</div>
+  <div id="dead-count">Dead Ends: 0</div>
+</div>
+<div id="legend">
+  <span style="color:#ff6644">■</span> BROW district<br>
+  <span style="color:#ffaa22">■</span> EYE district<br>
+  <span style="color:#dd4444">■</span> MOUTH district<br>
+  <span style="color:#ff8844">■</span> CORNER district<br>
+  <span style="color:#cc6633">■</span> JAW district<br>
+  <span style="color:#ff9944">■</span> CHEEK district<br>
+  <span style="color:#ffffff">■</span> CROSS STREET (intersection)<br>
+  <span style="color:#ff0000">■</span> DEAD END (isolated)
+</div>
+<div id="info">SCROLL: zoom | MOUSE: orbit | M: cycle view mode | R: regenerate</div>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#0a0a10');
+scene.fog = new THREE.Fog('#0a0a10', 30, 100);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.5, 200);
+camera.position.set(35, 28, 35);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0, 0);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI/2.2;
+
+// Lighting
+scene.add(new THREE.AmbientLight('#334466', 0.5));
+const sun = new THREE.DirectionalLight('#ffe8cc', 2.5);
+sun.position.set(40, 60, 30);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = 200;
+sun.shadow.camera.left = -50;
+sun.shadow.camera.right = 50;
+sun.shadow.camera.top = 50;
+sun.shadow.camera.bottom = -50;
+scene.add(sun);
+scene.add(new THREE.HemisphereLight('#8899cc','#221108',0.3));
+
+// Config
+const SIZE = 80;
+const SPACING = 8;
+const ROAD_W = 2;
+const SW_W = 0.6;
+
+// Facial zone colors
+const ZONES = {
+  brow: '#ff6644',
+  eye: '#ffaa22', 
+  mouth: '#dd4444',
+  corner_L: '#ff8844',
+  corner_R: '#ff8844',
+  jaw: '#cc6633',
+  cheek: '#ff9944'
+};
+
+const ZONE_NAMES = Object.keys(ZONES);
+
+// Generate road positions
+const roadPositions = [];
+const half = SIZE/2;
+for(let i=0; i<=Math.floor(SIZE/SPACING); i++){
+  const p = -half + i*SPACING;
+  if(Math.abs(p) < half-2) roadPositions.push(p);
+}
+
+// Data structures
+const buildings = [];
+const plotData = [];
+const bisections = [];
+const deadEnds = [];
+
+// Materials
+const asphaltMat = new THREE.MeshStandardMaterial({color:'#222222', roughness:0.9});
+const sidewalkMat = new THREE.MeshStandardMaterial({color:'#555555', roughness:0.7});
+const crosswalkMat = new THREE.MeshStandardMaterial({color:'#cccccc', roughness:0.6, emissive:'#111111', emissiveIntensity:0.2});
+const deadEndMat = new THREE.MeshStandardMaterial({color:'#ff0000', roughness:0.3, emissive:'#440000', emissiveIntensity:0.6});
+const bisectMat = new THREE.MeshStandardMaterial({color:'#ffffff', roughness:0.2, emissive:'#333333', emissiveIntensity:0.4});
+
+let viewMode = 'city';
+const deadEndMarkers = [];
+const bisectMarkers = [];
+
+// Build world
+function buildWorld(){
+  // Clear old
+  while(scene.children.length > 4) scene.remove(scene.children[4]);
+  buildings.length = 0;
+  plotData.length = 0;
+  bisections.length = 0;
+  deadEnds.length = 0;
+  deadEndMarkers.length = 0;
+  bisectMarkers.length = 0;
+
+  // Ground
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(SIZE, SIZE),
+    new THREE.MeshStandardMaterial({color:'#1a2a1a', roughness:1})
+  );
+  ground.rotation.x = -Math.PI/2;
+  ground.position.y = -0.01;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // Roads
+  for(let x of roadPositions){
+    const r = new THREE.Mesh(new THREE.PlaneGeometry(ROAD_W, SIZE), asphaltMat);
+    r.rotation.x = -Math.PI/2; r.position.set(x, 0.01, 0); r.receiveShadow = true;
+    scene.add(r);
+    // Sidewalks
+    for(let s of [-1,1]){
+      const sw = new THREE.Mesh(new THREE.PlaneGeometry(SW_W, SIZE), sidewalkMat);
+      sw.rotation.x = -Math.PI/2; sw.receiveShadow = true;
+      sw.position.set(x + s*(ROAD_W/2+SW_W/2), 0.02, 0);
+      scene.add(sw);
+    }
+  }
+  for(let z of roadPositions){
+    const r = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, ROAD_W), asphaltMat);
+    r.rotation.x = -Math.PI/2; r.position.set(0, 0.01, z); r.receiveShadow = true;
+    scene.add(r);
+    for(let s of [-1,1]){
+      const sw = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SW_W), sidewalkMat);
+      sw.rotation.x = -Math.PI/2; sw.receiveShadow = true;
+      sw.position.set(0, 0.02, z + s*(ROAD_W/2+SW_W/2));
+      scene.add(sw);
+    }
+  }
+
+  // Crosswalks
+  const cwGeo = new THREE.PlaneGeometry(ROAD_W+1, ROAD_W+1);
+  for(let x of roadPositions){
+    for(let z of roadPositions){
+      const cw = new THREE.Mesh(cwGeo, crosswalkMat);
+      cw.rotation.x = -Math.PI/2; cw.position.set(x, 0.04, z); cw.receiveShadow = true;
+      scene.add(cw);
+    }
+  }
+
+  // Plots & Buildings
+  let plotIdx = 0;
+  for(let i=0; i<roadPositions.length-1; i++){
+    for(let j=0; j<roadPositions.length-1; j++){
+      const x1 = roadPositions[i] + ROAD_W/2 + SW_W;
+      const x2 = roadPositions[i+1] - ROAD_W/2 - SW_W;
+      const z1 = roadPositions[j] + ROAD_W/2 + SW_W;
+      const z2 = roadPositions[j+1] - ROAD_W/2 - SW_W;
+      const pw = x2-x1, pd = z2-z1;
+      if(pw<1||pd<1) continue;
+      
+      const cx = (x1+x2)/2, cz = (z1+z2)/2;
+      
+      // Assign facial zone based on position
+      const nx = cx/SIZE*2, nz = cz/SIZE*2;
+      const angle = Math.atan2(nz, nx);
+      const dist = Math.sqrt(nx*nx+nz*nz);
+      
+      let zone = 'cheek';
+      if(dist < 0.3) zone = 'mouth';
+      else if(dist < 0.5 && Math.abs(angle) < 0.6) zone = 'jaw';
+      else if(dist > 0.6 && Math.abs(angle) > 0.8) zone = 'brow';
+      else if(dist > 0.4 && dist < 0.7 && Math.abs(angle) < 0.5) zone = 'eye';
+      else if(Math.abs(angle) > 0.7 && dist > 0.4 && dist < 0.8) zone = 'cheek';
+      else if(Math.abs(angle) < 1.2 && dist > 0.35 && dist < 0.6) zone = 'corner';
+      
+      const plot = {
+        x:cx, z:cz, w:pw, d:pd, zone:zone,
+        idx: plotIdx, neighbors: [], isolated: true
+      };
+      
+      // Plot base
+      const pGeo = new THREE.PlaneGeometry(pw-0.2, pd-0.2);
+      const pColor = ZONES[zone.startsWith('corner')?'corner_L':zone] || '#ff9944';
+      const pMat = new THREE.MeshStandardMaterial({color:pColor, roughness:0.8});
+      const pMesh = new THREE.Mesh(pGeo, pMat);
+      pMesh.rotation.x = -Math.PI/2; pMesh.position.set(cx, 0.015, cz); pMesh.receiveShadow = true;
+      scene.add(pMesh);
+      
+      // Buildings
+      const bCount = Math.floor(Math.random()*2.5);
+      for(let b=0; b<bCount; b++){
+        const bw = Math.max(1, pw*(0.25+Math.random()*0.3));
+        const bd = Math.max(1, pd*(0.25+Math.random()*0.3));
+        const bh = 1.5+Math.random()*4;
+        const maxOx = (pw-bw)/2-0.3, maxOz = (pd-bd)/2-0.3;
+        const ox = maxOx>0?(Math.random()-0.5)*2*maxOx:0;
+        const oz = maxOz>0?(Math.random()-0.5)*2*maxOz:0;
+        
+        const bGeo = new THREE.BoxGeometry(bw, bh, bd);
+        const bColor = new THREE.Color(pColor).multiplyScalar(0.6);
+        const bMat = new THREE.MeshStandardMaterial({color:bColor, roughness:0.6});
+        const bMesh = new THREE.Mesh(bGeo, bMat);
+        bMesh.position.set(cx+ox, bh/2, cz+oz);
+        bMesh.castShadow = true; bMesh.receiveShadow = true;
+        scene.add(bMesh);
+        
+        buildings.push({mesh:bMesh, x:cx+ox, z:cz+oz, hw:bw/2, hd:bd/2, plot:plotIdx});
+      }
+      
+      plotData.push(plot);
+      plotIdx++;
+    }
+  }
+
+  // Analyze topology: find bisections and dead ends
+  analyzeTopology();
+  updateHUD();
+}
+
+function analyzeTopology(){
+  bisections.length = 0;
+  deadEnds.length = 0;
+  
+  for(let i=0; i<plotData.length; i++){
+    const a = plotData[i];
+    a.neighbors = [];
+    a.isolated = true;
+    
+    for(let j=0; j<plotData.length; j++){
+      if(i===j) continue;
+      const b = plotData[j];
+      const dx = Math.abs(a.x - b.x);
+      const dz = Math.abs(a.z - b.z);
+      const maxDist = (a.w+b.w)/2 + (a.d+b.d)/2;
+      
+      if(dx < maxDist*0.6 && dz < maxDist*0.6){
+        a.neighbors.push(j);
+        a.isolated = false;
+      }
+    }
+    
+    // Check bisection: two different zones touching
+    for(let j of a.neighbors){
+      const b = plotData[j];
+      if(a.zone !== b.zone){
+        bisections.push({a:i, b:j, zoneA:a.zone, zoneB:b.zone});
+      }
+    }
+    
+    // Dead end: no neighbors of different zones
+    if(a.isolated || a.neighbors.every(j => plotData[j].zone === a.zone)){
+      deadEnds.push(i);
+    }
+  }
+  
+  // Mark dead ends visually
+  for(let idx of deadEnds){
+    const p = plotData[idx];
+    const m = new THREE.Mesh(
+      new THREE.BoxGeometry(0.4, 0.3, 0.4),
+      deadEndMat
+    );
+    m.position.set(p.x, 0.1, p.z);
+    scene.add(m);
+    deadEndMarkers.push(m);
+  }
+  
+  // Mark bisections
+  const marked = new Set();
+  for(let b of bisections){
+    const key = [b.a, b.b].sort().join('-');
+    if(marked.has(key)) continue;
+    marked.add(key);
+    
+    const pa = plotData[b.a];
+    const pb = plotData[b.b];
+    const mx = (pa.x+pb.x)/2, mz = (pa.z+pb.z)/2;
+    const m = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.2, 0.2, 0.15, 8),
+      bisectMat
+    );
+    m.position.set(mx, 0.08, mz);
+    scene.add(m);
+    bisectMarkers.push(m);
+  }
+}
+
+function updateHUD(){
+  document.getElementById('road-count').textContent = `Roads: ${roadPositions.length*2}`;
+  document.getElementById('plot-count').textContent = `Plots: ${plotData.length}`;
+  document.getElementById('bisect-count').textContent = `Bisections: ${new Set(bisections.map(b=>[b.a,b.b].sort().join('-'))).size}`;
+  document.getElementById('dead-count').textContent = `Dead Ends: ${deadEnds.length}`;
+
+  // Toggle markers based on view mode
+  const showDead = viewMode === 'topology' || viewMode === 'dead';
+  const showBisect = viewMode === 'topology' || viewMode === 'bisect';
+  deadEndMarkers.forEach(m => m.visible = showDead);
+  bisectMarkers.forEach(m => m.visible = showBisect);
+  
+  document.getElementById('mode-display').textContent = 
+    `MODE: ${viewMode.toUpperCase()} VIEW`;
+}
+
+buildWorld();
+
+// Mode cycling
+document.addEventListener('keydown', e => {
+  if(e.key === 'm' || e.key === 'M'){
+    const modes = ['city', 'topology', 'dead', 'bisect'];
+    const idx = modes.indexOf(viewMode);
+    viewMode = modes[(idx+1)%modes.length];
+    updateHUD();
+  }
+  if(e.key === 'r' || e.key === 'R'){
+    buildWorld();
+  }
+});
+
+// Animate
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
