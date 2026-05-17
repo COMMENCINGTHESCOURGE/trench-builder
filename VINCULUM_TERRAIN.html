@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VINCULUM TERRAIN — Open World Engine</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#87CEEB;overflow:hidden}
+#crosshair{position:absolute;top:50%;left:50%;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:difference;z-index:10}
+#hud{position:absolute;top:10px;left:10px;color:#fff;font:10px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10;line-height:1.4}
+#hud .title{color:#d4a854;font-size:12px}
+#minimap{position:absolute;bottom:10px;right:10px;width:150px;height:150px;border:2px solid #fff;border-radius:4px;pointer-events:none;z-index:10;image-rendering:pixelated}
+#info{position:absolute;bottom:10px;left:10px;color:#fff;font:9px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10}
+</style>
+</head>
+<body>
+<div id="crosshair"></div>
+<div id="hud">
+  <div class="title">VINCULUM TERRAIN</div>
+  <div id="chroma-layer">LAYER: GREEN (mod9=4)</div>
+  <div id="checkpoint">CHECKPOINT: STAND</div>
+  <div id="torsion">TORSION: STABLE</div>
+</div>
+<div id="info">WASD: move | SPACE: jump | CLICK: lock mouse | M: minimap toggle</div>
+<canvas id="minimap"></canvas>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+
+<script type="module">
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+// CONFIG
+const CHUNK_SIZE = 100;
+const CHUNK_RES = 32;
+const RENDER_DIST = 3;
+const NOISE_SCALE = 0.02;
+const HEIGHT_MULT = 15;
+
+// CHROMA CASCADE colors for terrain height layers
+const CHROMA = [
+  '#ff2200','#ff3333','#ff8833','#ffdd33',
+  '#33cc44','#3388ff','#6633cc','#cc33ff','#ff33cc'
+];
+
+// CHECKPOINTS
+const STAGES = ['SUPINE','SCOOT','CRAWL','STAND','BOUNCE','WALK','JUMP','RUN'];
+
+// SCENE
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#87CEEB');
+scene.fog = new THREE.Fog('#87CEEB', 40, CHUNK_SIZE*RENDER_DIST);
+
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+// LIGHTING
+scene.add(new THREE.AmbientLight('#8899cc', 1.2));
+const sun = new THREE.DirectionalLight('#ffe8cc', 2.5);
+sun.position.set(100, 200, 50);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024,1024);
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = 500;
+sun.shadow.camera.left = -150;
+sun.shadow.camera.right = 150;
+sun.shadow.camera.top = 150;
+sun.shadow.camera.bottom = -150;
+scene.add(sun);
+
+// TERRAIN
+const simplex = new SimplexNoise();
+const activeChunks = new Map();
+
+function getHeight(x, z){
+  let h = simplex.noise2D(x*NOISE_SCALE, z*NOISE_SCALE)*HEIGHT_MULT;
+  h += simplex.noise2D(x*NOISE_SCALE*2, z*NOISE_SCALE*2)*(HEIGHT_MULT*0.5);
+  h += simplex.noise2D(x*NOISE_SCALE*4, z*NOISE_SCALE*4)*(HEIGHT_MULT*0.25);
+  return h;
+}
+
+function getChromaColor(height){
+  // Map height to CHROMA layer
+  const t = (height + HEIGHT_MULT*1.5) / (HEIGHT_MULT*3); // normalize 0-1
+  const idx = Math.floor(Math.max(0, Math.min(8, t*9)));
+  return new THREE.Color(CHROMA[idx]);
+}
+
+function generateChunk(cx, cz){
+  const geo = new THREE.PlaneGeometry(CHUNK_SIZE, CHUNK_SIZE, CHUNK_RES, CHUNK_RES);
+  geo.rotateX(-Math.PI/2);
+  
+  const verts = geo.attributes.position.array;
+  const colors = new Float32Array(verts.length);
+  
+  for(let i=0; i<verts.length; i+=3){
+    const wx = verts[i] + cx*CHUNK_SIZE;
+    const wz = verts[i+2] + cz*CHUNK_SIZE;
+    const h = getHeight(wx, wz);
+    verts[i+1] = h;
+    
+    const c = getChromaColor(h);
+    colors[i] = c.r; colors[i+1] = c.g; colors[i+2] = c.b;
+  }
+  
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  
+  const mat = new THREE.MeshStandardMaterial({
+    vertexColors: true, roughness: 0.9, flatShading: true
+  });
+  
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(cx*CHUNK_SIZE, 0, cz*CHUNK_SIZE);
+  mesh.receiveShadow = true;
+  scene.add(mesh);
+  return mesh;
+}
+
+function updateChunks(){
+  const ccx = Math.floor(camera.position.x/CHUNK_SIZE);
+  const ccz = Math.floor(camera.position.z/CHUNK_SIZE);
+  const keep = new Set();
+  
+  for(let x=-RENDER_DIST; x<=RENDER_DIST; x++){
+    for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
+      const cx=ccx+x, cz=ccz+z;
+      const key = `${cx},${cz}`;
+      keep.add(key);
+      if(!activeChunks.has(key)) activeChunks.set(key, generateChunk(cx,cz));
+    }
+  }
+  
+  for(const [key, mesh] of activeChunks.entries()){
+    if(!keep.has(key)){
+      scene.remove(mesh);
+      mesh.geometry.dispose();
+      activeChunks.delete(key);
+    }
+  }
+}
+
+// PLAYER
+const controls = new PointerLockControls(camera, document.body);
+document.addEventListener('click', () => controls.lock());
+camera.position.set(0, 20, 0);
+
+const velocity = new THREE.Vector3();
+const direction = new THREE.Vector3();
+const move = {f:false,b:false,l:false,r:false};
+
+document.addEventListener('keydown', e => {
+  if(e.code==='KeyW') move.f=true;
+  if(e.code==='KeyS') move.b=true;
+  if(e.code==='KeyA') move.l=true;
+  if(e.code==='KeyD') move.r=true;
+  if(e.code==='Space'){
+    const gh = getHeight(camera.position.x, camera.position.z);
+    if(camera.position.y < gh+2.1) velocity.y = 15;
+  }
+  if(e.code==='KeyM') document.getElementById('minimap').style.display = 
+    document.getElementById('minimap').style.display==='none'?'block':'none';
+});
+
+document.addEventListener('keyup', e => {
+  if(e.code==='KeyW') move.f=false;
+  if(e.code==='KeyS') move.b=false;
+  if(e.code==='KeyA') move.l=false;
+  if(e.code==='KeyD') move.r=false;
+});
+
+// HUD UPDATE
+let hudTimer = 0;
+function updateHUD(){
+  const h = getHeight(camera.position.x, camera.position.z);
+  const t = (h + HEIGHT_MULT*1.5)/(HEIGHT_MULT*3);
+  const layerIdx = Math.floor(Math.max(0, Math.min(8, t*9)));
+  const layerNames = ['INFRARED','RED','ORANGE','YELLOW','GREEN','BLUE','INDIGO','VIOLET','UV'];
+  const mod9 = layerIdx;
+  
+  document.getElementById('chroma-layer').textContent = 
+    `LAYER: ${layerNames[layerIdx]} (mod9=${mod9})`;
+  
+  // Checkpoint from height
+  const cpIdx = Math.floor(t*7);
+  document.getElementById('checkpoint').textContent = 
+    `CHECKPOINT: ${STAGES[Math.min(7,cpIdx)]}`;
+  
+  // Torsion from velocity
+  const speed = Math.sqrt(velocity.x**2+velocity.z**2);
+  const torsion = speed < 5 ? 'STABLE' : speed < 20 ? 'CANDIDATE' : 'BREACH';
+  document.getElementById('torsion').textContent = `TORSION: ${torsion}`;
+  document.getElementById('torsion').style.color = 
+    torsion==='STABLE'?'#4c4':torsion==='CANDIDATE'?'#ca4':'#c44';
+}
+
+// MINIMAP
+const mm = document.getElementById('minimap');
+const mmCtx = mm.getContext('2d');
+mm.width = 150; mm.height = 150;
+
+function drawMinimap(){
+  mmCtx.fillStyle = '#1a2a1a';
+  mmCtx.fillRect(0,0,150,150);
+  
+  const scale = 150/(CHUNK_SIZE*RENDER_DIST*2);
+  const ox = 75 - (camera.position.x%(CHUNK_SIZE*RENDER_DIST))*scale;
+  const oz = 75 - (camera.position.z%(CHUNK_SIZE*RENDER_DIST))*scale;
+  
+  for(let x=-RENDER_DIST; x<=RENDER_DIST; x++){
+    for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
+      const mx = ox + x*CHUNK_SIZE*scale;
+      const mz = oz + z*CHUNK_SIZE*scale;
+      const h = getHeight(camera.position.x+x*CHUNK_SIZE/2, camera.position.z+z*CHUNK_SIZE/2);
+      const t = (h+HEIGHT_MULT*1.5)/(HEIGHT_MULT*3);
+      const c = CHROMA[Math.floor(Math.max(0,Math.min(8,t*9)))];
+      mmCtx.fillStyle = c;
+      mmCtx.fillRect(mx, mz, CHUNK_SIZE*scale/2, CHUNK_SIZE*scale/2);
+    }
+  }
+  
+  // Player
+  mmCtx.fillStyle = '#fff';
+  mmCtx.beginPath();
+  mmCtx.arc(75,75,3,0,Math.PI*2);
+  mmCtx.fill();
+}
+
+// MAIN
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.1);
+  
+  if(controls.isLocked){
+    velocity.x -= velocity.x*10*dt;
+    velocity.z -= velocity.z*10*dt;
+    velocity.y -= 30*dt;
+    
+    direction.z = Number(move.f)-Number(move.b);
+    direction.x = Number(move.r)-Number(move.l);
+    direction.normalize();
+    
+    const speed = 100;
+    if(move.f||move.b) velocity.z -= direction.z*speed*dt;
+    if(move.l||move.r) velocity.x -= direction.x*speed*dt;
+    
+    controls.moveRight(-velocity.x*dt);
+    controls.moveForward(-velocity.z*dt);
+    camera.position.y += velocity.y*dt;
+    
+    const gh = getHeight(camera.position.x, camera.position.z);
+    if(camera.position.y < gh+2){ velocity.y=0; camera.position.y=gh+2; }
+    
+    updateChunks();
+    
+    hudTimer += dt;
+    if(hudTimer > 0.15){ updateHUD(); hudTimer=0; drawMinimap(); }
+  }
+  
+  renderer.render(scene, camera);
+}
+
+updateChunks();
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
