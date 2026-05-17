@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-05-16T21:43:14.464651",
+  "cron_vinculums": [
+    {
+      "job": "erdos-sieve",
+      "repeat_forever": true,
+      "vinculum_type": "sequence",
+      "roman_meaning": "erdos-sieve \u00d7 \u221e"
+    },
+    {
+      "job": "trench-supervisor",
+      "repeat_forever": true,
+      "vinculum_type": "sequence",
+      "roman_meaning": "trench-supervisor \u00d7 \u221e"
+    },
+    {
+      "job": "hackathon-submit",
+      "repeat_forever": false,
+      "vinculum_type": "once",
+      "roman_meaning": "hackathon-submit"
+    }
+  ],
+  "correction_flags": [
+    "knee\u0305",
+    "hip\u0305",
+    "ankle",
+    "shoulder\u0305",
+    "neck",
+    "toe"
+  ],
+  "checkpoint_amplifications": [
+    "STAND \u00d7 1,000",
+    "BOUNCE \u00d7 1,000",
+    "WALK \u00d7 1,000",
+    "JUMP \u00d7 1,000",
+    "RUN \u00d7 1,000"
+  ],
+  "pipeline": "(supervisor / retroactive / delta-learner / correction-drone)",
+  "vinculum_detections": [
+    {
+      "text": "(a+b)/c",
+      "verdict": "VINCULUM",
+      "score": 7,
+      "max_score": 10,
+      "reasons": [
+        "grouping symbol (",
+        "grouping symbol /",
+        "operator between terms"
+      ],
+      "domain": "math"
+    },
+    {
+      "text": "state-of-the-art",
+      "verdict": "VINCULUM",
+      "score": 4,
+      "max_score": 10,
+      "reasons": [
+        "grouping symbol -",
+        "operator between terms"
+      ],
+      "domain": "language"
+    },
+    {
+      "text": "just some words",
+      "verdict": "CONNECTION",
+      "score": 2,
+      "max_score": 10,
+      "reasons": [
+        "multi-word"
+      ],
+      "domain": "language"
+    },
+    {
+      "text": "{code; block;}",
+      "verdict": "VINCULUM",
+      "score": 5,
+      "max_score": 10,
+      "reasons": [
+        "grouping symbol {",
+        "multi-word"
+      ],
+      "domain": "code"
+    },
+    {
+      "text": "pilot-intent/suit-resistance",
+      "verdict": "VINCULUM",
+      "score": 6,
+      "max_score": 10,
+      "reasons": [
+        "grouping symbol -",
+        "grouping symbol /",
+        "operator between terms"
+      ],
+      "domain": "data"
+    },
+    {
+      "text": "37 project directories",
+      "verdict": "CONNECTION",
+      "score": 2,
+      "max_score": 10,
+      "reasons": [
+        "multi-word"
+      ],
+      "domain": "data"
+    }
+  ],
+  "project_audit": {
+    "fractions": 0,
+    "groups": 0,
+    "chains": 0,
+    "repeating": 0,
+    "negations": 0
+  }
+}
