@@ -1,0 +1,35 @@
+{
+  "drone_specs": {
+    "mass_kg": 5,
+    "max_thrust_N": 80,
+    "battery_Wh": 200,
+    "hover_power_W": 300,
+    "max_speed_ms": 15,
+    "rotor_count": 4,
+    "noise_db": 75,
+    "assist_modes": {
+      "lift": 0.7,
+      "stabilize": 0.5,
+      "boost": 1.5
+    }
+  },
+  "ground_joint_losses": {
+    "toe": 525.0,
+    "ankle": 472.0,
+    "knee": 557.9,
+    "hip": 437.5,
+    "shoulder": 0.0,
+    "neck": 210.0
+  },
+  "drone_joint_losses": {
+    "toe": 157.5,
+    "ankle": 141.6,
+    "knee": 167.4,
+    "hip": 131.2,
+    "shoulder": 0.0,
+    "neck": 63.0
+  },
+  "effective_mass_kg": 9.000000000000002,
+  "battery_life_hours": 0.6666666666666666,
+  "new_checkpoint": "FLIGHT"
+}
