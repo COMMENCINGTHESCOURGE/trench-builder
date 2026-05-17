@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MECHA VINCULUM VIEWER</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060608;overflow:hidden;font:10px monospace;color:#888}
+#hud{position:absolute;top:10px;left:10px;z-index:10;pointer-events:none}
+#hud .title{color:#d4a854;font-size:13px;letter-spacing:2px}
+#hud .vinculum{color:#c96;font-size:11px;margin-top:4px}
+#hud .status{font-size:10px;margin-top:2px}
+#overlay{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;pointer-events:none;text-align:center}
+#overlay .stage{color:#d4a854;font-size:14px;letter-spacing:3px}
+#overlay .bar{color:#c96;font-size:12px}
+#overlay .delta{color:#888;font-size:10px}
+#badge{position:absolute;top:10px;right:10px;z-index:10;pointer-events:none;text-align:right}
+#badge .erdos{color:#ff9944;font-size:10px}
+#badge .torsion{font-size:9px;margin-top:2px}
+#info{position:absolute;bottom:10px;right:10px;z-index:10;pointer-events:none;font-size:8px;color:#556}
+</style>
+</head>
+<body>
+<div id="hud">
+  <div class="title">MECHA VINCULUM VIEWER</div>
+  <div class="vinculum" id="vinculum-text">(pilot-intent / suit-resistance) = realized</div>
+  <div class="status" id="torsion-status">TORSION: STABLE</div>
+</div>
+<div id="overlay">
+  <div class="stage" id="stage-text">STAND</div>
+  <div class="bar" id="stage-bar">────────────────────</div>
+  <div class="delta" id="joint-deltas">knee: ±0° | hip: ±0° | shoulder: ±0°</div>
+</div>
+<div id="badge">
+  <div class="erdos">ERDOS: 61 STABLE | 34 BREACH</div>
+  <div class="torsion" id="torsion-metric">×3 BREACH: CLEAR</div>
+  <div class="torsion" id="compression">6.94× COMPRESSION</div>
+</div>
+<div id="info">SCROLL: checkpoint | RIGHT-CLICK: vinculum toggle | M: chroma layer</div>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#060608');
+scene.fog = new THREE.FogExp2('#060608', 0.0006);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 50);
+camera.position.set(3, 1.5, 5);
+camera.lookAt(0, 0.8, 0);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.8, 0);
+controls.enableDamping = true;
+
+// Light
+scene.add(new THREE.AmbientLight('#223344', 0.6));
+const key = new THREE.DirectionalLight('#ffe8cc', 2.5);
+key.position.set(5, 6, 3);
+key.castShadow = true;
+scene.add(key);
+scene.add(new THREE.DirectionalLight('#d4a854', 1.2));
+scene.add(new THREE.HemisphereLight('#8899cc', '#221108', 0.3));
+
+// Materials
+const tiMat = new THREE.MeshStandardMaterial({color:'#c0c5cc', roughness:0.35, metalness:0.85, flatShading:true});
+const auMat = new THREE.MeshStandardMaterial({color:'#d4a854', roughness:0.15, metalness:0.95, emissive:'#442200', emissiveIntensity:0.4, flatShading:true});
+const cbMat = new THREE.MeshStandardMaterial({color:'#1a1a22', roughness:0.5, metalness:0.6, flatShading:true});
+const whMat = new THREE.MeshStandardMaterial({color:'#f0f2f5', roughness:0.2, metalness:0.3, flatShading:true});
+
+// CHROMA CASCADE colors
+const CHROMA = {
+  0:'#ff2200',1:'#ff3333',2:'#ff8833',3:'#ffdd33',
+  4:'#33cc44',5:'#3388ff',6:'#6633cc',7:'#cc33ff',8:'#ff33cc'
+};
+
+const mech = new THREE.Group();
+
+function box(w,h,d, pos, rot, mat=tiMat){
+  const g = new THREE.BoxGeometry(w,h,d,2,2,2);
+  const m = new THREE.Mesh(g, mat);
+  m.position.copy(pos);
+  if(rot) m.rotation.set(rot.x||0, rot.y||0, rot.z||0);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+
+// Torso
+mech.add(box(0.9,1.2,0.5, new THREE.Vector3(0,1.4,0)));
+for(let y of [-0.5,0,0.5]) mech.add(box(0.92,0.03,0.52, new THREE.Vector3(0,1.4+y*0.6,0), null, auMat));
+
+// Shoulder wings
+for(let s of [-1,1]) for(let i=0;i<3;i++){
+  mech.add(box(0.15,0.5,0.5-i*0.12, new THREE.Vector3(s*0.55,1.8+i*0.1,0), new THREE.Vector3(0,0,0.15*s), i===0?auMat:whMat));
+}
+
+// Head
+mech.add(box(0.24,0.28,0.22, new THREE.Vector3(0,2.18,0)));
+mech.add(box(0.32,0.04,0.08, new THREE.Vector3(0,2.38,0), null, auMat));
+
+// Arms
+for(let s of [-1,1]){
+  mech.add(box(0.18,0.7,0.18, new THREE.Vector3(s*0.6,1.6,0)));
+  mech.add(new THREE.Mesh(new THREE.SphereGeometry(0.12,6,4), cbMat)).position.set(s*0.6,1.2,0);
+  mech.add(box(0.14,0.6,0.14, new THREE.Vector3(s*0.6,0.85,0), new THREE.Vector3(0.1*s,0,0)));
+}
+
+// Legs — digitigrade
+for(let s of [-1,1]){
+  mech.add(box(0.22,0.8,0.2, new THREE.Vector3(s*0.25,0.7,0), new THREE.Vector3(0.2*s,0,0)));
+  mech.add(new THREE.Mesh(new THREE.SphereGeometry(0.1,6,4), auMat)).position.set(s*0.25,0.25,0);
+  mech.add(box(0.16,0.7,0.16, new THREE.Vector3(s*0.25,-0.15,0.15), new THREE.Vector3(-0.4,0,0)));
+  mech.add(box(0.2,0.08,0.35, new THREE.Vector3(s*0.25,-0.52,0.25), null, cbMat));
+}
+
+// Sword
+const sword = new THREE.Group();
+sword.add(box(0.04,1.2,0.02, new THREE.Vector3(0,0.6,0), null, whMat));
+sword.add(box(0.25,0.04,0.08, new THREE.Vector3(0,-0.05,0), null, auMat));
+sword.add(new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.3,6), cbMat)).position.set(0,-0.2,0);
+sword.position.set(0.75,1.2,0.3);
+sword.rotation.set(0.3,-0.1,0.5);
+mech.add(sword);
+
+scene.add(mech);
+
+// Ground
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(8,8), new THREE.MeshStandardMaterial({color:'#0a0a10', roughness:0.9}));
+ground.rotation.x = -Math.PI/2;
+ground.position.y = -0.6;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// Vinculum bar (dynamic overlay)
+const barGeo = new THREE.PlaneGeometry(2.5, 0.04);
+const barMat = new THREE.MeshBasicMaterial({color:'#d4a854', transparent:true, opacity:0.7, side:THREE.DoubleSide});
+const vinculumBar = new THREE.Mesh(barGeo, barMat);
+vinculumBar.position.set(0, 1.8, -1.5);
+vinculumBar.visible = true;
+scene.add(vinculumBar);
+
+// CHECKPOINT SYSTEM
+const STAGES = ['SUPINE','SCOOT','CRAWL','STAND','BOUNCE','WALK','JUMP','RUN'];
+let stage = 3;
+let chromaMode = 0;
+let showVinculum = true;
+
+function setStage(s){
+  stage = s;
+  document.getElementById('stage-text').textContent = STAGES[s];
+  
+  // Chroma layer effect
+  const color = CHROMA[(s + chromaMode) % 9];
+  auMat.emissive.set(color);
+  auMat.emissiveIntensity = 0.3 + s * 0.06;
+  
+  // Joint deltas per stage
+  const deltas = {
+    2:{knee:'-2°',hip:'-1°',shoulder:'±0°'},
+    3:{knee:'±0°',hip:'±0°',shoulder:'±0°'},
+    4:{knee:'+3°',hip:'+2°',shoulder:'-1°'},
+    5:{knee:'-1°',hip:'±0°',shoulder:'+1°'},
+    6:{knee:'+2°',hip:'+1°',shoulder:'-2°'},
+    7:{knee:'-3°',hip:'-2°',shoulder:'+1°'},
+  };
+  const d = deltas[s] || {knee:'±0°',hip:'±0°',shoulder:'±0°'};
+  document.getElementById('joint-deltas').textContent = 
+    `knee: ${d.knee} | hip: ${d.hip} | shoulder: ${d.shoulder}`;
+  
+  // Torsion simulation
+  const torsionVals = [0.002,0.005,0.008,0.012,0.025,0.018,0.035,0.015];
+  const torsion = torsionVals[s];
+  const ts = torsion < 0.01 ? 'STABLE' : torsion < 0.15 ? 'CANDIDATE' : 'BREACH';
+  document.getElementById('torsion-status').textContent = `TORSION: ${ts} (${torsion.toFixed(4)})`;
+  document.getElementById('torsion-status').style.color = ts==='STABLE'?'#44cc44':ts==='CANDIDATE'?'#ccaa44':'#cc4444';
+  
+  // Breach check
+  const breach = (s * 3) % 9;
+  document.getElementById('torsion-metric').textContent = 
+    `×3 BREACH: ${[0,3,6].includes(breach)?'ACTIVE':'CLEAR'} (mod9→${breach})`;
+  
+  // Compression
+  document.getElementById('compression').textContent = `${(6.94*(1+s*0.02)).toFixed(2)}× COMPRESSION`;
+  
+  // Vinculum text
+  const vt = s<3 ? '(idle / weight)' : s<5 ? '(intent / resistance)' : s<7 ? '(force / load)' : '(speed / drag)';
+  document.getElementById('vinculum-text').textContent = `${vt} = realized`;
+  
+  // Vinculum bar opacity
+  barMat.opacity = 0.4 + s * 0.07;
+}
+
+document.addEventListener('wheel', e => {
+  stage = Math.max(0, Math.min(7, stage + (e.deltaY > 0 ? 1 : -1)));
+  setStage(stage);
+});
+
+document.addEventListener('contextmenu', e => {
+  e.preventDefault();
+  showVinculum = !showVinculum;
+  vinculumBar.visible = showVinculum;
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'm' || e.key === 'M'){
+    chromaMode = (chromaMode + 1) % 9;
+    setStage(stage);
+  }
+});
+
+// Breach flash
+let breachFlash = 0;
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  
+  const t = performance.now() * 0.001;
+  
+  // Subtle mech float
+  mech.position.y = Math.sin(t * 0.8) * 0.03;
+  
+  // Vinculum bar pulse
+  barMat.opacity += (0.4 + stage * 0.07 - barMat.opacity) * 0.1;
+  vinculumBar.scale.x = 1 + Math.sin(t * 2) * 0.05;
+  
+  // Gold edge glow
+  auMat.emissiveIntensity += (0.3 + stage * 0.06 - auMat.emissiveIntensity) * 0.1;
+  
+  // Sword glow
+  auMat.emissiveIntensity *= 1 + Math.sin(t * 3) * 0.08;
+  
+  // Breach flash (every 10s, 0.5s duration)
+  breachFlash = Math.max(0, breachFlash - 0.02);
+  if(breachFlash > 0){
+    auMat.emissive.set('#ff0000');
+    auMat.emissiveIntensity = 1.5;
+  }
+  
+  renderer.render(scene, camera);
+}
+
+setStage(3);
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
