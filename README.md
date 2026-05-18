@@ -1,144 +1,125 @@
-# TRENCH BUILDER 🏗️
+# Vinculum · On-Device AI to Demystify Infrastructure for Everyone
 
-> **Democratizing architectural engineering with local AI.**
-> Gemma 4 Good Hackathon 2026 — Digital Equity & Ollama Track
+**Gemma 4 Good Hackathon — llama.cpp Track**
 
+A no-code Terraform companion that explains, teaches, and recovers infrastructure — running entirely on a $150 Android phone with Gemma 4 via llama.cpp. No cloud. No API keys. No connectivity required.
+
+[![Demo](https://img.shields.io/badge/Demo-Live-green)](https://commencingthescourge.github.io/trench_builder/STACK_CATHEDRAL.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Three.js](https://img.shields.io/badge/Three.js-r128-black)](https://threejs.org/)
-[![Ollama](https://img.shields.io/badge/Ollama-gemma4:2b-blue)](https://ollama.com)
-[![Hackathon](https://img.shields.io/badge/Gemma%204%20Good-Hackathon%202026-purple)](https://kaggle.com/competitions/gemma-4-good-hackathon)
+[![Gemma 4](https://img.shields.io/badge/Model-Gemma_4_2B-blue)](https://www.kaggle.com/models/google/gemma-4)
+[![llama.cpp](https://img.shields.io/badge/Runtime-llama.cpp-orange)](https://github.com/ggerganov/llama.cpp)
 
-A **single-file HTML application** that provides professional-grade 3D construction visualization, topography surveying, interior design, CAD import, and AI-assisted design feedback — entirely in the browser. No installation. No license. No GPU required.
+## The Problem
 
-**Gemma 4 powers the AI design assistant** — running locally via Ollama, answering construction questions, recommending materials, and explaining the physics behind every structure.
+Infrastructure-as-code (Terraform) powers the cloud, but it's locked behind:
+- **YAML/HCL syntax** that requires engineering literacy
+- **English-only documentation** excluding 75% of the world
+- **Always-on internet** — useless during disasters or in rural areas
+- **No feedback loop** — you type, pray, and hope `terraform apply` works
 
----
+These barriers exclude non-English speakers, beginners, students, and communities with intermittent connectivity — precisely the people who need infrastructure knowledge most.
 
-## 🎯 The Problem
+## The Solution
 
-Architectural engineering software costs $2,000–$10,000 per license. These tools gatekeep who can design, build, and visualize. A community center in a rural area, a disaster-resilient school, or a first-time homeowner — all locked out by cost.
+**Vinculum** is a web-based no-code Terraform interface powered by Gemma 4 running locally via llama.cpp on commodity Android hardware.
 
-The digital divide in construction is widening.
+| Component | What It Does |
+|-----------|-------------|
+| **Vinculum Canvas** | Drag-and-drop infrastructure builder (S3, EC2, VPC) — outputs valid Terraform JSON |
+| **Gemma 4 Explainer** | Translates every plan into plain language in Spanish, French, Arabic + more |
+| **Stack Cathedral** | Gamified learning journey: 8 checkpoint stages from `scoot` → `run` |
+| **Local Recovery** | Airplane mode? No problem. Full Terraform state inspection and restoration offline |
+| **FracType Metrics** | Knowledge density tracking — measures what the user actually learned |
 
-## ✨ Our Solution
+All running on a **Motorola Moto G Power (2022)** — $150, 4GB RAM, no GPU.
 
-TRENCH BUILDER runs on any device with a web browser. Open the HTML file. Start building. Ask Gemma 4 for guidance.
-
-| Feature | Status |
-|---------|--------|
-| 🏠 Structure placement (walls, floors, foundations, roofs) | ✅ |
-| 🔧 MEP systems (plumbing, electrical, HVAC) | ✅ |
-| 🗺️ Topography survey (elevation, slope, drainage, soil type) | ✅ |
-| 🏛️ Interior design (room scanning, material assignment, 9 finishes) | ✅ |
-| 📐 Vanishing point / perspective grid | ✅ |
-| ⚡ EM field visualization (flux lines, particle fields) | ✅ |
-| 🔥 Thermal bloom simulation (smoothstep distance field) | ✅ |
-| 🌊 Caustic projection (exponential falloff) | ✅ |
-| 💡 Wave optics / iridescence (thin-film interference) | ✅ |
-| 🎞️ Film grain post-processing | ✅ |
-| ☀️ God rays / volumetric light | ✅ |
-| ◑ SSAO (ambient occlusion) | ✅ |
-| 🎥 Cinematography engine (12-beat Sentai B-roll) | ✅ |
-| 🔧 GameShark Creative Mode (wireframe + live parameter inspector) | ✅ |
-| 📦 CAD import (Onshape → STL, 33 parts) | ✅ |
-| 🎓 Training data export (35K samples for ML) | ✅ |
-| 🤖 **Gemma 4 AI Design Assistant (Ollama)** | ✅ |
-
----
-
-## 🤖 Gemma 4 Integration
+## Architecture
 
 ```
-User asks: "Is the voice coil properly sized for 50Hz?"
-           ↓
-Scene state sent: {bass_freq: 45, amplitude: 0.6, materials: {copper, ferrite, paper}}
-           ↓
-Ollama → Gemma 4 2B (local inference, zero API cost)
-           ↓
-Response: "At 45Hz with 0.6 amplitude, the 55mm voice coil is within spec. 
-           For sustained 50Hz operation, consider increasing winding density 
-           by 15% to reduce thermal stress."
+┌─────────────────────────────────────────────────────┐
+│                  ANDROID PHONE                       │
+│  ┌───────────┐  ┌──────────┐  ┌──────────────────┐ │
+│  │ Vinculum  │  │  Flask   │  │  llama.cpp        │ │
+│  │  HTML/JS  │──│  Bridge  │──│  Gemma 4 (Q4_K_M) │ │
+│  │  Canvas   │  │  :5000   │  │  ~8 tk/s on CPU   │ │
+│  └───────────┘  └──────────┘  └──────────────────┘ │
+│       │                              │              │
+│       │    Terraform JSON            │ Plain-lang   │
+│       │    State files               │ explanations │
+│       ▼                              ▼              │
+│  ┌──────────────────────────────────────────────┐   │
+│  │            Local Storage (SQLite)             │   │
+│  │   Plans · State · Checkpoint progress        │   │
+│  └──────────────────────────────────────────────┘   │
+│                                                     │
+│  ✈ AIRPLANE MODE — everything still works           │
+└─────────────────────────────────────────────────────┘
 ```
 
-**Why local inference matters:**
-- 🌐 Offline communities — no internet after initial page load
-- 🔒 Privacy — design data never leaves the device
-- 💰 Zero cost — no API fees, no usage limits
-- 📱 Accessibility — functions on a $200 Chromebook
+## Hardware Requirements
 
----
+Tested on:
+- **Moto G Power (2022)** — MediaTek Helio G37, 4GB RAM
+- **Termux** (Android terminal emulator)
+- **llama.cpp** built from source with `-DGGML_OPENMP=ON`
+- **Gemma 4 2B** quantized to Q4_K_M (~1.5GB)
+- Token generation: **~8 tokens/second** on CPU
 
-## 🚀 Quick Start
+## Quick Start
 
+### 1. Install Termux on Android
+```
+pkg update && pkg upgrade
+pkg install git cmake python build-essential
+```
+
+### 2. Build llama.cpp
 ```bash
-# 1. Clone
-git clone https://github.com/COMMENCINGTHESCOURGE/trench-builder.git
-cd trench-builder
-
-# 2. Start Ollama (for AI assistant)
-ollama serve
-ollama pull gemma4:2b
-
-# 3. Open in browser
-open TRENCH_BUILDER_v5.html
-# OR any modern browser → File → Open File → TRENCH_BUILDER_v5.html
-
-# 4. Click "ASK GEMMA 4" button to activate AI assistant
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp
+mkdir build && cd build
+cmake .. -DGGML_OPENMP=ON
+make -j4
 ```
 
----
-
-## 📂 Repository Structure
-
-```
-trench-builder/
-├── TRENCH_BUILDER_v1.html          Foundation (walls, avatar basics)
-├── TRENCH_BUILDER_v2.html          CAD + MEP + landscaping
-├── TRENCH_BUILDER_v3.html          Topography + interior design + VP
-├── TRENCH_BUILDER_v4.html          18/22 rendering principles
-├── TRENCH_BUILDER_v5.html          ★ Perceptual physics subwoofer + Gemma 4
-├── CINEMATOGRAPHY_ENGINE.html     12-beat B-roll system + GameShark debug
-├── AVATAR_AGENT_v1.html           Digital identity / face forge
-├── labyrinth_explorer.py          Terminal-based procedural renderer
-├── delta_finder.py                Auto-scans research gaps (38 principles)
-├── onshape_bridge.py              Onshape CAD → STL sync
-├── onshape_pull_agent.py          Autonomous CAD pull agent
-├── image_inspector.py             Offline image metadata + color analysis
-├── trench_training_kaggle.py      35K sample generator (color + VP + BRDF)
-├── *.md                           Domain frameworks (8 engineering domains)
-└── KAGGLE_SUBMISSION_WRITEUP.md   Hackathon submission document
+### 3. Download Gemma 4 GGUF
+```bash
+# From Kaggle (requires kaggle.json API key)
+pip install kagglehub
+python -c "import kagglehub; kagglehub.model_download('google/gemma-4/gguf/gemma-4-2b-it-Q4_K_M.gguf')"
 ```
 
----
+### 4. Start the bridge server
+```bash
+cd trench_builder
+pip install flask
+python bridge.py  # serves on localhost:5000
+```
 
-## 🏆 Competition Tracks
+### 5. Open the demo
+```
+http://127.0.0.1:8081/STACK_CATHEDRAL.html
+```
 
-| Track | Fit |
-|-------|-----|
-| **Digital Equity & Inclusivity** | Single-file HTML, zero cost, any device, offline-capable |
-| **Ollama** | Gemma 4 2B running locally via Ollama for design assistance |
-| **Future of Education** | Interactive physics, construction, and rendering education |
-| **Global Resilience** | Topography survey + disaster-resilient building design |
-| **llama.cpp** | Resource-constrained hardware deployment possible |
+## Demo Videos
 
----
+| Clip | What It Shows |
+|------|--------------|
+| [Canvas Build](demo/) | Drag-and-drop S3 bucket creation, Gemma 4 explains in Spanish |
+| [Airplane Mode](demo/) | Wi-Fi off, state recovery still works |
+| [Checkpoint Progression](demo/) | User completes `crawl` → `stand`, FracType badge awarded |
 
-## 🔬 Technical Depth
+## Track Alignment
 
-**Rendering pipeline:** 3 distance-field systems (smoothstep thermal, inverse-square EM, exponential caustic), ACES tone mapping, PCF soft shadows, UnrealBloom post-processing, film grain shader, god rays, SSAO.
+- **llama.cpp** ($10K): Gemma 4 fully on-device, resource-constrained hardware
+- **Digital Equity** ($10K): Multilingual, offline, no-code access to infrastructure knowledge
+- **Global Resilience** ($10K): Post-disaster state recovery without internet
 
-**Physics:** Electrodynamic cone response (frequency→displacement→thermal→EM→caustic chain), mechanical physics engine (inertia/damping/torque), Procedural terrain with height-field deformation.
+## Team
 
-**AI:** Local Gemma 4 2B inference via Ollama API, scene-state-aware prompting, streaming response handling with graceful fallback.
+- **DaShawn** (@commencingthescourge) — Architecture, frontend, phone deployment
+- Built with: Three.js, llama.cpp, Gemma 4, Python/Flask, Kaggle
 
-**Domains:** 8 engineering domains documented with convergence framework — Rendering, EM Systems, Industrial Machinery, Architectural Engineering, Cinematography, Emulation, GameShark/Creative Mode, Sentai Streetwear.
+## License
 
----
-
-## 📜 License
-
-MIT — the tools to design our world should belong to everyone.
-
----
-
-*Built for the Gemma 4 Good Hackathon 2026 by DaShawn / Guinea Pig Trench LLC*
+MIT — Open weight model, open source code, open future.

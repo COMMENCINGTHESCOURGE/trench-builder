@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" style="background:#080514;font-family:monospace">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.15"/><stop offset="100%" style="stop-color:#8800ff;stop-opacity:0.05"/></linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#00f0ff;stop-opacity:0.05"/></linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#080514"/>
+  <rect width="900" height="520" fill="url(#g1)"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" fill="#00f0ff" font-size="18" font-weight="bold" font-family="Orbitron,sans-serif" letter-spacing="3">VINCULUM ARCHITECTURE · GEMMA 4 ON LLAMA.CPP</text>
+  <line x1="40" y1="44" x2="860" y2="44" stroke="#00f0ff" stroke-opacity="0.3"/>
+
+  <!-- Phone outline -->
+  <rect x="30" y="60" width="840" height="440" rx="16" fill="url(#g1)" stroke="#00f0ff" stroke-opacity="0.4" stroke-width="1.5"/>
+  <text x="55" y="82" fill="#00f0ff" font-size="11" opacity="0.7">ANDROID PHONE — MOTO G POWER (2022) · $150 · 4GB RAM · AIRPLANE MODE ✈</text>
+  <line x1="55" y1="90" x2="845" y2="90" stroke="#00f0ff" stroke-opacity="0.15"/>
+
+  <!-- Box 1: Vinculum HTML/JS -->
+  <rect x="55" y="105" width="250" height="110" rx="4" fill="url(#g2)" stroke="#00f0ff" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="180" y="130" text-anchor="middle" fill="#00f0ff" font-size="13" font-weight="bold">Vinculum Canvas</text>
+  <text x="180" y="150" text-anchor="middle" fill="#e0dde8" font-size="9">HTML/CSS/JS · Single Page</text>
+  <text x="180" y="166" text-anchor="middle" fill="#e0dde8" font-size="9">Drag-and-Drop Infrastructure</text>
+  <text x="180" y="182" text-anchor="middle" fill="#e0dde8" font-size="9">Terraform JSON output</text>
+  <text x="180" y="198" text-anchor="middle" fill="#ffaa00" font-size="9">localhost:8081</text>
+
+  <!-- Box 2: Flask Bridge -->
+  <rect x="325" y="105" width="250" height="110" rx="4" fill="url(#g2)" stroke="#ffaa00" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="450" y="130" text-anchor="middle" fill="#ffaa00" font-size="13" font-weight="bold">Flask Bridge</text>
+  <text x="450" y="150" text-anchor="middle" fill="#e0dde8" font-size="9">Python · bridge.py</text>
+  <text x="450" y="166" text-anchor="middle" fill="#e0dde8" font-size="9">Prompt Templates (JSON)</text>
+  <text x="450" y="182" text-anchor="middle" fill="#e0dde8" font-size="9">/explain · /teach · /recover</text>
+  <text x="450" y="198" text-anchor="middle" fill="#ffaa00" font-size="9">localhost:5000</text>
+
+  <!-- Box 3: llama.cpp + Gemma 4 -->
+  <rect x="595" y="105" width="250" height="110" rx="4" fill="url(#g2)" stroke="#8800ff" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="720" y="130" text-anchor="middle" fill="#8800ff" font-size="13" font-weight="bold">llama.cpp + Gemma 4</text>
+  <text x="720" y="150" text-anchor="middle" fill="#e0dde8" font-size="9">Gemma 4 2B Q4_K_M (~1.5GB)</text>
+  <text x="720" y="166" text-anchor="middle" fill="#e0dde8" font-size="9">CPU-only · ~8 tokens/second</text>
+  <text x="720" y="182" text-anchor="middle" fill="#e0dde8" font-size="9">No GPU · No Cloud · No API Keys</text>
+  <text x="720" y="198" text-anchor="middle" fill="#8800ff" font-size="9">OpenMP threaded</text>
+
+  <!-- Arrows between boxes -->
+  <defs><marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#00f0ff" opacity="0.5"/></marker></defs>
+  <line x1="308" y1="160" x2="322" y2="160" stroke="#00f0ff" stroke-opacity="0.4" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="578" y1="160" x2="592" y2="160" stroke="#ffaa00" stroke-opacity="0.4" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Storage box bottom -->
+  <rect x="325" y="240" width="250" height="90" rx="4" fill="url(#g2)" stroke="#00ff88" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="450" y="265" text-anchor="middle" fill="#00ff88" font-size="13" font-weight="bold">Local Storage</text>
+  <text x="450" y="285" text-anchor="middle" fill="#e0dde8" font-size="9">Terraform State (JSON)</text>
+  <text x="450" y="301" text-anchor="middle" fill="#e0dde8" font-size="9">Checkpoint Progress</text>
+  <text x="450" y="317" text-anchor="middle" fill="#00ff88" font-size="9">SQLite · Airplane-mode safe</text>
+
+  <!-- Arrows to storage -->
+  <line x1="180" y1="218" x2="325" y2="260" stroke="#00ff88" stroke-opacity="0.3" stroke-width="1"/>
+  <line x1="720" y1="218" x2="575" y2="260" stroke="#00ff88" stroke-opacity="0.3" stroke-width="1"/>
+
+  <!-- Checkpoint flow bottom -->
+  <text x="450" y="358" text-anchor="middle" fill="#e0dde8" font-size="11" opacity="0.7">8 CHECKPOINT STAGES</text>
+  <line x1="55" y1="370" x2="845" y2="370" stroke="#00f0ff" stroke-opacity="0.1"/>
+
+  <rect x="55" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.15" stroke="#8800ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="100" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">SCOOT</text>
+  <text x="160" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="175" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.2" stroke="#8800ff" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="220" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">CRAWL</text>
+  <text x="280" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="295" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.25" stroke="#8800ff" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="340" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">STAND</text>
+  <text x="400" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="415" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.3" stroke="#8800ff" stroke-opacity="0.7" stroke-width="1"/>
+  <text x="460" y="402" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">BOUNCE</text>
+  <text x="520" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="535" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.2" stroke="#8800ff" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="580" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">WALK</text>
+  <text x="640" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="655" y="378" width="90" height="40" rx="3" fill="#8800ff" fill-opacity="0.2" stroke="#8800ff" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="700" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">JUMP</text>
+  <text x="760" y="402" fill="#00f0ff" font-size="16" opacity="0.5">→</text>
+
+  <rect x="775" y="378" width="70" height="40" rx="3" fill="#8800ff" fill-opacity="0.1" stroke="#8800ff" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="810" y="402" text-anchor="middle" fill="#e0dde8" font-size="10">RUN</text>
+
+  <!-- Bottom stats -->
+  <text x="55" y="452" fill="#e0dde8" font-size="9" opacity="0.6">FracType: knowledge density tracking</text>
+  <text x="55" y="468" fill="#e0dde8" font-size="9" opacity="0.6">Gemma 4 explains each stage in user's language</text>
+
+  <text x="720" y="452" fill="#e0dde8" font-size="9" opacity="0.6">✈ Zero cloud dependency</text>
+  <text x="720" y="468" fill="#e0dde8" font-size="9" opacity="0.6">Disaster recovery ready</text>
+
+  <text x="450" y="492" text-anchor="middle" fill="#ff2244" font-size="10" opacity="0.7">NO CLOUD · NO API KEYS · NO INTERNET REQUIRED</text>
+</svg>

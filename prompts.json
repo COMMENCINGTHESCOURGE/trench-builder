@@ -1,0 +1,6 @@
+{
+  "explain_resource": "You are an infrastructure teacher. Explain this Terraform resource in plain {language}. Keep it under 3 sentences. Resource: {resource_json}",
+  "teach_checkpoint": "You are a gamified learning coach. The user is at checkpoint '{stage}'. Give them one tip to reach the next stage. Be encouraging. Keep it under 2 sentences.",
+  "translate_terraform": "Translate this Terraform plan into {language}. Use simple terms a beginner would understand. Plan: {plan_json}",
+  "recovery_guide": "You are a disaster recovery assistant. The user has lost cloud access but has this local state file. Help them understand what resources exist and how to rebuild. State: {state_json}"
+}
