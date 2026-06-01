@@ -1,0 +1,27 @@
+name: ✨ Feature Request (Streaming/Integration)
+description: Propose a new open-world feature, UI/HUD element, or streaming optimization.
+title: "[Feature]: <Short description>"
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before proposing a feature, please ensure it aligns with the MANIFOLD open-world principles:
+        - Does it avoid discrete asset swapping?
+        - Does it handle infinite scales?
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Feature Proposal
+      description: What new capability do you want to add? (e.g., Frustum culling, WebWorker pre-fetching)
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Proposed Implementation
+      description: How would this integrate with Three.js or the WebGPU async queue?
+    validations:
+      required: false

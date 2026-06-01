@@ -1,0 +1,42 @@
+name: 🐛 Bug Report (Streaming/Integration)
+description: Report a breakdown in chunk streaming, LOD, or Three.js WebGPU integration.
+title: "[Bug]: <Short description>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! In `trench-builder`, bugs usually manifest as chunk-loading stalls, memory leaks, or missing BufferGeometry indices.
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Browser, GPU model
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the breakdown
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Provide clear steps (e.g., flight speed, chunk coordinates).
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console Logs / GPU Errors
+      description: Paste any WebGPU validation errors or memory warnings from the console.
+      render: shell
+    validations:
+      required: false
