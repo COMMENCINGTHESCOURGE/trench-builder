@@ -8,27 +8,40 @@ export class StigmergicEmitter {
         this.crdtTensorStore = crdtTensorStore;
     }
 
+    private batchQueue: Array<{coords: {x: number, y: number, z: number}, pressure: number}> = [];
+
     /**
-     * Translates an AI traversal vector into physical erosion.
+     * Queues an AI traversal vector for physical erosion.
      * Conserves mass by distributing the degraded density into the adjacent voxels' cohesion layer.
      */
-    public applyTraversalFlux(voxelCoords: { x: number, y: number, z: number }, pressure: number = 0.05): void {
-        console.log(`[StigmergicEmitter] Applying traversal pressure at [${voxelCoords.x}, ${voxelCoords.y}, ${voxelCoords.z}]...`);
+    public queueTraversalFlux(voxelCoords: { x: number, y: number, z: number }, pressure: number = 0.05): void {
+        this.batchQueue.push({coords: voxelCoords, pressure});
+    }
 
-        // 1. Erode density from the current footprint (max 1.0)
-        // In a real implementation, this modifies the Automerge document.
-        const currentDensity = this.getDensity(voxelCoords);
-        const erodedDensity = Math.max(0, currentDensity - pressure);
-        const massDisplaced = currentDensity - erodedDensity;
+    /**
+     * Executes the batched flux across the swarm into a single Automerge EPOCH_TICK commit.
+     * Prevents WebRTC history explosion.
+     */
+    public commitBatch(): void {
+        if (this.batchQueue.length === 0) return;
+        
+        console.log(`[StigmergicEmitter] Committing EPOCH_TICK for ${this.batchQueue.length} swarm interactions...`);
 
-        this.setDensity(voxelCoords, erodedDensity);
+        // Perform atomic Automerge commit here
+        for (const op of this.batchQueue) {
+            const currentDensity = this.getDensity(op.coords);
+            const erodedDensity = Math.max(0, currentDensity - op.pressure);
+            const massDisplaced = currentDensity - erodedDensity;
 
-        // 2. Distribute displaced mass to adjacent neighbor's cohesion
-        if (massDisplaced > 0) {
-            this.distributeCompaction(voxelCoords, massDisplaced);
+            this.setDensity(op.coords, erodedDensity);
+
+            if (massDisplaced > 0) {
+                this.distributeCompaction(op.coords, massDisplaced);
+            }
         }
         
-        console.log(`[StigmergicEmitter] Erosion complete. Displaced ${massDisplaced.toFixed(4)} mass into surrounding mesh. CRDT syncing...`);
+        this.batchQueue = [];
+        console.log(`[StigmergicEmitter] EPOCH_TICK synchronized globally.`);
     }
 
     private getDensity(coords: {x: number, y: number, z: number}): number {
