@@ -1,0 +1,17 @@
+{
+  "checkpoint": "CP8",
+  "description": "Constraint violation schema — catches non-compliant designs",
+  "rules": [
+    {"id": "GV-001", "name": "guardrail_height", "check": "guardrail_height_m >= 0.865", "standard": "IBC 1015.2", "severity": "CRITICAL", "message": "Guardrail below 865mm minimum"},
+    {"id": "GV-002", "name": "guardrail_load", "check": "guardrail_load_kn >= 0.89", "standard": "IBC 1607.8.1", "severity": "CRITICAL", "message": "Guardrail cannot support required 0.89 kN/m load"},
+    {"id": "SD-001", "name": "span_depth_ratio", "check": "span_m / depth_m <= 20", "standard": "AASHTO LRFD 2.5.2.6.3", "severity": "HIGH", "message": "Span-to-depth ratio exceeds 20:1 structural limit"},
+    {"id": "SD-002", "name": "deflection_limit", "check": "live_load_deflection_mm <= span_m * 1000 / 800", "standard": "AASHTO LRFD", "severity": "MEDIUM", "message": "Live load deflection exceeds L/800 limit"},
+    {"id": "LW-001", "name": "lane_width_min", "check": "lane_width_m >= 3.0", "standard": "AASHTO", "severity": "HIGH", "message": "Lane width below 3.0m minimum"},
+    {"id": "LW-002", "name": "shoulder_width_min", "check": "shoulder_width_m >= 1.0", "standard": "AASHTO", "severity": "MEDIUM", "message": "Shoulder width below 1.0m minimum"},
+    {"id": "CR-001", "name": "crown_slope", "check": "1.5 <= crown_pct <= 3.0", "standard": "AASHTO", "severity": "LOW", "message": "Road crown outside 1.5-3.0% drainage range"},
+    {"id": "TD-001", "name": "tunnel_diameter", "check": "tunnel_diameter_m >= 8.0", "standard": "NFPA 502", "severity": "CRITICAL", "message": "Tunnel diameter below 8m minimum for vehicle clearance"},
+    {"id": "TD-002", "name": "tunnel_ventilation", "check": "tunnel_length_m <= 300 OR has_mechanical_ventilation", "standard": "NFPA 502 10.3", "severity": "HIGH", "message": "Tunnel over 300m requires mechanical ventilation"},
+    {"id": "BR-001", "name": "bridge_scour", "check": "scour_depth_m <= foundation_depth_m", "standard": "AASHTO LRFD", "severity": "CRITICAL", "message": "Scour depth exceeds foundation depth — bridge at risk"},
+    {"id": "SE-001", "name": "seismic_zone", "check": "seismic_design_category <= 'D' OR has_base_isolation", "standard": "ASCE 7-22", "severity": "MEDIUM", "message": "Seismic category E/F requires base isolation"}
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "checkpoint": "CP6",
+  "description": "Resource & Material System — raw -> refined -> composite",
+  "version": "1.0.0",
+  "resources": {
+    "raw": {
+      "wood_log": {"category": "organic", "extraction_tool": "axe", "extraction_time_s": 8, "yield_per_node": 3, "stack_size": 20, "weight_kg": 15},
+      "stone_block": {"category": "mineral", "extraction_tool": "pickaxe", "extraction_time_s": 12, "yield_per_node": 2, "stack_size": 10, "weight_kg": 25},
+      "iron_ore": {"category": "mineral", "extraction_tool": "pickaxe", "extraction_time_s": 15, "yield_per_node": 2, "stack_size": 10, "weight_kg": 30},
+      "copper_ore": {"category": "mineral", "extraction_tool": "pickaxe", "extraction_time_s": 12, "yield_per_node": 2, "stack_size": 10, "weight_kg": 28},
+      "coal": {"category": "mineral", "extraction_tool": "pickaxe", "extraction_time_s": 10, "yield_per_node": 3, "stack_size": 20, "weight_kg": 15},
+      "sand": {"category": "mineral", "extraction_tool": "shovel", "extraction_time_s": 4, "yield_per_node": 5, "stack_size": 30, "weight_kg": 10},
+      "clay": {"category": "mineral", "extraction_tool": "shovel", "extraction_time_s": 6, "yield_per_node": 3, "stack_size": 15, "weight_kg": 12},
+      "fiber": {"category": "organic", "extraction_tool": "sickle", "extraction_time_s": 5, "yield_per_node": 4, "stack_size": 25, "weight_kg": 1},
+      "hide": {"category": "organic", "extraction_tool": "knife", "extraction_time_s": 10, "yield_per_node": 1, "stack_size": 5, "weight_kg": 8},
+      "bone": {"category": "organic", "extraction_tool": "knife", "extraction_time_s": 8, "yield_per_node": 2, "stack_size": 10, "weight_kg": 5}
+    },
+    "refined": {
+      "lumber": {"source": "wood_log", "station": "sawmill", "refine_time_s": 5, "input_count": 1, "output_count": 4, "stack_size": 30, "weight_kg": 3},
+      "brick": {"source": "clay", "station": "kiln", "refine_time_s": 8, "input_count": 2, "output_count": 4, "stack_size": 20, "weight_kg": 8},
+      "iron_ingot": {"source": "iron_ore", "station": "smelter", "refine_time_s": 15, "input_count": 2, "output_count": 1, "stack_size": 10, "weight_kg": 12},
+      "copper_wire": {"source": "copper_ore", "station": "smelter", "refine_time_s": 10, "input_count": 1, "output_count": 3, "stack_size": 20, "weight_kg": 2},
+      "glass": {"source": "sand", "station": "kiln", "refine_time_s": 10, "input_count": 3, "output_count": 2, "stack_size": 10, "weight_kg": 5},
+      "ceramic": {"source": "clay", "station": "kiln", "refine_time_s": 6, "input_count": 1, "output_count": 2, "stack_size": 15, "weight_kg": 6},
+      "cloth": {"source": "fiber", "station": "loom", "refine_time_s": 4, "input_count": 3, "output_count": 1, "stack_size": 15, "weight_kg": 2},
+      "leather": {"source": "hide", "station": "workbench", "refine_time_s": 8, "input_count": 1, "output_count": 1, "stack_size": 10, "weight_kg": 4},
+      "charcoal": {"source": "wood_log", "station": "kiln", "refine_time_s": 12, "input_count": 1, "output_count": 3, "stack_size": 20, "weight_kg": 2}
+    },
+    "composite": {
+      "concrete": {"inputs": {"sand": 3, "stone_block": 1}, "station": "chemistry_station", "craft_time_s": 10, "output_count": 2, "stack_size": 10, "weight_kg": 20},
+      "steel": {"inputs": {"iron_ingot": 1, "coal": 1}, "station": "smelter", "craft_time_s": 20, "output_count": 1, "stack_size": 10, "weight_kg": 10},
+      "plywood": {"inputs": {"lumber": 3}, "station": "sawmill", "craft_time_s": 6, "output_count": 1, "stack_size": 15, "weight_kg": 6},
+      "alloy": {"inputs": {"iron_ingot": 1, "copper_wire": 2}, "station": "smelter", "craft_time_s": 15, "output_count": 1, "stack_size": 10, "weight_kg": 10},
+      "composite_armor": {"inputs": {"steel": 2, "ceramic": 1, "cloth": 1}, "station": "forge", "craft_time_s": 30, "output_count": 1, "stack_size": 5, "weight_kg": 15}
+    }
+  },
+  "cross_reference": {
+    "minecraft": {
+      "wood_log": "oak_log -> 4 planks (crafting_table)",
+      "stone_block": "cobblestone -> stone (furnace)",
+      "iron_ore": "iron_ore -> iron_ingot (furnace)",
+      "coal": "coal_ore -> coal (pickaxe)",
+      "clay": "clay_ball -> brick (furnace)",
+      "sand": "sand -> glass (furnace)",
+      "hide": "leather (cow drop) -> leather (furnace)",
+      "bone": "bone (skeleton drop) -> bone_meal"
+    },
+    "ark": {
+      "wood_log": "wood (hand/tree) — thatch tier -> wood tier -> stone tier",
+      "stone_block": "stone (pick) — stone tier -> metal tier",
+      "iron_ore": "metal (pick) — metal tier -> tek tier",
+      "fiber": "fiber (hand/bush) — thatch tier",
+      "hide": "hide (dino harvest) — thatch tier"
+    },
+    "sims4": {
+      "lumber": "build mode: wall/floor material — wood category",
+      "brick": "build mode: wall material — masonry category",
+      "glass": "build mode: window/door material — glass category",
+      "ceramic": "build mode: flooring — tile category",
+      "cloth": "build mode: furniture fabric — fabric swatches",
+      "iron_ingot": "build mode: structural — metal category",
+      "concrete": "build mode: foundation/wall — concrete category"
+    }
+  }
+}

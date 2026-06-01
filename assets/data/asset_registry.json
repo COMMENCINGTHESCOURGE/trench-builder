@@ -1,0 +1,40 @@
+{
+  "checkpoint": "CP1",
+  "description": "Asset Registry — SHA256 provenance tracking for all furniture GLBs",
+  "version": "1.0.0",
+  "registry": {
+    "furniture": {
+      "quaternius": ["BedDouble", "BedTwin", "Bookcase", "Bookcase_Books", "Chair", "Closet", "Desk", "Door1", "Door2", "Door3", "NightStand", "OfficeChair", "ShortCloset", "Sofa", "Sofa2", "Sofa3", "Sofa_individual", "Stool", "Table", "Table2"],
+      "generated": ["toilet", "sink_bathroom", "bathtub", "shower", "mirror", "counter", "kitchen_cabinet", "kitchen_sink", "stove_counter", "island"]
+    },
+    "appliances": {
+      "generated": ["refrigerator", "oven", "stove", "microwave", "dishwasher", "washer", "dryer", "water_heater", "furnace", "ac_unit", "generator", "water_purifier"]
+    },
+    "tools": {
+      "generated": ["axe", "pickaxe", "shovel", "sickle", "fishing_rod", "knife", "hammer", "saw", "wrench", "screwdriver", "drill", "level", "trowel", "welder", "multimeter"]
+    },
+    "weapons": {
+      "generated": ["baseball_bat", "crowbar", "machete", "fire_axe", "pipe", "spear", "crossbow", "bow", "pistol", "rifle"]
+    },
+    "vehicles": {
+      "kenney": ["sedan", "sedan-sports", "hatchback-sports", "delivery", "delivery-flat", "van", "truck", "truck-flat", "firetruck", "garbage-truck"],
+      "generated": ["bicycle", "sedan", "pickup_truck"]
+    },
+    "infrastructure": {
+      "generated": ["road_segment", "bridge_arch", "tunnel_shaft"]
+    },
+    "underground": {
+      "generated": ["basement_l1", "subbasement_l2"]
+    }
+  },
+  "totals": {
+    "furniture": {"quaternius": 20, "generated": 10, "combined": 30, "target": 50, "gap": 20},
+    "appliances": {"generated": 12, "target": 12, "gap": 0},
+    "tools": {"generated": 15, "target": 25, "gap": 10},
+    "weapons": {"generated": 10, "target": 20, "gap": 10},
+    "vehicles": {"kenney": 10, "generated": 3, "combined": 13, "target": 8, "gap": 0},
+    "infrastructure": {"generated": 3, "target": 3, "gap": 0},
+    "underground": {"generated": 2, "target": 2, "gap": 0}
+  },
+  "sha256_source": "SHA256 hashes to be computed post-generation — see assets_viewer.html integration"
+}

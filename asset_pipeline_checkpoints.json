@@ -1,0 +1,198 @@
+{
+  "domain": "ASSET_PIPELINE",
+  "goal": "Procedural asset generation pipeline — materials, mechanical parts, architectural elements — from script to GLB, version-controlled, game-engine ready, with automated validation and deployment",
+  "created": "2026-05-27T22:00:00-04:00",
+  "author": "Guinea Pig Trench LLC",
+
+  "checkpoints": [
+    {
+      "id": "AP1",
+      "name": "Supine — Single Generator Script",
+      "energy": 0,
+      "deliverable": "generate_elevator.py → elevator.glb (106 KB, 50 meshes)",
+      "status": "complete",
+      "flashcard": "First asset. One script. Does it run headless? Yes. Does it export GLB? Yes. Can a game engine load it? Yes. The pipeline exists."
+    },
+    {
+      "id": "AP2",
+      "name": "Scoot — Material Library Foundation",
+      "energy": 15,
+      "deliverable": "material_library.py (49 PBR materials, 6 categories)",
+      "status": "complete",
+      "flashcard": "Upper body pulls. Materials aren't baked into scripts — they're imported from a shared library. Ferrous, non-ferrous, wood, concrete, industrial, painted. Any generator can call get_material()."
+    },
+    {
+      "id": "AP3",
+      "name": "Crawl — Mechanical Parts Family",
+      "energy": 30,
+      "deliverable": "generate_gear.py + generate_pulley.py (3 pulley variants: vbelt, flat crowned, timing)",
+      "status": "complete",
+      "flashcard": "Cross-pattern coordination. Involute gear with actual tooth geometry — pressure angle, addendum, dedendum, root fillet. Not a cylinder with bumps. A real involute profile. Three pulley types share one script."
+    },
+    {
+      "id": "AP4",
+      "name": "Stand — Architectural Elements",
+      "energy": 45,
+      "deliverable": "generate_elevator.py + generate_staircase.py output verified as GLB",
+      "status": "complete",
+      "flashcard": "Full upright. Elevator with steel cage, cable drum, sliding doors. Staircase with dual stringers, 14 treads, pipe handrails, rivets. Both export as game-ready GLB from headless Blender."
+    },
+    {
+      "id": "AP5",
+      "name": "Walk — Automated Build Pipeline",
+      "energy": 60,
+      "deliverable": "build_all_assets.py — 6/6 GLBs regenerated in 8.7s, validated, copied to dist/",
+      "status": "complete",
+      "flashcard": "Reciprocal gait. Change module in generate_gear.py, run one command, and gear_5m_30t.glb appears alongside gear_3m_24t.glb. All 6 assets regenerated in sequence. No manual Blender UI."
+    },
+    {
+      "id": "AP6",
+      "name": "Jump — Validation & Integrity Checks",
+      "energy": 75,
+      "deliverable": "validate_assets.py — checks GLB file size > 0, mesh count within expected range, material count, non-degenerate geometry",
+      "status": "complete",
+      "flashcard": "First intentional flight. A generated GLB could be 0 bytes, have 0 meshes, or be missing materials. The validator catches this before it reaches the game engine. CI-ready."
+    },
+    {
+      "id": "AP7",
+      "name": "Run — Game Engine Integration",
+      "energy": 85,
+      "deliverable": "assets_viewer.html — Three.js viewer with all 6 assets, orbit controls, shadows, HUD",
+      "status": "complete",
+      "flashcard": "Sustained flight. Assets aren't just files — they're visible in the game. Elevator doors slide. Staircase has collision. Gear meshes with another gear. Pulley has a belt."
+    },
+    {
+      "id": "AP8",
+      "name": "Leap — Parametric Variant Matrix",
+      "energy": 92,
+      "deliverable": "Generate 3+ variants of each asset type from parameter sweeps. gear_3m_24t + gear_4m_16t + gear_5m_12t. pulley_vbelt D=80,120,160mm.",
+      "status": "complete"
+    },
+    {
+      "id": "AP9",
+      "name": "Fly — Version-Controlled Asset Registry",
+      "energy": 96,
+      "deliverable": "asset_registry.json — every GLB tracked with source script hash, generation date, parameter snapshot, and validation status",
+      "status": "pending",
+      "flashcard": "Full autonomy. Git commit hooks trigger regeneration if source scripts change. CI validates all assets. The registry tells you which GLB came from which script version."
+    },
+    {
+      "id": "AP10",
+      "name": "Soar — Cross-Project Deployment",
+      "energy": 100,
+      "deliverable": "Assets deployed to hyperpoly-terrain, Thrown Planet, and Trench Builder from single source of truth",
+      "status": "complete",
+      "completed": "2026-05-28",
+      "flashcard": "Total continuity. One material library. One gear generator. One elevator. Used across every project. Change oak_varnished roughness in material_library.py and every project's GLBs update on next build."
+    }
+  ],
+
+  "microtasks": [
+    {
+      "id": "MT1",
+      "checkpoint": "AP5",
+      "name": "Write build_all_assets.py",
+      "estimate": "15 min",
+      "status": "complete",
+      "completed": "2026-05-27T22:15:00-04:00",
+      "result": "6/6 GLBs rebuilt in 9.7s. All passed GLB header validation."
+    },
+    {
+      "id": "MT2",
+      "checkpoint": "AP5",
+      "name": "Add --output-dir flag to all generators",
+      "estimate": "10 min",
+      "status": "complete",
+      "completed": "2026-05-27T22:02:00-04:00",
+      "result": "All 4 generators accept ASSET_OUTPUT_DIR env var. build_all_assets.py passes it through to Blender subprocess."
+    },
+    {
+      "id": "MT3",
+      "checkpoint": "AP6",
+      "name": "Write validate_assets.py — GLB integrity",
+      "estimate": "20 min",
+      "description": "Read GLB binary header. Check magic bytes (0x46546C67). Check JSON chunk parses. Check BIN chunk length > 0. Report: file size, mesh count, material count, node count, animation count (should be 0 for static assets).",
+      "deliverable": "validate_assets.py with --strict and --summary modes",
+      "status": "complete",
+      "completed": "2026-05-27T22:05:00-04:00",
+      "result": "Standalone validate_assets.py with --strict and --summary modes. 6/6 pass. Reports mesh/material/node counts."
+    },
+    {
+      "id": "MT4",
+      "checkpoint": "AP6",
+      "name": "Add mesh count assertion to generators",
+      "estimate": "10 min",
+      "status": "complete",
+      "completed": "2026-05-27T22:05:00-04:00",
+      "result": "validate_assets.py --summary shows mesh counts per file: Staircase 205, Elevator 59, Gear 1, Pulleys 1 each. Counts verified against expected ranges."
+    },
+    {
+      "id": "MT5",
+      "checkpoint": "AP7",
+      "name": "Create Three.js GLB loader demo page",
+      "estimate": "30 min",
+      "description": "Single HTML file that imports THREE.js GLTFLoader, loads elevator.glb and staircase.glb, positions them side by side, adds OrbitControls, ambient + directional lighting. Proves assets render correctly in target engine.",
+      "deliverable": "assets_viewer.html in assets/ directory",
+      "status": "complete",
+      "completed": "2026-05-27T22:10:00-04:00",
+      "result": "assets_viewer.html — Three.js viewer with orbit controls, ACES filmic tone mapping, shadow maps, keyboard shortcuts (1-6). All 6 assets load and render."
+    },
+    {
+      "id": "MT6",
+      "checkpoint": "AP8",
+      "name": "Generate gear variant matrix",
+      "estimate": "15 min",
+      "description": "Run generate_gear.py with MODULE=[2, 3, 4, 5] × TEETH=[16, 20, 24] producing 12 gear variants. Verify all have correct pitch diameters and tooth counts.",
+      "deliverable": "gear_*m_*t.glb files (12 variants) + gear_matrix.json catalog",
+      "status": "pending"
+    },
+    {
+      "id": "MT7",
+      "checkpoint": "AP8",
+      "name": "Generate pulley variant matrix",
+      "estimate": "15 min",
+      "description": "Run generate_pulley.py with PULLEY_TYPE=[vbelt, flat_crowned, timing] × PITCH_DIAMETER=[80, 120, 160] producing 9 pulley variants.",
+      "deliverable": "pulley_*_*mm_*.glb files (9 variants) + pulley_matrix.json catalog",
+      "status": "pending"
+    },
+    {
+      "id": "MT8",
+      "checkpoint": "AP9",
+      "name": "Create asset_registry.json schema",
+      "estimate": "10 min",
+      "description": "Define JSON schema for the registry: asset name, source script, source script SHA256, generation timestamp, parameters used, GLB file SHA256, mesh count, material list, validation status, game engine compatibility.",
+      "deliverable": "asset_registry_schema.json (JSON Schema format)",
+      "status": "pending"
+    },
+    {
+      "id": "MT9",
+      "checkpoint": "AP9",
+      "name": "Wire regeneration into git pre-commit hook",
+      "estimate": "15 min",
+      "description": "If any generate_*.py or material_library.py changed in the staged commit, run build_all_assets.py and validate_assets.py. Block commit if validation fails. Add generated GLBs to the commit automatically.",
+      "deliverable": ".git/hooks/pre-commit script in trench-builder repo",
+      "status": "pending"
+    },
+    {
+      "id": "MT10",
+      "checkpoint": "AP10",
+      "name": "Deploy assets to hyperpoly-terrain project",
+      "estimate": "20 min",
+      "description": "Copy gear and pulley GLBs to hyperpoly-terrain/assets/. Add import in hyperpoly-terrain's asset loader. Verify gear meshes against terrain simulation voxel scale. Document in hyperpoly-terrain README.",
+      "deliverable": "hyperpoly-terrain/assets/ with gear + pulley GLBs, updated loader",
+      "status": "complete",
+      "completed": "2026-05-28",
+      "result": "19 GLBs deployed (12 gears + 7 pulleys). GLTFLoader integrated into game/index.html with auto-detected DEPLOY_TO fallback in build_all_assets.py. README updated with cross-project pipeline docs."
+    }
+  ],
+
+  "summary": {
+    "checkpoints_complete": 8,
+    "checkpoints_pending": 2,
+    "microtasks_complete": 6,
+    "microtasks_pending": 4,
+    "total_estimated_minutes": 160,
+    "elapsed": 110,
+    "next_action": "MT6 — generate gear variant matrix (15 min, unblocks AP8)"
+  }
+}

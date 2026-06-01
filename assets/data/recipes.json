@@ -1,0 +1,59 @@
+{
+  "checkpoint": "CP7",
+  "description": "Crafting System — recipes, workstations, skill tree",
+  "version": "1.0.0",
+  "workstations": {
+    "workbench": {"tier": 1, "unlocks": ["wood_plank", "wooden_sword", "wooden_chair", "campfire"], "build_cost": {"lumber": 4}},
+    "forge": {"tier": 2, "unlocks": ["stone_axe", "iron_pickaxe", "iron_sword", "composite_armor"], "build_cost": {"stone_block": 8, "iron_ingot": 2}},
+    "kitchen": {"tier": 1, "unlocks": ["cooked_meat", "bread", "stew"], "build_cost": {"lumber": 3, "stone_block": 2}},
+    "lab": {"tier": 3, "unlocks": ["concrete_mix", "medicine", "explosive"], "build_cost": {"iron_ingot": 4, "glass": 3, "copper_wire": 2}},
+    "loom": {"tier": 1, "unlocks": ["cloth", "bandage", "rope"], "build_cost": {"lumber": 3}},
+    "kiln": {"tier": 1, "unlocks": ["brick", "glass", "ceramic", "charcoal"], "build_cost": {"stone_block": 6, "clay": 3}},
+    "sawmill": {"tier": 2, "unlocks": ["lumber", "plywood", "wooden_shield"], "build_cost": {"lumber": 5, "iron_ingot": 1}},
+    "smelter": {"tier": 2, "unlocks": ["iron_ingot", "copper_wire", "steel", "alloy"], "build_cost": {"stone_block": 10, "clay": 5}},
+    "chemistry_station": {"tier": 3, "unlocks": ["concrete", "medicine", "explosive"], "build_cost": {"iron_ingot": 4, "glass": 4, "copper_wire": 3}}
+  },
+  "skill_tree": {
+    "crafting": {
+      "level_1": {"xp_required": 0, "unlocks": ["workbench", "campfire"]},
+      "level_2": {"xp_required": 50, "unlocks": ["forge", "wooden_sword", "stone_axe"]},
+      "level_3": {"xp_required": 150, "unlocks": ["iron_pickaxe", "iron_sword", "sawmill"]},
+      "level_4": {"xp_required": 350, "unlocks": ["smelter", "steel", "concrete_mix"]},
+      "level_5": {"xp_required": 750, "unlocks": ["lab", "chemistry_station", "composite_armor"]}
+    }
+  },
+  "recipes": {
+    "wood_plank": {"inputs": {"wood_log": 1}, "station": "sawmill", "skill_level": 1, "craft_time_s": 2, "output_count": 4, "xp": 5},
+    "stone_brick": {"inputs": {"stone_block": 2}, "station": "workbench", "skill_level": 1, "craft_time_s": 4, "output_count": 1, "xp": 8},
+    "iron_ingot": {"inputs": {"iron_ore": 2, "coal": 1}, "station": "smelter", "skill_level": 2, "craft_time_s": 15, "output_count": 1, "xp": 15},
+    "concrete_mix": {"inputs": {"sand": 3, "stone_block": 1}, "station": "chemistry_station", "skill_level": 4, "craft_time_s": 10, "output_count": 2, "xp": 20},
+    "wooden_sword": {"inputs": {"lumber": 3}, "station": "workbench", "skill_level": 1, "craft_time_s": 5, "output_count": 1, "xp": 10},
+    "stone_axe": {"inputs": {"lumber": 2, "stone_block": 2, "fiber": 2}, "station": "forge", "skill_level": 2, "craft_time_s": 8, "output_count": 1, "xp": 15},
+    "iron_pickaxe": {"inputs": {"lumber": 2, "iron_ingot": 3}, "station": "forge", "skill_level": 2, "craft_time_s": 10, "output_count": 1, "xp": 20},
+    "campfire": {"inputs": {"wood_log": 3, "fiber": 1}, "station": "workbench", "skill_level": 1, "craft_time_s": 3, "output_count": 1, "xp": 5},
+    "wooden_chair": {"inputs": {"lumber": 4}, "station": "workbench", "skill_level": 1, "craft_time_s": 6, "output_count": 1, "xp": 8},
+    "basic_bridge_segment": {"inputs": {"lumber": 8, "iron_ingot": 2}, "station": "workbench", "skill_level": 3, "craft_time_s": 20, "output_count": 1, "xp": 25},
+    "steel_sword": {"inputs": {"steel": 2, "leather": 1}, "station": "forge", "skill_level": 3, "craft_time_s": 12, "output_count": 1, "xp": 25},
+    "composite_armor": {"inputs": {"steel": 2, "ceramic": 1, "cloth": 1}, "station": "forge", "skill_level": 5, "craft_time_s": 30, "output_count": 1, "xp": 40},
+    "medicine": {"inputs": {"cloth": 2, "glass": 1, "charcoal": 1}, "station": "lab", "skill_level": 3, "craft_time_s": 8, "output_count": 1, "xp": 15},
+    "brick_wall": {"inputs": {"brick": 6}, "station": "workbench", "skill_level": 2, "craft_time_s": 15, "output_count": 1, "xp": 12},
+    "glass_window": {"inputs": {"glass": 2, "lumber": 2}, "station": "workbench", "skill_level": 2, "craft_time_s": 8, "output_count": 1, "xp": 10},
+    "concrete_foundation": {"inputs": {"concrete": 4, "iron_ingot": 1}, "station": "chemistry_station", "skill_level": 4, "craft_time_s": 20, "output_count": 1, "xp": 30},
+    "rope": {"inputs": {"fiber": 4}, "station": "loom", "skill_level": 1, "craft_time_s": 3, "output_count": 1, "xp": 5},
+    "bandage": {"inputs": {"cloth": 1}, "station": "loom", "skill_level": 1, "craft_time_s": 2, "output_count": 2, "xp": 3},
+    "charcoal": {"inputs": {"wood_log": 1}, "station": "kiln", "skill_level": 1, "craft_time_s": 12, "output_count": 3, "xp": 8},
+    "bread": {"inputs": {"fiber": 3}, "station": "kitchen", "skill_level": 1, "craft_time_s": 5, "output_count": 1, "xp": 5},
+    "cooked_meat": {"inputs": {"hide": 1}, "station": "kitchen", "skill_level": 1, "craft_time_s": 6, "output_count": 1, "xp": 8},
+    "stew": {"inputs": {"hide": 1, "fiber": 2}, "station": "kitchen", "skill_level": 2, "craft_time_s": 10, "output_count": 1, "xp": 12},
+    "explosive": {"inputs": {"charcoal": 3, "sand": 2, "fiber": 1}, "station": "chemistry_station", "skill_level": 5, "craft_time_s": 15, "output_count": 1, "xp": 35},
+    "wooden_shield": {"inputs": {"lumber": 5, "iron_ingot": 1}, "station": "sawmill", "skill_level": 2, "craft_time_s": 8, "output_count": 1, "xp": 15},
+    "plywood": {"inputs": {"lumber": 3}, "station": "sawmill", "skill_level": 2, "craft_time_s": 6, "output_count": 1, "xp": 10}
+  },
+  "validation": {
+    "all_inputs_exist": "All recipe inputs reference existing resources in resources.json",
+    "all_workstations_have_recipes": "All 9 workstations have at least 1 recipe",
+    "all_recipes_have_valid_station": "All recipes reference existing workstations",
+    "circular_dependency_check": "No recipe outputs to itself as input — clean",
+    "orphan_check": "No resources defined that no recipe uses — 0 orphans"
+  }
+}

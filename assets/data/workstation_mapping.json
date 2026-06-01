@@ -1,0 +1,26 @@
+{
+  "checkpoint": "CP2",
+  "description": "Workstation mapping — which station produces which recipes",
+  "workstations": {
+    "workbench": {"tier": 1, "recipes": ["wood_plank", "stone_brick", "wooden_sword", "campfire", "wooden_chair", "basic_bridge_segment", "brick_wall", "glass_window"], "build_cost": {"lumber": 4}},
+    "forge": {"tier": 2, "recipes": ["stone_axe", "iron_pickaxe", "steel_sword", "composite_armor"], "build_cost": {"stone_block": 8, "iron_ingot": 2}},
+    "kitchen": {"tier": 1, "recipes": ["cooked_meat", "bread", "stew"], "build_cost": {"lumber": 3, "stone_block": 2}},
+    "lab": {"tier": 3, "recipes": ["concrete_mix", "medicine", "explosive"], "build_cost": {"iron_ingot": 4, "glass": 3, "copper_wire": 2}},
+    "loom": {"tier": 1, "recipes": ["cloth", "bandage", "rope"], "build_cost": {"lumber": 3}},
+    "kiln": {"tier": 1, "recipes": ["brick", "glass", "ceramic", "charcoal"], "build_cost": {"stone_block": 6, "clay": 3}},
+    "sawmill": {"tier": 2, "recipes": ["lumber", "plywood", "wooden_shield"], "build_cost": {"lumber": 5, "iron_ingot": 1}},
+    "smelter": {"tier": 2, "recipes": ["iron_ingot", "copper_wire", "steel", "alloy"], "build_cost": {"stone_block": 10, "clay": 5}},
+    "chemistry_station": {"tier": 3, "recipes": ["concrete", "medicine", "explosive"], "build_cost": {"iron_ingot": 4, "glass": 4, "copper_wire": 3}}
+  },
+  "dependencies": {
+    "workbench": [],
+    "forge": ["workbench"],
+    "kiln": [],
+    "loom": [],
+    "kitchen": ["workbench"],
+    "sawmill": ["workbench"],
+    "smelter": ["forge", "kiln"],
+    "chemistry_station": ["smelter", "lab"],
+    "lab": ["smelter"]
+  }
+}

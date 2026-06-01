@@ -1,0 +1,51 @@
+{
+  "checkpoint": "CP10",
+  "description": "Cross-Game Crafting Reference — Sims 4, Ark, Minecraft mapped to Trench-Builder",
+  "version": "1.0.0",
+  "entries": [
+    {"source": "Minecraft", "item": "oak_log -> 4 planks", "function": "base building block", "tb_equivalent": "wood_log -> 4 lumber (sawmill)", "constraint": "Minecraft: 1 log = 4 planks instant. TB: requires sawmill station.", "gap": "TB adds extraction station requirement"},
+    {"source": "Minecraft", "item": "cobblestone -> stone (furnace)", "function": "upgraded building block", "tb_equivalent": "stone_block (raw, no refinement needed)", "constraint": "Minecraft: furnace refinement. TB: stone is raw resource.", "gap": "TB simplifies — stone is directly buildable"},
+    {"source": "Minecraft", "item": "iron_ore -> iron_ingot (furnace)", "function": "mid-tier metal", "tb_equivalent": "iron_ore + coal -> iron_ingot (smelter)", "constraint": "Minecraft: 1 ore = 1 ingot. TB: 2 ore + 1 coal = 1 ingot (more realistic).", "gap": "TB adds coal as catalyst, higher input cost"},
+    {"source": "Minecraft", "item": "diamond pickaxe", "function": "top-tier tool", "tb_equivalent": "alloy pickaxe (alloy + lumber)", "constraint": "Minecraft: diamond tier. TB: alloy tier (no gems).", "gap": "TB replaces magic gems with metallurgy"},
+    {"source": "Minecraft", "item": "tool tiers: wood->stone->iron->diamond->netherite", "function": "progression gating", "tb_equivalent": "wood->stone->iron->steel->alloy (crafting skill 1-5)", "constraint": "5 tiers. TB mirrors with same count but realistic materials.", "gap": "TB drops gem/magic tiers for industrial metallurgy"},
+    {"source": "Minecraft", "item": "crafting_table (3x3 grid)", "function": "primary workstation", "tb_equivalent": "workbench (tier 1, 4 lumber)", "constraint": "Minecraft: free crafting. TB: gated by skill tree + material cost.", "gap": "TB adds skill level gates to recipe access"},
+    {"source": "Minecraft", "item": "furnace (fuel-based smelting)", "function": "heat processing", "tb_equivalent": "kiln (clay/stone) + smelter (metal)", "constraint": "Minecraft: one furnace for everything. TB: separate stations per material class.", "gap": "TB splits smelting by material type (more realistic)"},
+    {"source": "Minecraft", "item": "redstone mechanics", "function": "automation/logic", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Critical gap — no automation system. Priority: HIGH"},
+    {"source": "Minecraft", "item": "villager trading", "function": "economy loop", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Economy system needed. Priority: MEDIUM"},
+    {"source": "Minecraft", "item": "enchantments", "function": "item enhancement", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Modification/enhancement system. Priority: LOW"},
+    {"source": "Ark", "item": "engram points + engram tiers", "function": "knowledge gating", "tb_equivalent": "crafting skill tree (level 1-5)", "constraint": "Ark: engram points per level-up. TB: XP-based skill tree.", "gap": "TB simplifies — skill levels replace engram point economy"},
+    {"source": "Ark", "item": "structure tiers: thatch->wood->stone->metal->tek", "function": "base defense progression", "tb_equivalent": "wood->stone->brick->steel->composite", "constraint": "5 tiers each. Ark: tek = sci-fi. TB: composite = realistic.", "gap": "TB replaces sci-fi tier with composite materials"},
+    {"source": "Ark", "item": "resource gathering (hand->tool->dino)", "function": "extraction scaling", "tb_equivalent": "hand->tool (gather tools: axe, pickaxe, shovel, sickle)", "constraint": "Ark: dino harvesting is primary. TB: tool-only (no dinos).", "gap": "TB replaces creature harvesting with tool specialization"},
+    {"source": "Ark", "item": "taming system", "function": "creature utility", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Creature system not in scope. Priority: LOW"},
+    {"source": "Ark", "item": "crafting stations: mortar+pestle, forge, fabricator", "function": "tiered production", "tb_equivalent": "workbench, forge, kiln, smelter, chemistry_station, loom, sawmill, kitchen, lab", "constraint": "Ark: 3-4 stations. TB: 9 stations with material-type specialization.", "gap": "TB has more granular station specialization"},
+    {"source": "Sims 4", "item": "build mode: wall tool + room tool", "function": "architectural construction", "tb_equivalent": "brick_wall, concrete_foundation, glass_window (crafting recipes)", "constraint": "Sims: drag-to-build. TB: recipe-based construction.", "gap": "TB replaces visual building with crafting-driven construction"},
+    {"source": "Sims 4", "item": "furniture categories: seating, surfaces, storage, sleeping, lighting, decorative, outdoor, office, kitchen, bathroom", "function": "interior design", "tb_equivalent": "CP1 Furniture Library (10 categories, 50+ GLB)", "constraint": "Sims: catalog of 1000+ items. TB: 50+ procedural/generated items.", "gap": "TB needs 30 more furniture (bathroom, kitchen, lighting, decorative, outdoor, office)"},
+    {"source": "Sims 4", "item": "appliance states: off, on, running, broken", "function": "household simulation", "tb_equivalent": "CP2 state machines: off, on, running, overload, broken", "constraint": "Sims: states trigger emotional buffs. TB: states trigger power grid load.", "gap": "TB replaces emotional system with power grid integration"},
+    {"source": "Sims 4", "item": "room types: bedroom, bathroom, kitchen, living, dining, study, gym, nursery", "function": "room-based buffs", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Room classification system. Priority: LOW"},
+    {"source": "Sims 4", "item": "emotional buffs from objects", "function": "sim mood system", "tb_equivalent": "NOT APPLICABLE", "constraint": "TB has no sim AI.", "gap": "Out of scope for survival/builder genre"},
+    {"source": "Sims 4", "item": "build mode constraints: grid snap, wall height, floor levels", "function": "construction validation", "tb_equivalent": "CP8 constraint_validator: span_depth_ratio, guardrail_height, lane_width", "constraint": "Sims: aesthetic constraints. TB: structural/physics constraints.", "gap": "TB adds real-world engineering constraints to construction"},
+    {"source": "Ark", "item": "resource respawn mechanics", "function": "renewable economy", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Resource respawn system. Priority: MEDIUM"},
+    {"source": "Minecraft", "item": "block breaking tiers (tool required)", "function": "resource access gating", "tb_equivalent": "extraction_tool field in resources.json", "constraint": "Minecraft: tool tier >= block tier. TB: specific tool per resource type.", "gap": "TB maps tools to resources, not tiers to blocks"},
+    {"source": "Minecraft", "item": "hopper + chest storage networks", "function": "item logistics", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Storage/logistics system. Priority: MEDIUM"},
+    {"source": "Ark", "item": "snap points for structure placement", "function": "building alignment", "tb_equivalent": "NOT YET IMPLEMENTED", "constraint": "", "gap": "Snap/grid placement for construction. Priority: HIGH"}
+  ],
+  "gap_summary": {
+    "HIGH_priority": [
+      "Automation/logic system (redstone equivalent)",
+      "Snap/grid placement for construction",
+      "Storage/logistics (hopper equivalent)"
+    ],
+    "MEDIUM_priority": [
+      "Economy/trading system",
+      "Resource respawn mechanics",
+      "Item logistics network"
+    ],
+    "LOW_priority": [
+      "Item enhancement/enchantment",
+      "Creature system (taming)",
+      "Room classification",
+      "Emotional/sim AI system"
+    ]
+  },
+  "stats": {"total_entries": 25, "gaps_identified": 12, "high_priority_gaps": 3, "medium_priority_gaps": 3, "low_priority_gaps": 4, "out_of_scope": 2}
+}

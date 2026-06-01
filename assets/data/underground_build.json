@@ -1,0 +1,61 @@
+{
+  "checkpoint": "CP9",
+  "description": "Underground Construction — basements, subbasements, deep bunkers",
+  "schema": {
+    "levels": {
+      "basement": {
+        "depth_m": -3.0,
+        "min_soil_bearing_kpa": 100,
+        "shoring_required": true,
+        "ventilation": "natural_duct",
+        "emergency_exit": "stairwell",
+        "build_materials": {"wall": "concrete", "floor": "concrete", "support": "steel"},
+        "excavation_volume_m3": 48,
+        "constraints": {
+          "water_table_clearance_m": 1.5,
+          "frost_depth_m": 1.2,
+          "min_ceiling_height_m": 2.4
+        }
+      },
+      "subbasement": {
+        "depth_m": -6.0,
+        "min_soil_bearing_kpa": 200,
+        "shoring_required": true,
+        "ventilation": "mechanical",
+        "emergency_exit": "stairwell + elevator_shaft",
+        "build_materials": {"wall": "steel_reinforced_concrete", "floor": "steel_reinforced_concrete", "support": "steel_beam"},
+        "excavation_volume_m3": 96,
+        "constraints": {
+          "water_table_clearance_m": 3.0,
+          "soil_type_minimum": "dense_sand_or_stiff_clay",
+          "pump_required": true
+        }
+      },
+      "deep_bunker": {
+        "depth_m": -12.0,
+        "min_soil_bearing_kpa": 300,
+        "shoring_required": true,
+        "ventilation": "mechanical_positive_pressure",
+        "emergency_exit": "stairwell + elevator_shaft + escape_tunnel",
+        "build_materials": {"wall": "composite_reinforced_concrete", "floor": "composite_reinforced_concrete", "support": "composite_beam"},
+        "excavation_volume_m3": 200,
+        "constraints": {
+          "water_table_clearance_m": 6.0,
+          "soil_type_minimum": "bedrock_or_dense_gravel",
+          "pump_required": true,
+          "air_scrubber_required": true,
+          "blast_door_required": true
+        }
+      }
+    },
+    "constraint_validator": {
+      "rules": [
+        {"rule": "depth > water_table_depth", "fail_action": "REJECT — cannot excavate below water table without pump"},
+        {"rule": "soil_bearing_capacity_kpa < min_soil_bearing_kpa", "fail_action": "REJECT — soil too weak for excavation depth"},
+        {"rule": "depth > 1.5m AND NOT shoring_required", "fail_action": "WARN — OSHA requires shoring below 1.5m"},
+        {"rule": "emergency_exit_count < 1", "fail_action": "REJECT — building code requires emergency exit"},
+        {"rule": "ceiling_height < 2.1m", "fail_action": "REJECT — minimum habitable ceiling height not met"}
+      ]
+    }
+  }
+}
