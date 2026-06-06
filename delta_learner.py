@@ -20,18 +20,20 @@ from datetime import datetime
 from pathlib import Path
 from collections import Counter, defaultdict
 
+from trench_config import PATHS
+
 # ═══════════════════════════════════════════════════════
 # DATA SOURCES
 # ═══════════════════════════════════════════════════════
 
 SOURCES = {
-    "mistake_patterns": Path.home() / "AppData/Local/hermes/skills/mlops/mistake-reviewer/SKILL.md",
-    "retroactive_audit": Path.home() / "Projects/trench_builder/retroactive_audit.json",
-    "video_grammar": Path.home() / "Projects/trench_builder/video_grammar_v2.json",
-    "checkpoint_training": Path.home() / "Projects/trench_builder/training_checkpoints",
-    "erdos_output": Path.home() / "Projects/erdos-straus/KAGGLE_OUTPUT_RECORD.jsonl",
-    "project_audit": Path.home() / "Projects/project_manager/IMPROVEMENT_AUDIT_MAY16.md",
-    "goals": Path.home() / "Projects/trench_builder/GOALS_MAY16.md",
+    "mistake_patterns": PATHS.hermes_skills / "mlops/mistake-reviewer/SKILL.md",
+    "retroactive_audit": PATHS.retroactive_audit,
+    "video_grammar": PATHS.trench_builder / "video_grammar_v2.json",
+    "checkpoint_training": PATHS.training_checkpoints,
+    "erdos_output": PATHS.erdos_output,
+    "project_audit": PATHS.projects / "project_manager/IMPROVEMENT_AUDIT_MAY16.md",
+    "goals": PATHS.trench_builder / "GOALS_MAY16.md",
 }
 
 # ═══════════════════════════════════════════════════════
@@ -252,7 +254,7 @@ if __name__ == "__main__":
                     if k != 'insight' and not isinstance(v, (list, dict)):
                         print(f"    {k}: {v}")
                 all_learnings.update(result)
-        except Exception as e:
+        except (json.JSONDecodeError, OSError, FileNotFoundError) as e:
             print(f"  Error: {e}")
         print()
     
@@ -271,7 +273,7 @@ if __name__ == "__main__":
         "synthesis": synthesis,
     }
     
-    out_path = Path.home() / "Projects/trench_builder/delta_learning.json"
+    out_path = PATHS.delta_learning
     with open(out_path, 'w') as f:
         json.dump(output, f, indent=2, default=str)
     

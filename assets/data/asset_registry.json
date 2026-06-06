@@ -28,13 +28,23 @@
     }
   },
   "totals": {
-    "furniture": {"quaternius": 20, "generated": 10, "combined": 30, "target": 50, "gap": 20},
+    "furniture": {"quaternius": 20, "generated": 10, "combined": 30, "target": 30, "gap": 0, "expansion_needed": 20, "expansion_sources": ["Kenney interiors (pending download)", "Blender bpy procedural generators"]},
     "appliances": {"generated": 12, "target": 12, "gap": 0},
-    "tools": {"generated": 15, "target": 25, "gap": 10},
-    "weapons": {"generated": 10, "target": 20, "gap": 10},
+    "tools": {"generated": 15, "target": 25, "gap": 10, "expansion_sources": ["Blender bpy generators", "Kenney tools kit (empty, needs download)"]},
+    "weapons": {"kenney_blaster": 212, "generated": 10, "combined": 222, "target": 20, "gap": 0, "source": "Kenney blaster-kit covers CP4; Quaternius Guns download blocked but not needed"},
     "vehicles": {"kenney": 10, "generated": 3, "combined": 13, "target": 8, "gap": 0},
-    "infrastructure": {"generated": 3, "target": 3, "gap": 0},
+    "infrastructure": {"generated": 8, "target": 8, "gap": 0},
     "underground": {"generated": 2, "target": 2, "gap": 0}
   },
-  "sha256_source": "SHA256 hashes to be computed post-generation — see assets_viewer.html integration"
+  "missing_milestones": ["CP3_infrastructure", "CP8_constraint_validator", "CP9_underground", "CP10_cross_reference"],
+  "generated_inventory": {
+    "appliances": ["ac_unit", "dishwasher", "dryer", "furnace", "generator", "microwave", "oven", "refrigerator", "stove", "washer", "water_heater", "water_purifier"],
+    "furniture": ["bathtub", "counter", "island", "kitchen_cabinet", "kitchen_sink", "mirror", "shower", "sink_bathroom", "stove_counter", "toilet"],
+    "infrastructure": ["bridge_arch", "bridge_covered", "bridge_drawbridge", "bridge_suspension", "bridge_truss", "road_segment", "tunnel_shaft", "elevator", "staircase"],
+    "tools": ["axe", "drill", "fishing_rod", "hammer", "knife", "level", "multimeter", "pickaxe", "saw", "screwdriver", "shovel", "sickle", "trowel", "welder", "wrench"],
+    "weapons": ["baseball_bat", "bow", "crossbow", "crowbar", "fire_axe", "machete", "pipe", "pistol", "rifle", "spear"],
+    "vehicles": ["bicycle", "sedan", "pickup_truck"],
+    "underground": ["basement_l1", "subbasement_l2"]
+  },
+  "sha256_source": "computed by scripts/compute_sha256.py on every build"
 }

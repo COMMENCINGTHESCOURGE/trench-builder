@@ -164,21 +164,13 @@ class NeuralNumerator:
 # FULL SIMULATION — Recovery Arc
 # ═══════════════════════════════════════════════════════
 
-def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
-    """Simulate a complete forging session with recovery."""
-    
+def _init_simulation_state() -> Tuple[BiomechanicalDenominator, NeuralNumerator, list, list]:
     bio = BiomechanicalDenominator(
         glycogen=600.0,
         lactate=0.008,
         hammer_com=0.22,
     )
-    
     neuro = NeuralNumerator(skill=0.3)
-    
-    D_mat_trace = 1.8  # Start with damaged blade
-    
-    C_strike = np.zeros((3, 3))
-    
     history = []
     phase_names = [
         "STARVING (G=600, La=0.008, broken blade)",
@@ -189,20 +181,135 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
         "SLEEP + FULL RECOVERY",
         "MASTERY (G=1900, La=0.002, skill=0.8, perfect blade)",
     ]
+    return bio, neuro, history, phase_names
+
+
+def _run_strike_cycle(
+    phase: int,
+    strike: int,
+    bio: BiomechanicalDenominator,
+    neuro: NeuralNumerator,
+    D_mat_trace: float,
+    prev_error: float,
+    history: list,
+) -> Tuple[bool, float]:
+    # Generate intent through neural numerator
+    raw_will = np.array([1.0, 1.0, 1.0])
+    try:
+        A_intent = np.linalg.inv(neuro.matrix) @ raw_will
+    except:
+        A_intent = np.array([0.1, 0.1, 0.1])
     
-    # Track D_mat_trace changes
+    # Build D_total
+    D_mat_total = D_mat_trace * np.eye(3)
+    C_strike = np.array([
+        [0, 0, 0.45 * bio.D_ii],
+        [0, 0, 0.22 * bio.D_ll],
+        [0.45 * bio.D_ii, 0.22 * bio.D_ll, 0],
+    ])
+    D_total = D_mat_total + bio.matrix + C_strike
+    
+    # Vinculum
+    try:
+        A_realized = np.linalg.inv(D_total) @ A_intent
+        det_D = np.linalg.det(D_total)
+    except:
+        A_realized = np.array([0.0, 0.0, 0.0])
+        det_D = 0.0
+    
+    # Success: realized action has force > 0.5 AND error < 1.0
+    error = np.linalg.norm(A_intent - A_realized)
+    improved = error < prev_error * 0.98  # 2% better than last strike
+    success = (A_realized[0] > 0.4 and error < 1.0) or improved
+    
+    # Physiology
+    bio.burn_calories(300, 2.0)
+    if not success:
+        bio.produce_lactate(500, 350)
+    else:
+        bio.produce_lactate(300, 350)
+    
+    bio.recover(5.0, eating=(phase >= 1 and phase <= 2))
+    neuro.update(2.0, success)
+    
+    history.append({
+        "phase": phase + 1, "strike": strike + 1,
+        "success": success, "error": float(error),
+        "glycogen": bio.glycogen, "lactate": bio.lactate,
+        "skill": neuro.skill, "D_mat": D_mat_trace,
+        "D_gg": bio.D_gg, "D_ll": bio.D_ll, "D_ii": bio.D_ii,
+        "det_N": float(np.linalg.det(neuro.matrix)), "det_D": float(det_D),
+    })
+    
+    marker = "✓ HIT" if success else "✗ miss"
+    improved_mark = " ↓improving" if improved and error >= 0.45 else ""
+    print(f"    Strike {strike+1}: {marker}{improved_mark} | err={error:.3f} | "
+          f"G={bio.glycogen:.0f}kJ La={bio.lactate:.4f}")
+          
+    return success, error
+
+
+def _run_phase_recovery(
+    phase: int,
+    bio: BiomechanicalDenominator,
+    neuro: NeuralNumerator,
+    D_mat_schedule: list,
+):
+    if phase == 0:
+        bio.recover(3600, eating=True)
+        neuro.rest()
+    elif phase == 1:
+        bio.recover(3600, eating=True)
+        neuro.rest()
+    elif phase == 2:
+        bio.recover(1800)
+        neuro.rest()
+        D_mat_schedule[3] = 1.0
+    elif phase == 4:
+        bio.recover(28800, sleeping=True)
+        neuro.rest()
+        neuro.skill = min(1.0, neuro.skill + 0.4)
+        bio.hammer_com = 0.18
+    elif phase == 5:
+        bio.glycogen = 1900
+        bio.lactate = 0.002
+        neuro.skill = 0.8
+        neuro.focus = 95.0
+        D_mat_schedule[6] = 0.3
+
+
+def _print_simulation_results(history: list, num_phases: int):
+    first_success = None
+    for h in history:
+        if h["success"]:
+            first_success = h
+            break
+    
+    print("═══ RESULTS ═══")
+    total_hits = sum(1 for h in history if h["success"])
+    total_strikes = len(history)
+    print(f"  Total: {total_hits}/{total_strikes} successful ({total_hits/total_strikes*100:.0f}%)")
+    
+    if first_success:
+        print(f"  First success: Phase {first_success['phase']}, Strike {first_success['strike']}")
+        print(f"    Conditions: G={first_success['glycogen']:.0f}kJ, "
+              f"La={first_success['lactate']:.4f}, skill={first_success['skill']:.3f}")
+        print(f"    D_bio: [{first_success['D_gg']:.2f}, "
+              f"{first_success['D_ll']:.2f}, {first_success['D_ii']:.2f}]")
+    
+    print()
+    print("═══ SUCCESS BY PHASE ═══")
+    for p in range(1, num_phases + 1):
+        phase_hits = [h for h in history if h["phase"] == p]
+        hits = sum(1 for h in phase_hits if h["success"])
+        print(f"  Phase {p}: {hits}/{len(phase_hits)} "
+              f"({'█'*hits}{'░'*(len(phase_hits)-hits)})")
+
+
+def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
+    """Simulate a complete forging session with recovery."""
+    bio, neuro, history, phase_names = _init_simulation_state()
     D_mat_schedule = [1.8, 1.8, 1.3, 1.0, 0.7, 0.5, 0.3]
-    
-    # Phase actions
-    phase_actions = [
-        None,           # Just strike
-        None,           # Strike + auto eat/recover between phases
-        "replace_blade",# Replace the broken blade
-        None,           # Warm up
-        None,           # Train
-        "sleep",        # Full recovery
-        "mastery",      # Optimal conditions
-    ]
     
     print("╔══════════════════════════════════════════════════════╗")
     print("║  COUPLED FORGE SIMULATION — Recovery Arc            ║")
@@ -222,122 +329,22 @@ def simulate_forge(num_phases: int = 7, strikes_per_phase: int = 5):
         
         D_mat_trace = D_mat_schedule[phase]
         successes = 0
-        prev_error = 999  # Track improvement
+        prev_error = 999
         
         for strike in range(strikes_per_phase):
-            # Generate intent through neural numerator
-            raw_will = np.array([1.0, 1.0, 1.0])
-            try:
-                A_intent = np.linalg.inv(neuro.matrix) @ raw_will
-            except:
-                A_intent = np.array([0.1, 0.1, 0.1])
-            
-            # Build D_total
-            D_mat_total = D_mat_trace * np.eye(3)
-            C_strike = np.array([
-                [0, 0, 0.45 * bio.D_ii],
-                [0, 0, 0.22 * bio.D_ll],
-                [0.45 * bio.D_ii, 0.22 * bio.D_ll, 0],
-            ])
-            D_total = D_mat_total + bio.matrix + C_strike
-            
-            # Vinculum
-            try:
-                A_realized = np.linalg.inv(D_total) @ A_intent
-                det_D = np.linalg.det(D_total)
-            except:
-                A_realized = np.array([0.0, 0.0, 0.0])
-                det_D = 0.0
-            
-            # Success: realized action has force > 0.5 AND error < 1.0
-            # A good strike in blacksmithing isn't perfect — it's "close enough"
-            error = np.linalg.norm(A_intent - A_realized)
-            improved = error < prev_error * 0.98  # 2% better than last strike
-            success = (A_realized[0] > 0.4 and error < 1.0) or improved
+            success, error = _run_strike_cycle(
+                phase, strike, bio, neuro, D_mat_trace, prev_error, history
+            )
             prev_error = error
-            
             if success:
                 successes += 1
-            
-            # Physiology
-            bio.burn_calories(300, 2.0)
-            if not success:
-                bio.produce_lactate(500, 350)
-            else:
-                bio.produce_lactate(300, 350)
-            
-            bio.recover(5.0, eating=(phase >= 1 and phase <= 2))
-            neuro.update(2.0, success)
-            
-            history.append({
-                "phase": phase + 1, "strike": strike + 1,
-                "success": success, "error": float(error),
-                "glycogen": bio.glycogen, "lactate": bio.lactate,
-                "skill": neuro.skill, "D_mat": D_mat_trace,
-                "D_gg": bio.D_gg, "D_ll": bio.D_ll, "D_ii": bio.D_ii,
-                "det_N": float(np.linalg.det(neuro.matrix)), "det_D": float(det_D),
-            })
-            
-            marker = "✓ HIT" if success else "✗ miss"
-            improved_mark = " ↓improving" if improved and error >= 0.45 else ""
-            print(f"    Strike {strike+1}: {marker}{improved_mark} | err={error:.3f} | "
-                  f"G={bio.glycogen:.0f}kJ La={bio.lactate:.4f}")
         
         print(f"  Phase results: {successes}/{strikes_per_phase} successful")
         print()
         
-        # Recovery between phases
-        if phase == 0:
-            bio.recover(3600, eating=True)
-            neuro.rest()
-        elif phase == 1:
-            bio.recover(3600, eating=True)
-            neuro.rest()
-        elif phase == 2:
-            bio.recover(1800)
-            neuro.rest()
-            # Replace blade
-            D_mat_schedule[3] = 1.0
-        elif phase == 4:
-            bio.recover(28800, sleeping=True)
-            neuro.rest()
-            neuro.skill = min(1.0, neuro.skill + 0.4)
-            bio.hammer_com = 0.18
-        elif phase == 5:
-            bio.glycogen = 1900
-            bio.lactate = 0.002
-            neuro.skill = 0.8
-            neuro.focus = 95.0
-            D_mat_schedule[6] = 0.3  # Forge a perfect blade
+        _run_phase_recovery(phase, bio, neuro, D_mat_schedule)
     
-    # Find the transition point
-    first_success = None
-    for h in history:
-        if h["success"]:
-            first_success = h
-            break
-    
-    print("═══ RESULTS ═══")
-    total_hits = sum(1 for h in history if h["success"])
-    total_strikes = len(history)
-    print(f"  Total: {total_hits}/{total_strikes} successful ({total_hits/total_strikes*100:.0f}%)")
-    
-    if first_success:
-        print(f"  First success: Phase {first_success['phase']}, Strike {first_success['strike']}")
-        print(f"    Conditions: G={first_success['glycogen']:.0f}kJ, "
-              f"La={first_success['lactate']:.4f}, skill={first_success['skill']:.3f}")
-        print(f"    D_bio: [{first_success['D_gg']:.2f}, "
-              f"{first_success['D_ll']:.2f}, {first_success['D_ii']:.2f}]")
-    
-    # Phase-by-phase success rate
-    print()
-    print("═══ SUCCESS BY PHASE ═══")
-    for p in range(1, num_phases + 1):
-        phase_hits = [h for h in history if h["phase"] == p]
-        hits = sum(1 for h in phase_hits if h["success"])
-        print(f"  Phase {p}: {hits}/{len(phase_hits)} "
-              f"({'█'*hits}{'░'*(len(phase_hits)-hits)})")
-    
+    _print_simulation_results(history, num_phases)
     return history
 
 

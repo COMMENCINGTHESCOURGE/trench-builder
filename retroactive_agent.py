@@ -13,16 +13,18 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
+from trench_config import PATHS
+
 # ═══════════════════════════════════════════════════════
 # AUDIT SCOPE — Everything we've built
 # ═══════════════════════════════════════════════════════
 
 AUDIT_PATHS = {
-    "trench_builder": Path.home() / "Projects/trench_builder",
-    "erdos_straus":   Path.home() / "Projects/erdos-straus",
-    "gdrive_trench":  Path("G:/My Drive/Trench_Builder"),
-    "gdrive_resonance": Path("G:/My Drive/Resonance_Archive"),
-    "desktop":        Path.home() / "Desktop",
+    "trench_builder": PATHS.trench_builder,
+    "erdos_straus":   PATHS.erdos_straus,
+    "gdrive_trench":  PATHS.gdrive_trench,
+    "gdrive_resonance": PATHS.gdrive_resonance,
+    "desktop":        PATHS.home / "Desktop",
 }
 
 # ═══════════════════════════════════════════════════════
@@ -174,7 +176,7 @@ def check_steps_files():
                     try:
                         shutil.copy2(source, loc / fname)
                         results.append(f"✓ Copied {fname} to {loc}")
-                    except:
+                    except (OSError, shutil.Error):
                         results.append(f"✗ Could not copy {fname} to {loc}")
     
     return results
@@ -230,7 +232,7 @@ class RetroactiveAuditor:
                                         matches.append(str(f))
                                     else:
                                         matches.append(str(f))
-                            except:
+                            except (UnicodeDecodeError, OSError):
                                 pass
                         else:
                             matches.append(str(f))
@@ -339,7 +341,7 @@ if __name__ == "__main__":
     report = auditor.run_audit()
     
     # Save report
-    report_path = Path.home() / "Projects/trench_builder/retroactive_audit.json"
+    report_path = PATHS.retroactive_audit
     with open(report_path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
     print(f"\n✓ Audit report saved to {report_path}")

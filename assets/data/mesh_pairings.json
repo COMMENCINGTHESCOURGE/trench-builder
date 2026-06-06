@@ -1,0 +1,51 @@
+{
+  "scan_date": "2026-06-01",
+  "total_models": 1116,
+  "by_source": {
+    "kenney": 915,
+    "generated": 59,
+    "quaternius": 60,
+    "ambientcg": 33,
+    "polyhaven": 1,
+    "root": 48
+  },
+  "pairings": {
+    "cross_source": [
+      {"object": "chair", "sources": ["root (chair.glb)", "quaternius (Chair.fbx/.blend)"], "action": "replace_root_with_quaternius"},
+      {"object": "table", "sources": ["root (table.glb)", "quaternius (Table.fbx/.blend)"], "action": "replace_root_with_quaternius"},
+      {"object": "bed", "sources": ["root (bed.glb)", "quaternius (BedDouble/BedTwin.blend)"], "action": "replace_root_with_quaternius"},
+      {"object": "cabinet", "sources": ["root (cabinet.glb)", "generated (kitchen_cabinet.glb)"], "action": "keep_both_different_rooms"},
+      {"object": "sedan", "sources": ["generated (sedan.glb 2KB box)", "kenney (sedan.glb real vehicle)"], "action": "replace_generated_with_kenney"},
+      {"object": "pickup_truck", "sources": ["generated (pickup_truck.glb 2KB)", "kenney (truck.glb real vehicle)"], "action": "replace_generated_with_kenney"},
+      {"object": "crowbar", "sources": ["old_generated (2KB box)", "new_generated (41KB detailed)"], "action": "keep_new_delete_old"}
+    ],
+    "semantic": [
+      {"category": "seating", "pairs": ["sofa/sofa2/sofa3/sofa_individual", "stool/officechair/chair"]},
+      {"category": "storage", "pairs": ["closet/shortcloset", "bookcase/bookcase_books"]},
+      {"category": "surfaces", "pairs": ["counter/stove_counter/island/desk"]},
+      {"category": "sleeping", "pairs": ["beddouble/bedtwin/bed"]},
+      {"category": "bridges", "pairs": ["bridge_arch/truss/suspension/covered/drawbridge", "bridge-pillar/bridge-pillar-wide"]},
+      {"category": "weapons", "pairs": ["axe/fire_axe", "bow/crossbow", "pipe variants x23"]}
+    ],
+    "variants": [
+      {"base": "road", "count": 146, "examples": ["straight", "curve", "bend", "crossing", "intersection", "driveway", "slant", "split", "end", "roundabout"]},
+      {"base": "pipe", "count": 23, "examples": ["glass-large", "bend", "cross", "curve", "junction", "valve"]},
+      {"base": "gear", "count": 12, "examples": ["2M_16t", "2M_20t", "2M_24t", "3M_16t", "4M_16t", "5M_12t"]},
+      {"base": "blaster", "count": 18, "examples": ["blaster-a through blaster-r"]},
+      {"base": "door", "count": 6, "examples": ["door1/2/3 (quaternius)", "door-wide-closed/half/open (kenney)"]},
+      {"base": "structure", "count": 8, "examples": ["corner-inner/outer", "high/medium/short/tall"]}
+    ],
+    "format_duplicates": {
+      "kenney": "305 models × 3 formats (GLB+FBX+OBJ) = 915 files",
+      "quaternius": "20 models × 3 formats (FBX+Blend+OBJ) = 60 files",
+      "action": "keep GLB, archive FBX/OBJ to reduce 600+ redundant files"
+    }
+  },
+  "cleanup_actions": [
+    "Delete root duplicates: chair.glb, table.glb, bed.glb, cabinet.glb, shelf.glb (replaced by Quaternius)",
+    "Replace generated placeholders: sedan.glb, pickup_truck.glb (replaced by Kenney real vehicles)",
+    "Archive FBX/OBJ duplicates from Kenney (keep only GLB format)",
+    "Remove old crowbar box primitive (replaced by 41KB detailed version)"
+  ],
+  "unclassified": 246
+}

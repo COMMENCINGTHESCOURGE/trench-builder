@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOVA HORIZON // HYPERPOLY X COMMAND</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cyan: #00d4aa;
+      --cyan-glow: rgba(0, 212, 170, 0.7);
+      --orange: #ff9f43;
+      --red: #ff6b6b;
+      --bg-dark: #020508;
+      --glass: rgba(2, 5, 8, 0.78);
+      --glass-border: rgba(0, 212, 170, 0.45);
+      --fractype-size: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg-dark);
+      overflow: hidden;
+      font-family: 'Rajdhani', sans-serif;
+      color: var(--cyan);
+      user-select: none;
+      cursor: none;
+    }
+    #gameCanvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1;
+    }
+    /* Cinematic overlay layers */
+    .scanlines, .vignette, .film-grain {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20;
+    }
+    .scanlines {
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2) 1px, transparent 1px, transparent 2px);
+      opacity: 0.3;
+    }
+    .vignette {
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+    }
+    .film-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      mix-blend-mode: overlay;
+    }
+
+    /* Holographic depth HUD */
+    .hud-layer {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 10; pointer-events: none;
+      display: grid;
+      grid-template-columns: 320px 1fr 320px;
+      grid-template-rows: auto 1fr auto;
+      padding: 20px; gap: 18px;
+      transform: perspective(1600px) rotateX(4deg); /* depth lean */
+    }
+    .hud-panel {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(28px) saturate(200%);
+      pointer-events: auto;
+      padding: 18px;
+      box-shadow: inset 0 0 40px rgba(0,212,170,0.08), 0 8px 32px rgba(0,0,0,0.7), 0 0 30px var(--cyan-glow);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%);
+    }
+    .hud-panel::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.8;
+    }
+    .hud-panel::after {
+      content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px;
+      background: radial-gradient(circle at bottom right, var(--cyan-glow), transparent 70%);
+      opacity: 0.4;
+    }
+    .hud-text { font-family: 'Share Tech Mono', monospace; }
+    .hud-title {
+      font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: #fff; text-shadow: 0 0 12px var(--cyan);
+      margin-bottom: 14px;
+    }
+
+    /* Panel position classes */
+    .panel-tl { grid-column: 1; grid-row: 1; border-radius: 0 20px 0 20px; }
+    .panel-tc { grid-column: 2; grid-row: 1; justify-self: center; width: 600px; border-radius: 0 0 20px 20px; border-top: none; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .panel-tr { grid-column: 3; grid-row: 1; border-radius: 20px 0 20px 0; }
+    .panel-ml { grid-column: 1; grid-row: 2; align-self: start; margin-top: 20px; border-radius: 0 15px 15px 0; max-height: 400px; display: flex; flex-direction: column; }
+    .panel-mr { grid-column: 3; grid-row: 2; align-self: start; margin-top: 20px; border-radius: 15px 0 0 15px; text-align: right; }
+    .panel-bl { grid-column: 1; grid-row: 3; border-radius: 0 20px 20px 0; display: flex; align-items: center; gap: 20px; }
+    .panel-bc { grid-column: 2; grid-row: 3; justify-self: center; align-self: end; border-radius: 15px 15px 0 0; border-bottom: none; display: flex; flex-direction: column; align-items: center; gap: 15px; width: 700px; }
+    .panel-br { grid-column: 3; grid-row: 3; border-radius: 20px 0 0 20px; display: flex; flex-direction: column; align-items: center; }
+
+    /* Additional styles (like compass, hotbar, radar, etc.) would be added here if needed */
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+  <div class="film-grain"></div>
+
+  <!-- HUD overlay -->
+  <div class="hud-layer">
+    <!-- Example panels (add your content as needed) -->
+    <div class="hud-panel panel-tl">
+      <div class="hud-title">Top Left</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-tc">
+      <div class="hud-title">Center</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-tr">
+      <div class="hud-title">Top Right</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-ml">
+      <div class="hud-title">Middle Left</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-mr">
+      <div class="hud-title">Middle Right</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-bl">
+      <div class="hud-title">Bottom Left</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-bc">
+      <div class="hud-title">Bottom Center</div>
+      <!-- Content -->
+    </div>
+    <div class="hud-panel panel-br">
+      <div class="hud-title">Bottom Right</div>
+      <!-- Content -->
+    </div>
+  </div>
+
+  <!-- Crosshair -->
+  <div class="crosshair">
+    <div class="crosshair-c"></div>
+    <div class="crosshair-r"></div>
+  </div>
+
+  <!-- Import map for Three.js modules -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <!-- Main JavaScript -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+    import { ShaderPass } from 'three/addons/shaders/ShaderPass.js';
+    import { RGBShiftShader } from 'three/addons/shaders/RGBShiftShader.js';
+
+    // ---------- CORE SCENE ----------
+    const canvas = document.getElementById('gameCanvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ReinhardToneMapping;
+    renderer.toneMappingExposure = 1.2;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x020508);
+    scene.fog = new THREE.FogExp2(0x020508, 0.0008);
+
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+    const playerGroup = new THREE.Group();
+    scene.add(playerGroup);
+    playerGroup.add(camera);
+    camera.position.set(0, 25, 60);
+    camera.lookAt(0, 0, 0);
+
+    // Lighting
+    const hemiLight = new THREE.HemisphereLight(0x99ccff, 0x002244, 0.4);
+    scene.add(hemiLight);
+    const dirLight = new THREE.DirectionalLight(0xffeedd, 0.9);
+    dirLight.position.set(200, 400, 100);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.near = 1;
+    dirLight.shadow.camera.far = 1500;
+    dirLight.shadow.camera.left = -300; dirLight.shadow.camera.right = 300;
+    dirLight.shadow.camera.top = 300; dirLight.shadow.camera.bottom = -300;
+    scene.add(dirLight);
+
+    const spotLight = new THREE.SpotLight(0xffaa33, 0.4);
+    spotLight.position.set(100, 200, 100);
+    spotLight.castShadow = true;
+    scene.add(spotLight);
+
+    // Post-processing setup
+    const renderPass = new RenderPass(scene, camera);
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+    bloomPass.threshold = 0.1;
+    bloomPass.strength = 1.2;
+    bloomPass.radius = 0.8;
+
+    const rgbShiftPass = new ShaderPass(RGBShiftShader);
+    rgbShiftPass.uniforms['amount'].value = 0.0015;
+
+    const filmPass = new FilmPass(0.25, 0.5, 2048, false);
+    filmPass.renderToScreen = true;
+
+    const composer = new EffectComposer(renderer);
+    composer.addPass(renderPass);
+    composer.addPass(bloomPass);
+    composer.addPass(rgbShiftPass);
+    composer.addPass(filmPass);
+
+    // Terrain
+    const terrainSize = 1200;
+    const terrainSegs = 180;
+    const geo = new THREE.PlaneGeometry(terrainSize, terrainSize, terrainSegs, terrainSegs);
+    geo.rotateX(-Math.PI / 2);
+    const pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i), z = pos.getZ(i);
+      let y = (Math.sin(x * 0.015) * Math.cos(z * 0.015)) * 8;
+      y += (Math.sin(x * 0.04 + z * 0.03) * Math.cos(x * 0.03 - z * 0.04)) * 5;
+      y += (Math.sin(x * 0.1) * Math.cos(z * 0.1)) * 2;
+      const dist = Math.sqrt(x*x + z*z);
+      y -= Math.exp(-dist*0.002) * 15;
+      pos.setY(i, y);
+    }
+    geo.computeVertexNormals();
+
+    const terrainMat = new THREE.MeshStandardMaterial({
+      color: 0x1a2b3c,
+      roughness: 0.9,
+      metalness: 0.25,
+      flatShading: true,
+    });
+    const terrain = new THREE.Mesh(geo, terrainMat);
+    terrain.receiveShadow = true;
+    scene.add(terrain);
+
+    // Ocean
+    const oceanGeo = new THREE.CircleGeometry(1000, 128);
+    oceanGeo.rotateX(-Math.PI/2);
+    const oceanMat = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        color: { value: new THREE.Color(0x004466) }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        uniform float time;
+        void main() {
+          vUv = uv;
+          vec3 pos = position;
+          pos.y += sin(pos.x * 0.2 + time) * 2.0 + cos(pos.z * 0.2 + time) * 2.0;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec2 vUv;
+        uniform vec3 color;
+        void main() {
+          gl_FragColor = vec4(color, 0.8);
+        }
+      `,
+      transparent: true,
+      side: THREE.DoubleSide
+    });
+    const ocean = new THREE.Mesh(oceanGeo, oceanMat);
+    ocean.position.y = -12;
+    ocean.receiveShadow = true;
+    scene.add(ocean);
+
+    // City structures (instanced)
+    function createCity() {
+      const buildingGeo = new THREE.BoxGeometry(10, 40, 10);
+      const material = new THREE.MeshStandardMaterial({ color: 0x778899, roughness: 0.4, metalness: 0.9 });
+      const count = 120;
+      const instancedMesh = new THREE.InstancedMesh(buildingGeo, material, count);
+      instancedMesh.castShadow = true;
+      instancedMesh.receiveShadow = true;
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        const radius = 350 + Math.random() * 200;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        let y = (Math.sin(x * 0.015) * Math.cos(z * 0.015)) * 8;
+        y += (Math.sin(x * 0.04 + z * 0.03) * Math.cos(x * 0.03 - z * 0.04)) * 5;
+        const dist = Math.sqrt(x*x + z*z);
+        y -= Math.exp(-dist*0.002) * 15;
+        dummy.position.set(x, y + 20, z);
+        dummy.scale.set(1, 0.5 + Math.random() * 2.5, 1);
+        dummy.updateMatrix();
+        instancedMesh.setMatrixAt(i, dummy.matrix);
+      }
+      instancedMesh.instanceMatrix.needsUpdate = true;
+      scene.add(instancedMesh);
+
+      // Cranes and dock pylons
+      const craneGeo = new THREE.CylinderGeometry(2, 3, 15, 8);
+      const craneMat = new THREE.MeshStandardMaterial({ color: 0xcc5500, roughness: 0.6, metalness: 0.8 });
+      const craneCount = 30;
+      const craneInstanced = new THREE.InstancedMesh(craneGeo, craneMat, craneCount);
+      craneInstanced.castShadow = true;
+      craneInstanced.receiveShadow = true;
+      for (let i = 0; i < craneCount; i++) {
+        const angle = (i / craneCount) * Math.PI * 2 + 0.3;
+        const radius = 480 + Math.random() * 60;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        let y = (Math.sin(x * 0.015) * Math.cos(z * 0.015)) * 8;
+        y += (Math.sin(x * 0.04 + z * 0.03) * Math.cos(x * 0.03 - z * 0.04)) * 5;
+        y -= Math.exp(-Math.sqrt(x*x+z*z)*0.002) * 15;
+        dummy.position.set(x, y + 7, z);
+        dummy.scale.set(1, 1, 1);
+        dummy.updateMatrix();
+        craneInstanced.setMatrixAt(i, dummy.matrix);
+      }
+      craneInstanced.instanceMatrix.needsUpdate = true;
+      scene.add(craneInstanced);
+    }
+    createCity();
+
+    // Hostile drones
+    const droneGeo = new THREE.TetrahedronGeometry(1.5, 0);
+    const droneMat = new THREE.MeshStandardMaterial({ color: 0xff3333, emissive: 0x330000, roughness: 0.3, metalness: 0.7 });
+    const droneCount = 50;
+    const droneInstanced = new THREE.InstancedMesh(droneGeo, droneMat, droneCount);
+    droneInstanced.castShadow = true;
+    const dummy2 = new THREE.Object3D();
+    const hostilesData = [];
+    for (let i = 0; i < droneCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 200 + Math.random() * 600;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      let y = (Math.sin(x * 0.015) * Math.cos(z * 0.015)) * 8;
+      y += (Math.sin(x * 0.04 + z * 0.03) * Math.cos(x * 0.03 - z * 0.04)) * 5;
+      y -= Math.exp(-Math.sqrt(x*x+z*z)*0.002) * 15;
+      dummy2.position.set(x, y + 10, z);
+      dummy2.updateMatrix();
+      droneInstanced.setMatrixAt(i, dummy2.matrix);
+      hostilesData.push({ basePos: new THREE.Vector3(x, y + 10, z), speed: 0.5 + Math.random() * 1.5, offset: Math.random() * Math.PI * 2 });
+    }
+    droneInstanced.instanceMatrix.needsUpdate = true;
+    scene.add(droneInstanced);
+
+    // Rain particles
+    const rainGeo = new THREE.BufferGeometry();
+    const rainCount = 4000;
+    const rainPositions = new Float32Array(rainCount * 3);
+    for (let i = 0; i < rainCount * 3; i += 3) {
+      rainPositions[i] = (Math.random() - 0.5) * 1200;
+      rainPositions[i+1] = Math.random() * 200;
+      rainPositions[i+2] = (Math.random() - 0.5) * 1200;
+    }
+    rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+    const rainMat = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.4, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+    const rain = new THREE.Points(rainGeo, rainMat);
+    scene.add(rain);
+
+    // Player state
+    const player = { health: 100, shield: 100, energy: 85, velocity: new THREE.Vector3(), speed: 45, weapon: 0, ammo: [32, Infinity, 1, 5] };
+    const keys = {};
+    window.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; if (e.key >= '1' && e.key <= '4') { player.weapon = parseInt(e.key)-1; } });
+    window.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    });
+    let targetRotation = 0;
+    document.addEventListener('mousemove', e => { targetRotation = -(e.clientX / window.innerWidth * 2 - 1) * Math.PI; });
+
+    // UI update functions (placeholders)
+    function updateHUD(dt) {
+      // Update HUD elements if needed
+    }
+
+    // Radar rendering
+    function renderRadar() {
+      const canvas = document.getElementById('radarCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(w/2, h/2);
+      ctx.rotate(-playerGroup.rotation.y);
+      ctx.fillStyle = '#ff6666';
+      for (let i = 0; i < droneCount; i++) {
+        const m = new THREE.Matrix4();
+        droneInstanced.getMatrixAt(i, m);
+        const pos = new THREE.Vector3().setFromMatrixPosition(m);
+        const dx = (pos.x - playerGroup.position.x) * 0.2;
+        const dz = (pos.z - playerGroup.position.z) * 0.2;
+        if (Math.hypot(dx, dz) < w/2) {
+          ctx.beginPath(); ctx.arc(dx, dz, 2, 0, Math.PI*2); ctx.fill();
+        }
+      }
+      ctx.restore();
+      ctx.fillStyle = '#00d4aa';
+      ctx.beginPath(); ctx.arc(w/2, h/2, 4, 0, Math.PI*2); ctx.fill();
+      const sweep = Date.now() * 0.004;
+      ctx.strokeStyle = 'rgba(0,212,170,0.5)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(w/2, h/2); ctx.lineTo(w/2 + Math.cos(sweep)*w, h/2 + Math.sin(sweep)*h); ctx.stroke();
+    }
+
+    // Animation loop
+    const clock = new THREE.Clock();
+    function animate() {
+      const dt = Math.min(clock.getDelta(), 0.1);
+      // Movement & physics
+      player.velocity.set(0,0,0);
+      if (keys['w'] || keys['arrowup']) player.velocity.z -= 1;
+      if (keys['s'] || keys['arrowdown']) player.velocity.z += 1;
+      if (keys['a'] || keys['arrowleft']) player.velocity.x -= 1;
+      if (keys['d'] || keys['arrowright']) player.velocity.x += 1;
+      if (player.velocity.lengthSq() > 0) player.velocity.normalize();
+      playerGroup.position.addScaledVector(player.velocity, player.speed * dt);
+      // terrain height
+      const px = playerGroup.position.x, pz = playerGroup.position.z;
+      let y = (Math.sin(px*0.015)*Math.cos(pz*0.015))*8 + (Math.sin(px*0.04+pz*0.03)*Math.cos(px*0.03-pz*0.04))*5;
+      y -= Math.exp(-Math.sqrt(px*px+pz*pz)*0.002)*15;
+      playerGroup.position.y = y + 2;
+      playerGroup.rotation.y += (targetRotation - playerGroup.rotation.y) * 0.1;
+
+      // Animate drones
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < droneCount; i++) {
+        const data = hostilesData[i];
+        const angle = Date.now() * 0.001 * data.speed + data.offset;
+        const radius = 3 + Math.sin(angle * 2) * 2;
+        dummy.position.copy(data.basePos);
+        dummy.position.x += Math.cos(angle) * radius;
+        dummy.position.z += Math.sin(angle) * radius;
+        dummy.position.y += Math.sin(angle * 3) * 3;
+        dummy.updateMatrix();
+        droneInstanced.setMatrixAt(i, dummy.matrix);
+      }
+      droneInstanced.instanceMatrix.needsUpdate = true;
+
+      // Rain animation
+      const positions = rain.geometry.attributes.position.array;
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i+1] -= 0.8;
+        if (positions[i+1] < -10) positions[i+1] = 150;
+      }
+      rain.geometry.attributes.position.needsUpdate = true;
+
+      // Ocean animation
+      oceanMat.uniforms.time.value += dt;
+
+      // Update HUD and radar
+      updateHUD(dt);
+      renderRadar();
+
+      // Render scene
+      composer.render();
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    console.log('%c HYPERPOLY X MEGASTRUCTURE ONLINE', 'color:#00d4aa;font-size:18px;');
+  </script>
+</body>
+</html>

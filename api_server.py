@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 """
 TRENCH BUILDER API — Monetization Platform Backend
-Picks up where the dead APIs left off.
-DeepSeek-powered. Stripe-billed. Production-ready.
+Flask API with JSON-persisted license management. DeepSeek AI endpoint.
+Stripe integration stubbed (webhook framework in place, checkout creation
+not yet implemented). Production-readiness: needs SQLite migration,
+Stripe checkout flow, and a render queue worker.
 
 DaShawn / Guinea Pig Trench LLC — May 2026
 """
@@ -16,27 +18,52 @@ from flask_cors import CORS
 # ═══════════════════════════════════════════════════════
 # CONFIG
 # ═══════════════════════════════════════════════════════
+# CONFIG
+# ═══════════════════════════════════════════════════════
 
-DEEPSEEK_KEY = None
-OPENAI_KEY = None
+from trench_config import PATHS, deepseek_key as _deepseek_key, openai_key as _openai_key
+from trench_config import stripe_secret as _stripe_secret, stripe_webhook_secret as _stripe_webhook
 
-# Load keys from Hermes .env
-env_path = Path.home() / "AppData/Local/hermes/.env"
-if env_path.exists():
-    for line in env_path.read_text().split("\n"):
-        if line.startswith("DEEPSEEK_API_KEY="):
-            DEEPSEEK_KEY = line.split("=", 1)[1].strip()
-        elif line.startswith("OPENAI_API_KEY="):
-            OPENAI_KEY = line.split("=", 1)[1].strip()
+DEEPSEEK_KEY = _deepseek_key()
+OPENAI_KEY = _openai_key()
+STRIPE_SECRET = _stripe_secret()
+STRIPE_WEBHOOK_SECRET = _stripe_webhook()
 
-# Stripe — set via env or config
-STRIPE_SECRET = os.getenv("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
-
-# License database (SQLite in production — in-memory for prototype)
+# License database — JSON file persistence
+STATE_PATH = PATHS.api_state
 licenses = {}      # key → {tier, expires, max_requests, used_requests}
 api_keys = {}      # api_key → license_key
 sessions = {}      # session_token → user_data
+
+
+def _load_state():
+    """Load persisted state from disk on startup."""
+    if STATE_PATH.exists():
+        try:
+            data = json.loads(STATE_PATH.read_text())
+            licenses.update(data.get("licenses", {}))
+            api_keys.update(data.get("api_keys", {}))
+            sessions.update(data.get("sessions", {}))
+            return True
+        except (json.JSONDecodeError, OSError):
+            return False
+    return False
+
+
+def _save_state():
+    """Persist state atomically — temp file + rename (NTFS-safe)."""
+    tmp = STATE_PATH.with_suffix(".tmp")
+    payload = {
+        "licenses": licenses,
+        "api_keys": api_keys,
+        "sessions": sessions,
+    }
+    tmp.write_text(json.dumps(payload, indent=2, default=str))
+    tmp.replace(STATE_PATH)  # atomic on NTFS
+
+
+# Load persisted state at import time
+_loaded = _load_state()
 
 TIERS = {
     "free":    {"requests": 100,   "render_minutes": 10,  "models": ["gemma4:2b"], "price": 0},
@@ -70,6 +97,7 @@ def generate_license(tier="free", duration_days=30):
         "used_requests": 0,
         "created": datetime.utcnow().isoformat()
     }
+    _save_state()
     return key
 
 def require_license(f):
@@ -91,6 +119,7 @@ def require_license(f):
             return jsonify({"error": "Rate limit exceeded", "code": "RATE_LIMITED", "limit": lic["max_requests"]}), 429
         
         lic["used_requests"] += 1
+        _save_state()
         request.license = lic
         return f(*args, **kwargs)
     return wrapper
@@ -135,6 +164,7 @@ def create_license():
     key = generate_license(tier)
     api_key = f"tb_{uuid.uuid4().hex[:24]}"
     api_keys[api_key] = key
+    _save_state()
     
     return jsonify({
         "license_key": key,
@@ -241,7 +271,7 @@ def get_artifact(name):
     if name not in allowed:
         return jsonify({"error": "Unknown artifact", "available": list(allowed.keys())}), 404
     
-    filepath = Path.home() / "Projects/trench_builder" / allowed[name]
+    filepath = PATHS.trench_builder / allowed[name]
     if not filepath.exists():
         return jsonify({"error": "Artifact not found on disk"}), 404
     
@@ -305,7 +335,9 @@ if __name__ == "__main__":
     api_keys[test_api] = test_key
     
     print("╔══════════════════════════════════════════╗")
-    print("║  TRENCH BUILDER API v1.0                 ║")
+    print("║  TRENCH BUILDER API v1.1               ║")
+    print("╠══════════════════════════════════════════╣")
+    print(f"║  State:   {'✓ LOADED' if _loaded else '○ FRESH'} ({len(licenses)} licenses)     ║")
     print("╠══════════════════════════════════════════╣")
     print(f"║  DeepSeek: {'✓ ONLINE' if DEEPSEEK_KEY else '✗ OFFLINE'}                         ║")
     print(f"║  OpenAI:   {'✓ ONLINE' if OPENAI_KEY else '✗ OFFLINE'}                         ║")
