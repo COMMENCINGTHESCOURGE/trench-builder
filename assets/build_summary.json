@@ -1,0 +1,115 @@
+{
+  "timestamp": "2026-05-27T22:01:38.113132",
+  "total": 6,
+  "ok": 6,
+  "failed": 0,
+  "total_time_s": 8.72,
+  "results": [
+    {
+      "label": "Elevator",
+      "script": "generate_elevator.py",
+      "status": "ok",
+      "time_s": 1.16,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\elevator.glb",
+      "returncode": 0,
+      "stderr_tail": "0\n  mat.use_nodes = True\nC:\\Users\\dasha\\Projects\\trench_builder\\assets\\generate_elevator.py:31: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0\n  mat.use_nodes = True"
+    },
+    {
+      "label": "Staircase",
+      "script": "generate_staircase.py",
+      "status": "ok",
+      "time_s": 2.41,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\staircase.glb",
+      "returncode": 0,
+      "stderr_tail": "  mat.use_nodes = True\nC:\\Users\\dasha\\Projects\\trench_builder\\assets\\generate_staircase.py:261: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0\n  mat.use_nodes = True"
+    },
+    {
+      "label": "Gear (3M 24T)",
+      "script": "generate_gear.py",
+      "status": "ok",
+      "time_s": 1.3,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_3m_24t.glb",
+      "returncode": 0,
+      "stderr_tail": null
+    },
+    {
+      "label": "Pulley (V-Belt)",
+      "script": "generate_pulley.py",
+      "status": "ok",
+      "time_s": 0.98,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_vbelt_120mm_3gr.glb",
+      "returncode": 0,
+      "stderr_tail": null
+    },
+    {
+      "label": "Pulley (Flat Crowned)",
+      "script": "generate_pulley.py",
+      "status": "ok",
+      "time_s": 0.99,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_flat_120mm.glb",
+      "returncode": 0,
+      "stderr_tail": null
+    },
+    {
+      "label": "Pulley (Timing GT2)",
+      "script": "generate_pulley.py",
+      "status": "ok",
+      "time_s": 1.88,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_timing_40t_GT2.glb",
+      "returncode": 0,
+      "stderr_tail": null
+    }
+  ],
+  "dist_files": [
+    {
+      "name": "elevator.glb",
+      "size_kb": 104.2
+    },
+    {
+      "name": "gear_3m_24t.glb",
+      "size_kb": 190.6
+    },
+    {
+      "name": "pulley_flat_120mm.glb",
+      "size_kb": 185.5
+    },
+    {
+      "name": "pulley_timing_40t_GT2.glb",
+      "size_kb": 33.8
+    },
+    {
+      "name": "pulley_vbelt_120mm_3gr.glb",
+      "size_kb": 98.0
+    },
+    {
+      "name": "staircase.glb",
+      "size_kb": 460.0
+    }
+  ],
+  "validation": {
+    "elevator.glb": {
+      "valid": true,
+      "message": "ok"
+    },
+    "gear_3m_24t.glb": {
+      "valid": true,
+      "message": "ok"
+    },
+    "pulley_flat_120mm.glb": {
+      "valid": true,
+      "message": "ok"
+    },
+    "pulley_timing_40t_GT2.glb": {
+      "valid": true,
+      "message": "ok"
+    },
+    "pulley_vbelt_120mm_3gr.glb": {
+      "valid": true,
+      "message": "ok"
+    },
+    "staircase.glb": {
+      "valid": true,
+      "message": "ok"
+    }
+  }
+}

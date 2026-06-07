@@ -1,0 +1,84 @@
+--- /dev/null
++++ b/src/physics/stigmergicSwing.ts
+@@ -0,0 +1,140 @@
++import { Vector3 } from 'three';
++import { StigmergicEmitter } from './StigmergicEmitter';
++
++export interface SwingArc {
++    start: Vector3;
++    peak: Vector3;
++    end: Vector3;
++    energy: number;
++}
++
++export class StigmergicSwing {
++    private emitter: StigmergicEmitter;
++    public dampingFactor: number;
++    public vinculumThreshold: number;
++    public swingHeight: number;
++
++    constructor(emitter: StigmergicEmitter, opts?: {
++        dampingFactor?: number;
++        vinculumThreshold?: number;
++        swingHeight?: number;
++    }) {
++        this.emitter = emitter;
++        this.dampingFactor = opts?.dampingFactor ?? 0.96;
++        this.vinculumThreshold = opts?.vinculumThreshold ?? 0.75;
++        this.swingHeight = opts?.swingHeight ?? 2.5;
++    }
++
++    public queueSwing(from_: Vector3, to_: Vector3, voxelScale: number = 1.0): SwingArc[] {
++        const arcs: SwingArc[] = [];
++        const dir = new Vector3().subVectors(to_, from_);
++        const dist = dir.length();
++        let energy = dist;
++        let pos = from_.clone();
++        const target = to_.clone();
++
++        while (energy > 0.2 && pos.distanceTo(target) > 0.3) {
++            dir.subVectors(target, pos).normalize();
++            const peak = this.computePeak(pos, target, dist);
++
++            const arc: SwingArc = { start: pos.clone(), peak, end: target.clone(), energy };
++
++            // Visit midpoints for stigmergic trace
++            const mid = this.arcMidpoint(pos, peak, target, 0.6);
++            const v = this.toVoxel(mid, voxelScale);
++            this.emitter.queueTraversalFlux(v, 0.03 * energy / dist);
++
++            arcs.push(arc);
++            pos.copy(target);
++            energy *= this.dampingFactor;
++        }
++        return arcs;
++    }
++
++    public resolveBreach(reading: number): boolean {
++        return reading > this.vinculumThreshold;
++    }
++
++    private computePeak(from_: Vector3, to_: Vector3, dist: number): Vector3 {
++        const mid = new Vector3().addVectors(from_, to_).multiplyScalar(0.5);
++        mid.y += this.swingHeight * Math.min(1.0, dist / 8.0);
++        return mid;
++    }
++
++    private arcMidpoint(a: Vector3, peak: Vector3, b: Vector3, t: number): Vector3 {
++        const u = 1 - t;
++        return new Vector3(
++            u*u*a.x + 2*u*t*peak.x + t*t*b.x,
++            u*u*a.y + 2*u*t*peak.y + t*t*b.y,
++            u*u*a.z + 2*u*t*peak.z + t*t*b.z
++        );
++    }
++
++    private toVoxel(v: Vector3, scale: number): { x:number; y:number; z:number } {
++        return {
++            x: Math.round(v.x / scale),
++            y: Math.round(v.y / scale),
++            z: Math.round(v.z / scale)
++        };
++    }
++}
++

@@ -1,0 +1,688 @@
+{
+  "version": "1.0",
+  "generated": "2026-05-28T02:07:40.914848+00:00",
+  "project": "trench-builder",
+  "asset_count": 26,
+  "assets": [
+    {
+      "name": "elevator",
+      "source_script": "generate_elevator.py",
+      "source_sha256": "6afedd74fc44c7f4e6107a4ab3c3ed08afbb52bd12b76e40966ff03274088969",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "architectural",
+        "cage_width_m": 2.0,
+        "cage_height_m": 3.0
+      },
+      "glb": {
+        "filename": "elevator.glb",
+        "sha256": "50d6e8b11c6f3a44b1d48bca753bb0a8c4b521793b75a5d94c17c6952d0d2fbb",
+        "size_bytes": 106680,
+        "size_kb": 104.2
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_2m_16t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 2,
+        "teeth": 16
+      },
+      "glb": {
+        "filename": "gear_2m_16t.glb",
+        "sha256": "024fdd6c773b494a1ce5c5b84bf8a41c2d2686aa5a91d64cae5858dbaa5acace",
+        "size_bytes": 121632,
+        "size_kb": 118.8
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_2m_20t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 2,
+        "teeth": 20
+      },
+      "glb": {
+        "filename": "gear_2m_20t.glb",
+        "sha256": "d44e42ab9677dc99032a59bd636bafbedd8bdfdb53f33b1860a76f10de01b09e",
+        "size_bytes": 163904,
+        "size_kb": 160.1
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_2m_24t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 2,
+        "teeth": 24
+      },
+      "glb": {
+        "filename": "gear_2m_24t.glb",
+        "sha256": "43badf016b59b4f0e776013f37579ecf9490c5cab7d832afdd94e510198d75c4",
+        "size_bytes": 195512,
+        "size_kb": 190.9
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_3m_16t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 3,
+        "teeth": 16
+      },
+      "glb": {
+        "filename": "gear_3m_16t.glb",
+        "sha256": "1974f7c0e02c031cd333c523fc0a765e85f35515921d59187759ff398c19b6fe",
+        "size_bytes": 134316,
+        "size_kb": 131.2
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_3m_20t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 3,
+        "teeth": 20
+      },
+      "glb": {
+        "filename": "gear_3m_20t.glb",
+        "sha256": "e2aa8a2052fa16f035ec48abc2cb46b55df9ca85216ad850092f6b351ee622b4",
+        "size_bytes": 163660,
+        "size_kb": 159.8
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_3m_24t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 3,
+        "teeth": 24
+      },
+      "glb": {
+        "filename": "gear_3m_24t.glb",
+        "sha256": "e35482c9f52adba7b456572f3ae7da641d9fac9091deff525138c62a1556d74e",
+        "size_bytes": 195164,
+        "size_kb": 190.6
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_4m_16t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 4,
+        "teeth": 16
+      },
+      "glb": {
+        "filename": "gear_4m_16t.glb",
+        "sha256": "28759b443b87411ce0bf30031d57dc9e38af81e0bb4cccd1fd2ba917324b177e",
+        "size_bytes": 134092,
+        "size_kb": 130.9
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_4m_20t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 4,
+        "teeth": 20
+      },
+      "glb": {
+        "filename": "gear_4m_20t.glb",
+        "sha256": "96ca4de4e4345a24917ae363be058cc50a069a15d91dacd4028391d02e94ca80",
+        "size_bytes": 163744,
+        "size_kb": 159.9
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_4m_24t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 4,
+        "teeth": 24
+      },
+      "glb": {
+        "filename": "gear_4m_24t.glb",
+        "sha256": "f13dc2b6dedcf09cdc8b4c9dfb85b1b78f255982cd57e72fd2a78ddad59827b0",
+        "size_bytes": 195512,
+        "size_kb": 190.9
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_5m_12t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 5,
+        "teeth": 12
+      },
+      "glb": {
+        "filename": "gear_5m_12t.glb",
+        "sha256": "9455cdb57e3ef953924391e2537cf6d0923c11107885247195fef5076b6f319f",
+        "size_bytes": 105672,
+        "size_kb": 103.2
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_5m_16t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 5,
+        "teeth": 16
+      },
+      "glb": {
+        "filename": "gear_5m_16t.glb",
+        "sha256": "3202089d78f0071c3e9dc9a32e7786543dc14017aab646c4b8218c0840fd34ee",
+        "size_bytes": 134188,
+        "size_kb": 131.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gear_5m_20t",
+      "source_script": "generate_gear.py",
+      "source_sha256": "05d8af069bbd6bde64736277484ef5210e34493335b5410cb7f46db7809673e1",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "module_mm": 5,
+        "teeth": 20
+      },
+      "glb": {
+        "filename": "gear_5m_20t.glb",
+        "sha256": "92ec09ec81c55493c64a8794644b6d0c10bfeb94781f981217e7b59b14777b00",
+        "size_bytes": 163884,
+        "size_kb": 160.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_flat_120mm",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "flat",
+        "pitch_diameter_mm": 120
+      },
+      "glb": {
+        "filename": "pulley_flat_120mm.glb",
+        "sha256": "3ff0ffda7fa10f1abafaa68dbe633f25ba011155be64e6e025538cc4d5bfbe4b",
+        "size_bytes": 189936,
+        "size_kb": 185.5
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_flat_160mm",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "flat",
+        "pitch_diameter_mm": 160
+      },
+      "glb": {
+        "filename": "pulley_flat_160mm.glb",
+        "sha256": "2779dd429a90f1db0d8017432b615d5519e5e0cf847e72c015e0204e4485dd83",
+        "size_bytes": 189936,
+        "size_kb": 185.5
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_flat_80mm",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "flat",
+        "pitch_diameter_mm": 80
+      },
+      "glb": {
+        "filename": "pulley_flat_80mm.glb",
+        "sha256": "1cec658146abfb8308403f531aa8c6bd76016b089e8583598edf599688d5c27d",
+        "size_bytes": 189936,
+        "size_kb": 185.5
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_timing_40t_GT2",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {},
+      "glb": {
+        "filename": "pulley_timing_40t_GT2.glb",
+        "sha256": "1baea346b3c2d9eea4c6384b86a486790c99c0af476cadf0814997d98be4b5a5",
+        "size_bytes": 34612,
+        "size_kb": 33.8
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_vbelt_120mm_3gr",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "vbelt",
+        "pitch_diameter_mm": 120,
+        "grooves": 3
+      },
+      "glb": {
+        "filename": "pulley_vbelt_120mm_3gr.glb",
+        "sha256": "4ce2fb069c2bcb4f185d945b1002e8989402bed23f34c60dbea3b7a816e3bdc8",
+        "size_bytes": 100332,
+        "size_kb": 98.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_vbelt_160mm_3gr",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "vbelt",
+        "pitch_diameter_mm": 160,
+        "grooves": 3
+      },
+      "glb": {
+        "filename": "pulley_vbelt_160mm_3gr.glb",
+        "sha256": "408bd8e95e3a592972cb1722ac430de19067a6031600d0d2161997af918ff591",
+        "size_bytes": 100332,
+        "size_kb": 98.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "pulley_vbelt_80mm_3gr",
+      "source_script": "generate_pulley.py",
+      "source_sha256": "bee99c1ede8c425f106bdef45cf7fdaa30caa43c835bab2e569fa93cfc7794d9",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "vbelt",
+        "pitch_diameter_mm": 80,
+        "grooves": 3
+      },
+      "glb": {
+        "filename": "pulley_vbelt_80mm_3gr.glb",
+        "sha256": "e5291e9b268e96d537f029d2d2563022a566fac4ba763473748ecd496a221768",
+        "size_bytes": 100328,
+        "size_kb": 98.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "staircase",
+      "source_script": "generate_staircase.py",
+      "source_sha256": "f5309be65e7b484a59b26b1d2f14d3cb09a90646a88977cae9c9206fbcc07590",
+      "generated_at": "2026-05-28T02:07:40.914848+00:00",
+      "parameters": {
+        "type": "architectural",
+        "steps": 14,
+        "rise_m": 0.214,
+        "run_m": 0.28
+      },
+      "glb": {
+        "filename": "staircase.glb",
+        "sha256": "b26da8029335856341bff0e5dec2d39e6c0273f7172788a4911b0b9ad7cbe7b8",
+        "size_bytes": 471052,
+        "size_kb": 460.0
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T02:07:40.914848+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "chair",
+      "source_script": "furniture/generate_all_furniture.py",
+      "source_sha256": "generated",
+      "generated_at": "2026-05-28T00:00:00",
+      "parameters": {
+        "type": "furniture",
+        "category": "chair"
+      },
+      "glb": {
+        "filename": "chair.glb",
+        "sha256": "92d9701d3e3d38b22836c2fb3240ea47494a6506893fc59f3b0081dd3b1751f1",
+        "size_bytes": 32080,
+        "size_kb": 31.3
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T00:00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "table",
+      "source_script": "furniture/generate_all_furniture.py",
+      "source_sha256": "generated",
+      "generated_at": "2026-05-28T00:00:00",
+      "parameters": {
+        "type": "furniture",
+        "category": "table"
+      },
+      "glb": {
+        "filename": "table.glb",
+        "sha256": "e28870924732d72fc5cbb1e27f77bed5d5611db7e0b2a6704d8b7441739a51a9",
+        "size_bytes": 30560,
+        "size_kb": 29.8
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T00:00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "shelf",
+      "source_script": "furniture/generate_all_furniture.py",
+      "source_sha256": "generated",
+      "generated_at": "2026-05-28T00:00:00",
+      "parameters": {
+        "type": "furniture",
+        "category": "shelf"
+      },
+      "glb": {
+        "filename": "shelf.glb",
+        "sha256": "b33be5347f95b549225b09b68b9ca7fd1870438530711141a7aa87ff33f0f217",
+        "size_bytes": 6444,
+        "size_kb": 6.3
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T00:00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "bed",
+      "source_script": "furniture/generate_all_furniture.py",
+      "source_sha256": "generated",
+      "generated_at": "2026-05-28T00:00:00",
+      "parameters": {
+        "type": "furniture",
+        "category": "bed"
+      },
+      "glb": {
+        "filename": "bed.glb",
+        "sha256": "be5700d118440a77a4a0b62cce27b60e9f8521633e576bad44884db7adbfcf63",
+        "size_bytes": 3672,
+        "size_kb": 3.6
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T00:00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "cabinet",
+      "source_script": "furniture/generate_all_furniture.py",
+      "source_sha256": "generated",
+      "generated_at": "2026-05-28T00:00:00",
+      "parameters": {
+        "type": "furniture",
+        "category": "cabinet"
+      },
+      "glb": {
+        "filename": "cabinet.glb",
+        "sha256": "96dbec6fd0ad8256cd514f2abd65f197a46ea13d912909e34a0557d12d46e1b7",
+        "size_bytes": 11488,
+        "size_kb": 11.2
+      },
+      "validation": {
+        "status": "pass",
+        "last_validated": "2026-05-28T00:00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    {
+      "name": "hotel_manager",
+      "source_script": "generate_hotel_manager.py",
+      "source_sha256": "pending",
+      "generated_at": "2026-06-06T13:35:16.000000+00:00",
+      "parameters": {
+        "type": "character",
+        "category": "hotel_staff",
+        "height_m": 1.82,
+        "material": "clay_terracotta"
+      },
+      "glb": {
+        "filename": "hotel_manager.glb",
+        "sha256": "93773bc62d6326f7f1214ec9259068b36970fbbc163f8d4f3ccd0196c6c0f855",
+        "size_bytes": 49152,
+        "size_kb": 48.0
+      },
+      "validation": {
+        "status": "pending",
+        "last_validated": "2026-06-06T13:35:16.000000+00:00"
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder",
+          "infinite-hotel-franchise"
+        ]
+      }
+    }
+  ]
+}
