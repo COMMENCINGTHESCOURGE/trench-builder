@@ -1,0 +1,40 @@
+name: Manifold Sync Daemon CI
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Run hourly
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  manifold-sync:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Daemon One-Shot Sync
+        run: |
+          if (Test-Path "manifold_sync_daemon.py") {
+              python manifold_sync_daemon.py --one-shot
+          } else {
+              Write-Output "manifold_sync_daemon.py not found in root. Simulating sync."
+              git config --global user.name "github-actions[bot]"
+              git config --global user.email "github-actions[bot]@users.noreply.github.com"
+              git add -A
+              $status = git status --porcelain
+              if ($status) {
+                  git commit -m "Automated sync: $(Get-Date)"
+                  git pull --rebase
+                  git push
+              } else {
+                  Write-Output "No changes to sync."
+              }
+          }
