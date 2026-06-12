@@ -9,14 +9,13 @@ Stripe checkout flow, and a render queue worker.
 DaShawn / Guinea Pig Trench LLC — May 2026
 """
 import os, json, hashlib, time, hmac, uuid
+import stripe
 from datetime import datetime, timedelta
 from pathlib import Path
 from functools import wraps
 from flask import Flask, request, jsonify, send_file, abort
 from flask_cors import CORS
 
-# ═══════════════════════════════════════════════════════
-# CONFIG
 # ═══════════════════════════════════════════════════════
 # CONFIG
 # ═══════════════════════════════════════════════════════
@@ -28,6 +27,9 @@ DEEPSEEK_KEY = _deepseek_key()
 OPENAI_KEY = _openai_key()
 STRIPE_SECRET = _stripe_secret()
 STRIPE_WEBHOOK_SECRET = _stripe_webhook()
+
+if STRIPE_SECRET and not STRIPE_SECRET.startswith("sk_test_mock"):
+    stripe.api_key = STRIPE_SECRET
 
 # License database — JSON file persistence
 STATE_PATH = PATHS.api_state
@@ -156,10 +158,50 @@ def create_license():
     if tier not in TIERS:
         return jsonify({"error": f"Invalid tier. Options: {list(TIERS.keys())}"}), 400
     
-    # In production: create Stripe checkout session first
-    if tier != "free" and STRIPE_SECRET:
-        # stripe.checkout.Session.create(...)
-        pass
+    if tier != "free":
+        if not STRIPE_SECRET:
+            return jsonify({"error": "Stripe is not configured. Cannot process paid tiers.", "code": "STRIPE_UNCONFIGURED"}), 501
+        
+        if STRIPE_SECRET.startswith("sk_test_mock"):
+            # Generate local offline mock checkout flow
+            session_id = f"mock_sess_{uuid.uuid4().hex[:16]}"
+            checkout_url = f"http://127.0.0.1:8090/v1/mock-stripe-checkout?session_id={session_id}&tier={tier}"
+            return jsonify({
+                "checkout_url": checkout_url,
+                "session_id": session_id,
+                "tier": tier,
+                "mode": "mock"
+            })
+        else:
+            # Real Stripe Checkout Session Creation
+            try:
+                price_val = TIERS[tier]["price"]
+                session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': f'Trench Builder - {tier.upper()} Subscription',
+                            },
+                            'unit_amount': int(price_val * 100),
+                            'recurring': {'interval': 'month'},
+                        },
+                        'quantity': 1,
+                    }],
+                    mode='subscription',
+                    success_url='https://commencingthescourge.github.io/success?session_id={CHECKOUT_SESSION_ID}',
+                    cancel_url='https://commencingthescourge.github.io/pricing',
+                    metadata={'tier': tier}
+                )
+                return jsonify({
+                    "checkout_url": session.url,
+                    "session_id": session.id,
+                    "tier": tier,
+                    "mode": "stripe"
+                })
+            except Exception as e:
+                return jsonify({"error": f"Stripe checkout creation failed: {str(e)}", "code": "STRIPE_ERROR"}), 500
     
     key = generate_license(tier)
     api_key = f"tb_{uuid.uuid4().hex[:24]}"
@@ -173,6 +215,214 @@ def create_license():
         "limits": TIERS[tier],
         "expires": licenses[key]["expires"]
     })
+
+@app.route("/v1/mock-stripe-checkout", methods=["GET"])
+def mock_checkout_page():
+    """Serve a mock Stripe checkout page for offline/dev testing."""
+    session_id = request.args.get("session_id", "")
+    tier = request.args.get("tier", "pro")
+    
+    price = TIERS.get(tier, {}).get("price", 0)
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Mock Stripe Checkout</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+        <style>
+            body {{
+                font-family: 'Inter', sans-serif;
+                background: #0d0e15;
+                color: #e4e6f1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }}
+            .card {{
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 16px;
+                padding: 40px;
+                max-width: 450px;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+                backdrop-filter: blur(12px);
+            }}
+            h1 {{
+                font-weight: 800;
+                margin-bottom: 8px;
+                color: #fff;
+            }}
+            .price {{
+                font-size: 36px;
+                font-weight: 800;
+                margin: 20px 0;
+                color: #5469d4;
+            }}
+            .details {{
+                font-size: 14px;
+                color: #8f95b2;
+                margin-bottom: 30px;
+                line-height: 1.5;
+            }}
+            button {{
+                background: #5469d4;
+                color: white;
+                border: none;
+                padding: 14px 24px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 16px;
+                cursor: pointer;
+                width: 100%;
+                transition: background 0.2s;
+            }}
+            button:hover {{
+                background: #4353b3;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h1>stripe</h1>
+            <p style="color:#8f95b2; margin-top:0;">TEST MODE CHECKOUT</p>
+            <div class="price">${price}.00 / month</div>
+            <div class="details">
+                Simulating subscription checkout for <strong>Trench Builder {tier.upper()}</strong>.<br>
+                Session ID: <code>{session_id}</code>
+            </div>
+            <form action="/v1/mock-stripe-checkout/pay" method="POST">
+                <input type="hidden" name="session_id" value="{session_id}">
+                <input type="hidden" name="tier" value="{tier}">
+                <button type="submit">Simulate Successful Payment</button>
+            </form>
+        </div>
+    </body>
+    </html>
+    """
+    return html
+
+@app.route("/v1/mock-stripe-checkout/pay", methods=["POST"])
+def mock_checkout_pay():
+    """Simulate Stripe event and call the local webhook endpoint."""
+    session_id = request.form.get("session_id", "")
+    tier = request.form.get("tier", "pro")
+    
+    import urllib.request as ur
+    
+    payload = {
+        "id": f"evt_mock_{uuid.uuid4().hex[:12]}",
+        "object": "event",
+        "type": "checkout.session.completed",
+        "data": {
+            "object": {
+                "id": session_id,
+                "customer": f"cus_mock_{uuid.uuid4().hex[:12]}",
+                "subscription": f"sub_mock_{uuid.uuid4().hex[:12]}",
+                "metadata": {"tier": tier},
+                "payment_status": "paid"
+            }
+        }
+    }
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Stripe-Signature": "t=12345,v1=mock_signature"
+    }
+    
+    req = ur.Request(
+        "http://127.0.0.1:8090/v1/webhooks/stripe",
+        data=json.dumps(payload).encode(),
+        headers=headers
+    )
+    try:
+        resp = ur.urlopen(req, timeout=5)
+        resp_data = json.loads(resp.read())
+        
+        created_key = None
+        created_api = None
+        for key, val in licenses.items():
+            if val.get("tier") == tier:
+                created_key = key
+                for a_k, l_k in api_keys.items():
+                    if l_k == key:
+                        created_api = a_k
+                        break
+        
+        html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Mock Stripe Checkout - Success</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+            <style>
+                body {{
+                    font-family: 'Inter', sans-serif;
+                    background: #0d0e15;
+                    color: #e4e6f1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    margin: 0;
+                }}
+                .card {{
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 16px;
+                    padding: 40px;
+                    max-width: 500px;
+                    width: 100%;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+                    backdrop-filter: blur(12px);
+                }}
+                h1 {{
+                    font-weight: 800;
+                    margin-bottom: 8px;
+                    color: #4caf50;
+                }}
+                .credential-box {{
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px dashed rgba(255,255,255,0.2);
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin: 20px 0;
+                }}
+                code {{
+                    color: #e91e63;
+                    font-weight: 600;
+                    font-size: 15px;
+                }}
+                a {{
+                    color: #5469d4;
+                    text-decoration: none;
+                    font-weight: 600;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="card">
+                <h1>Payment Simulated!</h1>
+                <p>The Stripe webhook event <code>checkout.session.completed</code> was dispatched and handled locally.</p>
+                <div class="credential-box">
+                    <strong>License Key:</strong><br>
+                    <code>{created_key or "PENDING (Check Server Logs)"}</code><br><br>
+                    <strong>X-API-Key:</strong><br>
+                    <code>{created_api or "PENDING (Check Server Logs)"}</code>
+                </div>
+                <p>You can now use this API key in headers to access premium endpoints.</p>
+                <p><a href="http://127.0.0.1:8090/v1/health">Check server health</a> or return to <a href="https://commencingthescourge.github.io/">storefront</a>.</p>
+            </div>
+        </body>
+        </html>
+        """
+        return html
+    except Exception as e:
+        return f"Webhook simulation failed: {str(e)}", 500
 
 @app.route("/v1/render/scene", methods=["POST"])
 @require_license
@@ -298,8 +548,70 @@ def stripe_webhook():
     if not STRIPE_WEBHOOK_SECRET:
         return jsonify({"error": "Stripe not configured"}), 501
     
-    # In production: verify stripe signature, handle checkout.session.completed,
-    # customer.subscription.updated, customer.subscription.deleted
+    payload = request.data
+    sig_header = request.headers.get("Stripe-Signature", "")
+    
+    event = None
+    
+    if STRIPE_WEBHOOK_SECRET.startswith("whsec_mock") and sig_header == "t=12345,v1=mock_signature":
+        try:
+            event = request.json
+        except Exception as e:
+            return jsonify({"error": "Invalid mock payload"}), 400
+    else:
+        try:
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, STRIPE_WEBHOOK_SECRET
+            )
+        except ValueError as e:
+            return jsonify({"error": "Invalid payload", "details": str(e)}), 400
+        except stripe.error.SignatureVerificationError as e:
+            return jsonify({"error": "Invalid signature", "details": str(e)}), 400
+            
+    event_type = event.get("type")
+    
+    if event_type == "checkout.session.completed":
+        session = event.get("data", {}).get("object", {})
+        metadata = session.get("metadata", {})
+        tier = metadata.get("tier", "pro")
+        customer_id = session.get("customer")
+        subscription_id = session.get("subscription")
+        
+        license_key = generate_license(tier, duration_days=30)
+        api_key = f"tb_{uuid.uuid4().hex[:24]}"
+        api_keys[api_key] = license_key
+        
+        licenses[license_key]["stripe_customer"] = customer_id
+        licenses[license_key]["stripe_subscription"] = subscription_id
+        
+        _save_state()
+        print(f"[STRIPE WEBHOOK] Issued license {license_key} for tier {tier} (Sub: {subscription_id})")
+        
+    elif event_type in ["customer.subscription.updated", "customer.subscription.deleted"]:
+        subscription = event.get("data", {}).get("object", {})
+        sub_id = subscription.get("id")
+        status = subscription.get("status")
+        
+        target_license_key = None
+        for key, lic in licenses.items():
+            if lic.get("stripe_subscription") == sub_id:
+                target_license_key = key
+                break
+                
+        if target_license_key:
+            if status in ["canceled", "unpaid"]:
+                licenses[target_license_key]["expires"] = datetime.utcnow().isoformat()
+                print(f"[STRIPE WEBHOOK] Suspended license {target_license_key} (status: {status})")
+            elif status == "past_due":
+                licenses[target_license_key]["status"] = "past_due"
+                print(f"[STRIPE WEBHOOK] Flagged license {target_license_key} as past_due")
+            elif status == "active":
+                new_expiry = (datetime.utcnow() + timedelta(days=30)).isoformat()
+                licenses[target_license_key]["expires"] = new_expiry
+                licenses[target_license_key]["status"] = "active"
+                print(f"[STRIPE WEBHOOK] Renewed license {target_license_key} to {new_expiry}")
+            _save_state()
+            
     return jsonify({"received": True})
 
 # ═══════════════════════════════════════════════════════
