@@ -1,0 +1,263 @@
+{
+  "generator": "Vinculum Interiors Optimizer (Kaggle GPU \u2014 run locally due to API auth expiry)",
+  "rooms": {
+    "SUPINE": {
+      "dims": {
+        "w": 12,
+        "d": 10,
+        "h": 4
+      },
+      "chroma": {
+        "hue": 220
+      },
+      "props": [
+        {
+          "tag": "bed"
+        },
+        {
+          "tag": "locker"
+        },
+        {
+          "tag": "lamp"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": -5,
+          "w": 2
+        }
+      ]
+    },
+    "SCOOT": {
+      "dims": {
+        "w": 4,
+        "d": 18,
+        "h": 3.5
+      },
+      "chroma": {
+        "hue": 200
+      },
+      "props": [
+        {
+          "tag": "fire_extinguisher"
+        },
+        {
+          "tag": "floor_light"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 1,
+          "z": -9,
+          "w": 2
+        },
+        {
+          "x": 1,
+          "z": 9,
+          "w": 2
+        }
+      ]
+    },
+    "CRAWL": {
+      "dims": {
+        "w": 3,
+        "d": 14,
+        "h": 2.8
+      },
+      "chroma": {
+        "hue": 30
+      },
+      "props": [
+        {
+          "tag": "pipe"
+        },
+        {
+          "tag": "valve"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0.75,
+          "z": -7,
+          "w": 1.5
+        },
+        {
+          "x": 0.75,
+          "z": 7,
+          "w": 1.5
+        }
+      ]
+    },
+    "STAND": {
+      "dims": {
+        "w": 16,
+        "d": 14,
+        "h": 5
+      },
+      "chroma": {
+        "hue": 170
+      },
+      "props": [
+        {
+          "tag": "hologram_table"
+        },
+        {
+          "tag": "server"
+        },
+        {
+          "tag": "server"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": -7,
+          "w": 3
+        },
+        {
+          "x": -7,
+          "z": 0,
+          "w": 3
+        }
+      ]
+    },
+    "BOUNCE": {
+      "dims": {
+        "w": 20,
+        "d": 18,
+        "h": 8
+      },
+      "chroma": {
+        "hue": 140
+      },
+      "props": [
+        {
+          "tag": "training_mat"
+        },
+        {
+          "tag": "target_dummy"
+        },
+        {
+          "tag": "pole"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": -9,
+          "w": 4
+        }
+      ]
+    },
+    "WALK": {
+      "dims": {
+        "w": 14,
+        "d": 20,
+        "h": 6
+      },
+      "chroma": {
+        "hue": 190
+      },
+      "props": [
+        {
+          "tag": "platform"
+        },
+        {
+          "tag": "ticket_kiosk"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": 10,
+          "w": 4
+        },
+        {
+          "x": 0,
+          "z": -10,
+          "w": 4
+        }
+      ]
+    },
+    "JUMP": {
+      "dims": {
+        "w": 24,
+        "d": 24,
+        "h": 12
+      },
+      "chroma": {
+        "hue": 10
+      },
+      "props": [
+        {
+          "tag": "launch_pad"
+        },
+        {
+          "tag": "fuel_tank"
+        },
+        {
+          "tag": "console"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": 12,
+          "w": 6
+        }
+      ]
+    },
+    "RUN": {
+      "dims": {
+        "w": 10,
+        "d": 10,
+        "h": 5
+      },
+      "chroma": {
+        "hue": 0
+      },
+      "props": [
+        {
+          "tag": "reactor_core"
+        },
+        {
+          "tag": "coolant"
+        },
+        {
+          "tag": "coolant"
+        }
+      ],
+      "warn": [],
+      "doors": [
+        {
+          "x": 0,
+          "z": -5,
+          "w": 2.5
+        }
+      ]
+    }
+  },
+  "stage_order": [
+    "SUPINE",
+    "SCOOT",
+    "CRAWL",
+    "STAND",
+    "BOUNCE",
+    "WALK",
+    "JUMP",
+    "RUN"
+  ],
+  "analysis": {
+    "total_rooms": 8,
+    "total_doors": 12,
+    "total_props": 21
+  }
+}
