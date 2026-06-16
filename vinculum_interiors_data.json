@@ -1,5 +1,5 @@
 {
-  "generator": "Vinculum Interiors Optimizer (Kaggle GPU \u2014 run locally due to API auth expiry)",
+  "generator": "Vinculum Interiors Optimizer (local \u2014 Kaggle GPU replaced with NumPy)",
   "rooms": {
     "SUPINE": {
       "dims": {
