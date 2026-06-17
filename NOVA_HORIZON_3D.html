@@ -6,19 +6,25 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;overflow:hidden;color:#00d4aa;font-family:'Rajdhani',sans-serif;user-select:none}
+body{background:#000;overflow:hidden;color:#8b5cf6;font-family:'Rajdhani',sans-serif;user-select:none}
+:root {
+  --theme-color: #8b5cf6;
+  --theme-color-rgb: 139, 92, 246;
+  --theme-color-light: #a78bfa;
+}
 canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1}
+body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdhani',sans-serif;user-select:none}
 .scanlines{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:0.25;
   background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.3) 2px,rgba(0,0,0,0.3) 4px)}
 .vignette{position:fixed;inset:0;z-index:19;pointer-events:none;
   background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.7) 100%)}
 .crosshair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;pointer-events:none}
-.crosshair-r{position:absolute;width:20px;height:20px;top:-10px;left:-10px;border:1px solid rgba(0,212,170,0.4);border-radius:50%}
-.crosshair-d{position:absolute;width:3px;height:3px;top:-1.5px;left:-1.5px;background:#00d4aa;border-radius:50%;box-shadow:0 0 6px #00d4aa}
+.crosshair-r{position:absolute;width:20px;height:20px;top:-10px;left:-10px;border:1px solid rgba(var(--theme-color-rgb),0.4);border-radius:50%}
+.crosshair-d{position:absolute;width:3px;height:3px;top:-1.5px;left:-1.5px;background:var(--theme-color);border-radius:50%;box-shadow:0 0 6px var(--theme-color)}
 .hud{position:fixed;inset:0;z-index:10;pointer-events:none}
-.hud-panel{position:absolute;background:rgba(10,20,30,0.75);border:1px solid rgba(0,212,170,0.25);backdrop-filter:blur(8px);pointer-events:auto}
+.hud-panel{position:absolute;background:rgba(10,20,30,0.75);border:1px solid rgba(var(--theme-color-rgb),0.25);backdrop-filter:blur(8px);pointer-events:auto}
 .logo{top:14px;left:14px;padding:10px 18px;border-radius:0 12px 0 12px;display:flex;align-items:center;gap:10px}
-.logo h1{font-family:'Orbitron';font-size:16px;letter-spacing:3px;text-shadow:0 0 10px rgba(0,212,170,0.4)}
+.logo h1{font-family:'Orbitron';font-size:16px;letter-spacing:3px;text-shadow:0 0 10px rgba(var(--theme-color-rgb),0.4)}
 .logo span{font-size:10px;opacity:0.6;letter-spacing:1px}
 .stats{top:14px;right:14px;padding:8px 16px;border-radius:12px 0 12px 0;display:flex;gap:16px}
 .st{text-align:center}.st .v{font-family:'Orbitron';font-size:14px;font-weight:700}.st .l{font-size:7px;opacity:0.5;letter-spacing:1px;text-transform:uppercase}
@@ -27,27 +33,45 @@ canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-inde
 .suit-ring svg{transform:rotate(-90deg)}
 .suit-ring .v{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Orbitron';font-size:16px;font-weight:700}
 .suit-bars{display:flex;flex-direction:column;gap:4px}
-.sb{width:80px;height:5px;background:rgba(0,212,170,0.15);border-radius:3px;overflow:hidden}
+.sb{width:80px;height:5px;background:rgba(var(--theme-color-rgb),0.15);border-radius:3px;overflow:hidden}
 .sb-f{height:100%;border-radius:3px;transition:width 0.5s}
-.sb-f.h{background:#00d4aa}.sb-f.sh{background:#4ecdc4}.sb-f.e{background:#ff9f43}
+.sb-f.h{background:var(--theme-color)}.sb-f.sh{background:#b0886e}.sb-f.e{background:#ff9f43}
 .obj{top:80px;left:14px;width:220px;padding:12px;border-radius:0 10px 10px 0;font-size:12px}
 .obj h3{font-family:'Orbitron';font-size:9px;letter-spacing:2px;opacity:0.5;margin-bottom:6px;text-transform:uppercase}
-.oi{display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid rgba(0,212,170,0.08)}
+.oi{display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid rgba(var(--theme-color-rgb),0.08)}
 .oi:last-child{border:none}
 .oi .d{font-size:10px;opacity:0.5}
 .oi.done{opacity:0.3;text-decoration:line-through}
 .weather{top:80px;right:14px;width:150px;padding:12px;border-radius:10px 0 0 10px;text-align:right}
-.notify{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:rgba(10,20,30,0.9);border:1px solid #00d4aa;padding:16px 32px;border-radius:6px;font-family:'Orbitron';font-size:14px;letter-spacing:2px;text-align:center;opacity:0;transition:all 0.4s;z-index:100;box-shadow:0 0 30px rgba(0,212,170,0.2)}
+.notify{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:rgba(10,20,30,0.9);border:1px solid var(--theme-color);padding:16px 32px;border-radius:6px;font-family:'Orbitron';font-size:14px;letter-spacing:2px;text-align:center;opacity:0;transition:all 0.4s;z-index:100;box-shadow:0 0 30px rgba(var(--theme-color-rgb),0.2)}
 .notify.s{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .hotbar{bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;padding:6px 10px;border-radius:10px}
-.hs{width:56px;height:56px;border:1px solid rgba(0,212,170,0.2);border-radius:6px;background:rgba(0,20,30,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
-.hs.a{border-color:#00d4aa;box-shadow:0 0 12px rgba(0,212,170,0.4),inset 0 0 8px rgba(0,212,170,0.2)}
+.hs{width:56px;height:56px;border:1px solid rgba(var(--theme-color-rgb),0.2);border-radius:6px;background:rgba(0,20,30,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
+.hs.a{border-color:var(--theme-color);box-shadow:0 0 12px rgba(var(--theme-color-rgb),0.4),inset 0 0 8px rgba(var(--theme-color-rgb),0.2)}
 .hs .n{position:absolute;top:1px;left:4px;font-size:7px;opacity:0.4;font-family:'Orbitron'}
 .hs .i{font-size:22px}
 .hs .a{font-family:'Share Tech Mono';font-size:10px}
-.interact{position:fixed;top:56%;left:50%;transform:translateX(-50%);padding:4px 10px;background:rgba(0,0,0,0.7);border:1px solid #00d4aa;border-radius:3px;font-size:11px;letter-spacing:1px;opacity:0;transition:opacity 0.3s;z-index:16;pointer-events:none}
+.interact{position:fixed;top:56%;left:50%;transform:translateX(-50%);padding:4px 10px;background:rgba(0,0,0,0.7);border:1px solid var(--theme-color);border-radius:3px;font-size:11px;letter-spacing:1px;opacity:0;transition:opacity 0.3s;z-index:16;pointer-events:none}
 .interact.s{opacity:1}
 .dmg{position:fixed;inset:0;z-index:18;pointer-events:none;opacity:0;transition:opacity 0.2s;background:radial-gradient(ellipse at center,transparent 30%,rgba(255,0,0,0.3) 100%)}
+
+.minimap{position:fixed;bottom:20px;right:20px;width:180px;height:180px;z-index:12;border:2px solid rgba(139,92,246,0.3);border-radius:50%;overflow:hidden;background:rgba(5,15,25,0.85);display:none;box-shadow:0 0 20px rgba(139,92,246,0.15)}
+.minimap canvas{width:100%;height:100%;border-radius:50%}
+.inventory-panel{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,6,16,0.92);backdrop-filter:blur(12px)}
+.inventory-grid{display:grid;grid-template-columns:repeat(6,80px);gap:6px;padding:12px}
+.inv-slot{width:80px;height:80px;background:rgba(10,20,30,0.8);border:1px solid rgba(139,92,246,0.2);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:10px;color:#8aa1b5}
+.inv-slot:hover{border-color:#8b5cf6;box-shadow:0 0 12px rgba(139,92,246,0.3)}
+.inv-slot .ico{font-size:24px;margin-bottom:2px}
+.inv-slot .cnt{font-size:9px;font-family:'Share Tech Mono';color:#ffd700}
+.achieve-toast{position:fixed;top:120px;right:20px;z-index:300;background:rgba(10,20,30,0.95);border:1px solid #ffd700;border-radius:8px;padding:12px 20px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;font-family:'Rajdhani',sans-serif;max-width:280px;pointer-events:none}
+.achieve-toast.s{opacity:1;transform:translateX(0)}
+.achieve-toast .t{color:#ffd700;font-family:Orbitron;font-size:12px;letter-spacing:1px;margin-bottom:4px}
+.achieve-toast .d{color:#8aa1b5;font-size:10px}
+.boss-bar{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:250;display:none;flex-direction:column;align-items:center;gap:4px}
+.boss-bar .name{font-family:Orbitron;font-size:12px;color:#ff4444;letter-spacing:2px;text-shadow:0 0 12px rgba(255,0,0,0.5)}
+.boss-bar .track{width:300px;height:8px;background:rgba(255,0,0,0.15);border-radius:4px;overflow:hidden;border:1px solid rgba(255,0,0,0.3)}
+.boss-bar .fill{height:100%;background:linear-gradient(90deg,#ff0000,#ff4444,#ff6666);border-radius:4px;transition:width 0.3s}
+.weather-fx{position:fixed;inset:0;z-index:17;pointer-events:none;opacity:0;transition:opacity 2s}
 </style>
 <base target="_blank">
 </head>
@@ -58,7 +82,7 @@ canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-inde
 <div class="dmg" id="dmg"></div>
 <div class="hud">
   <div class="hud-panel logo">
-    <div style="width:32px;height:32px;border:2px solid #00d4aa;border-radius:50%;display:grid;place-items:center;animation:pulse 4s infinite">
+    <div style="width:32px;height:32px;border:2px solid #8b5cf6;border-radius:50%;display:grid;place-items:center;animation:pulse 4s infinite">
       <span style="font-size:8px;font-weight:700">N</span>
     </div>
     <div><h1>NOVA HORIZON</h1><span>// OPEN WORLD 3D</span></div>
@@ -70,7 +94,7 @@ canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-inde
   </div>
   <div class="hud-panel suit">
     <div class="suit-ring">
-      <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="rgba(0,212,170,0.2)" stroke-width="5"/><circle id="suitC" cx="32" cy="32" r="28" fill="none" stroke="#00d4aa" stroke-width="5" stroke-dasharray="176" stroke-dashoffset="0" stroke-linecap="round"/></svg>
+      <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="rgba(139,92,246,0.2)" stroke-width="5"/><circle id="suitC" cx="32" cy="32" r="28" fill="none" stroke="#8b5cf6" stroke-width="5" stroke-dasharray="176" stroke-dashoffset="0" stroke-linecap="round"/></svg>
       <div class="v" id="suitP">100%</div>
     </div>
     <div class="suit-bars">
@@ -106,26 +130,134 @@ canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-inde
 </div>
 
 <!-- CDN: unpkg.com/jsdelivr. If CDN is down, vendor three.js locally: npm install three@0.160.0 and update paths. -->
+
+<canvas id="minimap-canvas" width="180" height="180" class="minimap" style="display:none"></canvas>
+<div class="inventory-panel" id="inv-panel">
+  <div style="background:rgba(8,12,30,0.95);border:1px solid #8b5cf6;padding:20px;border-radius:8px;text-align:center;box-shadow:0 0 25px rgba(139,92,246,0.25)">
+    <h2 style="font-family:Orbitron;color:#8b5cf6;font-size:14px;letter-spacing:3px;margin-bottom:8px">INVENTORY</h2>
+    <div class="inventory-grid" id="inv-grid"></div>
+    <div style="margin-top:12px;font-size:11px;color:#8aa1b5;font-family:'Share Tech Mono'">
+      <span id="inv-credits">CREDITS: 12.4k</span> | <span id="inv-weight">WEIGHT: 0/250kg</span>
+    </div>
+    <button onclick="document.getElementById('inv-panel').style.display='none';controls.lock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [I]</button>
+  </div>
+</div>
+<div class="achieve-toast" id="achieve-toast"><div class="t"></div><div class="d"></div></div>
+<div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill" style="width:100%"></div></div></div>
+<div class="weather-fx" id="weather-fx"></div>
+
+<script src="js/game_design_core.js"></script>
+<script src="js/b_roll_scenarios.js"></script>
+<script src="js/civilian_fronts.js"></script>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
 </script>
 <script type="module">
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('#0a0f14');
-scene.fog = new THREE.FogExp2('#0a0f14', 0.0004);
+scene.background = new THREE.Color('#1a1520');
+scene.fog = new THREE.FogExp2('#1a1520', 0.0004);
 
 const cam = new THREE.PerspectiveCamera(65, innerWidth/innerHeight, 0.5, 800);
+const flashlight = new THREE.SpotLight(0xffeedd, 3, 80, 0.35, 0.5, 1.5);
+flashlight.position.set(0, 0, 0);
+cam.add(flashlight);
+flashlight.target.position.set(0, 0, -1);
+cam.add(flashlight.target);
+scene.add(cam);
 cam.position.set(0, 4, 0);
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:document.getElementById('c')});
 renderer.setSize(innerWidth,innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.shadowMap.enabled = true;
+let gamePaused = false;
+let pauseScreen;
 
-scene.add(new THREE.AmbientLight('#223344', 0.5));
-const sun = new THREE.DirectionalLight('#ffeedd', 1.5);
+scene.add(new THREE.AmbientLight('#334455', 1.2));
+const ambientPulse = scene.children[scene.children.length - 1];
+
+// ═══ VINCULUM PARALLAX SKY DOME — 9-layer depth shader ═══
+// Replaces CSS background. Parallax in vertex shader, CHROMA CASCADE in fragment.
+const skyGeo = new THREE.SphereGeometry(300, 64, 32);
+const skyMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uCameraPos: { value: new THREE.Vector3() },
+    uBreathe: { value: 0.8 },
+    uTime: { value: 0 },
+  },
+  vertexShader: /*glsl*/`
+    varying vec3 vWorldPos;
+    varying float vDepth;
+    void main() {
+      vec4 worldPos = modelMatrix * vec4(position, 1.0);
+      vWorldPos = worldPos.xyz;
+      // Parallax depth: distance from camera = layer depth
+      vDepth = length(worldPos.xyz - cameraPosition) / 300.0;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: /*glsl*/`
+    varying vec3 vWorldPos;
+    varying float vDepth;
+    uniform vec3 uCameraPos;
+    uniform float uBreathe;
+    uniform float uTime;
+    
+    // CHROMA CASCADE: 9 layers mapped to depth
+    vec3 chromaCascade(float d) {
+      // mod9 layer from depth
+      float layer = floor(d * 9.0);
+      float t = fract(d * 9.0);
+      
+      if (layer < 1.0) return mix(vec3(0.02,0.01,0.04), vec3(0.3,0.05,0.05), t); // INFRARED→RED
+      if (layer < 2.0) return mix(vec3(0.3,0.05,0.05), vec3(0.4,0.2,0.05), t);  // RED→ORANGE
+      if (layer < 3.0) return mix(vec3(0.4,0.2,0.05), vec3(0.3,0.3,0.05), t);  // ORANGE→YELLOW
+      if (layer < 4.0) return mix(vec3(0.3,0.3,0.05), vec3(0.05,0.2,0.1), t);  // YELLOW→GREEN
+      if (layer < 5.0) return mix(vec3(0.05,0.2,0.1), vec3(0.03,0.1,0.3), t);  // GREEN→BLUE
+      if (layer < 6.0) return mix(vec3(0.03,0.1,0.3), vec3(0.1,0.03,0.3), t);  // BLUE→INDIGO
+      if (layer < 7.0) return mix(vec3(0.1,0.03,0.3), vec3(0.2,0.05,0.3), t);  // INDIGO→VIOLET
+      return mix(vec3(0.2,0.05,0.3), vec3(0.1,0.02,0.15), t);                  // VIOLET→ULTRAVIOLET
+    }
+    
+    void main() {
+      // Parallax offset: sky shifts with camera
+      vec3 parallaxDir = normalize(vWorldPos - uCameraPos);
+      float parallaxStrength = vDepth * 0.3 * uBreathe;
+      vec3 shiftedPos = vWorldPos + parallaxDir * parallaxStrength;
+      
+      // World-space gradient from position + time
+      float gradient = smoothstep(0.0, 1.0, (shiftedPos.y + 150.0) / 300.0);
+      
+      // CHROMA CASCADE color from depth
+      vec3 chroma = chromaCascade(vDepth);
+      
+      // Breathe modulates brightness
+      float brightness = 0.15 + uBreathe * 0.25;
+      
+      // Final: horizon blend + chroma + depth fog
+      vec3 horizon = mix(vec3(0.02,0.01,0.03), chroma, gradient);
+      float fog = 1.0 - vDepth * 0.6;
+      vec3 color = horizon * brightness * fog;
+      
+      // Subtle starfield at high depth
+      float star = step(0.998, fract(sin(dot(shiftedPos.xy*100.0, vec2(12.9898,78.233))) * 43758.5453));
+      color += vec3(0.3,0.4,0.6) * star * vDepth * uBreathe * 0.5;
+      
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `,
+  side: THREE.BackSide,
+  depthWrite: false,
+});
+const sky = new THREE.Mesh(skyGeo, skyMat);
+sky.renderOrder = -1;
+sky.name = 'parallax_sky';
+scene.add(sky);
+// ═══ END PARALLAX SKY ═══
+const sun = new THREE.DirectionalLight('#ffe8cc', 1.5);
 sun.position.set(100, 80, 50);
 sun.castShadow = true;
 sun.shadow.mapSize.set(1024, 1024);
@@ -136,12 +268,294 @@ sun.shadow.camera.right = 80;
 sun.shadow.camera.top = 80;
 sun.shadow.camera.bottom = -80;
 scene.add(sun);
-scene.add(new THREE.HemisphereLight('#8899cc', '#221108', 0.3));
+scene.add(new THREE.HemisphereLight('#8899cc', '#331108', 0.6));
 
 const controls = new PointerLockControls(cam, document.body);
-document.addEventListener('click', () => controls.lock());
 controls.addEventListener('lock', () => document.body.style.cursor = 'none');
 controls.addEventListener('unlock', () => document.body.style.cursor = 'default');
+
+// Faction Selection Modal Overlay Injector
+(function initFactionIntegration() {
+  const startScreen = document.createElement('div');
+  startScreen.id = 'start-screen';
+  startScreen.style.cssText = `
+    position: fixed; inset: 0; background: radial-gradient(circle, rgba(1, 10, 24, 0.98) 0%, rgba(0, 2, 5, 0.99) 100%);
+    z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #e0e0e0; font-family: 'Rajdhani', sans-serif;
+  `;
+  
+  const title = document.createElement('h1');
+  title.textContent = 'NOVA HORIZON 3D';
+  title.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-weight: 900; font-size: 48px;
+    margin-bottom: 20px; text-shadow: 0 0 25px rgba(139,92,246,0.45); letter-spacing: 6px;
+  `;
+  startScreen.appendChild(title);
+
+  const controlsBox = document.createElement('div');
+  controlsBox.style.cssText = `
+    color: #8aa1b5; font-size: 11px; line-height: 1.8; text-align: left;
+    margin-bottom: 20px; width: 520px; background: rgba(10, 20, 30, 0.75);
+    border: 1px solid rgba(139,92,246,0.22); padding: 18px 24px; border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Share Tech Mono', monospace;
+  `;
+  controlsBox.innerHTML = `
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">W/A/S/D</span> — Movement Walk<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">SPACE</span> — Jump vertical lift<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">MOUSE</span> — Pitch & Yaw look around<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">1-6 KEYS</span> — Select Active Loadout<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">CLICK</span> — Fire Weapons / Consume cells<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">E KEY</span> — Scan Wildlife / Acquire Signal
+  `;
+  startScreen.appendChild(controlsBox);
+
+  const selectTitle = document.createElement('h3');
+  selectTitle.textContent = 'SELECT FACTION LOADOUT';
+  selectTitle.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-size: 11px; letter-spacing: 2px; margin-bottom: 10px;
+  `;
+  startScreen.appendChild(selectTitle);
+
+  const cardsContainer = document.createElement('div');
+  cardsContainer.style.cssText = `
+    display: flex; gap: 8px; margin-bottom: 25px;
+  `;
+  
+  window.selectedFactionIndex = 0;
+
+  window.GameDesignCore.CHARACTERS.forEach((char, idx) => {
+    const card = document.createElement('div');
+    card.style.cssText = `
+      background: rgba(10,20,30,0.85); border: 1px solid rgba(139,92,246,0.2);
+      padding: 8px; border-radius: 5px; width: 85px; text-align: center;
+      cursor: pointer; transition: all 0.2s; color: #8aa1b5; font-size: 9px;
+    `;
+    if (idx === 0) {
+      card.style.borderColor = '#8b5cf6';
+      card.style.color = '#fff';
+      card.style.background = 'rgba(139,92,246,0.12)';
+    }
+    card.innerHTML = `
+      <div style="font-weight:bold;color:#ffd700;margin-bottom:4px;font-family:Orbitron;">${char.name.split(' ')[0]}</div>
+      <div style="font-size: 8px; line-height: 1.1;">${char.bonus.substring(0, 18)}...</div>
+    `;
+    card.onclick = (e) => {
+      e.stopPropagation();
+      cardsContainer.childNodes.forEach(c => {
+        c.style.borderColor = 'rgba(139,92,246,0.2)';
+        c.style.color = '#8aa1b5';
+        c.style.background = 'rgba(10,20,30,0.85)';
+      });
+      card.style.borderColor = '#8b5cf6';
+      card.style.color = '#fff';
+      card.style.background = 'rgba(139,92,246,0.12)';
+      window.selectedFactionIndex = idx;
+    };
+    cardsContainer.appendChild(card);
+  });
+  startScreen.appendChild(cardsContainer);
+
+  const startButton = document.createElement('div');
+  startButton.textContent = 'START COGNITIVE SYNC';
+  startButton.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-size: 14px; letter-spacing: 2px;
+    cursor: pointer; padding: 10px 24px; border: 1px solid #8b5cf6; border-radius: 4px;
+    transition: all 0.2s; background: rgba(139,92,246,0.08); font-weight: bold;
+  `;
+  startButton.onmouseover = () => {
+    startButton.style.background = 'rgba(139,92,246,0.2)';
+    startButton.style.color = '#fff';
+  };
+  startButton.onmouseout = () => {
+    startButton.style.background = 'rgba(139,92,246,0.08)';
+    startButton.style.color = '#8b5cf6';
+  };
+  startButton.onclick = (e) => {
+    e.stopPropagation();
+    const faction = window.GameDesignCore.CHARACTERS[window.selectedFactionIndex];
+    window.selectedFaction = faction;
+    const stats = window.GameDesignCore.FACTION_STATS[faction.id];
+    player.maxShield = Math.ceil(player.maxShield * stats.ground_hull_mult);
+    player.shield = player.maxShield;
+    player.maxHp = Math.ceil(player.maxHp * stats.ground_hull_mult);
+    player.hp = player.maxHp;
+
+    // MECHA SUIT v3.0 — full vinculum-validated suit (PASS: 249/250kg)
+    const SUIT = {"speed_mult":1.02,"shield_mult":1.13,"energy_mult":1.15,"damage_reduction":0.10,"mass_kg":169,"max_speed_ms":3.5};
+    player.maxShield = Math.ceil(player.maxShield * SUIT.shield_mult);
+    player.shield = player.maxShield;
+    player.maxHp = Math.ceil(player.maxHp * SUIT.shield_mult);
+    player.hp = player.maxHp;
+    player.maxEnergy = Math.ceil(player.maxEnergy * SUIT.energy_mult);
+    player.energy = player.maxEnergy;
+    player.suitMass = SUIT.mass_kg;
+    player.suitSpeed = SUIT.max_speed_ms;
+    player.suitDamageReduction = SUIT.damage_reduction;
+    console.log('MECHA SUIT v3.0 ONLINE —', SUIT.mass_kg+'kg,', 'armor +'+(SUIT.shield_mult-1)*100+'%,', 'power +'+(SUIT.energy_mult-1)*100+'%');
+    
+    startScreen.style.display = 'none';
+    controls.lock();
+    
+    window.gameDay = 1;
+    window.lastDistance = 0;
+    
+    try {
+      window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      // Ambient drone — low hum that breathes with the scene
+      window._droneOsc = window.audioCtx.createOscillator();
+      window._droneGain = window.audioCtx.createGain();
+      window._droneOsc.type = 'sine';
+      window._droneOsc.frequency.value = 55;
+      window._droneGain.gain.value = 0.03;
+      window._droneOsc.connect(window._droneGain);
+      window._droneGain.connect(window.audioCtx.destination);
+      window._droneOsc.start();
+    } catch(ex){}
+  };
+  startScreen.appendChild(startButton);
+  document.body.appendChild(startScreen);
+
+  document.removeEventListener('click', window.lockHandler);
+  window.lockHandler = () => {
+    if (startScreen.style.display !== 'none') return;
+    controls.lock();
+  };
+  document.addEventListener('click', window.lockHandler);
+
+  // Pause menu overlay
+  pauseScreen = document.createElement('div');
+  pauseScreen.id = 'pause-screen';
+  pauseScreen.style.cssText = `
+    position:fixed; inset:0; background:rgba(2,6,16,0.92); z-index:200;
+    display:none; flex-direction:column; align-items:center; justify-content:center;
+    font-family:'Rajdhani',sans-serif; color:#8b5cf6; backdrop-filter:blur(8px);
+  `;
+  pauseScreen.innerHTML = `
+    <h1 style="font-family:Orbitron; font-size:42px; letter-spacing:6px; margin-bottom:30px; text-shadow:0 0 20px rgba(139,92,246,0.3);">SYSTEM PAUSED</h1>
+    <div style="display:flex; gap:40px; width:700px;">
+      <div style="flex:1; background:rgba(10,20,30,0.8); border:1px solid rgba(139,92,246,0.2); padding:20px; border-radius:8px;">
+        <h3 style="font-family:Orbitron; font-size:10px; letter-spacing:3px; opacity:0.5; margin-bottom:12px;">SUIT STATUS</h3>
+        <div id="pause-suit-stats" style="font-size:12px; line-height:2;"></div>
+      </div>
+      <div style="flex:1; background:rgba(10,20,30,0.8); border:1px solid rgba(139,92,246,0.2); padding:20px; border-radius:8px;">
+        <h3 style="font-family:Orbitron; font-size:10px; letter-spacing:3px; opacity:0.5; margin-bottom:12px;">OBJECTIVES</h3>
+        <div id="pause-objectives" style="font-size:12px; line-height:2;"></div>
+      </div>
+    </div>
+    <button id="btn-resume" style="margin-top:30px; padding:12px 40px; background:rgba(139,92,246,0.1); border:1px solid #8b5cf6; color:#8b5cf6; font-family:Orbitron; font-size:14px; letter-spacing:3px; border-radius:4px; cursor:pointer;">RESUME</button>
+    <button id="btn-quit" style="margin-top:10px; padding:8px 20px; background:transparent; border:1px solid rgba(255,71,87,0.3); color:rgba(255,71,87,0.6); font-family:Orbitron; font-size:10px; letter-spacing:2px; border-radius:4px; cursor:pointer;">RETURN TO FACTION SELECT</button>
+  `;
+  document.body.appendChild(pauseScreen);
+  })();
+
+  function togglePause() {
+      const startScreen = document.getElementById('start-screen');
+      if (!startScreen || startScreen.style.display !== 'none') return;
+    gamePaused = !gamePaused;
+    if (gamePaused) {
+      controls.unlock();
+      pauseScreen.style.display = 'flex';
+      const faction = window.selectedFaction || {name:'UNKNOWN'};
+      document.getElementById('pause-suit-stats').innerHTML = 'FACTION: <span style=color:#ffd700>' + faction.name.toUpperCase() + '</span><br>SHIELD: ' + player.shield + '/' + player.maxShield + '<br>ENERGY: ' + Math.floor(player.energy) + '/' + player.maxEnergy + '<br>HP: ' + Math.floor(player.hp) + '/' + player.maxHp + '<br>SUIT MASS: ' + (player.suitMass||169) + 'kg / 250kg<br>ARMOR: +' + ((player.suitDamageReduction||0.1)*100).toFixed(0) + '% reduction<br>DAY: ' + (window.gameDay||1);
+      document.getElementById('pause-objectives').innerHTML = 'OUTPOST: ' + (player.hasSignal?'ACQUIRED':'SEARCHING') + '<br>WILDLIFE: ' + player.wildlifeScanned + '/6 scanned<br>HOSTILES: ' + player.hostilesKilled + '/8 neutralized<br>DATAPADS: ' + player.datapadsRec + ' recovered<br>CREDITS: ' + (player.credits/1000).toFixed(1) + 'k';
+    } else {
+      pauseScreen.style.display = 'none';
+      controls.lock();
+    }
+  }
+
+  document.getElementById('btn-resume').onclick = () => togglePause();
+  document.getElementById('btn-quit').onclick = () => {
+    gamePaused = false;
+    pauseScreen.style.display = 'none';
+    document.getElementById('start-screen').style.display = 'flex';
+    startScreen.querySelector('h1').textContent = 'NOVA HORIZON 3D';
+    const hint = startScreen.querySelector('.start-hint') || startScreen.querySelector('p'); if (hint) hint.textContent = 'CLICK TO IGNITE ENGINES';
+  };
+
+  function pickDialogue(tone) {
+    const seeds = window.DIALOGUE_SEEDS || [];
+    if (!seeds.length) return null;
+    const toneMap = {hostile:[0,1,2],seductive:[3,4,5],desperate:[6,7,8],philosophical:[9,10,11],betrayal:[12,13,14]};
+    const pool = toneMap[tone] || [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+    return seeds[pool[Math.floor(Math.random()*pool.length)]];
+  }
+
+  function pickCharacter() {
+    const chars = window.CHARACTERS || [];
+    return chars.length ? chars[Math.floor(Math.random()*chars.length)] : null;
+  }
+
+function triggerTransplantEvent(ev) {
+  if (!ev) return;
+  controls.unlock();
+  
+  let modal = document.getElementById('event-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'event-modal';
+    modal.style.cssText = `
+      position: fixed; inset: 0; background: rgba(1, 4, 8, 0.94);
+      z-index: 10001; display: none; align-items: center; justify-content: center;
+      flex-direction: column; color: #e0e0e0; font-family: 'Share Tech Mono', monospace;
+    `;
+    modal.innerHTML = `
+      <div style="background: rgba(8, 12, 30, 0.95); border: 1px solid #ff8800; padding: 30px; border-radius: 8px; width: 450px; text-align: center; box-shadow: 0 0 25px rgba(255, 136, 0, 0.35);">
+        <h2 id="event-title" style="color: #ff8800; letter-spacing: 3px; margin-bottom: 15px; font-family: Orbitron;">EVENT</h2>
+        <p id="event-text" style="font-size: 13px; line-height: 1.6; white-space: pre-wrap; margin-bottom: 20px;"></p>
+        <button id="event-close-btn" style="margin-top: 20px; padding: 10px 25px; background: rgba(255,136,0,0.15); border: 1px solid #ff8800; color: #ff8800; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-weight: bold;">ACKNOWLEDGE</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  document.getElementById('event-title').textContent = ev.type.toUpperCase().replace('_', ' ');
+  
+  let desc = '';
+  let action = () => {};
+
+  if (ev.type === 'market_crash') {
+    const d = pickDialogue('philosophical');
+    desc = `COGNITIVE MATRIX SHIFT!\n` + (d || `Forced data recalibration. Lost -10% credits.`);
+    action = () => { player.credits = Math.max(0, Math.floor(player.credits * 0.9)); };
+  } else if (ev.type === 'price_surge') {
+    const d = pickDialogue('seductive');
+    desc = `MARKET REPLENISHED!\n` + (d || `Credit account received auxiliary payout (+15%).`);
+    action = () => { player.credits = Math.floor(player.credits * 1.15); };
+  } else if (ev.type === 'police_raid') {
+    const d = pickDialogue('hostile');
+    desc = `VANGUARD SCANNER LOCK!\n` + (d || `Authorities fine you. Lost -500 credits.`);
+    action = () => { player.credits = Math.max(0, player.credits - 500); };
+  } else if (ev.type === 'pirate_ambush') {
+    const c = pickCharacter();
+    const d = pickDialogue('hostile');
+    desc = (c ? c.name.toUpperCase() + ' AMBUSH!\n' : 'ORBITAL DEBRIS COLLISION!\n') + (d || `Hull shielding compromised by minor impact.`);
+    action = () => {
+      player.shield = Math.max(10, player.shield - 25);
+      // Spawn the character in the world if one was picked
+      if (c) {
+        const dist = 12 + Math.random() * 4;
+        const angle = Math.random() * Math.PI * 2;
+        spawnCharacter(c.name, cam.position.x + Math.cos(angle) * dist, cam.position.z + Math.sin(angle) * dist);
+      }
+    };
+  } else if (ev.type === 'lucky_find') {
+    desc = `ABANDONED RECON CACHE UNLOCKED!\nRecovered credits (+${ev.cash}) and energy cell.`;
+    action = () => { player.credits += ev.cash; player.energy = Math.min(player.maxEnergy, player.energy + 20); };
+  } else if (ev.type === 'wormhole') {
+    desc = `TEMPORAL ANOMALY DETECTED!\nPlayer sync frequency stabilized (+5%).`;
+    action = () => { player.sync = Math.min(100, player.sync + 5); };
+  }
+
+  document.getElementById('event-text').textContent = desc;
+  modal.style.display = 'flex';
+
+  document.getElementById('event-close-btn').onclick = () => {
+    action();
+    modal.style.display = 'none';
+    controls.lock();
+  };
+}
 
 // TERRAIN
 const WORLD = 4000;
@@ -165,11 +579,11 @@ const chunks = new Map();
 const terrainMat = new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.95,flatShading:true});
 
 function getTerrainColor(h) {
-  if (h < -3) return new THREE.Color('#0a1a2a'); // water
-  if (h < 0) return new THREE.Color('#1a2a1a'); // plains
-  if (h < 5) return new THREE.Color('#0a2a1a'); // forest
-  if (h < 12) return new THREE.Color('#2a2a2a'); // rocky
-  return new THREE.Color('#1a1a1a'); // mountain
+  if (h < -3) return new THREE.Color('#1a3050'); // water
+  if (h < 0) return new THREE.Color('#2a4a2a'); // plains
+  if (h < 5) return new THREE.Color('#1a5020'); // forest
+  if (h < 12) return new THREE.Color('#404040'); // rocky
+  return new THREE.Color('#505050'); // mountain
 }
 
 function buildChunk(cx, cz) {
@@ -210,37 +624,126 @@ function updateChunks() {
   }
 }
 
-// Trees
-const trees = [];
+// Trees — GPU-instanced with procedural wind (400 draw calls → 2)
+const TREE_COUNT = 200;
+const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 3, 5);
+const leavesGeo = new THREE.ConeGeometry(2, 4, 6);
+const trunkMat = new THREE.MeshStandardMaterial({color:'#5c4033'});
+const leavesMat = new THREE.MeshStandardMaterial({color:'#3a7a2f'});
+
+const trunkInstanced = new THREE.InstancedMesh(trunkGeo, trunkMat, TREE_COUNT);
+trunkInstanced.castShadow = true;
+const leavesInstanced = new THREE.InstancedMesh(leavesGeo, leavesMat, TREE_COUNT);
+leavesInstanced.castShadow = true;
+
+// GPU wind uniforms — shared across trunk and foliage
+const windUniforms = {
+  uTime: { value: 0 },
+  uWindDirection: { value: new THREE.Vector3(0.8, 0.0, 0.5).normalize() },
+  uWindStrength: { value: 1.2 },
+  uNoiseScale: { value: 0.15 },
+  uCameraPos: { value: new THREE.Vector3() },
+  uLODDistance: { value: 80.0 }
+};
+
+// GLSL noise for GPU wind — FBM 2-octave
+const windNoiseGLSL = `
+float hash3D(vec3 p){ float d=dot(p,vec3(127.1,311.7,74.7)); return fract(sin(d)*43758.5453); }
+float noise3D(vec3 p){ vec3 i=floor(p); vec3 f=fract(p); vec3 u=f*f*(3.0-2.0*f);
+  return mix(mix(mix(hash3D(i),hash3D(i+vec3(1,0,0)),u.x),mix(hash3D(i+vec3(0,1,0)),hash3D(i+vec3(1,1,0)),u.x),u.y),
+             mix(mix(hash3D(i+vec3(0,0,1)),hash3D(i+vec3(1,0,1)),u.x),mix(hash3D(i+vec3(0,1,1)),hash3D(i+vec3(1,1,1)),u.x),u.y),u.z); }
+float fbm(vec3 p){ return 0.6*noise3D(p)+0.3*noise3D(p*2.0); }
+`;
+
+function injectWind(material, {flutterSpeed, speciesResponse, height, swayAmount}) {
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = windUniforms.uTime;
+    shader.uniforms.uWindDirection = windUniforms.uWindDirection;
+    shader.uniforms.uWindStrength = windUniforms.uWindStrength;
+    shader.uniforms.uNoiseScale = windUniforms.uNoiseScale;
+    shader.uniforms.uCameraPos = windUniforms.uCameraPos;
+    shader.uniforms.uLODDistance = windUniforms.uLODDistance;
+    shader.vertexShader = `
+      uniform float uTime; uniform vec3 uWindDirection;
+      uniform float uWindStrength; uniform float uNoiseScale;
+      uniform vec3 uCameraPos; uniform float uLODDistance;
+      ${windNoiseGLSL}
+    ` + shader.vertexShader;
+    shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `#include <begin_vertex>
+      vec3 worldPos = (instanceMatrix * vec4(0.0,0.0,0.0,1.0)).xyz;
+      float d = distance(worldPos, uCameraPos);
+      float fade = 1.0 - smoothstep(uLODDistance*0.7, uLODDistance, d);
+      float t = uTime * ${flutterSpeed.toFixed(1)};
+      vec3 wp = worldPos * uNoiseScale + vec3(t*0.3, t*0.5, t*0.4);
+      float windVal = fbm(wp);
+      float sway = sin(uTime*1.2 + worldPos.x*0.3) * ${swayAmount.toFixed(3)};
+      float force = uWindStrength * ${speciesResponse.toFixed(2)} * windVal * fade + sway;
+      float rotZ = uWindDirection.x * force;
+      float rotX = uWindDirection.z * force;
+      float taper = transformed.y / ${height.toFixed(1)};
+      float cz = cos(rotZ * taper), sz = sin(rotZ * taper);
+      float cx = cos(rotX * taper), sx = sin(rotX * taper);
+      mat3 rot = mat3(cz,-sz,0, sz*cx,cz*cx,-sx, sz*sx,cz*sx,cx);
+      transformed = rot * transformed;`);
+  };
+}
+injectWind(trunkMat,   {flutterSpeed:2.2, speciesResponse:0.18, height:3.0, swayAmount:0.05});
+injectWind(leavesMat,  {flutterSpeed:2.5, speciesResponse:0.22, height:4.0, swayAmount:0.06});
+
+// Place instances — one matrix update, zero per-frame loops
+const dummy = new THREE.Object3D();
+let treeCount = 0;
+const treePositions = [];
 for (let i = 0; i < 200; i++) {
   const x = (Math.random()-0.5)*WORLD;
   const z = (Math.random()-0.5)*WORLD;
   const h = getH(x, z);
   if (h < 1 || h > 10) continue;
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.5, 3, 5), new THREE.MeshStandardMaterial({color:'#5c4033'}));
-  trunk.position.set(x, h+1.5, z);
-  trunk.castShadow = true;
-  scene.add(trunk);
-  const leaves = new THREE.Mesh(new THREE.ConeGeometry(2, 4, 6), new THREE.MeshStandardMaterial({color:'#3a7a2f'}));
-  leaves.position.set(x, h+3.5, z);
-  leaves.castShadow = true;
-  scene.add(leaves);
-  trees.push({x, z, trunk, leaves});
+  dummy.position.set(x, h+1.5, z);
+  dummy.scale.setScalar(0.8 + Math.random() * 0.4);
+  dummy.rotation.set(0, Math.random()*Math.PI*2, 0);
+  dummy.updateMatrix();
+  trunkInstanced.setMatrixAt(treeCount, dummy.matrix);
+  dummy.position.y = h+3.5;
+  dummy.updateMatrix();
+  leavesInstanced.setMatrixAt(treeCount, dummy.matrix);
+  treePositions.push({ x, z, h, idx: treeCount });
+  treeCount++;
 }
+trunkInstanced.count = treeCount;
+leavesInstanced.count = treeCount;
+trunkInstanced.instanceMatrix.needsUpdate = true;
+leavesInstanced.instanceMatrix.needsUpdate = true;
+scene.add(trunkInstanced);
+scene.add(leavesInstanced);
 
-// Rocks
-for (let i = 0; i < 150; i++) {
+// Rocks instanced
+const ROCK_COUNT = 150;
+const rockGeo = new THREE.IcosahedronGeometry(1.0, 1);
+const rockMat = new THREE.MeshStandardMaterial({color:'#555555', roughness:0.8});
+const rockInstanced = new THREE.InstancedMesh(rockGeo, rockMat, ROCK_COUNT);
+rockInstanced.castShadow = true;
+rockInstanced.receiveShadow = true;
+
+const rockPositions = [];
+let rockCount = 0;
+for (let i = 0; i < ROCK_COUNT; i++) {
   const x = (Math.random()-0.5)*WORLD;
   const z = (Math.random()-0.5)*WORLD;
   const h = getH(x, z);
   if (h < 3) continue;
-  const rock = new THREE.Mesh(new THREE.IcosahedronGeometry(1+Math.random()*2, 1), new THREE.MeshStandardMaterial({color:Math.random()>0.5?'#555':'#666',roughness:0.8}));
-  rock.position.set(x, h-0.5, z);
-  rock.rotation.set(Math.random(), Math.random(), Math.random());
-  rock.castShadow = true;
-  rock.receiveShadow = true;
-  scene.add(rock);
+  const size = 1.0 + Math.random() * 2.0;
+  dummy.position.set(x, h-0.3, z);
+  dummy.scale.setScalar(size);
+  dummy.rotation.set(Math.random()*Math.PI*2, Math.random()*Math.PI*2, Math.random()*Math.PI*2);
+  dummy.updateMatrix();
+  rockInstanced.setMatrixAt(rockCount, dummy.matrix);
+  rockPositions.push({ x, z, radius: size * 1.5 });
+  rockCount++;
 }
+rockInstanced.count = rockCount;
+rockInstanced.instanceMatrix.needsUpdate = true;
+scene.add(rockInstanced);
 
 // HOSTILES
 const hostiles = [];
@@ -260,7 +763,7 @@ for (let i = 0; i < 10; i++) {
 const wildlife = [];
 const wildMeshes = [];
 for (let i = 0; i < 8; i++) {
-  const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshStandardMaterial({color:'#4ecdc4',emissive:'#003322',emissiveIntensity:0.2}));
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshStandardMaterial({color:'#b0886e',emissive:'#003322',emissiveIntensity:0.2}));
   body.castShadow = true;
   body.position.set((Math.random()-0.5)*WORLD*0.6, 2, (Math.random()-0.5)*WORLD*0.6);
   scene.add(body);
@@ -297,8 +800,1044 @@ outpostG.add(signalRing);
 outpostG.position.set(WORLD*0.3, getH(WORLD*0.3,WORLD*0.3), WORLD*0.2);
 scene.add(outpostG);
 
+// Load the optimized mecha knee bracket GLB model at the outpost and spawn point
+const gltfLoader = new GLTFLoader();
+
+// Sprite sheet texture for animated mecha skin (8 cols × 3 rows × 24 frames)
+const spriteTex = new THREE.TextureLoader().load('/mecha_spritesheet.png');
+spriteTex.wrapS = THREE.RepeatWrapping;
+spriteTex.wrapT = THREE.RepeatWrapping;
+spriteTex.repeat.set(1/8, 1/3); // Single frame from grid
+spriteTex.colorSpace = THREE.SRGBColorSpace;
+
+let animFrame = 0, animAccum = 0;
+const FRAME_COUNT = 24, COLS = 8, ROWS = 3;
+
+function updateSpriteAnimation(dt) {
+  if (!spriteTex) return;
+  animAccum += dt;
+  const frameInterval = 0.08; // ~12 fps
+  if (animAccum >= frameInterval) {
+    animAccum -= frameInterval;
+    animFrame = (animFrame + 1) % FRAME_COUNT;
+    const col = animFrame % COLS;
+    const row = Math.floor(animFrame / COLS);
+    spriteTex.offset.x = col / COLS;
+    spriteTex.offset.y = 1 - (row + 1) / ROWS; // flip Y for WebGL
+  }
+}
+
+// ═══ CHARACTER CONVEYOR BELT — b_roll specs → Blender → GLB → Game ═══
+const characterModels = {};   // name → { scene, loaded:bool, spec:obj }
+const activeCharacters = [];  // { name, group, targetPos, dialogue }
+
+function loadCharacterGLB(name, path) {
+  gltfLoader.load(
+    path,
+    (gltf) => {
+      const char = window.CHARACTERS?.find(c => c.name === name);
+      characterModels[name] = {
+        scene: gltf.scene,
+        loaded: true,
+        spec: char || null,
+      };
+      gltf.scene.visible = false;
+      scene.add(gltf.scene);
+      console.log(`CHARACTER LOADED: ${name} (${path})`);
+    },
+    undefined,
+    (err) => {
+      console.warn(`Character GLB not found: ${name} (${path}) — falling back to procedural`);
+      characterModels[name] = { scene: null, loaded: false, spec: null };
+    }
+  );
+}
+
+// Load all 5 b_roll characters from the conveyor belt
+loadCharacterGLB('Kael Vos',       '/assets/characters/kael_vos.glb');
+loadCharacterGLB('Sera Qin',       '/assets/characters/sera_qin.glb');
+loadCharacterGLB('Gorath Vehn',    '/assets/characters/gorath_vehn.glb');
+loadCharacterGLB('The Twins (Mir + Kor)', '/assets/characters/the_twins.glb');
+loadCharacterGLB('Aya Nox',        '/assets/characters/aya_nox.glb');
+
+function spawnCharacter(name, worldX, worldZ) {
+  const model = characterModels[name];
+  const proxy = new THREE.Group();
+  proxy.name = `char_${name}`;
+
+  if (model?.loaded && model.scene) {
+    const clone = model.scene.clone();
+    clone.visible = true;
+    clone.scale.set(0.8, 0.8, 0.8);
+    proxy.add(clone);
+  } else {
+    // Procedural fallback — colored biped
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.3, 0.4, 1.2, 8),
+      new THREE.MeshStandardMaterial({ color: 0x8b5cf6, roughness: 0.5 })
+    );
+    body.position.y = 0.6;
+    proxy.add(body);
+    const head = new THREE.Mesh(
+      new THREE.SphereGeometry(0.22, 8, 6),
+      new THREE.MeshStandardMaterial({ color: 0xa78bfa, roughness: 0.4 })
+    );
+    head.position.y = 1.35;
+    proxy.add(head);
+  }
+
+  const h = getH(worldX, worldZ);
+  proxy.position.set(worldX, h, worldZ);
+
+  // Dialogue label
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(10,20,30,0.8)';
+  ctx.fillRect(0, 0, 256, 64);
+  ctx.strokeStyle = '#8b5cf6';
+  ctx.strokeRect(1, 1, 254, 62);
+  ctx.font = 'bold 14px monospace';
+  ctx.fillStyle = '#d4a574';
+  ctx.textAlign = 'center';
+  ctx.fillText(name, 128, 38);
+  const tex = new THREE.CanvasTexture(canvas);
+  const label = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true }));
+  label.position.y = 2.5;
+  label.scale.set(2, 0.5, 1);
+  proxy.add(label);
+
+  scene.add(proxy);
+  const entry = { name, group: proxy, targetPos: proxy.position.clone(), dialogue: null, label };
+  activeCharacters.push(entry);
+
+  // Pick a dialogue seed for this character
+  const char = window.CHARACTERS?.find(c => c.name === name);
+  if (char?.dialogue) {
+    entry.dialogue = char.dialogue;
+    showCharacterDialogue(name, char.dialogue);
+  }
+
+  return entry;
+}
+
+function showCharacterDialogue(name, text) {
+  let dlg = document.getElementById('char-dialogue');
+  if (!dlg) {
+    dlg = document.createElement('div');
+    dlg.id = 'char-dialogue';
+    dlg.style.cssText = `
+      position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
+      background:rgba(10,20,30,0.9);border:1px solid #d4a574;padding:8px 18px;
+      border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:12px;
+      color:#d4a574;z-index:50;opacity:0;transition:opacity 0.4s;max-width:500px;
+      text-align:center;pointer-events:none;
+    `;
+    document.body.appendChild(dlg);
+  }
+  dlg.textContent = `[${name}] ${text}`;
+  dlg.style.opacity = '1';
+  clearTimeout(dlg._timeout);
+  dlg._timeout = setTimeout(() => { dlg.style.opacity = '0'; }, 6000);
+}
+
+
+// ═══ ENVIRONMENT ASSET LOADING — GLB trees, rocks, bushes ═══
+
+const envAssets = {};  // key → { scene, geometry, material, loaded }
+const ENV_ASSETS = {
+  // Trees
+  tree_pine:   '/assets/environment/tree_pine_v1.glb',
+  tree_oak:    '/assets/environment/tree_oak_v1.glb',
+  tree_dead:   '/assets/environment/tree_dead_v1.glb',
+  tree_alien:  '/assets/environment/tree_alien_v1.glb',
+  // Rocks
+  rock_boulder:  '/assets/environment/rock_boulder_v1.glb',
+  rock_crystal:  '/assets/environment/rock_crystal_v1.glb',
+  rock_slab:     '/assets/environment/rock_slab_v1.glb',
+  rock_cluster:  '/assets/environment/rock_cluster_v1.glb',
+  // Bushes
+  bush_round:      '/assets/environment/bush_round_v1.glb',
+  bush_spiky:      '/assets/environment/bush_spiky_v1.glb',
+  bush_flowering:  '/assets/environment/bush_flowering_v1.glb',
+};
+
+let envAssetsLoaded = 0;
+const envAssetsTotal = Object.keys(ENV_ASSETS).length;
+
+Object.entries(ENV_ASSETS).forEach(([key, path]) => {
+  gltfLoader.load(path, (gltf) => {
+    // Extract merged geometry for InstancedMesh
+    const geometries = [];
+    const materials = [];
+    gltf.scene.traverse((child) => {
+      if (child.isMesh && child.geometry) {
+        geometries.push(child.geometry.clone());
+        materials.push(child.material.clone());
+      }
+    });
+
+    envAssets[key] = {
+      scene: gltf.scene,
+      geometries,
+      materials,
+      loaded: true,
+    };
+    envAssetsLoaded++;
+    console.log(`ENV LOADED: ${key} (${envAssetsLoaded}/${envAssetsTotal})`);
+
+    // Once all assets loaded, rebuild terrain decoration
+    if (envAssetsLoaded >= envAssetsTotal) {
+      buildTerrainFromGLBs();
+    }
+  }, undefined, (err) => {
+    console.warn(`Env GLB not found: ${key} — keeping procedural fallback`);
+    envAssets[key] = { scene: null, geometries: [], materials: [], loaded: false };
+    envAssetsLoaded++;
+    if (envAssetsLoaded >= envAssetsTotal) {
+      buildTerrainFromGLBs();
+    }
+  });
+});
+
+let terrainRebuilt = false;
+
+function buildTerrainFromGLBs() {
+  if (terrainRebuilt) return;
+  terrainRebuilt = true;
+
+  // Remove old procedural meshes
+  if (typeof trunkInstanced !== 'undefined') {
+    scene.remove(trunkInstanced);
+    trunkInstanced.geometry.dispose();
+    trunkInstanced.material.dispose();
+  }
+  if (typeof leavesInstanced !== 'undefined') {
+    scene.remove(leavesInstanced);
+    leavesInstanced.geometry.dispose();
+    leavesInstanced.material.dispose();
+  }
+  if (typeof rockInstanced !== 'undefined') {
+    scene.remove(rockInstanced);
+    rockInstanced.geometry.dispose();
+    rockInstanced.material.dispose();
+  }
+
+  // Build new GLB-based InstancedMeshes per variant
+  const variantMeshes = {};  // variant_key → InstancedMesh
+  
+  // Helper: get or create InstancedMesh for a variant
+  function getInstancedMesh(variantKey, count) {
+    if (variantMeshes[variantKey]) return variantMeshes[variantKey];
+    const asset = envAssets[variantKey];
+    if (!asset || !asset.loaded || !asset.geometries.length) return null;
+    
+    const geo = asset.geometries[0];
+    const mat = asset.materials[0].clone();
+    mat.roughness = 0.8;
+    
+    const im = new THREE.InstancedMesh(geo, mat, count || 200);
+    im.castShadow = true;
+    im.receiveShadow = true;
+    
+    // Apply GPU wind to tree materials
+    if (variantKey.startsWith('tree_')) {
+      injectWind(mat, {flutterSpeed: 2.2, speciesResponse: 0.18, height: 3.0, swayAmount: 0.05});
+    }
+    
+    scene.add(im);
+    variantMeshes[variantKey] = im;
+    return im;
+  }
+
+  // Count instances per variant
+  const counts = {};
+  const placements = [];  // { variantKey, x, z, h, scale, rotation }
+  
+  // Trees
+  for (let i = 0; i < 200; i++) {
+    const x = (Math.random() - 0.5) * WORLD;
+    const z = (Math.random() - 0.5) * WORLD;
+    const h = getH(x, z);
+    if (h < 1 || h > 10) continue;
+    
+    // Biome selection by height
+    let variant;
+    if (h < 2) variant = 'bush_round';
+    else if (h < 4) variant = Math.random() < 0.5 ? 'tree_oak' : 'bush_flowering';
+    else if (h < 7) variant = Math.random() < 0.6 ? 'tree_pine' : 'tree_oak';
+    else if (h < 9) variant = Math.random() < 0.5 ? 'tree_dead' : 'bush_spiky';
+    else variant = Math.random() < 0.5 ? 'tree_alien' : 'rock_crystal';
+    
+    counts[variant] = (counts[variant] || 0) + 1;
+    placements.push({ variant, x, z, h, scale: 0.8 + Math.random() * 0.5, rotation: Math.random() * Math.PI * 2 });
+  }
+
+  // Rocks
+  for (let i = 0; i < 150; i++) {
+    const x = (Math.random() - 0.5) * WORLD;
+    const z = (Math.random() - 0.5) * WORLD;
+    const h = getH(x, z);
+    if (h < 3) continue;
+    
+    let variant;
+    if (h > 12) variant = Math.random() < 0.4 ? 'rock_crystal' : 'rock_boulder';
+    else if (h > 7) variant = Math.random() < 0.5 ? 'rock_slab' : 'rock_cluster';
+    else variant = Math.random() < 0.5 ? 'rock_boulder' : 'rock_cluster';
+    
+    counts[variant] = (counts[variant] || 0) + 1;
+    placements.push({ variant, x, z, h, scale: 0.6 + Math.random() * 1.4, rotation: Math.random() * Math.PI * 2 });
+  }
+
+  // Bushes in plains
+  for (let i = 0; i < 100; i++) {
+    const x = (Math.random() - 0.5) * WORLD;
+    const z = (Math.random() - 0.5) * WORLD;
+    const h = getH(x, z);
+    if (h < 0.5 || h > 3) continue;
+    
+    const variant = ['bush_round', 'bush_spiky', 'bush_flowering'][Math.floor(Math.random() * 3)];
+    counts[variant] = (counts[variant] || 0) + 1;
+    placements.push({ variant, x, z, h, scale: 0.5 + Math.random() * 1.0, rotation: Math.random() * Math.PI * 2 });
+  }
+
+  // Create InstancedMeshes
+  for (const [variant, count] of Object.entries(counts)) {
+    getInstancedMesh(variant, count);
+  }
+
+  // Place instances
+  const variantCounters = {};
+  for (const p of placements) {
+    const im = variantMeshes[p.variant];
+    if (!im) continue;
+    const idx = variantCounters[p.variant] || 0;
+    if (idx >= im.count) continue;
+    
+    const dummy = new THREE.Object3D();
+    dummy.position.set(p.x, p.h, p.z);
+    dummy.scale.setScalar(p.scale);
+    dummy.rotation.set(0, p.rotation, 0);
+    dummy.updateMatrix();
+    im.setMatrixAt(idx, dummy.matrix);
+    variantCounters[p.variant] = idx + 1;
+  }
+
+  // Update counts and matrices
+  for (const [variant, im] of Object.entries(variantMeshes)) {
+    im.count = variantCounters[variant] || 0;
+    im.instanceMatrix.needsUpdate = true;
+  }
+
+  // Rebuild interaction position arrays for mining/harvesting
+  treePositions.length = 0;
+  rockPositions.length = 0;
+  let treeIdx = 0, rockIdx = 0;
+  for (const p of placements) {
+    if (p.variant.startsWith('tree_') || p.variant.startsWith('bush_')) {
+      const im = variantMeshes[p.variant];
+      const localIdx = (variantCounters[p.variant] || 0) - 1;
+      treePositions.push({ x: p.x, z: p.z, h: p.h, variant: p.variant, im, localIdx, idx: treeIdx++ });
+    } else if (p.variant.startsWith('rock_')) {
+      const im = variantMeshes[p.variant];
+      const localIdx = (variantCounters[p.variant] || 0) - 1;
+      rockPositions.push({ x: p.x, z: p.z, radius: p.scale * 1.5, variant: p.variant, im, localIdx, idx: rockIdx++ });
+    }
+  }
+  // Sort by idx so sequential loops work
+  treePositions.sort((a, b) => a.idx - b.idx);
+  rockPositions.sort((a, b) => a.idx - b.idx);
+
+  // Update harvested sets to match new arrays
+  rocksHarvested.clear();
+  treesHarvested.clear();
+
+  console.log('TERRAIN REBUILT WITH GLBs:', Object.keys(variantMeshes).length, 'variants,', placements.length, 'placements');
+}
+
+// ═══ OUTPOST CHARACTER HUB ═══
+// Spawns 1-2 b_roll characters near the outpost. Which ones depend on
+// faction affinity + gameDay. Characters offer unique interactions on E-key.
+
+const outpostNPCs = [];          // { name, group, characterData, state }
+const npcState = {};             // persistent per-session NPC state
+const OUTPOST_RADIUS = 15;       // player must be within this to see NPCs
+const NPC_DESPAWN_RADIUS = 30;   // NPCs despawn when player is this far
+
+// Which characters appear for which faction (by gameDay cycle)
+const FACTION_NPC_POOL = {
+  kraken:       ['Gorath Vehn', 'Aya Nox'],
+  dim_mak:      ['Sera Qin', 'Kael Vos'],
+  aku_aku:      ['Aya Nox', 'The Twins (Mir + Kor)'],
+  grief_wastes: ['Kael Vos', 'Gorath Vehn'],
+  mecha_station:['The Twins (Mir + Kor)', 'Sera Qin'],
+};
+
+const CHARACTER_INTERACTIONS = {
+  'Sera Qin': {
+    prompt: '[E] ASK SERA QIN FOR INTEL',
+    action: (npc) => {
+      // Reveal nearest datapad location
+      let nearest = null, nearestDist = Infinity;
+      for (const d of datapads) {
+        if (d.recovered) continue;
+        const dist = d.mesh.position.distanceTo(cam.position);
+        if (dist < nearestDist) { nearest = d; nearestDist = dist; }
+      }
+      if (nearest) {
+        notify('SERA QIN: Data pad at ' + Math.floor(nearestDist) + 'm — but someone else knows. Watch your back.');
+        // Spawn a hostile nearby as her "cost"
+        spawnHostile();
+      } else {
+        notify('SERA QIN: Nothing left to find here. Try deeper territory.');
+      }
+    },
+  },
+  'The Twins (Mir + Kor)': {
+    prompt: '[E] TRADE WITH THE TWINS',
+    action: (npc) => {
+      const isKor = Math.random() < 0.4; // 40% chance Kor is fronting
+      if (isKor) {
+        const cost = 200 + Math.floor(Math.random() * 300);
+        if (player.credits >= cost) {
+          player.credits -= cost;
+          player.shield = Math.min(player.maxShield, player.shield + 15);
+          notify('KOR: Pleasure doing business. *skims ' + cost + ' credits* +15 shield');
+        } else {
+          notify('KOR: Come back when you have real money.');
+        }
+      } else {
+        player.shield = Math.min(player.maxShield, player.shield + 25);
+        notify('MIR: Fair trade. +25 shield. No tricks.');
+      }
+    },
+  },
+  'Gorath Vehn': {
+    prompt: '[E] LISTEN TO GORATH VEHN',
+    action: (npc) => {
+      const day = window.gameDay || 1;
+      const remaining = Math.max(1, 30 - day);
+      player.maxHp += 10; player.hp = player.maxHp;
+      notify('GORATH VEHN: Day ' + day + '. ' + remaining + ' remain. Take the advice — but know it serves my purpose too. +10 max HP');
+      // Each visit accelerates his clock (hidden)
+      npc.state.visits = (npc.state.visits || 0) + 1;
+    },
+  },
+  'Kael Vos': {
+    prompt: '[E] SPEAK WITH KAEL VOS',
+    action: (npc) => {
+      if (!npc.state.betrayed) {
+        const trust = Math.random();
+        if (trust < 0.5) {
+          notify('KAEL VOS: I\'ve been watching you. There\'s a back door in my systems. When the time comes — find it.');
+          npc.state.trusted = true;
+          player.credits += 500;
+        } else {
+          notify('KAEL VOS: Don\'t trust anyone out here. Especially me. *He looks away*');
+        }
+      } else {
+        notify('KAEL VOS: You came back. After everything. *He can\'t meet your eyes*');
+      }
+    },
+  },
+  'Aya Nox': {
+    prompt: '[E] CONFRONT AYA NOX',
+    action: (npc) => {
+      if (!npc.state.marked) {
+        npc.state.marked = true;
+        const item = ['energy cell', 'shield booster', 'credit chip', 'datapad fragment'][Math.floor(Math.random()*4)];
+        notify('AYA NOX: I was here first. Left you something — a ' + item + '. Try to keep up.');
+        player.energy = Math.min(player.maxEnergy, player.energy + 25);
+        player.credits += 250;
+      } else {
+        notify('AYA NOX: Still behind me. Some things never change.');
+      }
+    },
+  },
+};
+
+function spawnOutpostNPCs() {
+  // Only spawn if player is near outpost and has signal
+  if (!player.hasSignal) return;
+  const dist = outpostG.position.distanceTo(cam.position);
+  if (dist > OUTPOST_RADIUS) return;
+
+  // Already spawned? Check
+  if (outpostNPCs.length >= 2) return;
+
+  const faction = window.selectedFaction;
+  const pool = faction ? (FACTION_NPC_POOL[faction.id] || []) : [];
+  if (!pool.length) return;
+
+  // Pick 1-2 NPCs not already spawned
+  const available = pool.filter(name => !outpostNPCs.find(n => n.name === name));
+  if (!available.length) return;
+
+  const count = Math.min(available.length, 1 + Math.floor(Math.random() * 2));
+  const picked = [];
+  const shuffled = [...available].sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < count && i < shuffled.length; i++) {
+    const name = shuffled[i];
+    const angle = (i / count) * Math.PI * 2 + Math.random() * 0.3;
+    const radius = 6 + Math.random() * 4;
+    const wx = outpostG.position.x + Math.cos(angle) * radius;
+    const wz = outpostG.position.z + Math.sin(angle) * radius;
+
+    const charData = window.CHARACTERS?.find(c => c.name === name);
+    const entry = spawnCharacter(name, wx, wz);
+
+    // Initialize persistent state
+    if (!npcState[name]) {
+      npcState[name] = { encountered: false, visits: 0, trusted: false, betrayed: false, marked: false };
+    }
+    npcState[name].encountered = true;
+    entry.state = npcState[name];
+    entry.charData = charData;
+
+    outpostNPCs.push(entry);
+    picked.push(name);
+  }
+
+  if (picked.length) {
+    console.log('OUTPOST NPCs SPAWNED:', picked.join(', '));
+  }
+}
+
+function despawnOutpostNPCs() {
+  const dist = outpostG.position.distanceTo(cam.position);
+  if (dist <= NPC_DESPAWN_RADIUS && outpostNPCs.length <= 2) return;
+
+  for (let i = outpostNPCs.length - 1; i >= 0; i--) {
+    const npc = outpostNPCs[i];
+    scene.remove(npc.group);
+    if (npc.label) npc.label.material.map?.dispose();
+    outpostNPCs.splice(i, 1);
+  }
+}
+
+function interactWithNPC() {
+  for (const npc of outpostNPCs) {
+    const dist = npc.group.position.distanceTo(cam.position);
+    if (dist < 5) {
+      const interaction = CHARACTER_INTERACTIONS[npc.name];
+      if (interaction) {
+        interaction.action(npc);
+        // Show character dialogue from their seed
+        if (npc.charData?.dialogue) {
+          showCharacterDialogue(npc.name, npc.charData.dialogue);
+        }
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
+function updateNPCProximityPrompt() {
+  const p = document.getElementById('intPrompt');
+  if (p.textContent) return; // Higher-priority prompt already set
+
+  for (const npc of outpostNPCs) {
+    const dist = npc.group.position.distanceTo(cam.position);
+    if (dist < 5) {
+      const interaction = CHARACTER_INTERACTIONS[npc.name];
+      if (interaction) {
+        p.textContent = interaction.prompt;
+        p.classList.add('s');
+        return;
+      }
+    }
+  }
+}
+
+// ═══ MISSION BOARD SYSTEM ═══
+
+const MISSION_MAP = {
+  'ransom_run':  { char: 'Kael Vos',      giver: 'Kael Vos',          desc: 'Deliver goods to Grief Wastes and survive the ambush.',         reward: {credits:3000,rep:10,shield:20}, enemy: true },
+  'false_flag':  { char: 'Aya Nox',       giver: 'Aya Nox',           desc: 'Swap real cargo on a parallel route before the pirates strike.', reward: {credits:4000,rep:15,energy:30},  enemy: true },
+  'inside_man':  { char: 'Sera Qin',      giver: 'Sera Qin',          desc: 'Feed false info to identify the leak without triggering a raid.', reward: {credits:2500,rep:8,sync:3},     enemy: false },
+  'debt_trap':   { char: 'Gorath Vehn',   giver: 'Gorath Vehn',       desc: 'Run flagged cargo to clear your debt — bribe, reroute, or fight.',  reward: {credits:5000,rep:20,hp:15},     enemy: true },
+  'grey_market': { char: 'The Twins (Mir + Kor)', giver: 'The Twins (Mir + Kor)', desc: 'Source raw materials and protect the chemist from enforcers.',  reward: {credits:3500,rep:12,shield:25},  enemy: true },
+};
+
+let activeMissions = [];           // [{ id, title, character, desc, reward, state:'travel'|'return', objectivePos, markerMesh, progress, twistFired }]
+let completedMissionIds = new Set();
+let missionMarkerMeshes = [];       // world-objective markers
+let missionBoardPromptActive = false;
+const MAX_ACTIVE_MISSIONS = 2;
+
+function getDailyMissions() {
+  const day = window.gameDay || 1;
+  const ids = Object.keys(MISSION_MAP);
+  // Rotate based on day so different missions are available
+  const offset = (day - 1) % ids.length;
+  const rolled = [];
+  for (let i = 0; i < Math.min(2, ids.length); i++) {
+    const id = ids[(offset + i) % ids.length];
+    if (!completedMissionIds.has(id) && !activeMissions.find(m => m.id === id)) {
+      rolled.push(id);
+    }
+  }
+  // Fill with any incomplete if rotation doesn't yield enough
+  if (rolled.length < 2) {
+    for (const id of ids) {
+      if (!completedMissionIds.has(id) && !activeMissions.find(m => m.id === id) && !rolled.includes(id)) {
+        rolled.push(id);
+        if (rolled.length >= 2) break;
+      }
+    }
+  }
+  return rolled.map(id => ({
+    id,
+    title: (window.MISSIONS || window.B_ROLL_MISSIONS)?.find(m => m.id === id)?.title || MISSION_MAP[id]?.title || id.replace(/_/g,' ').toUpperCase(),
+    ...MISSION_MAP[id],
+  }));
+}
+
+function spawnMissionMarker(worldPos, missionId) {
+  const marker = new THREE.Mesh(
+    new THREE.SphereGeometry(1.0, 8, 8),
+    new THREE.MeshBasicMaterial({ color: 0xffd93d, transparent: true, opacity: 0.7 })
+  );
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(1.5, 0.1, 8, 16),
+    new THREE.MeshBasicMaterial({ color: 0xff8800, transparent: true, opacity: 0.5 })
+  );
+  ring.rotation.x = Math.PI / 2;
+  marker.add(ring);
+  marker.position.copy(worldPos);
+  marker.position.y = getH(worldPos.x, worldPos.z) + 2.5;
+  marker.userData.missionId = missionId;
+  scene.add(marker);
+  missionMarkerMeshes.push(marker);
+
+  // Beam effect — thin cylinder of light
+  const beam = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.05, 0.1, 15, 6),
+    new THREE.MeshBasicMaterial({ color: 0xffd93d, transparent: true, opacity: 0.2 })
+  );
+  beam.position.copy(marker.position);
+  beam.position.y += 7.5;
+  marker.add(beam);
+
+  return marker;
+}
+
+function getMissionWorldPos(missionId) {
+  // Place objectives at faction-appropriate locations across the world
+  const positions = {
+    'ransom_run':  new THREE.Vector3( WORLD * 0.4,  0,  WORLD * 0.35),
+    'false_flag':  new THREE.Vector3(-WORLD * 0.25, 0, -WORLD * 0.3),
+    'inside_man':  new THREE.Vector3( WORLD * 0.1,  0, -WORLD * 0.4),
+    'debt_trap':   new THREE.Vector3(-WORLD * 0.35, 0,  WORLD * 0.2),
+    'grey_market': new THREE.Vector3( WORLD * 0.3,  0, -WORLD * 0.2),
+  };
+  return positions[missionId] || new THREE.Vector3((Math.random()-0.5)*WORLD*0.5, 0, (Math.random()-0.5)*WORLD*0.5);
+}
+
+function acceptMission(mission) {
+  if (activeMissions.length >= MAX_ACTIVE_MISSIONS) {
+    notify('MISSION BOARD: Maximum ' + MAX_ACTIVE_MISSIONS + ' active missions. Complete one first.');
+    return false;
+  }
+
+  const pos = getMissionWorldPos(mission.id);
+  const marker = spawnMissionMarker(pos, mission.id);
+
+  const entry = {
+    id: mission.id,
+    title: mission.title,
+    character: mission.char,
+    desc: mission.desc,
+    reward: mission.reward,
+    state: 'travel',      // travel → objective zone reached → complete → return to NPC
+    objectivePos: pos,
+    markerMesh: marker,
+    progress: 0,
+    twistFired: false,
+  };
+  activeMissions.push(entry);
+
+  // Show HUD objective
+  updateMissionHUD();
+
+  notify('MISSION ACCEPTED: ' + mission.title.toUpperCase() + ' — ' + mission.char);
+  console.log('Mission accepted:', mission.id, 'objective at', pos);
+  return true;
+}
+
+function completeMissionObjective(mission) {
+  mission.state = 'return';
+  mission.progress = 1;
+
+  // Remove world marker
+  if (mission.markerMesh) {
+    scene.remove(mission.markerMesh);
+    const idx = missionMarkerMeshes.indexOf(mission.markerMesh);
+    if (idx >= 0) missionMarkerMeshes.splice(idx, 1);
+  }
+
+  notify('OBJECTIVE COMPLETE — Return to ' + mission.character + ' at outpost for reward.');
+
+  // Fire mission-specific NPC state changes
+  const npc = npcState[mission.character];
+  if (!npc) return;
+
+  switch (mission.id) {
+    case 'ransom_run':
+      npc.trusted = true;
+      break;
+    case 'false_flag':
+      npc.marked = true; // Aya knows you can handle risk
+      break;
+    case 'inside_man':
+      npc.trusted = true;
+      break;
+    case 'debt_trap':
+      npc.visits = (npc.visits || 0) + 1;
+      break;
+    case 'grey_market':
+      // Twins: mission outcome tells you which personality you dealt with
+      npc.marked = true;
+      break;
+  }
+
+  updateMissionHUD();
+}
+
+function deliverMissionReward(mission) {
+  const reward = mission.reward;
+  player.credits += reward.credits || 0;
+  player.shield = Math.min(player.maxShield, player.shield + (reward.shield || 0));
+  player.energy = Math.min(player.maxEnergy, player.energy + (reward.energy || 0));
+  player.hp = Math.min(player.maxHp, player.hp + (reward.hp || 0));
+  player.sync = Math.min(100, player.sync + (reward.sync || 0));
+
+  // NPC dialogue reaction
+  const charData = window.CHARACTERS?.find(c => c.name === mission.character);
+  if (charData?.dialogue) {
+    showCharacterDialogue(mission.character, charData.dialogue);
+  }
+
+  // Fire mission-specific twists
+  if (!mission.twistFired) {
+    mission.twistFired = true;
+    switch (mission.id) {
+      case 'ransom_run':
+        notify('KAEL VOS: You survived. You\'re dangerous. I like that. +3000cr');
+        break;
+      case 'false_flag':
+        notify('AYA NOX: You chose the hard route. Of course you did. +4000cr');
+        break;
+      case 'inside_man':
+        notify('SERA QIN: The leak is plugged. For now. +2500cr');
+        break;
+      case 'debt_trap':
+        notify('GORATH VEHN: Debt cleared. Day ' + (window.gameDay||1) + ' of 30. Ticking. +5000cr');
+        break;
+      case 'grey_market':
+        const twin = Math.random() < 0.5 ? 'Mir' : 'Kor';
+        notify(twin + ': The chemist is safe. The choice is yours. +3500cr');
+        break;
+    }
+  }
+
+  // Advance game day — missions take time
+  window.gameDay = (window.gameDay || 1) + 1;
+
+  completedMissionIds.add(mission.id);
+  activeMissions.splice(activeMissions.indexOf(mission), 1);
+  updateMissionHUD();
+
+  notify('MISSION COMPLETE: ' + mission.title.toUpperCase());
+}
+
+function updateMissionBoard() {
+  // Only prompt near outpost with signal
+  if (!player.hasSignal) return;
+  const dist = outpostG.position.distanceTo(cam.position);
+  if (dist > 15) { missionBoardPromptActive = false; return; }
+
+  const available = getDailyMissions();
+  if (available.length === 0 && activeMissions.length === 0) {
+    missionBoardPromptActive = false;
+    return;
+  }
+
+  missionBoardPromptActive = true;
+}
+
+function updateMissionObjectives() {
+  // Check if player is near any active mission objective
+  for (const m of activeMissions) {
+    if (m.state !== 'travel') continue;
+    const dist = cam.position.distanceTo(m.objectivePos);
+    if (dist < 10) {
+      completeMissionObjective(m);
+      break;
+    }
+  }
+}
+
+function interactWithMissionBoard() {
+  if (!missionBoardPromptActive) return false;
+
+  const available = getDailyMissions();
+
+  // Show mission board modal
+  let modal = document.getElementById('mission-board-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'mission-board-modal';
+    modal.style.cssText = `
+      position: fixed; inset: 0; background: rgba(1,4,8,0.94);
+      z-index: 10001; display: none; align-items: center; justify-content: center;
+      flex-direction: column; color: #e0e0e0; font-family: 'Share Tech Mono', monospace;
+    `;
+    modal.innerHTML = `
+      <div style="background:rgba(8,12,30,0.95); border:1px solid #8b5cf6; padding:24px; border-radius:8px; width:520px; text-align:center; box-shadow:0 0 25px rgba(139,92,246,0.25);">
+        <h2 style="color:#8b5cf6; font-family:Orbitron; font-size:14px; letter-spacing:3px; margin-bottom:4px;">MISSION BOARD</h2>
+        <div style="font-size:10px; opacity:0.4; margin-bottom:16px;">DAY <span id="mb-day">1</span> — <span id="mb-active">0</span>/2 ACTIVE</div>
+        <div id="mb-available"></div>
+        <div id="mb-active-list" style="margin-top:12px; border-top:1px solid rgba(139,92,246,0.15); padding-top:12px;"></div>
+        <button id="mb-close" style="margin-top:16px; padding:8px 20px; background:rgba(139,92,246,0.1); border:1px solid #8b5cf6; color:#8b5cf6; font-family:Orbitron; font-size:11px; letter-spacing:2px; border-radius:4px; cursor:pointer;">CLOSE</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('mb-close').onclick = () => {
+      modal.style.display = 'none';
+      controls.lock();
+    };
+  }
+
+  document.getElementById('mb-day').textContent = window.gameDay || 1;
+  document.getElementById('mb-active').textContent = activeMissions.length;
+
+  // Populate available missions
+  const availDiv = document.getElementById('mb-available');
+  availDiv.innerHTML = '';
+
+  if (available.length === 0 && activeMissions.length === 0) {
+    availDiv.innerHTML = '<div style="padding:20px;opacity:0.4;font-size:11px;">NO MISSIONS AVAILABLE — TRAVEL FURTHER TO UNLOCK</div>';
+  } else {
+    available.forEach(m => {
+      const card = document.createElement('div');
+      card.style.cssText = 'background:rgba(10,20,30,0.8); border:1px solid rgba(139,92,246,0.2); padding:10px 14px; border-radius:5px; margin-bottom:6px; text-align:left; cursor:pointer; transition:all 0.2s;';
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span style="color:#ffd700; font-weight:bold; font-size:12px;">${m.title}</span>
+            <span style="color:#8aa1b5; font-size:9px; margin-left:6px;">— ${m.char}</span>
+          </div>
+          <span style="color:#8b5cf6; font-size:10px;">+${m.reward.credits}cr</span>
+        </div>
+        <div style="font-size:9px; color:#8aa1b5; margin-top:4px;">${m.desc}</div>
+      `;
+      card.onmouseover = () => { card.style.borderColor = '#8b5cf6'; card.style.background = 'rgba(139,92,246,0.12)'; };
+      card.onmouseout = () => { card.style.borderColor = 'rgba(139,92,246,0.2)'; card.style.background = 'rgba(10,20,30,0.8)'; };
+      card.onclick = (e) => {
+        e.stopPropagation();
+        if (acceptMission(m)) {
+          modal.style.display = 'none';
+          controls.lock();
+        }
+      };
+      availDiv.appendChild(card);
+    });
+  }
+
+  // Show active missions
+  const activeDiv = document.getElementById('mb-active-list');
+  activeDiv.innerHTML = '';
+  if (activeMissions.length) {
+    let html = '<div style="font-size:9px; opacity:0.4; margin-bottom:6px; letter-spacing:2px;">ACTIVE MISSIONS</div>';
+    activeMissions.forEach(m => {
+      const stateLabel = m.state === 'travel' ? '◈ TRAVEL TO OBJECTIVE' : '◈ RETURN TO ' + m.character;
+      html += `<div style="display:flex; justify-content:space-between; padding:4px 0; font-size:10px; border-bottom:1px solid rgba(139,92,246,0.08);">
+        <span style="color:#ffd700;">${m.title}</span>
+        <span style="color:${m.state === 'return' ? '#88ffcc' : '#ff9f43'}">${stateLabel}</span>
+      </div>`;
+    });
+    activeDiv.innerHTML = html;
+  }
+
+  controls.unlock();
+  modal.style.display = 'flex';
+  return true;
+}
+
+function updateMissionHUD() {
+  // Update the HUD objective panel with active mission info
+  const oPrim = document.getElementById('oPrim');
+  if (!oPrim) return;
+
+  if (activeMissions.length > 0) {
+    const m = activeMissions[0];
+    const stateLabel = m.state === 'travel' ? '◈ ' + Math.floor(cam.position.distanceTo(m.objectivePos)/1000*10)/10 + ' km' : '▶ RETURN TO OUTPOST';
+    oPrim.innerHTML = `<span>◆</span><span>${m.title}</span><span class="d" id="oMissionDist">${stateLabel}</span>`;
+  } else {
+    if (!player.hasSignal) {
+      oPrim.innerHTML = '<span>◈</span><span>Locate Outpost Signal</span><span class="d" id="oDist">' + (outpostG.position.distanceTo(cam.position)/1000).toFixed(1) + ' km</span>';
+    } else {
+      oPrim.innerHTML = '<span>◈</span><span>Visit Outpost Hub</span><span class="d">COMPLETE</span>';
+    }
+  }
+}
+
+function interactWithMissionReturn() {
+  // Check if player is near an NPC with a deliverable mission
+  for (const m of activeMissions) {
+    if (m.state !== 'return') continue;
+    for (const npc of outpostNPCs) {
+      if (npc.name !== m.character) continue;
+      const dist = npc.group.position.distanceTo(cam.position);
+      if (dist < 6) {
+        deliverMissionReward(m);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function updateMissionReturnPrompt() {
+  const p = document.getElementById('intPrompt');
+  if (p.textContent) return;
+  for (const m of activeMissions) {
+    if (m.state !== 'return') continue;
+    for (const npc of outpostNPCs) {
+      if (npc.name !== m.character) continue;
+      const dist = npc.group.position.distanceTo(cam.position);
+      if (dist < 6) {
+        p.textContent = '[E] REPORT TO ' + m.character.toUpperCase();
+        p.classList.add('s');
+        return;
+      }
+    }
+  }
+}
+
+
+// ═══ ACHIEVEMENT SYSTEM ═══
+window._achievements = window._achievements || {};
+const ACHIEVEMENTS = {
+  'first_blood': {name:'First Blood', desc:'Kill your first hostile', icon:'⚔'},
+  'scavenger': {name:'Scavenger', desc:'Collect 5 loot drops', icon:'💎'},
+  'explorer': {name:'Explorer', desc:'Travel 2000m from origin', icon:'🗺'},
+  'millionaire': {name:'Tycoon', desc:'Accumulate 50000 credits', icon:'💰'},
+  'wildlife_seer': {name:'Wildlife Seer', desc:'Scan all 6 wildlife', icon:'🔍'},
+  'datapad_hunter': {name:'Data Hunter', desc:'Recover 3 datapads', icon:'📡'},
+  'boss_slayer': {name:'Boss Slayer', desc:'Defeat a boss', icon:'👑'},
+  'survivor': {name:'Survivor', desc:'Reach day 10', icon:'🏆'},
+  'rich': {name:'Deep Pockets', desc:'Hold 100k credits', icon:'💵'},
+  'warmonger': {name:'Warmonger', desc:'Kill 25 hostiles', icon:'💀'},
+};
+
+function unlockAchievement(id) {
+  if (window._achievements[id]) return;
+  window._achievements[id] = Date.now();
+  const a = ACHIEVEMENTS[id];
+  if (!a) return;
+  const toast = document.getElementById('achieve-toast');
+  toast.querySelector('.t').textContent = a.icon + ' ' + a.name;
+  toast.querySelector('.d').textContent = a.desc;
+  toast.classList.add('s');
+  setTimeout(() => toast.classList.remove('s'), 4000);
+  notify('ACHIEVEMENT: ' + a.name);
+}
+
+function checkAchievements() {
+  if (player.hostilesKilled >= 1) unlockAchievement('first_blood');
+  if (player.hostilesKilled >= 25) unlockAchievement('warmonger');
+  if (player.wildlifeScanned >= 6) unlockAchievement('wildlife_seer');
+  if (player.datapadsRec >= 3) unlockAchievement('datapad_hunter');
+  if (player.credits >= 50000) unlockAchievement('millionaire');
+  if (player.credits >= 100000) unlockAchievement('rich');
+  if ((window.gameDay || 1) >= 10) unlockAchievement('survivor');
+  const dist = cam.position.distanceTo(new THREE.Vector3(0,0,0));
+  if (dist > 2000) unlockAchievement('explorer');
+  window._lootCollected = window._lootCollected || 0;
+  if (window._lootCollected >= 5) unlockAchievement('scavenger');
+}
+
+gltfLoader.load(
+  '/mecha_knee_rebuild.glb',
+  (gltf) => {
+    // 1. Create outpost artifact — solid cyan, static
+    const kneeOutpost = gltf.scene;
+    kneeOutpost.scale.set(4.0, 4.0, 4.0);
+    kneeOutpost.position.set(WORLD * 0.3, getH(WORLD * 0.3, WORLD * 0.3) + 3.0, WORLD * 0.2);
+    
+    // 2. Clone to create spawn preview — animated sprite texture
+    const kneeSpawn = kneeOutpost.clone();
+    kneeSpawn.scale.set(1.8, 1.8, 1.8);
+    kneeSpawn.position.set(0, 4.5, -8.0);
+    
+    // Outpost: solid cyan
+    const applySolid = (rootObj, colorHex, glowHex) => {
+      rootObj.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          child.material = new THREE.MeshStandardMaterial({
+            color: colorHex, roughness: 0.1, metalness: 0.9,
+            flatShading: true, emissive: glowHex, emissiveIntensity: 0.6
+          });
+        }
+      });
+    };
+    
+    // Spawn preview: sprite sheet texture
+    const applySpriteTexture = (rootObj) => {
+      rootObj.traverse((child) => {
+        if (child.isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+          child.material = new THREE.MeshStandardMaterial({
+            map: spriteTex,
+            roughness: 0.3,
+            metalness: 0.6,
+            emissive: 0x442244,
+            emissiveIntensity: 0.3,
+            emissiveMap: spriteTex
+          });
+        }
+      });
+    };
+    
+    applySolid(kneeOutpost, 0x00ffcc, 0x002b22);
+    applySpriteTexture(kneeSpawn);
+    
+    scene.add(kneeOutpost);
+    scene.add(kneeSpawn);
+    window.menuKneeBracket = kneeSpawn;
+    console.log("Successfully loaded mecha_knee_rebuild.glb with sprite texture!");
+  },
+  undefined,
+  (error) => {
+    console.error("Error loading mecha_knee_rebuild.glb:", error);
+  }
+);
+
 // PROJECTILES
 const projs = [];
+const drops = [];
+const rocksHarvested = new Set();
+const treesHarvested = new Set();
+
+// Ambient dust — floating particles that pulse with the scene breath
+window._particles = [];
+for (let i = 0; i < 40; i++) {
+  const dot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 4, 4),
+    new THREE.MeshBasicMaterial({color: 0xd4a574, transparent: true, opacity: 0.4, depthWrite: false})
+  );
+  dot.position.set((Math.random()-0.5)*30, Math.random()*8, (Math.random()-0.5)*30);
+  dot.userData = { baseY: dot.position.y, phase: Math.random()*Math.PI*2, speed: 0.3+Math.random()*0.7 };
+  scene.add(dot);
+  window._particles.push(dot);
+}
 
 // PLAYER STATE
 const player = {
@@ -308,6 +1847,7 @@ const player = {
   wildlifeScanned: 0, hostilesKilled: 0, datapadsRec: 0, hasSignal: false,
   yVel: 0, onGround: true,
 };
+window.breathe = 0.8;
 const weapons = [
   {name:'Plasma Rifle',dmg:25,range:200,rate:200,auto:true},
   {name:'SMG',dmg:12,range:150,rate:100,auto:true},
@@ -317,6 +1857,323 @@ const weapons = [
   {name:'Scanner',dmg:0,range:80,rate:300,auto:false},
 ];
 
+
+// ═══ MINIMAP SYSTEM ═══
+function updateMinimap() {
+  const canvas = document.getElementById('minimap-canvas');
+  if (!canvas || canvas.style.display === 'none') return;
+  // Throttle: only redraw every 10th call (~6fps on 60Hz)
+  window._mmFrame = (window._mmFrame || 0) + 1;
+  if (window._mmFrame % 10 !== 0) return;
+  const ctx = canvas.getContext('2d');
+  const w = 180, h = 180;
+  const scale = 0.04; // world units per pixel
+  const cx = w/2, cy = h/2;
+  
+  ctx.clearRect(0, 0, w, h);
+  
+  // Background
+  ctx.fillStyle = 'rgba(5,15,25,0.85)';
+  ctx.fillRect(0, 0, w, h);
+  
+  const px = cam.position.x, pz = cam.position.z;
+  
+  // Draw terrain points
+  for (let x = -w/2; x < w/2; x += 4) {
+    for (let y = -h/2; y < h/2; y += 4) {
+      const wx = px + x / scale;
+      const wz = pz + y / scale;
+      const hh = getH(wx, wz);
+      let col;
+      if (hh < 0) col = '#1a3050';
+      else if (hh < 5) col = '#2a4a2a';
+      else if (hh < 12) col = '#404040';
+      else col = '#505050';
+      ctx.fillStyle = col;
+      ctx.fillRect(cx + x - 2, cy + y - 2, 4, 4);
+    }
+  }
+  
+  // Outpost
+  const odx = (outpostG.position.x - px) * scale;
+  const odz = (outpostG.position.z - pz) * scale;
+  if (Math.abs(odx) < w/2 && Math.abs(odz) < h/2) {
+    ctx.fillStyle = '#ff6b6b';
+    ctx.fillRect(cx + odx - 2, cy + odz - 2, 5, 5);
+    ctx.strokeStyle = '#ff6b6b';
+    ctx.strokeRect(cx + odx - 4, cy + odz - 4, 9, 9);
+  }
+  
+  // Hostiles
+  hostiles.forEach((h, i) => {
+    if (!h.alive) return;
+    const hdx = (hostileMeshes[i].position.x - px) * scale;
+    const hdz = (hostileMeshes[i].position.z - pz) * scale;
+    if (Math.abs(hdx) < w/2 && Math.abs(hdz) < h/2) {
+      ctx.fillStyle = h.isBoss ? '#ff0000' : '#ff4444';
+      ctx.beginPath();
+      ctx.arc(cx + hdx, cy + hdz, h.isBoss ? 3 : 2, 0, Math.PI*2);
+      ctx.fill();
+    }
+  });
+  
+  // Missions
+  activeMissions.forEach(m => {
+    if (m.state !== 'travel') return;
+    const mdx = (m.objectivePos.x - px) * scale;
+    const mdz = (m.objectivePos.z - pz) * scale;
+    if (Math.abs(mdx) < w/2 && Math.abs(mdz) < h/2) {
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.arc(cx + mdx, cy + mdz, 3, 0, Math.PI*2);
+      ctx.fill();
+      ctx.strokeStyle = '#ffd700';
+      ctx.stroke();
+    }
+  });
+  
+  // Player (center dot)
+  ctx.fillStyle = '#8b5cf6';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 3, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx, cy, 1.5, 0, Math.PI*2);
+  ctx.fill();
+  
+  // Direction indicator
+  const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(cam.quaternion);
+  ctx.strokeStyle = '#8b5cf6';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(cx + dir.x * 12, cy + dir.z * 12);
+  ctx.stroke();
+}
+
+// ═══ INVENTORY SYSTEM ═══
+window._inventory = window._inventory || [];
+
+function toggleInventory() {
+  const panel = document.getElementById('inv-panel');
+  if (panel.style.display === 'flex') {
+    panel.style.display = 'none';
+    controls.lock();
+  } else {
+    controls.unlock();
+    panel.style.display = 'flex';
+    renderInventory();
+  }
+}
+
+function addToInventory(item, count) {
+  const existing = window._inventory.find(i => i.id === item);
+  if (existing) {
+    existing.count += count;
+  } else {
+    window._inventory.push({id: item, count});
+  }
+}
+
+function hasInInventory(item, count) {
+  const existing = window._inventory.find(i => i.id === item);
+  return existing && existing.count >= (count || 1);
+}
+
+function removeFromInventory(item, count) {
+  const existing = window._inventory.find(i => i.id === item);
+  if (!existing) return false;
+  existing.count -= count || 1;
+  if (existing.count <= 0) window._inventory = window._inventory.filter(i => i.id !== item);
+  return true;
+}
+
+const ITEM_ICONS = {
+  'scrap_metal': '⚙', 'energy_cell': '⚡', 'shield_plate': '🛡',
+  'circuit_board': '🔌', 'alien_artifact': '👽', 'data_fragment': '💾',
+  'titanium': '🔩', 'plasma_coil': '🔮', 'repair_kit': '🔧',
+  'boss_essence': '👑'
+};
+
+function renderInventory() {
+  const grid = document.getElementById('inv-grid');
+  grid.innerHTML = '';
+  window._inventory.forEach(item => {
+    const slot = document.createElement('div');
+    slot.className = 'inv-slot';
+    slot.innerHTML = `<span class="ico">${ITEM_ICONS[item.id] || '📦'}</span><span class="cnt">${item.count}x</span><span style="font-size:8px;opacity:0.6">${item.id.replace(/_/g,' ')}</span>`;
+    slot.title = item.id.replace(/_/g, ' ');
+    slot.onclick = () => useInventoryItem(item.id);
+    grid.appendChild(slot);
+  });
+  // Fill remaining slots
+  for (let i = window._inventory.length; i < 24; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'inv-slot';
+    slot.innerHTML = '<span style="opacity:0.2;font-size:20px">·</span>';
+    grid.appendChild(slot);
+  }
+  document.getElementById('inv-credits').textContent = 'CREDITS: ' + (player.credits/1000).toFixed(1) + 'k';
+  
+  let weight = 0;
+  window._inventory.forEach(i => weight += i.count * 2);
+  document.getElementById('inv-weight').textContent = 'WEIGHT: ' + weight + '/250kg';
+}
+
+function useInventoryItem(itemId) {
+  switch(itemId) {
+    case 'energy_cell':
+      if (removeFromInventory('energy_cell')) {
+        player.energy = Math.min(player.maxEnergy, player.energy + 30);
+        notify('USED ENERGY CELL +30');
+      }
+      break;
+    case 'repair_kit':
+      if (removeFromInventory('repair_kit')) {
+        player.suitStatus = Math.min(100, player.suitStatus + 40);
+        player.hp = Math.min(player.maxHp, player.hp + 25);
+        notify('USED REPAIR KIT');
+      }
+      break;
+    case 'shield_plate':
+      if (removeFromInventory('shield_plate')) {
+        player.shield = Math.min(player.maxShield, player.shield + 40);
+        notify('USED SHIELD PLATE +40');
+      }
+      break;
+    default:
+      notify('CANNOT USE: ' + itemId.replace(/_/g, ' '));
+  }
+  renderInventory();
+}
+
+// Add loot to inventory when collecting
+
+// ═══ WEAPON UPGRADE SYSTEM ═══
+window._weaponUpgrades = window._weaponUpgrades || {};
+
+function upgradeWeapon(slot) {
+  if (document.getElementById('upgrade-menu')) document.getElementById('upgrade-menu').querySelector('#upg-msg').textContent = 'UPGRADING...';
+  const cost = 5000 + ((window._weaponUpgrades[slot] || 0) * 3000);
+  if (player.credits < cost) {
+    notify('NEED ' + (cost/1000).toFixed(1) + 'k CREDITS (have ' + (player.credits/1000).toFixed(1) + 'k)');
+    return;
+  }
+  player.credits -= cost;
+  window._weaponUpgrades[slot] = (window._weaponUpgrades[slot] || 0) + 1;
+  const w = weapons[slot];
+  const lvl = window._weaponUpgrades[slot];
+  // Upgrade: 15% more damage per level
+  w.dmg = Math.floor(w.dmg * (1 + lvl * 0.15));
+  if (w.name === 'Medkit') w.dmg = 40 + lvl * 15;  // "dmg" is heal amount
+  if (w.name === 'Shield Cell') w.dmg = 50 + lvl * 20;
+  notify(w.name.toUpperCase() + ' LVL ' + lvl + ' (' + (cost/1000).toFixed(1) + 'k)');
+}
+window._upgradeWeapon = upgradeWeapon;
+
+
+function toggleUpgradeMenu() {
+  let menu = document.getElementById('upgrade-menu');
+  if (menu) {
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    if (menu.style.display === 'flex') controls.unlock();
+    else controls.lock();
+    return;
+  }
+  menu = document.createElement('div');
+  menu.id = 'upgrade-menu';
+  menu.style.cssText = 'position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;background:rgba(2,6,16,0.92);backdrop-filter:blur(12px)';
+  let html = '<div style="background:rgba(8,12,30,0.95);border:1px solid #8b5cf6;padding:20px;border-radius:8px;text-align:center;box-shadow:0 0 25px rgba(139,92,246,0.25)">';
+  html += '<h2 style="font-family:Orbitron;color:#8b5cf6;font-size:14px;letter-spacing:3px;margin-bottom:12px">WEAPON UPGRADES</h2>';
+  html += '<div style="display:flex;flex-wrap:wrap;gap:8px;max-width:400px">';
+  weapons.forEach((w, i) => {
+    const lvl = window._weaponUpgrades[i] || 0;
+    const cost = 5000 + lvl * 3000;
+    html += `<div style="background:rgba(10,20,30,0.8);border:1px solid rgba(139,92,246,0.2);padding:10px;border-radius:6px;width:120px;cursor:pointer" onclick="window._upgradeWeapon(${i}); this.parentElement.parentElement.querySelector('#upg-msg').textContent='UPGRADED ' + '${w.name.toUpperCase()}'">
+      <div style="font-family:Orbitron;font-size:10px;color:#ffd700">${w.name}</div>
+      <div style="font-size:9px;color:#8aa1b5">LVL ${lvl} | DMG ${w.dmg}</div>
+      <div style="font-size:8px;color:#8b5cf6">${(cost/1000).toFixed(1)}k CR</div>
+    </div>`;
+  });
+  html += '</div><div id="upg-msg" style="margin-top:8px;font-size:10px;color:#88ffcc;height:16px"></div>';
+  html += '<button onclick="document.getElementById('upgrade-menu').style.display='none';document.body.requestPointerLock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [U]</button>';
+  html += '</div>';
+  menu.innerHTML = html;
+  document.body.appendChild(menu);
+  controls.unlock();
+}
+
+function collectLoot(type) {
+  const lootMap = {
+    'ammo': 'scrap_metal',
+    'energy': 'energy_cell', 
+    'shield': 'shield_plate',
+    'credits': 'data_fragment'
+  };
+  const item = lootMap[type] || 'scrap_metal';
+  addToInventory(item, 1);
+}
+
+
+
+// ═══ SAVE/LOAD SYSTEM — localStorage persistence ═══
+function saveGame() {
+  const state = {
+    player: {...player},
+    gameDay: window.gameDay || 1,
+    faction: window.selectedFactionIndex || 0,
+    completedMissions: [...completedMissionIds],
+    npcState: {...npcState},
+    rocksHarvested: [...rocksHarvested],
+    treesHarvested: [...treesHarvested],
+    achievements: window._achievements || {},
+    inventory: window._inventory || [],
+    weaponUpgrades: window._weaponUpgrades || {},
+    timestamp: Date.now()
+  };
+  localStorage.setItem('nova_horizon_save', JSON.stringify(state));
+  notify('GAME SAVED');
+  console.log('SAVED:', state.player.credits + 'cr, Day ' + state.gameDay);
+}
+
+function loadGame() {
+  const raw = localStorage.getItem('nova_horizon_save');
+  if (!raw) { notify('NO SAVE FOUND'); return; }
+  const state = JSON.parse(raw);
+  
+  // Restore player
+  Object.assign(player, state.player);
+  window.gameDay = state.gameDay;
+  window.selectedFactionIndex = state.faction;
+  completedMissionIds = new Set(state.completedMissions || []);
+  Object.assign(npcState, state.npcState || {});
+  rocksHarvested.clear(); (state.rocksHarvested||[]).forEach(i => rocksHarvested.add(i));
+  treesHarvested.clear(); (state.treesHarvested||[]).forEach(i => treesHarvested.add(i));
+  window._achievements = state.achievements || {};
+  window._inventory = state.inventory || [];
+  window._weaponUpgrades = state.weaponUpgrades || {};
+  
+  // Update visual state
+  updateHotbar();
+  updateHUD();
+  checkObjs();
+  
+  // Move camera near outpost
+  cam.position.set(outpostG.position.x + 5, getH(outpostG.position.x+5, outpostG.position.z+5)+2.5, outpostG.position.z + 5);
+  
+  notify('GAME LOADED — Day ' + state.gameDay);
+  console.log('LOADED:', state.player.credits + 'cr');
+}
+
+function deleteSave() {
+  localStorage.removeItem('nova_horizon_save');
+  notify('SAVE DELETED');
+}
+
+// Initialize inventory
+window._inventory = window._inventory || [];
+window._weaponUpgrades = window._weaponUpgrades || {};
+
 // INPUT
 const keys = {};
 document.addEventListener('keydown', e => {
@@ -324,6 +2181,12 @@ document.addEventListener('keydown', e => {
   if (e.key >= '1' && e.key <= '6') { player.weapon = parseInt(e.key)-1; updateHotbar(); }
   if (e.key.toLowerCase() === 'e') interact();
   if (e.key.toLowerCase() === ' ') { if (player.onGround) player.yVel = 0.4; }
+  if (e.key === 'Escape') togglePause();
+  if (e.key === 'F5') { e.preventDefault(); saveGame(); }
+  if (e.key === 'F9') { e.preventDefault(); loadGame(); }
+  if (e.key.toLowerCase() === 'm') { const mm = document.getElementById('minimap-canvas'); mm.style.display = mm.style.display === 'none' ? 'block' : 'none'; }
+  if (e.key.toLowerCase() === 'i') { toggleInventory(); }
+  if (e.key.toLowerCase() === 'u' && player.hasSignal) { toggleUpgradeMenu(); }
 });
 document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 let mouseDown = false;
@@ -339,27 +2202,205 @@ function animate(time) {
   const dt = Math.min(time - (animate._last || time), 50);
   animate._last = time;
 
-  if (controls.isLocked) update(dt);
-  updateHUD();
+  // Animate sprite sheet on mecha knee
+  updateSpriteAnimation(dt * 0.001);
+
+  // Idle breathe animation on spawn preview — subtle float, no rotation
+  if (window.menuKneeBracket) {
+    window.menuKneeBracket.position.y = 4.5 + window.breathe * 0.3;
+    // outpost knee stays static — it's a world object
+  }
+  // GPU wind — update uniforms, zero per-instance JS
+  windUniforms.uTime.value += dt * 0.001;
+  windUniforms.uCameraPos.value.copy(cam.position);
+  
+  // Parallax sky dome uniforms
+  skyMat.uniforms.uCameraPos.value.copy(cam.position);
+  skyMat.uniforms.uBreathe.value = window.breathe;
+  skyMat.uniforms.uTime.value = time * 0.001;
+
+  // Ambient pulse — breathing light strobe on scene + HUD outline
+  window.breathe = 0.8 + Math.sin(time * 0.0015) * 0.2;
+  ambientPulse.intensity = 0.9 + Math.sin(time * 0.0015) * 0.3;
+  // Audio sync — drone hum follows breath
+  if (window._droneOsc && window._droneGain) {
+    window._droneOsc.frequency.value = 48 + window.breathe * 18;
+    window._droneGain.gain.value = 0.02 + window.breathe * 0.04;
+  }
+  document.querySelectorAll('.hud-panel').forEach(el => {
+    el.style.boxShadow = `0 0 ${8 + window.breathe * 12}px rgba(139,92,246,${0.15 + window.breathe * 0.2})`;
+  });
+  // Particle size pulse — all spawned particles scale with breath
+  if (window._particles) {
+    window._particles.forEach(p => {
+      if (p.material) p.material.opacity = 0.15 + window.breathe * 0.55;
+      // Float and follow camera loosely
+      p.position.x += (cam.position.x + (Math.sin(time*0.001 + p.userData.phase) * 15) - p.position.x) * 0.02;
+      p.position.z += (cam.position.z + (Math.cos(time*0.001 + p.userData.phase) * 15) - p.position.z) * 0.02;
+      p.position.y = p.userData.baseY + cam.position.y + Math.sin(time*0.002 + p.userData.phase) * 2;
+    });
+  }
+
+  // ═══ Animate spawned characters — face player, float, clean up distant ones ═══
+  for (let i = activeCharacters.length - 1; i >= 0; i--) {
+    const ac = activeCharacters[i];
+    const dx = cam.position.x - ac.group.position.x;
+    const dz = cam.position.z - ac.group.position.z;
+    const dist = Math.sqrt(dx * dx + dz * dz);
+
+    // Remove characters that are too far away
+    if (dist > 80) {
+      scene.remove(ac.group);
+      if (ac.label) ac.label.material.map?.dispose();
+      activeCharacters.splice(i, 1);
+      continue;
+    }
+
+    // Face the player
+    ac.group.lookAt(cam.position.x, ac.group.position.y, cam.position.z);
+
+    // Float with the breathe waveform
+    ac.group.position.y = getH(ac.group.position.x, ac.group.position.z) + Math.sin(time * 0.002 + i) * 0.3;
+
+    // Slowly drift toward player if close enough
+    if (dist < 50) {
+      ac.group.position.x += dx * 0.003;
+      ac.group.position.z += dz * 0.003;
+    }
+
+    // Update label to always face camera
+    if (ac.label) {
+      ac.label.position.y = 2.5 + Math.sin(time * 0.002 + i) * 0.2;
+    }
+  }
+
+  // ═══ Outpost NPC lifecycle ═══
+  despawnOutpostNPCs();
+  spawnOutpostNPCs();
+  // ═══ Minimap ═══
+  updateMinimap();
+    // ═══ Boss lifecycle ═══
+  updateBossBar();
+  checkBossSpawning();
+    // ═══ Mission Board lifecycle ═══
+  updateMissionBoard();
+  updateMissionObjectives();
+
+  // Center sky dome on camera position
+  if (typeof sky !== 'undefined') {
+    sky.position.set(cam.position.x, cam.position.y * 0.1, cam.position.z);
+  }
+
+  window._time = time;
+  if (controls.isLocked && !gamePaused) update(dt);
+  if (gamePaused) updateHUD(); // still update HUD on pause in case stats change
+  else updateHUD();
   renderer.render(scene, cam);
 }
 
 function update(dt) {
+  // Damage flash decay
+  if (player._dmgFlash > 0) { player._dmgFlash -= dt; if (player._dmgFlash <= 0) document.getElementById('dmg').style.opacity = '0'; }
+
+  // ═══ DAY/NIGHT CYCLE — real lighting changes ═══
+  const dayProgress = ((window.gameDay || 1) * 0.3 + (window._time || 0) * 0.00003) % 1;
+  const dayBrightness = 0.4 + Math.sin(dayProgress * Math.PI * 2) * 0.6;
+  sun.intensity = 0.3 + dayBrightness * 1.5;
+  sun.color.setHSL(0.12, 0.4, 0.3 + dayBrightness * 0.5);
+  ambientPulse.intensity = 0.3 + dayBrightness * 0.6;
+  scene.fog.density = 0.0006 - dayBrightness * 0.0003;
+  // Sky brightness tied to cycle
+  skyMat.uniforms.uBreathe.value = window.breathe * (0.5 + dayBrightness * 0.5);
+  
+  // ═══ WEATHER SYSTEM — cycles every 5 game days ═══
+  const weatherSeed = Math.floor((window.gameDay || 1) / 5);
+  const weatherPhase = ((window.gameDay || 1) * 3 + weatherSeed * 7) % 12;
+  window._weather = window._weather || {type:'clear', intensity:0, transition:0};
+  let targetType = 'clear';
+  if (weatherPhase < 6) targetType = 'clear';
+  else if (weatherPhase < 8) targetType = 'overcast';
+  else if (weatherPhase < 10) targetType = 'rain';
+  else targetType = 'storm';
+  
+  if (window._weather.type !== targetType) {
+    window._weather.transition += dt * 0.0001;
+    if (window._weather.transition >= 1) {
+      window._weather.type = targetType;
+      window._weather.transition = 0;
+    }
+  }
+  
+  const weatherFX = document.getElementById('weather-fx');
+  if (window._weather.type === 'rain') {
+    weatherFX.style.opacity = '0.15';
+    weatherFX.style.background = 'linear-gradient(180deg, transparent 0%, rgba(100,150,255,0.1) 50%, transparent 100%)';
+    // Rain slows movement
+    player._weatherSlow = 0.85;
+  } else if (window._weather.type === 'storm') {
+    weatherFX.style.opacity = '0.3';
+    weatherFX.style.background = 'linear-gradient(180deg, rgba(20,20,50,0.5) 0%, rgba(80,100,200,0.2) 50%, rgba(20,20,50,0.5) 100%)';
+    player._weatherSlow = 0.65;
+    // Storm damages shield slowly
+    if (Math.random() < 0.01) player.shield = Math.max(0, player.shield - 0.5);
+  } else if (window._weather.type === 'overcast') {
+    weatherFX.style.opacity = '0.08';
+    weatherFX.style.background = 'rgba(30,30,40,0.3)';
+    player._weatherSlow = 0.95;
+  } else {
+    weatherFX.style.opacity = '0';
+    player._weatherSlow = 1.0;
+  }
+  
+  // Day ticks and random events based on distance
+  const currentDist = cam.position.distanceTo(new THREE.Vector3(0, cam.position.y, 0));
+  if (window.gameDay !== undefined) {
+    const currentDayIdx = Math.floor(currentDist / 800) + 1;
+    if (currentDayIdx > window.gameDay) {
+      window.gameDay = currentDayIdx;
+      const ev = window.GameDesignCore.rollEvent(window.selectedFactionIndex || 0);
+      if (ev) {
+        triggerTransplantEvent(ev);
+      }
+    }
+  }
+
   const forward = keys['w'] ? 1 : keys['s'] ? -1 : 0;
   const right = keys['d'] ? 1 : keys['a'] ? -1 : 0;
-  const speed = 0.35;
+  const speed = 0.35 * (player.suitSpeed ? player.suitSpeed / 3.5 : 1.0) * (player._weatherSlow || 1.0) * dt * 0.06;
   if (forward || right) {
     const move = new THREE.Vector3(right, 0, forward).normalize().multiplyScalar(speed);
     move.applyQuaternion(cam.quaternion);
     const nx = cam.position.x + move.x;
     const nz = cam.position.z + move.z;
-    const h = getH(nx, nz);
-    cam.position.x = nx;
-    cam.position.z = nz;
+    
+    // Structure and Rock collision checking
+    let collides = false;
+    
+    // 1. Outpost tower collision
+    const dx = nx - outpostG.position.x;
+    const dz = nz - outpostG.position.z;
+    if (Math.sqrt(dx * dx + dz * dz) < 4.0) collides = true;
+    
+    // 2. Rock obstacles collision
+    if (typeof rockPositions !== 'undefined') {
+      for (let r of rockPositions) {
+        const rx = nx - r.x;
+        const rz = nz - r.z;
+        if (Math.sqrt(rx * rx + rz * rz) < r.radius) {
+          collides = true;
+          break;
+        }
+      }
+    }
+    
+    if (!collides) {
+      cam.position.x = nx;
+      cam.position.z = nz;
+    }
   }
 
   // Gravity
-  player.yVel -= 0.015;
+  player.yVel -= 0.015 * dt * 0.06;
   cam.position.y += player.yVel;
   const gh = getH(cam.position.x, cam.position.z) + 2.5;
   if (cam.position.y < gh) { cam.position.y = gh; player.yVel = 0; player.onGround = true; }
@@ -376,7 +2417,7 @@ function update(dt) {
   // Projectiles
   for (let i = projs.length-1; i >= 0; i--) {
     const p = projs[i];
-    p.mesh.position.add(p.vel.clone().multiplyScalar(0.8));
+    p.mesh.position.add(p.vel.clone().multiplyScalar(0.8 * dt * 0.06));
     p.life -= dt;
     if (p.life <= 0 || p.mesh.position.y < getH(p.mesh.position.x, p.mesh.position.z)-1) {
       scene.remove(p.mesh); p.mesh.geometry.dispose(); projs.splice(i,1); continue;
@@ -392,9 +2433,31 @@ function update(dt) {
           if (hostiles[j].hp <= 0) {
             hostileMeshes[j].visible = false;
             hostiles[j].alive = false;
-            player.hostilesKilled++;
+            hostiles[j].deathTime = Date.now();
+            player.hostilesKilled++; checkObjs();
             player.credits += 150;
             spawnParticles(hostileMeshes[j].position, '#ffd93d', 20);
+            if (hostiles[j].isBoss) { unlockAchievement('boss_slayer'); player.credits += 5000; notify('BOSS DEFEATED! +5000 CREDITS'); }
+
+            // Loot drop — glowing orb with random reward
+            const lootGeo = new THREE.SphereGeometry(0.35, 8, 8);
+            const lootMat = new THREE.MeshStandardMaterial({color:0xffd700, emissive:0x553300, emissiveIntensity:0.7, roughness:0.2});
+            const loot = new THREE.Mesh(lootGeo, lootMat);
+            loot.position.copy(hostileMeshes[j].position);
+            loot.position.y += 1.5;
+            loot.userData = {
+              isLoot: true,
+              reward: ['ammo','energy','shield','credits'][Math.floor(Math.random()*4)],
+              value: [12, 25, 30, 200][Math.floor(Math.random()*4)],
+              life: 30
+            };
+            scene.add(loot);
+            drops.push(loot);
+            
+            // Audio trigger
+            if (window.audioCtx) {
+              window.GameDesignCore.playProceduralExplosion(window.audioCtx, window.audioCtx.currentTime);
+            }
           }
           break;
         }
@@ -407,31 +2470,159 @@ function update(dt) {
     }
   }
 
-  // Hostile AI
+  // ═══ HOSTILE AI v2.0 — state-based patrol/chase/attack/flee ═══
   for (let i = 0; i < hostiles.length; i++) {
     const h = hostiles[i];
     if (!h.alive) continue;
     const m = hostileMeshes[i];
     const dist = m.position.distanceTo(cam.position);
-    if (dist < 100) {
-      m.lookAt(cam.position);
-      if (dist > 15) {
-        const dir = cam.position.clone().sub(m.position).normalize();
-        m.position.add(dir.multiplyScalar(h.speed));
+    
+    // Init AI state
+    h._aiState = h._aiState || 'patrol';
+    h._aiTimer = (h._aiTimer || 0) - dt;
+    h._patrolTarget = h._patrolTarget || m.position.clone();
+    
+    const weatherSlow = player._weatherSlow || 1.0;
+    const effectiveSpeed = h.speed * (h._aiState === 'chase' ? 2.0 : h._aiState === 'flee' ? 1.5 : 1.0);
+    
+    if (dist < 80) {
+      if (h.isBoss) {
+        // Boss always chases
+        h._aiState = 'chase';
+      } else if (dist < 20) {
+        h._aiState = h.hp < h.maxHp * 0.3 ? 'flee' : 'chase';
+      } else if (dist < 50) {
+        h._aiState = Math.random() < 0.02 ? 'patrol' : 'chase';
+      } else {
+        h._aiState = 'patrol';
       }
-      h.fireTimer -= dt;
-      if (h.fireTimer <= 0) {
+      
+      m.lookAt(cam.position.x, m.position.y, cam.position.z);
+      
+      if (h._aiState === 'chase' && dist > 12) {
         const dir = cam.position.clone().sub(m.position).normalize();
-        const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.3, 6, 6), new THREE.MeshBasicMaterial({color:'#ff4444'}));
-        pMesh.position.copy(m.position).add(dir.clone().multiplyScalar(3));
-        scene.add(pMesh);
-        projs.push({mesh: pMesh, vel: dir.clone().multiplyScalar(2), life: 2000, dmg: 8, friendly: false});
-        h.fireTimer = 800;
+        m.position.add(dir.multiplyScalar(effectiveSpeed * dt * 0.06));
+      } else if (h._aiState === 'flee') {
+        const dir = m.position.clone().sub(cam.position).normalize();
+        m.position.add(dir.multiplyScalar(effectiveSpeed * dt * 0.06));
+      } else if (h._aiState === 'patrol') {
+        if (h._aiTimer <= 0) {
+          h._patrolTarget.set(
+            m.position.x + (Math.random() - 0.5) * 40,
+            m.position.y,
+            m.position.z + (Math.random() - 0.5) * 40
+          );
+          h._aiTimer = 2000 + Math.random() * 3000;
+        }
+        const patrolDir = h._patrolTarget.clone().sub(m.position).normalize();
+        m.position.add(patrolDir.multiplyScalar(effectiveSpeed * 0.5 * dt * 0.06));
+      }
+      
+      // Fire at player when in chase mode and in range
+      if (h._aiState === 'chase' && dist < 60) {
+        h.fireTimer -= dt;
+        const fireRate = h.isBoss ? 300 : 800;
+        if (h.fireTimer <= 0) {
+          const dir = cam.position.clone().sub(m.position).normalize();
+          const dmg = h.isBoss ? 15 : 8;
+          const color = h.isBoss ? '#ff0000' : '#ff4444';
+          const pMesh = new THREE.Mesh(new THREE.SphereGeometry(h.isBoss ? 0.5 : 0.3, 6, 6), new THREE.MeshBasicMaterial({color}));
+          pMesh.position.copy(m.position).add(dir.clone().multiplyScalar(3));
+          scene.add(pMesh);
+          projs.push({mesh: pMesh, vel: dir.clone().multiplyScalar(h.isBoss ? 3 : 2), life: 2000, dmg, friendly: false});
+          h.fireTimer = fireRate;
+        }
       }
     }
     // Keep above terrain
     const gh = getH(m.position.x, m.position.z) + 4;
     if (m.position.y < gh) m.position.y = gh;
+    
+    // AI state indicator ring color
+    const ring = m.children[0];
+    if (ring) {
+      if (h.isBoss) ring.material.color.set('#ff0000');
+      else if (h._aiState === 'chase') ring.material.color.set('#ff4444');
+      else if (h._aiState === 'flee') ring.material.color.set('#ffaa00');
+      else ring.material.color.set('#884444');
+    }
+  }
+
+
+// ═══ BOSS SYSTEM — elite hostiles with health bars and special drops ═══
+function spawnBoss(x, z) {
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(2.5, 2), new THREE.MeshStandardMaterial({color:'#440000',emissive:'#220000',emissiveIntensity:0.6,roughness:0.3}));
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(3, 0.3, 8, 24), new THREE.MeshBasicMaterial({color:'#ff0000'}));
+  body.add(ring);
+  const crown = new THREE.Mesh(new THREE.ConeGeometry(2, 3, 6), new THREE.MeshStandardMaterial({color:'#ff4444',emissive:'#440000',emissiveIntensity:0.8}));
+  crown.position.y = 2.5;
+  body.add(crown);
+  body.castShadow = true;
+  body.position.set(x, getH(x,z)+5, z);
+  scene.add(body);
+  
+  const idx = hostiles.length;
+  hostileMeshes.push(body);
+  hostiles.push({
+    mesh: body, hp: 300, maxHp: 300, speed: 0.04, fireTimer: 0, alive: true,
+    isBoss: true, name: 'OVERLORD ' + ['ZEK','THRAX','VORN','MALAK'][Math.floor(Math.random()*4)]
+  });
+  
+  document.getElementById('boss-bar').style.display = 'flex';
+  document.getElementById('boss-bar').querySelector('.name').textContent = hostiles[idx].name;
+  
+  notify('⚠ BOSS ENCOUNTER: ' + hostiles[idx].name + ' ⚠');
+  return idx;
+}
+
+function updateBossBar() {
+  const boss = hostiles.find(h => h.alive && h.isBoss);
+  const bar = document.getElementById('boss-bar');
+  if (!boss) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+  bar.querySelector('.name').textContent = boss.name;
+  document.getElementById('boss-fill').style.width = (boss.hp / boss.maxHp * 100) + '%';
+}
+
+// Boss spawns every 5 game days when far from outpost
+
+function spawnHostile() {
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshStandardMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4}));
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.15, 8, 16), new THREE.MeshBasicMaterial({color:'#ff0000'}));
+  body.add(ring);
+  body.castShadow = true;
+  const a = Math.random() * Math.PI * 2;
+  body.position.set(cam.position.x + Math.cos(a) * 30, getH(cam.position.x+Math.cos(a)*30, cam.position.z+Math.sin(a)*30)+4, cam.position.z + Math.sin(a) * 30);
+  scene.add(body);
+  hostileMeshes.push(body);
+  hostiles.push({mesh: body, hp: 60, maxHp: 60, speed: 0.06, fireTimer: 0, alive: true});
+}
+
+function checkBossSpawning() {
+  if (hostiles.some(h => h.alive && h.isBoss)) return; // Only one boss at a time
+  const day = window.gameDay || 1;
+  if (day % 5 !== 0) return;
+  // Guard: only spawn once per qualifying day
+  if (window._bossSpawnedDay === day) return;
+  window._bossSpawnedDay = day;
+  const distFromOutpost = cam.position.distanceTo(outpostG.position);
+  if (distFromOutpost < 200) return;
+  
+  const angle = Math.random() * Math.PI * 2;
+  const d = 80 + Math.random() * 60;
+  spawnBoss(cam.position.x + Math.cos(angle) * d, cam.position.z + Math.sin(angle) * d);
+}
+
+  // Hostile respawn after 30s near player
+  for (let i = 0; i < hostiles.length; i++) {
+    const h = hostiles[i];
+    if (!h.alive && Date.now() - (h.deathTime || 0) > 30000) {
+      const a = Math.random() * Math.PI * 2;
+      const d = 60 + Math.random() * 100;
+      hostileMeshes[i].position.set(cam.position.x+Math.cos(a)*d, getH(cam.position.x+Math.cos(a)*d,cam.position.z+Math.sin(a)*d)+4, cam.position.z+Math.sin(a)*d);
+      h.hp = 40; h.alive = true; h.deathTime = 0;
+      hostileMeshes[i].visible = true;
+    }
   }
 
   // Wildlife wander
@@ -439,24 +2630,55 @@ function update(dt) {
     const w = wildlife[i];
     const m = wildMeshes[i];
     w.angle += (Math.random()-0.5)*0.03;
-    m.position.x += Math.cos(w.angle)*w.speed;
-    m.position.z += Math.sin(w.angle)*w.speed;
+    m.position.x += Math.cos(w.angle)*w.speed * dt * 0.06;
+    m.position.z += Math.sin(w.angle)*w.speed * dt * 0.06;
     const gh = getH(m.position.x, m.position.z) + 2;
     m.position.y = gh;
   }
 
-  // Shield recharge
-  if (player.shield < player.maxShield && player.energy > 10) {
-    player.shield = Math.min(player.maxShield, player.shield + 0.03);
-    player.energy -= 0.005;
+  // Loot pickup — auto-collect nearby drops
+  for (let i = drops.length-1; i >= 0; i--) {
+    const d = drops[i];
+    d.userData.life -= dt;
+    d.position.y += Math.sin(Date.now()*0.003) * 0.003; // gentle bob
+    if (d.userData.life <= 0) { scene.remove(d); d.geometry.dispose(); drops.splice(i,1); continue; }
+    if (d.position.distanceTo(cam.position) < 3) {
+      const r = d.userData.reward;
+      const v = d.userData.value;
+      if (r === 'ammo') { player.ammo[player.weapon] += v; updateHotbar(); notify('+'+v+' AMMO'); collectLoot(r); }
+      else if (r === 'energy') { player.energy = Math.min(player.maxEnergy, player.energy + v); notify('+'+v+' ENERGY'); collectLoot(r); }
+      else if (r === 'shield') { player.shield = Math.min(player.maxShield, player.shield + v); notify('+'+v+' SHIELD'); collectLoot(r); }
+      else { player.credits += v; notify('+'+v+' CREDITS'); collectLoot(r); }
+      scene.remove(d); d.geometry.dispose(); drops.splice(i,1); window._lootCollected = (window._lootCollected||0)+1;
+    }
   }
 
+  // Shield recharge (dt-normalized to 60fps)
+  if (player.shield < player.maxShield && player.energy > 10) {
+    player.shield = Math.min(player.maxShield, player.shield + 0.03 * dt * 0.06);
+    player.energy -= 0.005 * dt * 0.06;
+  }
+
+  // Suit repair: slow recovery when shield near full
+  if (player.shield >= player.maxShield * 0.9 && player.energy > 50 && player.suitStatus < 100) {
+    player.energy -= 3 * dt * 0.001;
+    player.suitStatus = Math.min(100, player.suitStatus + 8 * dt * 0.001);
+  }
+
+  // Achievement checks
+  checkAchievements();
   updateInteract();
 }
 
 function fire() {
   const w = weapons[player.weapon];
   if (player.ammo[player.weapon] <= 0) return;
+
+  // Audio trigger
+  if (window.audioCtx) {
+    window.GameDesignCore.playProceduralLaser(window.audioCtx, window.audioCtx.currentTime);
+  }
+
   if (w.dmg === 0) {
     if (w.name === 'Medkit') player.hp = Math.min(player.maxHp, player.hp + 40);
     if (w.name === 'Shield Cell') player.shield = Math.min(player.maxShield, player.shield + 50);
@@ -469,7 +2691,7 @@ function fire() {
   const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(cam.quaternion);
   const spread = w.name === 'SMG' ? 0.06 : 0.02;
   dir.x += (Math.random()-0.5)*spread; dir.y += (Math.random()-0.5)*spread;
-  const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.2, 6, 6), new THREE.MeshBasicMaterial({color:'#00ffcc'}));
+  const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.2, 6, 6), new THREE.MeshBasicMaterial({color:'#d4a574'}));
   pMesh.position.copy(cam.position).add(dir.clone().multiplyScalar(2));
   scene.add(pMesh);
   projs.push({mesh: pMesh, vel: dir.clone().multiplyScalar(4), life: w.range*3, dmg: w.dmg, friendly: true});
@@ -477,16 +2699,22 @@ function fire() {
 }
 
 function spawnParticles(pos, color, count) {
-  for (let i = 0; i < count; i++) {
-    const p = new THREE.Mesh(new THREE.SphereGeometry(0.15, 4, 4), new THREE.MeshBasicMaterial({color}));
+  const mult = window.breathe || 1.0;
+  const n = Math.floor(count * (0.6 + mult * 0.4));
+  for (let i = 0; i < n; i++) {
+    const size = 0.1 + mult * 0.15;
+    const p = new THREE.Mesh(new THREE.SphereGeometry(size, 4, 4), new THREE.MeshBasicMaterial({color, transparent: true, opacity: 0.6, depthWrite: false}));
     p.position.copy(pos);
     p.userData = {vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, vz:(Math.random()-0.5)*0.2, life: 300};
     scene.add(p);
-    setTimeout(() => { scene.remove(p); p.geometry.dispose(); }, 300);
+    window._particles.push(p);
+    setTimeout(() => { scene.remove(p); p.geometry.dispose(); window._particles = window._particles.filter(x => x !== p); }, 300);
   }
 }
 
 function takeDamage(amount) {
+  // MECHA SUIT v3.0 armor — 10% damage reduction from validated plating
+  if (player.suitDamageReduction) amount *= (1 - player.suitDamageReduction);
   if (player.shield > 0) {
     const absorb = Math.min(player.shield, amount*0.7);
     player.shield -= absorb;
@@ -494,12 +2722,50 @@ function takeDamage(amount) {
   }
   player.hp -= amount;
   player.suitStatus = Math.max(0, player.suitStatus - amount*0.3);
-  document.getElementById('dmg').style.opacity = '1';
-  setTimeout(() => document.getElementById('dmg').style.opacity = '0', 200);
-  if (player.hp <= 0) { player.hp = player.maxHp; cam.position.set(0, getH(0,0)+2.5, 0); notify('SUIT REBOOTED'); }
+  player._dmgFlash = 200; document.getElementById('dmg').style.opacity = '1';
+  if (player.hp <= 0) { player.hp = player.maxHp; player.shield = player.maxShield; cam.position.set(0, getH(0,0)+2.5, 0); hostiles.forEach(h => { h.alive = false; h.deathTime = 0; }); notify('SUIT REBOOTED — HOSTILES RESET'); }
 }
 
 function interact() {
+  // ═══ Mission Board — check first (at outpost terminal) ═══
+  if (interactWithMissionBoard()) return;
+
+  // ═══ Deliver mission reward to NPC ═══
+  if (interactWithMissionReturn()) return;
+
+  // ═══ Outpost NPC interaction — check first ═══
+  if (interactWithNPC()) return;
+
+  // Mine rocks — break for minerals
+  for (let i = 0; i < rockPositions.length; i++) {
+    if (rocksHarvested.has(i)) continue;
+    const r = rockPositions[i];
+    const dist = Math.hypot(cam.position.x - r.x, cam.position.z - r.z);
+    if (dist < 5) {
+      rocksHarvested.add(i);
+      // Hide instance by moving underground
+      dummy.position.set(0, -999, 0); dummy.scale.setScalar(0.01); dummy.updateMatrix();
+      if (r.im) { r.im.setMatrixAt(r.localIdx, dummy.matrix); r.im.instanceMatrix.needsUpdate = true; }
+      const minerals = 50 + Math.floor(Math.random() * 150);
+      player.credits += minerals;
+      notify('MINED +' + minerals + ' CREDITS');
+      return;
+    }
+  }
+  // Harvest trees — chop for energy
+  for (let i = 0; i < treePositions.length; i++) {
+    if (treesHarvested.has(i)) continue;
+    const t = treePositions[i];
+    const dist = Math.hypot(cam.position.x - t.x, cam.position.z - t.z);
+    if (dist < 5) {
+      treesHarvested.add(i);
+      dummy.position.set(0, -999, 0); dummy.scale.setScalar(0.01); dummy.updateMatrix();
+      if (t.im) { t.im.setMatrixAt(t.localIdx, dummy.matrix); t.im.instanceMatrix.needsUpdate = true; }
+      player.energy = Math.min(player.maxEnergy, player.energy + 30);
+      notify('HARVESTED +30 ENERGY');
+      return;
+    }
+  }
   // Scan wildlife
   for (let i = 0; i < wildlife.length; i++) {
     const w = wildlife[i];
@@ -520,17 +2786,50 @@ function interact() {
       checkObjs(); return;
     }
   }
-  // Outpost
-  if (!player.hasSignal && outpostG.position.distanceTo(cam.position) < 15) {
-    player.hasSignal = true; player.credits += 2000; player.level++;
-    notify('SIGNAL ACQUIRED');
-    checkObjs();
+  // Outpost — civilian front hub after signal acquired
+  if (outpostG.position.distanceTo(cam.position) < 15) {
+    if (!player.hasSignal) {
+      player.hasSignal = true; player.credits += 2000; player.level++;
+      notify('SIGNAL ACQUIRED');
+      checkObjs();
+    } else {
+      // Outpost cooldown: 60s between visits
+      const now = Date.now();
+      if (player._lastOutpostVisit && now - player._lastOutpostVisit < 60000) {
+        notify('OUTPOST COOLING DOWN — ' + Math.ceil((60000 - (now - player._lastOutpostVisit))/1000) + 's');
+        return;
+      }
+      player._lastOutpostVisit = now;
+      // Civilian front: random business from loaded module
+      const fronts = window.TRADE_DINERS || window.LAUNDROMATS || window.CIVILIAN_FRONTS || [];
+      if (fronts.length) {
+        const biz = fronts[Math.floor(Math.random() * fronts.length)];
+        player.credits += 300;
+        player.shield = Math.min(player.maxShield, player.shield + 20);
+        player.suitStatus = 100; // Outpost is the repair bay
+        notify(biz.name ? biz.name.toUpperCase() + ' — FULLY REPAIRED & RESTOCKED' : 'OUTPOST — FULLY REPAIRED & RESTOCKED');
+      }
+    }
   }
 }
 
 function updateInteract() {
   const p = document.getElementById('intPrompt');
   let txt = '';
+  // Rock mining prompt
+  for (let i = 0; i < rockPositions.length; i++) {
+    if (rocksHarvested.has(i)) continue;
+    const r = rockPositions[i];
+    if (Math.hypot(cam.position.x - r.x, cam.position.z - r.z) < 5) { txt = '[E] MINE ROCK'; break; }
+  }
+  // Tree harvest prompt
+  if (!txt) {
+    for (let i = 0; i < treePositions.length; i++) {
+      if (treesHarvested.has(i)) continue;
+      const t = treePositions[i];
+      if (Math.hypot(cam.position.x - t.x, cam.position.z - t.z) < 5) { txt = '[E] HARVEST TREE'; break; }
+    }
+  }
   for (let i = 0; i < wildlife.length; i++) {
     if (!wildlife[i].scanned && wildMeshes[i].position.distanceTo(cam.position) < 15 && player.weapon === 5) {
       txt = '[E] SCAN WILDLIFE'; break;
@@ -542,7 +2841,15 @@ function updateInteract() {
     }
   }
   if (!txt && !player.hasSignal && outpostG.position.distanceTo(cam.position) < 15) txt = '[E] ACQUIRE SIGNAL';
+  if (!txt && player.hasSignal && outpostG.position.distanceTo(cam.position) < 15) {
+    if (missionBoardPromptActive) txt = '[E] MISSION BOARD';
+    else txt = '[E] VISIT OUTPOST HUB';
+  }
   p.textContent = txt; p.classList.toggle('s', !!txt);
+  // Check for mission return prompt (higher priority than NPC chat)
+  if (!txt) updateMissionReturnPrompt();
+  // Check for NPC proximity prompts (won't override existing prompt)
+  if (!txt) updateNPCProximityPrompt();
 }
 
 function checkObjs() {
@@ -569,20 +2876,41 @@ function updateHotbar() {
 }
 
 function updateHUD() {
+  const factionName = window.selectedFaction ? window.selectedFaction.name : 'NO FACTION';
+  const rankName = window.GameDesignCore ? window.GameDesignCore.getRank(player.credits, 'vanguard', window.gameDay || 1) : 'Petty Smuggler';
+  
+  // Update logo text dynamically with selected faction
+  const logoDesc = document.querySelector('.logo span');
+  if (logoDesc) logoDesc.innerHTML = `// FACTION: <strong style="color:#ffd700">${factionName.toUpperCase()}</strong> | DAY: ${window.gameDay || 1}`;
+
   document.getElementById('sCred').textContent = (player.credits/1000).toFixed(1)+'k';
-  document.getElementById('sLvl').textContent = player.level;
+  document.getElementById('sLvl').textContent = rankName;
+  const lvlLabel = document.querySelector('.st:nth-child(2) .l');
+  if (lvlLabel) lvlLabel.textContent = 'Rank';
+  
   document.getElementById('sSync').textContent = player.sync+'%';
   const sp = player.suitStatus;
   document.getElementById('suitP').textContent = Math.floor(sp)+'%';
   document.getElementById('suitC').style.strokeDashoffset = 176*(1-sp/100);
   if (sp < 30) document.getElementById('suitC').style.stroke = '#ff6b6b';
   else if (sp < 60) document.getElementById('suitC').style.stroke = '#ff9f43';
-  else document.getElementById('suitC').style.stroke = '#00d4aa';
+  else document.getElementById('suitC').style.stroke = '#8b5cf6';
   document.getElementById('bHp').style.width = (player.hp/player.maxHp*100)+'%';
   document.getElementById('bSh').style.width = (player.shield/player.maxShield*100)+'%';
   document.getElementById('bEn').style.width = (player.energy/player.maxEnergy*100)+'%';
-  const dist = outpostG.position.distanceTo(cam.position)/1000;
-  document.getElementById('oDist').textContent = player.hasSignal ? 'COMPLETE' : dist.toFixed(1)+' km';
+  updateMissionHUD();
+  const distEl = document.getElementById('oDist');
+  if (distEl) {
+    const dist = outpostG.position.distanceTo(cam.position)/1000;
+    distEl.textContent = player.hasSignal ? 'COMPLETE' : dist.toFixed(1)+' km';
+  }
+  const h = getH(cam.position.x, cam.position.z);
+  const t = 18 + Math.floor(h * 2);
+  const cond = h < 0 ? 'FROST' : h < 5 ? 'CLEAR' : h < 15 ? 'WIND' : 'STORM';
+  const icons = {FROST:'❄', CLEAR:'☀', WIND:'💨', STORM:'⛈'};
+  document.getElementById('wTemp').textContent = t + '°C';
+  document.getElementById('wDesc').textContent = cond;
+  document.getElementById('wIcon').textContent = icons[cond] || '☁';
 }
 
 updateHotbar();
