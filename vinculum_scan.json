@@ -1,15 +1,15 @@
 {
-  "total_files": 9321,
-  "total_vinculums": 875222,
+  "total_files": 8989,
+  "total_vinculums": 828420,
   "patterns": {
-    "fraction": 42894,
-    "group_brace": 256527,
-    "auto_close": 446615,
-    "chain": 64341,
-    "hyphen_bind": 53867,
-    "overline": 4611,
-    "repeat": 4323,
-    "negation": 2044
+    "fraction": 41582,
+    "group_brace": 240603,
+    "auto_close": 418601,
+    "chain": 63805,
+    "hyphen_bind": 53449,
+    "overline": 4271,
+    "repeat": 4074,
+    "negation": 2035
   },
   "projects": {
     "acoustic_archive": {
@@ -108,29 +108,14 @@
       "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 533,
-      "v": 63206,
-      "kb": 3811.087890625
+      "files": 530,
+      "v": 62962,
+      "kb": 3794.0458984375
     },
     "erdos-straus": {
-      "files": 182,
-      "v": 30072,
-      "kb": 2222.8701171875
-    },
-    "erdos-straus-push": {
-      "files": 17,
-      "v": 2071,
-      "kb": 102.5908203125
-    },
-    "erdos-straus-solver": {
-      "files": 132,
-      "v": 17934,
-      "kb": 1006.5595703125
-    },
-    "erdos_straus_animation": {
-      "files": 1,
-      "v": 264,
-      "kb": 14.6240234375
+      "files": 5,
+      "v": 3863,
+      "kb": 208.232421875
     },
     "ernie_agent": {
       "files": 1,
@@ -244,7 +229,7 @@
     },
     "project_manager": {
       "files": 4,
-      "v": 1151,
+      "v": 1178,
       "kb": 140.1796875
     },
     "quantum_garden": {
@@ -298,9 +283,9 @@
       "kb": 50.9384765625
     },
     "trench_builder": {
-      "files": 228,
-      "v": 28966,
-      "kb": 1975.14453125
+      "files": 226,
+      "v": 28859,
+      "kb": 1968.0087890625
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -581,5 +566,5 @@
       ]
     }
   ],
-  "runtime_s": 100.8
+  "runtime_s": 70.6
 }
