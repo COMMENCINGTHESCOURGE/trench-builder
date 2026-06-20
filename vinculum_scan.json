@@ -1,15 +1,15 @@
 {
-  "total_files": 9264,
-  "total_vinculums": 869195,
+  "total_files": 9318,
+  "total_vinculums": 877272,
   "patterns": {
-    "fraction": 42559,
-    "group_brace": 256055,
-    "auto_close": 440745,
-    "chain": 64168,
-    "hyphen_bind": 54919,
-    "overline": 4424,
-    "repeat": 4282,
-    "negation": 2043
+    "fraction": 42856,
+    "group_brace": 257467,
+    "auto_close": 446663,
+    "chain": 64309,
+    "hyphen_bind": 55006,
+    "overline": 4611,
+    "repeat": 4316,
+    "negation": 2044
   },
   "projects": {
     "acoustic_archive": {
@@ -108,14 +108,14 @@
       "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 517,
-      "v": 62680,
-      "kb": 3710.830078125
+      "files": 529,
+      "v": 63060,
+      "kb": 3778.66796875
     },
     "erdos-straus": {
-      "files": 150,
-      "v": 28331,
-      "kb": 2211.775390625
+      "files": 185,
+      "v": 33967,
+      "kb": 2515.630859375
     },
     "erdos-straus-push": {
       "files": 17,
@@ -123,9 +123,9 @@
       "kb": 102.5908203125
     },
     "erdos-straus-solver": {
-      "files": 130,
-      "v": 17561,
-      "kb": 987.4248046875
+      "files": 132,
+      "v": 17934,
+      "kb": 1006.5595703125
     },
     "erdos_straus_animation": {
       "files": 1,
@@ -163,9 +163,9 @@
       "kb": 12651.8505859375
     },
     "hyperpoly-terrain": {
-      "files": 28,
-      "v": 4112,
-      "kb": 256.5185546875
+      "files": 29,
+      "v": 4441,
+      "kb": 272.3388671875
     },
     "kaggle_submissions": {
       "files": 5,
@@ -273,9 +273,9 @@
       "kb": 20.669921875
     },
     "starfield_v3": {
-      "files": 1,
-      "v": 183,
-      "kb": 12.83984375
+      "files": 4,
+      "v": 1324,
+      "kb": 72.580078125
     },
     "SubstrateDeltaSieve": {
       "files": 2,
@@ -294,8 +294,8 @@
     },
     "trench_builder": {
       "files": 228,
-      "v": 27752,
-      "kb": 1903.3056640625
+      "v": 27718,
+      "kb": 1900.376953125
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -316,6 +316,11 @@
       "files": 8,
       "v": 1205,
       "kb": 106.3095703125
+    },
+    "xpbd_solver": {
+      "files": 1,
+      "v": 252,
+      "kb": 9.8994140625
     }
   },
   "top_files": [
@@ -571,5 +576,5 @@
       ]
     }
   ],
-  "runtime_s": 87.2
+  "runtime_s": 126.2
 }
