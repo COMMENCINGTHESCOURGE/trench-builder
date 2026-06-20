@@ -17,6 +17,7 @@ Output:
 import json
 import math
 import os
+from datetime import date
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Tuple
@@ -395,7 +396,7 @@ def main():
         "metadata": {
             "generator": "scithary-genrator",
             "version": "1.0.0",
-            "generated_at": "2026-06-15",
+            "generated_at": date.today().isoformat(),
             "source": "trench_builder",
             "input_summary": {
                 "total_regions": len(projects),
