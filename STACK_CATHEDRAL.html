@@ -215,7 +215,7 @@ class Game {
     this.chains=new THREE.InstancedMesh(cGeo,cMat,this.chainCount);
     for(let i=0;i<this.chainCount;i++){
       const a=Math.random()*Math.PI*2,r=150+Math.random()*300;
-      this.chainData.push({pos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+22,Math.sin(a)*r),hp:120,//chain//chain//chain//chain//chain//chain//chain//chainactive:true,type:'circular'});
+      this.chainData.push({pos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+22,Math.sin(a)*r),hp:120,//chain//chain//chain//chain//chain//chain//chain//chain//chainactive:true,type:'circular'});
     }
     this.scene.add(this.chains);
 
@@ -223,14 +223,14 @@ class Game {
     this.conflicts=new THREE.InstancedMesh(cfGeo,cfMat,this.conflictCount);
     for(let i=0;i<this.conflictCount;i++){
       const a=Math.random()*Math.PI*2,r=200+Math.random()*400;
-      this.conflictData.push({pos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+28,Math.sin(a)*r),hp:350,//conflict//conflict//conflict//conflict//conflict//conflict//conflict//conflictactive:true,type:'conflict'});
+      this.conflictData.push({pos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+28,Math.sin(a)*r),hp:350,//conflict//conflict//conflict//conflict//conflict//conflict//conflict//conflict//conflictactive:true,type:'conflict'});
     }
     this.scene.add(this.conflicts);
   }
 
   spawnDrone(idx){
     const a=Math.random()*Math.PI*2,r=70+Math.random()*380;
-    this.droneData[idx]={basePos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+12,Math.sin(a)*r),hp:38,//drift//drift//drift//drift//drift//drift//drift//driftactive:true,type:'drift',speed:.4+Math.random()*.8};
+    this.droneData[idx]={basePos:new THREE.Vector3(Math.cos(a)*r,this.terrainH(Math.cos(a)*r,Math.sin(a)*r)+12,Math.sin(a)*r),hp:38,//drift//drift//drift//drift//drift//drift//drift//drift//driftactive:true,type:'drift',speed:.4+Math.random()*.8};
   }
 
   initBracketEnemies(){
