@@ -15198,7 +15198,7 @@
       "trench_builder": {
         "files": 226,
         "vinculums": 28829,
-        "size_kb": 1967.65,
+        "size_kb": 1967.67,
         "vinculum_density": 127.56,
         "kb_per_vinculum": 0.0683,
         "bond_connectivity": 0.0,
@@ -15470,10 +15470,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "reversible",
-        "conservation",
         "threshold",
-        "dissipative"
+        "dissipative",
+        "reversible",
+        "conservation"
       ],
       "mean_dissipation_rate": 0.02125
     }
