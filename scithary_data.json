@@ -7,13 +7,13 @@
     "input_summary": {
       "total_regions": 60,
       "total_files": 8991,
-      "total_vinculums": 828683,
+      "total_vinculums": 828684,
       "vinculum_patterns": {
         "fraction": 41586,
         "group_brace": 240684,
         "auto_close": 418787,
         "chain": 63807,
-        "hyphen_bind": 53423,
+        "hyphen_bind": 53424,
         "overline": 4287,
         "repeat": 4074,
         "negation": 2035
@@ -958,7 +958,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9991,
         "name_affinity": 0.0,
-        "size_proximity": 0.8837,
+        "size_proximity": 0.8836,
         "overlap_score": 0.6647
       },
       {
@@ -9118,7 +9118,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9794,
         "name_affinity": 0.0,
-        "size_proximity": 0.1399,
+        "size_proximity": 0.1398,
         "overlap_score": 0.4337
       },
       {
@@ -15197,8 +15197,8 @@
       },
       "trench_builder": {
         "files": 226,
-        "vinculums": 28830,
-        "size_kb": 1967.79,
+        "vinculums": 28831,
+        "size_kb": 1967.81,
         "vinculum_density": 127.57,
         "kb_per_vinculum": 0.0683,
         "bond_connectivity": 0.0,
@@ -15470,10 +15470,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "conservation",
-        "dissipative",
         "threshold",
-        "reversible"
+        "reversible",
+        "conservation",
+        "dissipative"
       ],
       "mean_dissipation_rate": 0.02125
     }
