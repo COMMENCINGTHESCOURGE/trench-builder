@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MECHA PRIME — TITAN CLASS // DaShawn Design</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#020204;overflow:hidden;font:11px 'Courier New',monospace;color:#889}canvas{display:block}#hud{position:absolute;top:12px;left:12px;z-index:10;pointer-events:none;text-shadow:0 0 8px rgba(0,255,255,.3)}#hud .title{color:#d4a854;font-size:13px;letter-spacing:3px;margin-bottom:4px}#hud .subtitle{color:#668;font-size:9px;letter-spacing:1px;margin-bottom:8px}#hud .row{display:flex;gap:16px;margin:2px 0}#hud .label{color:#445;min-width:70px}#hud .val{color:#00d4aa}#stage{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;pointer-events:none;text-align:center}#stage .name{color:#d4a854;font-size:16px;letter-spacing:4px;margin-bottom:4px}#stage .desc{color:#668;font-size:10px;max-width:400px;line-height:1.4}#legend{position:absolute;bottom:18px;right:18px;z-index:10;pointer-events:none;text-align:right;color:#445;font-size:9px;line-height:1.6}#legend .hot{color:#d4a854}#loading{position:absolute;inset:0;z-index:20;background:#020204;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#d4a854;letter-spacing:2px}#loading .bar{width:300px;height:3px;background:#111;overflow:hidden}#loading .fill{height:100%;background:linear-gradient(90deg,#d4a854,#00d4aa);animation:load 2s ease-out forwards}@keyframes load{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div id="loading"><div>MECHA PRIME — HYDRATING</div><div class="bar"><div class="fill"></div></div></div>
+<div id="hud">
+  <div class="title">MECHA PRIME</div>
+  <div class="subtitle">TITAN CLASS // KIRAGAMI-FORGED // 42 JOINTS</div>
+  <div class="row"><span class="label">SYNC:</span><span class="val" id="sync">98.7%</span></div>
+  <div class="row"><span class="label">REACTOR:</span><span class="val" id="reactor">NOMINAL</span></div>
+  <div class="row"><span class="label">POSE:</span><span class="val" id="pose">STAND</span></div>
+  <div class="row"><span class="label">HEIGHT:</span><span class="val">4.2m</span></div>
+  <div class="row"><span class="label">MASS:</span><span class="val">2.8t</span></div>
+</div>
+<div id="stage"><div class="name" id="stageName">STAND</div><div class="desc" id="stageDesc">Balanced stance — all systems green</div></div>
+<div id="legend">
+  <div><span class="hot">TITANIUM</span> primary armor</div>
+  <div><span class="hot">CHAMPAGNE GOLD</span> fold edges</div>
+  <div><span class="hot">CARBON</span> joint housings</div>
+  <div><span class="hot">CERAMIC WHITE</span> strike plates</div>
+  <div>SCROLL: checkpoint | CLICK: cycle mode</div>
+</div>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#020204');
+scene.fog = new THREE.FogExp2('#020204', 0.0012);
+const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(5, 3.2, 7);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.35;
+document.body.appendChild(renderer.domElement);
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.65, 0.45, 0.82);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.8, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 3;
+controls.maxDistance = 15;
+controls.maxPolarAngle = Math.PI * 0.48;
+
+const mats = {
+  ti: new THREE.MeshStandardMaterial({color:'#c8ccd4', roughness:0.32, metalness:0.88, flatShading:true, emissive:'#000000', emissiveIntensity:0}),
+  tiDark: new THREE.MeshStandardMaterial({color:'#88909a', roughness:0.42, metalness:0.82, flatShading:true}),
+  au: new THREE.MeshStandardMaterial({color:'#d4a854', roughness:0.18, metalness:0.95, flatShading:true, emissive:'#442200', emissiveIntensity:0.35}),
+  wh: new THREE.MeshStandardMaterial({color:'#e8e4dc', roughness:0.25, metalness:0.45, flatShading:true}),
+  cb: new THREE.MeshStandardMaterial({color:'#101016', roughness:0.55, metalness:0.65, flatShading:true}),
+  glow: new THREE.MeshBasicMaterial({color:'#00d4aa', transparent:true, opacity:0.85}),
+  glass: new THREE.MeshPhysicalMaterial({color:'#88f3ff', roughness:0.05, metalness:0.1, transmission:0.35, thickness:0.08, transparent:true, opacity:0.65}),
+};
+
+scene.add(new THREE.AmbientLight('#334455', 0.35));
+const key = new THREE.DirectionalLight('#fff0d0', 3.2);
+key.position.set(5, 8, 4);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.camera.near = 1;
+key.shadow.camera.far = 20;
+key.shadow.camera.left = -8;
+key.shadow.camera.right = 8;
+key.shadow.camera.top = 8;
+key.shadow.camera.bottom = -8;
+scene.add(key);
+const rim = new THREE.DirectionalLight('#d4a854', 1.8);
+rim.position.set(-4, 3, -5);
+scene.add(rim);
+const fill = new THREE.DirectionalLight('#00d4aa', 0.8);
+fill.position.set(2, 2, 4);
+scene.add(fill);
+const hemi = new THREE.HemisphereLight('#8899cc', '#110808', 0.4);
+scene.add(hemi);
+
+const ground = new THREE.Mesh(new THREE.CircleGeometry(6, 96), new THREE.MeshStandardMaterial({color:'#050508', roughness:0.25, metalness:0.4}));
+ground.rotation.x = -Math.PI/2;
+ground.position.y = -0.02;
+ground.receiveShadow = true;
+scene.add(ground);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.015, 8, 128), new THREE.MeshBasicMaterial({color:'#d4a854', transparent:true, opacity:0.6}));
+ring.rotation.x = Math.PI/2;
+ring.position.y = 0.02;
+scene.add(ring);
+
+const mech = new THREE.Group();
+const joints = {};
+function mat(name){ return mats[name] || mats.ti; }
+function capsule(radius, length, matName='ti', segments=16){
+  const geo = new THREE.CapsuleGeometry(radius, length, 8, segments);
+  return new THREE.Mesh(geo, mat(matName));
+}
+function box(w,h,d, matName='ti', bevel=false){
+  const geo = bevel ? new THREE.BoxGeometry(w,h,d,3,3,3) : new THREE.BoxGeometry(w,h,d,2,2,2);
+  return new THREE.Mesh(geo, mat(matName));
+}
+function sphere(r, matName='ti', segments=16){
+  return new THREE.Mesh(new THREE.SphereGeometry(r, segments, Math.floor(segments/2)), mat(matName));
+}
+function cyl(r, h, matName='ti', segments=16){
+  return new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,segments), mat(matName));
+}
+function createPart(name, mesh, parent=mech){
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  parent.add(mesh);
+  joints[name] = mesh;
+  return mesh;
+}
+
+// ═══════════════════════════════════════════════════════════
+// TORSO — Armored core with layered plating
+// ═══════════════════════════════════════════════════════════
+const torso = new THREE.Group();
+mech.add(torso);
+const torsoCore = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.25, 0.58, 3, 3, 3), mats.ti);
+torsoCore.position.set(0, 2.05, 0);
+torsoCore.castShadow = torsoCore.receiveShadow = true;
+torso.add(torsoCore);
+joints.torso = torsoCore;
+const chestPlate = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.48, 0.045, 2, 2, 1), mats.wh);
+chestPlate.position.set(0, 2.18, 0.31);
+chestPlate.castShadow = chestPlate.receiveShadow = true;
+torso.add(chestPlate);
+joints.chest = chestPlate;
+for(let i=0;i<3;i++){
+  const seg = box(0.82, 0.08, 0.62, 'cb', true);
+  seg.position.set(0, 1.68 - i*0.16, 0);
+  seg.scale.x = 1 - i*0.08;
+  torso.add(seg);
+  joints[`abdomen_${i}`] = seg;
+  const edge = box(0.88, 0.012, 0.66, 'au', true);
+  edge.position.set(0, 1.72 - i*0.16, 0.32);
+  torso.add(edge);
+}
+for(let s of [-1, 1]){
+  const sidePlate = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.95, 0.48, 2, 3, 2), mats.tiDark);
+  sidePlate.position.set(s*0.62, 1.95, 0);
+  sidePlate.rotation.z = s * 0.12;
+  sidePlate.castShadow = sidePlate.receiveShadow = true;
+  torso.add(sidePlate);
+  joints[`side_${s>0?'r':'l'}`] = sidePlate;
+}
+const reactor = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.08, 32), mats.glow);
+reactor.position.set(0, 2.05, -0.32);
+reactor.rotation.x = Math.PI/2;
+torso.add(reactor);
+joints.reactor = reactor;
+
+// ═══════════════════════════════════════════════════════════
+// HEAD — Faceted helm with visor
+// ═══════════════════════════════════════════════════════════
+const head = new THREE.Group();
+mech.add(head);
+const helm = new THREE.Mesh(new THREE.DodecahedronGeometry(0.28, 0), mats.ti);
+helm.scale.set(1.0, 1.15, 0.85);
+helm.position.set(0, 3.05, 0);
+helm.castShadow = helm.receiveShadow = true;
+head.add(helm);
+joints.head = helm;
+const visor = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.065, 0.035, 2, 1, 1), mats.glass);
+visor.position.set(0, 3.08, 0.24);
+visor.castShadow = true;
+head.add(visor);
+joints.visor = visor;
+const crest = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.22, 4), mats.au);
+crest.position.set(0, 3.28, 0);
+crest.rotation.z = Math.PI/2;
+crest.castShadow = crest.receiveShadow = true;
+head.add(crest);
+joints.crest = crest;
+const neck = cyl(0.08, 0.18, 'cb', 12);
+neck.position.set(0, 2.82, 0);
+neck.castShadow = neck.receiveShadow = true;
+mech.add(neck);
+joints.neck = neck;
+
+scene.add(mech);
+
+// ═══════════════════════════════════════════════════════════
+// SHOULDERS — Multi-plate folded armor
+// ═══════════════════════════════════════════════════════════
+for(let s of [-1, 1]){
+  const shoulder = new THREE.Group();
+  shoulder.position.set(s*0.68, 2.55, 0);
+  mech.add(shoulder);
+  joints[`shoulder_${s>0?'r':'l'}`] = shoulder;
+  const ball = sphere(0.16, 'cb', 12);
+  ball.position.set(0, 0, 0);
+  shoulder.add(ball);
+  for(let i=0;i<3;i++){
+    const plate = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.42, 0.42 - i*0.08, 2, 2, 1), i===0 ? mats.au : (i===1 ? mats.ti : mats.wh));
+    plate.position.set(s*0.08, i*0.08, -i*0.05);
+    plate.rotation.z = s * (0.18 + i*0.08);
+    plate.rotation.y = s * 0.08;
+    plate.castShadow = plate.receiveShadow = true;
+    shoulder.add(plate);
+    joints[`shoulder_plate_${s>0?'r':'l'}_${i}`] = plate;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// ARMS — Upper arm, elbow, forearm, hand
+// ═══════════════════════════════════════════════════════════
+for(let s of [-1, 1]){
+  const arm = new THREE.Group();
+  arm.position.set(s*0.68, 2.35, 0);
+  mech.add(arm);
+  joints[`arm_${s>0?'r':'l'}`] = arm;
+  const upperArm = capsule(0.095, 0.58, 'ti', 16);
+  upperArm.position.set(0, -0.35, 0);
+  upperArm.rotation.z = s * 0.08;
+  upperArm.castShadow = upperArm.receiveShadow = true;
+  arm.add(upperArm);
+  joints[`upper_arm_${s>0?'r':'l'}`] = upperArm;
+  const armEdge1 = box(0.05, 0.52, 0.035, 'au', true);
+  armEdge1.position.set(s*0.1, -0.35, 0.1);
+  armEdge1.rotation.z = s * 0.08;
+  arm.add(armEdge1);
+  const elbow = sphere(0.13, 'cb', 12);
+  elbow.position.set(0, -0.68, 0);
+  elbow.castShadow = elbow.receiveShadow = true;
+  arm.add(elbow);
+  joints[`elbow_${s>0?'r':'l'}`] = elbow;
+  const foreArm = capsule(0.085, 0.52, 'tiDark', 16);
+  foreArm.position.set(0, -0.98, 0);
+  foreArm.rotation.z = s * 0.12;
+  foreArm.castShadow = foreArm.receiveShadow = true;
+  arm.add(foreArm);
+  joints[`forearm_${s>0?'r':'l'}`] = foreArm;
+  const wrist = cyl(0.075, 0.12, 'cb', 12);
+  wrist.position.set(0, -1.28, 0);
+  wrist.rotation.x = Math.PI/2;
+  wrist.castShadow = wrist.receiveShadow = true;
+  arm.add(wrist);
+  joints[`wrist_${s>0?'r':'l'}`] = wrist;
+  const hand = new THREE.Group();
+  hand.position.set(0, -1.38, 0);
+  arm.add(hand);
+  joints[`hand_${s>0?'r':'l'}`] = hand;
+  const palm = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.18, 0.12, 2, 2, 2), mats.ti);
+  palm.castShadow = palm.receiveShadow = true;
+  hand.add(palm);
+  for(let f=0;f<3;f++){
+    const finger = cyl(0.018, 0.16, 'cb', 8);
+    finger.position.set((f-1)*0.045, 0.08, -0.08 - f*0.015);
+    finger.rotation.x = Math.PI/2 + 0.15*f;
+    finger.castShadow = true;
+    hand.add(finger);
+    joints[`finger_${s>0?'r':'l'}_${f}`] = finger;
+  }
+  const foreEdge = box(0.045, 0.45, 0.03, 'au', true);
+  foreEdge.position.set(s*0.095, -0.98, 0.09);
+  foreEdge.rotation.z = s * 0.12;
+  arm.add(foreEdge);
+}
+
+// ═══════════════════════════════════════════════════════════
+// LEGS — Digitigrade stance with articulated knee
+// ═══════════════════════════════════════════════════════════
+for(let s of [-1, 1]){
+  const leg = new THREE.Group();
+  leg.position.set(s*0.28, 1.42, 0);
+  mech.add(leg);
+  joints[`leg_${s>0?'r':'l'}`] = leg;
+  const hip = sphere(0.16, 'cb', 12);
+  hip.position.set(0, 0, 0);
+  hip.castShadow = hip.receiveShadow = true;
+  leg.add(hip);
+  joints[`hip_${s>0?'r':'l'}`] = hip;
+  const thigh = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.72, 0.24, 3, 3, 2), mats.ti);
+  thigh.position.set(0, -0.38, 0);
+  thigh.rotation.z = s * 0.06;
+  thigh.castShadow = thigh.receiveShadow = true;
+  leg.add(thigh);
+  joints[`thigh_${s>0?'r':'l'}`] = thigh;
+  for(let i=0;i<2;i++){
+    const edge = box(0.31, 0.012, 0.27, 'au', true);
+    edge.position.set(0, -0.18 - i*0.28, 0.13);
+    leg.add(edge);
+  }
+  const knee = sphere(0.14, 'au', 12);
+  knee.position.set(0, -0.78, 0.03);
+  knee.castShadow = knee.receiveShadow = true;
+  leg.add(knee);
+  joints[`knee_${s>0?'r':'l'}`] = knee;
+  const shin = capsule(0.09, 0.62, 'tiDark', 16);
+  shin.position.set(s*0.04, -1.12, 0.12);
+  shin.rotation.z = s * -0.28;
+  shin.castShadow = shin.receiveShadow = true;
+  leg.add(shin);
+  joints[`shin_${s>0?'r':'l'}`] = shin;
+  const ankle = sphere(0.11, 'cb', 12);
+  ankle.position.set(s*0.08, -1.45, 0.16);
+  ankle.castShadow = ankle.receiveShadow = true;
+  leg.add(ankle);
+  joints[`ankle_${s>0?'r':'l'}`] = ankle;
+  const foot = new THREE.Group();
+  foot.position.set(s*0.12, -1.52, 0.22);
+  leg.add(foot);
+  joints[`foot_${s>0?'r':'l'}`] = foot;
+  const footPlate = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.12, 0.42, 2, 1, 2), mats.cb);
+  footPlate.position.set(0, 0, 0.08);
+  footPlate.castShadow = footPlate.receiveShadow = true;
+  foot.add(footPlate);
+  for(let t=0;t<3;t++){
+    const toe = new THREE.Mesh(new THREE.ConeGeometry(0.035, 0.16, 6), mats.ti);
+    toe.position.set((t-1)*0.055, 0.02, 0.28);
+    toe.rotation.x = -Math.PI/2 - 0.2;
+    toe.castShadow = toe.receiveShadow = true;
+    foot.add(toe);
+    joints[`toe_${s>0?'r':'l'}_${t}`] = toe;
+  }
+  const shinEdge = box(0.04, 0.52, 0.025, 'au', true);
+  shinEdge.position.set(s*0.1, -1.12, 0.14);
+  shinEdge.rotation.z = s * -0.28;
+  leg.add(shinEdge);
+}
+
+// ═══════════════════════════════════════════════════════════
+// WEAPONS — Folding energy blade
+// ═══════════════════════════════════════════════════════════
+const weapon = new THREE.Group();
+weapon.position.set(0.78, 1.45, 0.35);
+mech.add(weapon);
+joints.weapon = weapon;
+const handle = cyl(0.045, 0.38, 'cb', 12);
+handle.position.set(0, -0.18, 0);
+handle.rotation.x = Math.PI/2;
+handle.castShadow = handle.receiveShadow = true;
+weapon.add(handle);
+const guard = box(0.28, 0.045, 0.08, 'au', true);
+guard.position.set(0, 0, 0);
+guard.castShadow = guard.receiveShadow = true;
+weapon.add(guard);
+const blade = new THREE.Mesh(new THREE.BoxGeometry(0.035, 1.15, 0.018, 2, 4, 1), mats.glow);
+blade.position.set(0, 0.52, 0);
+blade.castShadow = true;
+weapon.add(blade);
+joints.blade = blade;
+weapon.rotation.set(0.25, -0.15, 0.45);
+
+// ═══════════════════════════════════════════════════════════
+// POSE SYSTEM — 8 checkpoint stages
+// ═══════════════════════════════════════════════════════════
+const STAGES = [
+  {name:'SUPINE', desc:'Recovery posture — all joints relaxed'},
+  {name:'SCOOT', desc:'Seated propulsion — arms driving'},
+  {name:'CRAWL', desc:'Low-profile traversal — all fours'},
+  {name:'STAND', desc:'Balanced stance — all systems green'},
+  {name:'BOUNCE', desc:'Shock absorption — knees loaded'},
+  {name:'WALK', desc:'Reciprocal gait — left/right offset'},
+  {name:'JUMP', desc:'Explosive launch — full extension'},
+  {name:'RUN', desc:'Forward lean — arms pumping'},
+];
+const POSES = {
+  0:{torso:[0,0,Math.PI/2],head:[0,0,0.1],arms:[-0.8,0,0.2],elbows:[1.2],knees:[0.8],hips:[0.6],bloom:0.25,glow:0.15},
+  1:{torso:[0,0,0.25],head:[0,0,0.05],arms:[-0.4,0,0.4],elbows:[0.8],knees:[0.5],hips:[0.3],bloom:0.3,glow:0.2},
+  2:{torso:[0.3,0,0.1],head:[0,0,0.08],arms:[-0.2,0,0.6],elbows:[0.6],knees:[0.4],hips:[0.2],bloom:0.35,glow:0.25},
+  3:{torso:[0,0,0],head:[0,0,0],arms:[0.08,0,0.1],elbows:[0.15],knees:[0.05],hips:[0],bloom:0.45,glow:0.35},
+  4:{torso:[0,0,0],head:[0,0,0.02],arms:[0.1,0,0.2],elbows:[0.3],knees:[0.35],hips:[0.1],bloom:0.55,glow:0.45},
+  5:{torso:[0.05,0,0.08],head:[0,0,0.03],arms:[0.15,0,0.35],elbows:[0.25],knees:[0.15],hips:[0.08],bloom:0.5,glow:0.4},
+  6:{torso:[0,0,0.1],head:[0,0,0.08],arms:[0.2,0,0.5],elbows:[0.4],knees:[0.5],hips:[0.2],bloom:0.7,glow:0.6},
+  7:{torso:[0.18,0,0.15],head:[0,0,0.05],arms:[0.25,0,0.55],elbows:[0.35],knees:[0.25],hips:[0.15],bloom:0.65,glow:0.55},
+};
+let stage = 3;
+let mode = 0;
+function lerp(a,b,t){ return a + (b-a)*t; }
+function setPose(target){
+  const p = POSES[target];
+  if(!p) return;
+  const duration = 500;
+  const start = performance.now();
+  function animatePose(){
+    const elapsed = performance.now() - start;
+    const t = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1-t, 3);
+    if(joints.torso){ joints.torso.rotation.z = lerp(joints.torso.rotation.z, p.torso[2], ease); joints.torso.rotation.x = lerp(joints.torso.rotation.x, p.torso[0], ease); }
+    if(joints.head){ joints.head.rotation.z = lerp(joints.head.rotation.z, p.head[2], ease); joints.head.rotation.x = lerp(joints.head.rotation.x, p.head[0], ease); }
+    for(let s of [-1, 1]){
+      const arm = joints[`arm_${s>0?'r':'l'}`];
+      const elbow = joints[`elbow_${s>0?'r':'l'}`];
+      const knee = joints[`knee_${s>0?'r':'l'}`];
+      const hip = joints[`hip_${s>0?'r':'l'}`];
+      if(arm){ arm.rotation.z = s * lerp(arm.rotation.z, p.arms[0], ease); arm.rotation.x = lerp(arm.rotation.x, p.arms[1], ease); }
+      if(elbow) elbow.rotation.z = s * lerp(elbow.rotation.z, p.elbows[0], ease);
+      if(knee) knee.rotation.z = s * lerp(knee.rotation.z, p.knees[0], ease);
+      if(hip) hip.rotation.z = s * lerp(hip.rotation.z, p.hips[0], ease);
+    }
+    bloom.strength = lerp(bloom.strength, p.bloom, ease);
+    mats.glow.opacity = lerp(mats.glow.opacity, p.glow, ease);
+    mats.au.emissiveIntensity = lerp(mats.au.emissiveIntensity, 0.25 + target * 0.05, ease);
+    if(t < 1) requestAnimationFrame(animatePose);
+  }
+  animatePose();
+}
+function setStage(s){
+  stage = Math.max(0, Math.min(7, s));
+  document.getElementById('stageName').textContent = STAGES[stage].name;
+  document.getElementById('stageDesc').textContent = STAGES[stage].desc;
+  document.getElementById('pose').textContent = STAGES[stage].name;
+  setPose(stage);
+}
+
+// ═══════════════════════════════════════════════════════════
+// ANIMATION LOOP
+// ═══════════════════════════════════════════════════════════
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  const t = clock.getElapsedTime();
+  if(stage === 3){ mech.position.y = Math.sin(t * 1.5) * 0.015; mats.glow.opacity = 0.35 + Math.sin(t * 2) * 0.05; }
+  mats.glow.opacity = 0.5 + Math.sin(t * 3) * 0.15;
+  if(joints.blade) joints.blade.material.opacity = 0.75 + Math.sin(t * 4) * 0.15;
+  ring.rotation.z = t * 0.08;
+  composer.render();
+}
+
+// ═══════════════════════════════════════════════════════════
+// INPUT
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('wheel', e => { if(e.deltaY > 0) setStage(stage + 1); else setStage(stage - 1); });
+document.addEventListener('click', () => {
+  mode = (mode + 1) % 3;
+  if(mode === 1){ mats.ti.color.set('#a8b8c8'); mats.tiDark.color.set('#667080'); }
+  else if(mode === 2){ mats.ti.color.set('#d4a854'); mats.tiDark.color.set('#887040'); }
+  else { mats.ti.color.set('#c8ccd4'); mats.tiDark.color.set('#88909a'); }
+});
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+setStage(3);
+animate();
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
+});
+setTimeout(() => {
+  document.getElementById('loading').style.opacity = '0';
+  document.getElementById('loading').style.transition = 'opacity 0.5s';
+  setTimeout(() => document.getElementById('loading').style.display = 'none', 500);
+}, 1800);
+console.log('MECHA PRIME — TITAN CLASS // 42 joints // Kirigami-forged');
+</script>
+</body>
+</html>

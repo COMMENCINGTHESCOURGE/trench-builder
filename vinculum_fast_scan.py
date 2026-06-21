@@ -2,7 +2,7 @@
 """VINCULUM FAST SCAN — Optimized for A100 / any GPU"""
 import json, os, re
 from pathlib import Path
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
 
 t0 = __import__('time').time()
