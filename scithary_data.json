@@ -2,15 +2,15 @@
   "metadata": {
     "generator": "scithary-genrator",
     "version": "1.0.0",
-    "generated_at": "2026-06-20",
+    "generated_at": "2026-06-21",
     "source": "trench_builder",
     "input_summary": {
       "total_regions": 60,
       "total_files": 8989,
-      "total_vinculums": 828514,
+      "total_vinculums": 828515,
       "vinculum_patterns": {
         "fraction": 41583,
-        "group_brace": 240621,
+        "group_brace": 240622,
         "auto_close": 418696,
         "chain": 63806,
         "hyphen_bind": 53422,
@@ -2422,8 +2422,8 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9988,
         "name_affinity": 0.0,
-        "size_proximity": 0.6472,
-        "overlap_score": 0.5937
+        "size_proximity": 0.6471,
+        "overlap_score": 0.5936
       },
       {
         "region_a": "aegis_archive",
@@ -15197,9 +15197,9 @@
       },
       "trench_builder": {
         "files": 226,
-        "vinculums": 28829,
-        "size_kb": 1967.69,
-        "vinculum_density": 127.56,
+        "vinculums": 28830,
+        "size_kb": 1967.74,
+        "vinculum_density": 127.57,
         "kb_per_vinculum": 0.0683,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
@@ -15472,8 +15472,8 @@
       "bond_types": [
         "dissipative",
         "conservation",
-        "threshold",
-        "reversible"
+        "reversible",
+        "threshold"
       ],
       "mean_dissipation_rate": 0.02125
     }
