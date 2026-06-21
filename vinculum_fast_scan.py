@@ -24,8 +24,10 @@ results = []
 counts = Counter()
 projects = defaultdict(lambda: {'files':0,'v':0,'kb':0})
 
-for proj_dir in sorted(BASE.iterdir()):
-    if not proj_dir.is_dir() or proj_dir.name.startswith('.'): continue
+proj_dirs = [d for d in sorted(BASE.iterdir()) if d.is_dir() and not d.name.startswith('.')]
+total_dirs = len(proj_dirs)
+for di, proj_dir in enumerate(proj_dirs):
+    print(f'[{di+1}/{total_dirs}] {proj_dir.name}...', flush=True)
     
     for fp in proj_dir.rglob('*'):
         if fp.suffix not in ('.py','.html','.md','.json','.ipynb'): continue
