@@ -1,12 +1,12 @@
 {
   "total_files": 8991,
-  "total_vinculums": 828683,
+  "total_vinculums": 828684,
   "patterns": {
     "fraction": 41586,
     "group_brace": 240684,
     "auto_close": 418787,
     "chain": 63807,
-    "hyphen_bind": 53423,
+    "hyphen_bind": 53424,
     "overline": 4287,
     "repeat": 4074,
     "negation": 2035
@@ -284,8 +284,8 @@
     },
     "trench_builder": {
       "files": 226,
-      "v": 28830,
-      "kb": 1967.7900390625
+      "v": 28831,
+      "kb": 1967.8125
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -566,5 +566,5 @@
       ]
     }
   ],
-  "runtime_s": 62.2
+  "runtime_s": 67.3
 }
