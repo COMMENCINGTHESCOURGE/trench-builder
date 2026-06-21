@@ -146,7 +146,9 @@
           "tag": "pole"
         }
       ],
-      "warn": [],
+      "warn": [
+        "SINGLE EXIT IN LARGE ROOM"
+      ],
       "doors": [
         {
           "x": 0,
@@ -206,7 +208,9 @@
           "tag": "console"
         }
       ],
-      "warn": [],
+      "warn": [
+        "SINGLE EXIT IN LARGE ROOM"
+      ],
       "doors": [
         {
           "x": 0,
