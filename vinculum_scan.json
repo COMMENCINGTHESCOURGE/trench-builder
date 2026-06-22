@@ -1,9 +1,9 @@
 {
   "total_files": 8998,
-  "total_vinculums": 830366,
+  "total_vinculums": 830365,
   "patterns": {
     "fraction": 41629,
-    "group_brace": 240899,
+    "group_brace": 240898,
     "auto_close": 420135,
     "chain": 63815,
     "hyphen_bind": 53425,
@@ -284,8 +284,8 @@
     },
     "trench_builder": {
       "files": 226,
-      "v": 28838,
-      "kb": 1967.9970703125
+      "v": 28837,
+      "kb": 1967.9921875
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -566,5 +566,5 @@
       ]
     }
   ],
-  "runtime_s": 96.3
+  "runtime_s": 80.8
 }
