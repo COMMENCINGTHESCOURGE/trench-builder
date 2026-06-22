@@ -1,14 +1,14 @@
 {
-  "total_files": 8991,
-  "total_vinculums": 825373,
+  "total_files": 8998,
+  "total_vinculums": 830366,
   "patterns": {
-    "fraction": 41593,
-    "group_brace": 239561,
-    "auto_close": 417761,
-    "chain": 63807,
-    "hyphen_bind": 52242,
-    "overline": 4299,
-    "repeat": 4075,
+    "fraction": 41629,
+    "group_brace": 240899,
+    "auto_close": 420135,
+    "chain": 63815,
+    "hyphen_bind": 53425,
+    "overline": 4351,
+    "repeat": 4077,
     "negation": 2035
   },
   "projects": {
@@ -68,9 +68,9 @@
       "kb": 3364.1767578125
     },
     "blooming-onion": {
-      "files": 13,
-      "v": 5161,
-      "kb": 229.2744140625
+      "files": 18,
+      "v": 6607,
+      "kb": 303.6875
     },
     "bridge": {
       "files": 15,
@@ -113,9 +113,9 @@
       "kb": 3794.0458984375
     },
     "erdos-straus": {
-      "files": 7,
-      "v": 715,
-      "kb": 31.181640625
+      "files": 9,
+      "v": 4261,
+      "kb": 226.494140625
     },
     "ernie_agent": {
       "files": 1,
@@ -284,8 +284,8 @@
     },
     "trench_builder": {
       "files": 226,
-      "v": 28837,
-      "kb": 1967.9716796875
+      "v": 28838,
+      "kb": 1967.9970703125
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -566,5 +566,5 @@
       ]
     }
   ],
-  "runtime_s": 177.7
+  "runtime_s": 96.3
 }
