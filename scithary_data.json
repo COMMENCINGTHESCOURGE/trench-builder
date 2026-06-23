@@ -15472,8 +15472,8 @@
       "bond_types": [
         "threshold",
         "reversible",
-        "conservation",
-        "dissipative"
+        "dissipative",
+        "conservation"
       ],
       "mean_dissipation_rate": 0.02125
     }
