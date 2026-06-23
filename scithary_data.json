@@ -2,7 +2,7 @@
   "metadata": {
     "generator": "scithary-genrator",
     "version": "1.0.0",
-    "generated_at": "2026-06-22",
+    "generated_at": "2026-06-23",
     "source": "trench_builder",
     "input_summary": {
       "total_regions": 60,
@@ -15198,7 +15198,7 @@
       "trench_builder": {
         "files": 226,
         "vinculums": 28837,
-        "size_kb": 1968.04,
+        "size_kb": 1968.06,
         "vinculum_density": 127.6,
         "kb_per_vinculum": 0.0682,
         "bond_connectivity": 0.0,
@@ -15470,10 +15470,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "dissipative",
-        "threshold",
         "conservation",
-        "reversible"
+        "threshold",
+        "reversible",
+        "dissipative"
       ],
       "mean_dissipation_rate": 0.02125
     }
