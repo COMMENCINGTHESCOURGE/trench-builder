@@ -6,14 +6,14 @@
     "source": "trench_builder",
     "input_summary": {
       "total_regions": 60,
-      "total_files": 8998,
-      "total_vinculums": 830363,
+      "total_files": 9002,
+      "total_vinculums": 831050,
       "vinculum_patterns": {
-        "fraction": 41629,
-        "group_brace": 240897,
-        "auto_close": 420134,
-        "chain": 63815,
-        "hyphen_bind": 53425,
+        "fraction": 41647,
+        "group_brace": 240998,
+        "auto_close": 420698,
+        "chain": 63817,
+        "hyphen_bind": 53427,
         "overline": 4351,
         "repeat": 4077,
         "negation": 2035
@@ -954,14 +954,6 @@
         "overlap_score": 0.6665
       },
       {
-        "region_a": "flux-chamber",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9991,
-        "name_affinity": 0.0,
-        "size_proximity": 0.8834,
-        "overlap_score": 0.6647
-      },
-      {
         "region_a": "roto_extractor",
         "region_b": "vestibular_proof_kaggle",
         "cosine_similarity": 0.9991,
@@ -1080,6 +1072,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.8645,
         "overlap_score": 0.6593
+      },
+      {
+        "region_a": "flux-chamber",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9991,
+        "name_affinity": 0.0,
+        "size_proximity": 0.8629,
+        "overlap_score": 0.6585
       },
       {
         "region_a": "kaggle_submissions",
@@ -2394,14 +2394,6 @@
         "overlap_score": 0.5939
       },
       {
-        "region_a": "avatar-core",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9988,
-        "name_affinity": 0.0,
-        "size_proximity": 0.647,
-        "overlap_score": 0.5936
-      },
-      {
         "region_a": "aegis_archive",
         "region_b": "ascii_research_presentation",
         "cosine_similarity": 0.9858,
@@ -2536,6 +2528,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.6391,
         "overlap_score": 0.5893
+      },
+      {
+        "region_a": "avatar-core",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9988,
+        "name_affinity": 0.0,
+        "size_proximity": 0.6319,
+        "overlap_score": 0.5891
       },
       {
         "region_a": "fractype",
@@ -3906,6 +3906,14 @@
         "overlap_score": 0.5405
       },
       {
+        "region_a": "dev_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9997,
+        "name_affinity": 0.0,
+        "size_proximity": 0.4689,
+        "overlap_score": 0.5405
+      },
+      {
         "region_a": "fractype",
         "region_b": "quantum_garden",
         "cosine_similarity": 0.9975,
@@ -4008,14 +4016,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.4672,
         "overlap_score": 0.5378
-      },
-      {
-        "region_a": "dev_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9997,
-        "name_affinity": 0.0,
-        "size_proximity": 0.458,
-        "overlap_score": 0.5373
       },
       {
         "region_a": "sovereign_resonance",
@@ -7186,14 +7186,6 @@
         "overlap_score": 0.465
       },
       {
-        "region_a": "blooming-onion",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9902,
-        "name_affinity": 0.0,
-        "size_proximity": 0.2291,
-        "overlap_score": 0.4648
-      },
-      {
         "region_a": "ernie_agent",
         "region_b": "labyrinth_archive",
         "cosine_similarity": 0.9966,
@@ -7288,6 +7280,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.2222,
         "overlap_score": 0.4634
+      },
+      {
+        "region_a": "blooming-onion",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9902,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2238,
+        "overlap_score": 0.4632
       },
       {
         "region_a": "forensics",
@@ -7394,6 +7394,14 @@
         "overlap_score": 0.4608
       },
       {
+        "region_a": "headroom",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.999,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2027,
+        "overlap_score": 0.4604
+      },
+      {
         "region_a": "manifold",
         "region_b": "parallax",
         "cosine_similarity": 0.9869,
@@ -7479,14 +7487,6 @@
         "cosine_similarity": 0.9926,
         "name_affinity": 0.0,
         "size_proximity": 0.2065,
-        "overlap_score": 0.459
-      },
-      {
-        "region_a": "headroom",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.999,
-        "name_affinity": 0.0,
-        "size_proximity": 0.198,
         "overlap_score": 0.459
       },
       {
@@ -8282,14 +8282,6 @@
         "overlap_score": 0.4454
       },
       {
-        "region_a": "chronos",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9906,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1634,
-        "overlap_score": 0.4453
-      },
-      {
         "region_a": "forensics",
         "region_b": "mycelia_game",
         "cosine_similarity": 0.9808,
@@ -8378,14 +8370,6 @@
         "overlap_score": 0.4449
       },
       {
-        "region_a": "hyperpoly-terrain",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9961,
-        "name_affinity": 0.0,
-        "size_proximity": 0.154,
-        "overlap_score": 0.4446
-      },
-      {
         "region_a": "agent_swarm",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9994,
@@ -8399,6 +8383,14 @@
         "cosine_similarity": 0.9882,
         "name_affinity": 0.0,
         "size_proximity": 0.1627,
+        "overlap_score": 0.4441
+      },
+      {
+        "region_a": "chronos",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9906,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1596,
         "overlap_score": 0.4441
       },
       {
@@ -8447,6 +8439,14 @@
         "cosine_similarity": 0.987,
         "name_affinity": 0.0,
         "size_proximity": 0.1624,
+        "overlap_score": 0.4435
+      },
+      {
+        "region_a": "hyperpoly-terrain",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.996,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1504,
         "overlap_score": 0.4435
       },
       {
@@ -8786,14 +8786,6 @@
         "overlap_score": 0.4381
       },
       {
-        "region_a": "aetheris_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9939,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1347,
-        "overlap_score": 0.438
-      },
-      {
         "region_a": "fleet",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9942,
@@ -8831,14 +8823,6 @@
         "cosine_similarity": 0.9929,
         "name_affinity": 0.0,
         "size_proximity": 0.1349,
-        "overlap_score": 0.4376
-      },
-      {
-        "region_a": "erdos-straus",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9831,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1478,
         "overlap_score": 0.4376
       },
       {
@@ -8882,6 +8866,14 @@
         "overlap_score": 0.4371
       },
       {
+        "region_a": "aetheris_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9939,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1315,
+        "overlap_score": 0.437
+      },
+      {
         "region_a": "agent_swarm",
         "region_b": "neon_dissection",
         "cosine_similarity": 0.9946,
@@ -8919,6 +8911,14 @@
         "cosine_similarity": 0.9793,
         "name_affinity": 0.0,
         "size_proximity": 0.1493,
+        "overlap_score": 0.4365
+      },
+      {
+        "region_a": "erdos-straus",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9831,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1443,
         "overlap_score": 0.4365
       },
       {
@@ -9410,14 +9410,6 @@
         "overlap_score": 0.4293
       },
       {
-        "region_a": "aetherion-continuum",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9979,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1004,
-        "overlap_score": 0.4292
-      },
-      {
         "region_a": "aetheris_archive",
         "region_b": "mecha_robotics_kit",
         "cosine_similarity": 0.9859,
@@ -9448,6 +9440,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.1207,
         "overlap_score": 0.4286
+      },
+      {
+        "region_a": "aetherion-continuum",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9979,
+        "name_affinity": 0.0,
+        "size_proximity": 0.098,
+        "overlap_score": 0.4285
       },
       {
         "region_a": "ale",
@@ -9810,14 +9810,6 @@
         "overlap_score": 0.4248
       },
       {
-        "region_a": "fractype",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9953,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0885,
-        "overlap_score": 0.4247
-      },
-      {
         "region_a": "erdos-straus",
         "region_b": "void_archive",
         "cosine_similarity": 0.9965,
@@ -9840,6 +9832,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0864,
         "overlap_score": 0.4244
+      },
+      {
+        "region_a": "fractype",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9953,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0864,
+        "overlap_score": 0.424
       },
       {
         "region_a": "ale",
@@ -10171,14 +10171,6 @@
       },
       {
         "region_a": "research",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9944,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0758,
-        "overlap_score": 0.4205
-      },
-      {
-        "region_a": "research",
         "region_b": "xpbd_solver",
         "cosine_similarity": 0.9647,
         "name_affinity": 0.0,
@@ -10210,12 +10202,12 @@
         "overlap_score": 0.4199
       },
       {
-        "region_a": "bridge",
+        "region_a": "research",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9923,
+        "cosine_similarity": 0.9943,
         "name_affinity": 0.0,
-        "size_proximity": 0.0759,
-        "overlap_score": 0.4197
+        "size_proximity": 0.074,
+        "overlap_score": 0.4199
       },
       {
         "region_a": "sovereign-resonance-node",
@@ -10255,6 +10247,14 @@
         "cosine_similarity": 0.961,
         "name_affinity": 0.0,
         "size_proximity": 0.1158,
+        "overlap_score": 0.4192
+      },
+      {
+        "region_a": "bridge",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9923,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0741,
         "overlap_score": 0.4192
       },
       {
@@ -10482,12 +10482,12 @@
         "overlap_score": 0.4168
       },
       {
-        "region_a": "ale",
+        "region_a": "COMMENCINGTHESCOURGE",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9933,
+        "cosine_similarity": 0.9959,
         "name_affinity": 0.0,
-        "size_proximity": 0.0645,
-        "overlap_score": 0.4167
+        "size_proximity": 0.0606,
+        "overlap_score": 0.4166
       },
       {
         "region_a": "quantum_garden",
@@ -10530,6 +10530,14 @@
         "overlap_score": 0.4164
       },
       {
+        "region_a": "ale",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9933,
+        "name_affinity": 0.0,
+        "size_proximity": 0.063,
+        "overlap_score": 0.4162
+      },
+      {
         "region_a": "blooming-onion",
         "region_b": "mecha_robotics_kit",
         "cosine_similarity": 0.9896,
@@ -10544,14 +10552,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0566,
         "overlap_score": 0.4162
-      },
-      {
-        "region_a": "COMMENCINGTHESCOURGE",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9959,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0592,
-        "overlap_score": 0.4161
       },
       {
         "region_a": "aetherion-continuum",
@@ -10762,19 +10762,19 @@
         "overlap_score": 0.4144
       },
       {
-        "region_a": "neon_dissection",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.993,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0574,
-        "overlap_score": 0.4144
-      },
-      {
         "region_a": "aurora_archive",
         "region_b": "parallax",
         "cosine_similarity": 0.9887,
         "name_affinity": 0.0,
         "size_proximity": 0.0617,
+        "overlap_score": 0.414
+      },
+      {
+        "region_a": "neon_dissection",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9929,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0561,
         "overlap_score": 0.414
       },
       {
@@ -10818,14 +10818,6 @@
         "overlap_score": 0.4136
       },
       {
-        "region_a": "sovereign_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9923,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0558,
-        "overlap_score": 0.4136
-      },
-      {
         "region_a": "ale",
         "region_b": "deepbio-prompt-pack",
         "cosine_similarity": 0.9967,
@@ -10855,6 +10847,14 @@
         "cosine_similarity": 0.996,
         "name_affinity": 0.0,
         "size_proximity": 0.0495,
+        "overlap_score": 0.4132
+      },
+      {
+        "region_a": "sovereign_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9922,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0545,
         "overlap_score": 0.4132
       },
       {
@@ -10895,14 +10895,6 @@
         "cosine_similarity": 0.9716,
         "name_affinity": 0.0,
         "size_proximity": 0.0808,
-        "overlap_score": 0.4129
-      },
-      {
-        "region_a": "aurora_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9786,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0714,
         "overlap_score": 0.4129
       },
       {
@@ -10984,6 +10976,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0694,
         "overlap_score": 0.4124
+      },
+      {
+        "region_a": "aurora_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9785,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0697,
+        "overlap_score": 0.4123
       },
       {
         "region_a": "agent_swarm",
@@ -11210,14 +11210,6 @@
         "overlap_score": 0.4089
       },
       {
-        "region_a": "lavish_furniture",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9892,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0441,
-        "overlap_score": 0.4089
-      },
-      {
         "region_a": "agent_swarm",
         "region_b": "blooming-onion",
         "cosine_similarity": 0.9974,
@@ -11250,6 +11242,14 @@
         "overlap_score": 0.4086
       },
       {
+        "region_a": "lavish_furniture",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9891,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0431,
+        "overlap_score": 0.4086
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9833,
@@ -11271,14 +11271,6 @@
         "cosine_similarity": 0.9731,
         "name_affinity": 0.0,
         "size_proximity": 0.063,
-        "overlap_score": 0.4081
-      },
-      {
-        "region_a": "sovereign-resonance-node",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9953,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0332,
         "overlap_score": 0.4081
       },
       {
@@ -11314,6 +11306,14 @@
         "overlap_score": 0.4078
       },
       {
+        "region_a": "sovereign-resonance-node",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9953,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0324,
+        "overlap_score": 0.4078
+      },
+      {
         "region_a": "kimi_density_spheres",
         "region_b": "sync",
         "cosine_similarity": 0.9638,
@@ -11344,38 +11344,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0739,
         "overlap_score": 0.4077
-      },
-      {
-        "region_a": "kimi_density_spheres",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9877,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0418,
-        "overlap_score": 0.4076
-      },
-      {
-        "region_a": "kimi_sealed_spheres",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9877,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0418,
-        "overlap_score": 0.4076
-      },
-      {
-        "region_a": "quantum_garden",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9877,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0416,
-        "overlap_score": 0.4076
-      },
-      {
-        "region_a": "trench_builder",
-        "region_b": "voxel_atelier",
-        "cosine_similarity": 0.9877,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0418,
-        "overlap_score": 0.4076
       },
       {
         "region_a": "bridge",
@@ -11431,6 +11399,38 @@
         "cosine_similarity": 0.9828,
         "name_affinity": 0.0,
         "size_proximity": 0.0473,
+        "overlap_score": 0.4073
+      },
+      {
+        "region_a": "kimi_density_spheres",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9876,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0408,
+        "overlap_score": 0.4073
+      },
+      {
+        "region_a": "kimi_sealed_spheres",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9876,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0408,
+        "overlap_score": 0.4073
+      },
+      {
+        "region_a": "quantum_garden",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9876,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0407,
+        "overlap_score": 0.4073
+      },
+      {
+        "region_a": "trench_builder",
+        "region_b": "voxel_atelier",
+        "cosine_similarity": 0.9876,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0408,
         "overlap_score": 0.4073
       },
       {
@@ -11762,14 +11762,6 @@
         "overlap_score": 0.4043
       },
       {
-        "region_a": "starfield_v3",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.973,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0504,
-        "overlap_score": 0.4043
-      },
-      {
         "region_a": "deepbio-prompt-pack",
         "region_b": "hyperpoly-terrain",
         "cosine_similarity": 0.9949,
@@ -11807,6 +11799,14 @@
         "cosine_similarity": 0.9821,
         "name_affinity": 0.0,
         "size_proximity": 0.037,
+        "overlap_score": 0.4039
+      },
+      {
+        "region_a": "starfield_v3",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.973,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0492,
         "overlap_score": 0.4039
       },
       {
@@ -11914,14 +11914,6 @@
         "overlap_score": 0.4027
       },
       {
-        "region_a": "project_manager",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9762,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0407,
-        "overlap_score": 0.4027
-      },
-      {
         "region_a": "avatar-core",
         "region_b": "thrown-planet",
         "cosine_similarity": 0.9659,
@@ -11936,6 +11928,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0461,
         "overlap_score": 0.4025
+      },
+      {
+        "region_a": "project_manager",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9761,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0398,
+        "overlap_score": 0.4024
       },
       {
         "region_a": "acoustic_archive",
@@ -11978,14 +11978,6 @@
         "overlap_score": 0.402
       },
       {
-        "region_a": "mycelia_game",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9846,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0274,
-        "overlap_score": 0.402
-      },
-      {
         "region_a": "sovereign_archive",
         "region_b": "sync",
         "cosine_similarity": 0.9635,
@@ -11999,6 +11991,14 @@
         "cosine_similarity": 0.9691,
         "name_affinity": 0.0,
         "size_proximity": 0.0471,
+        "overlap_score": 0.4018
+      },
+      {
+        "region_a": "mycelia_game",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9845,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0267,
         "overlap_score": 0.4018
       },
       {
@@ -12170,14 +12170,6 @@
         "overlap_score": 0.4005
       },
       {
-        "region_a": "lenticular_pipeline",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.986,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0204,
-        "overlap_score": 0.4005
-      },
-      {
         "region_a": "aetherion-continuum",
         "region_b": "ascii_research_presentation",
         "cosine_similarity": 0.9726,
@@ -12191,6 +12183,14 @@
         "cosine_similarity": 0.9774,
         "name_affinity": 0.0,
         "size_proximity": 0.0314,
+        "overlap_score": 0.4004
+      },
+      {
+        "region_a": "lenticular_pipeline",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.986,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0199,
         "overlap_score": 0.4004
       },
       {
@@ -12242,20 +12242,20 @@
         "overlap_score": 0.3999
       },
       {
-        "region_a": "thrown-planet",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9734,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0349,
-        "overlap_score": 0.3998
-      },
-      {
         "region_a": "avatar-core",
         "region_b": "manifold",
         "cosine_similarity": 0.976,
         "name_affinity": 0.0,
         "size_proximity": 0.0311,
         "overlap_score": 0.3997
+      },
+      {
+        "region_a": "thrown-planet",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9733,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0341,
+        "overlap_score": 0.3996
       },
       {
         "region_a": "aetherion-continuum",
@@ -12298,14 +12298,6 @@
         "overlap_score": 0.3991
       },
       {
-        "region_a": "manifold",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9823,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0201,
-        "overlap_score": 0.399
-      },
-      {
         "region_a": "flux-chamber",
         "region_b": "lenticular_pipeline",
         "cosine_similarity": 0.98,
@@ -12327,6 +12319,14 @@
         "cosine_similarity": 0.9858,
         "name_affinity": 0.0,
         "size_proximity": 0.015,
+        "overlap_score": 0.3988
+      },
+      {
+        "region_a": "manifold",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9822,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0197,
         "overlap_score": 0.3988
       },
       {
@@ -12498,19 +12498,19 @@
         "overlap_score": 0.3971
       },
       {
-        "region_a": "kaggle_submissions",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9815,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0148,
-        "overlap_score": 0.397
-      },
-      {
         "region_a": "bridge",
         "region_b": "sync",
         "cosine_similarity": 0.9617,
         "name_affinity": 0.0,
         "size_proximity": 0.0407,
+        "overlap_score": 0.3969
+      },
+      {
+        "region_a": "kaggle_submissions",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9814,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0145,
         "overlap_score": 0.3969
       },
       {
@@ -12708,10 +12708,10 @@
       {
         "region_a": "minicity",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9658,
+        "cosine_similarity": 0.9657,
         "name_affinity": 0.0,
-        "size_proximity": 0.0268,
-        "overlap_score": 0.3944
+        "size_proximity": 0.0262,
+        "overlap_score": 0.3942
       },
       {
         "region_a": "aegis_archive",
@@ -12724,9 +12724,9 @@
       {
         "region_a": "deepbio-prompt-pack",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9827,
+        "cosine_similarity": 0.9826,
         "name_affinity": 0.0,
-        "size_proximity": 0.0032,
+        "size_proximity": 0.0031,
         "overlap_score": 0.394
       },
       {
@@ -12794,14 +12794,6 @@
         "overlap_score": 0.3936
       },
       {
-        "region_a": "agent_swarm",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9781,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0075,
-        "overlap_score": 0.3935
-      },
-      {
         "region_a": "advra_archive",
         "region_b": "kimi_density_spheres",
         "cosine_similarity": 0.9622,
@@ -12826,11 +12818,11 @@
         "overlap_score": 0.3934
       },
       {
-        "region_a": "deepseek_analysis",
+        "region_a": "agent_swarm",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9656,
+        "cosine_similarity": 0.9781,
         "name_affinity": 0.0,
-        "size_proximity": 0.024,
+        "size_proximity": 0.0073,
         "overlap_score": 0.3934
       },
       {
@@ -12866,12 +12858,12 @@
         "overlap_score": 0.3932
       },
       {
-        "region_a": "trench_builder",
-        "region_b": "victus_bios_tool",
-        "cosine_similarity": 0.9743,
+        "region_a": "deepseek_analysis",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9655,
         "name_affinity": 0.0,
-        "size_proximity": 0.0113,
-        "overlap_score": 0.3931
+        "size_proximity": 0.0234,
+        "overlap_score": 0.3932
       },
       {
         "region_a": "chronos",
@@ -12887,6 +12879,14 @@
         "cosine_similarity": 0.9562,
         "name_affinity": 0.0,
         "size_proximity": 0.0349,
+        "overlap_score": 0.393
+      },
+      {
+        "region_a": "trench_builder",
+        "region_b": "victus_bios_tool",
+        "cosine_similarity": 0.9742,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0111,
         "overlap_score": 0.393
       },
       {
@@ -12922,14 +12922,6 @@
         "overlap_score": 0.3924
       },
       {
-        "region_a": "trench_builder",
-        "region_b": "void_archive",
-        "cosine_similarity": 0.9713,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0128,
-        "overlap_score": 0.3924
-      },
-      {
         "region_a": "advra_archive",
         "region_b": "neon_dissection",
         "cosine_similarity": 0.9652,
@@ -12959,6 +12951,14 @@
         "cosine_similarity": 0.9772,
         "name_affinity": 0.0,
         "size_proximity": 0.0045,
+        "overlap_score": 0.3922
+      },
+      {
+        "region_a": "trench_builder",
+        "region_b": "void_archive",
+        "cosine_similarity": 0.9712,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0125,
         "overlap_score": 0.3922
       },
       {
@@ -13058,22 +13058,6 @@
         "overlap_score": 0.3916
       },
       {
-        "region_a": "part_affordance",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9634,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0208,
-        "overlap_score": 0.3916
-      },
-      {
-        "region_a": "collatz-exploration",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9695,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0122,
-        "overlap_score": 0.3915
-      },
-      {
         "region_a": "aegis_archive",
         "region_b": "blooming-onion",
         "cosine_similarity": 0.9701,
@@ -13090,11 +13074,11 @@
         "overlap_score": 0.3914
       },
       {
-        "region_a": "mecha_robotics_kit",
+        "region_a": "part_affordance",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9668,
+        "cosine_similarity": 0.9633,
         "name_affinity": 0.0,
-        "size_proximity": 0.0156,
+        "size_proximity": 0.0204,
         "overlap_score": 0.3914
       },
       {
@@ -13106,19 +13090,11 @@
         "overlap_score": 0.3913
       },
       {
-        "region_a": "labyrinth_archive",
+        "region_a": "collatz-exploration",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9608,
+        "cosine_similarity": 0.9695,
         "name_affinity": 0.0,
-        "size_proximity": 0.0233,
-        "overlap_score": 0.3913
-      },
-      {
-        "region_a": "sovereign_resonance",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9663,
-        "name_affinity": 0.0,
-        "size_proximity": 0.016,
+        "size_proximity": 0.0119,
         "overlap_score": 0.3913
       },
       {
@@ -13128,6 +13104,30 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0289,
         "overlap_score": 0.3912
+      },
+      {
+        "region_a": "mecha_robotics_kit",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9667,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0152,
+        "overlap_score": 0.3912
+      },
+      {
+        "region_a": "sovereign_resonance",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9663,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0156,
+        "overlap_score": 0.3912
+      },
+      {
+        "region_a": "labyrinth_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9607,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0228,
+        "overlap_score": 0.3911
       },
       {
         "region_a": "aetherion-continuum",
@@ -13180,9 +13180,9 @@
       {
         "region_a": "ascii_research_presentation",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9739,
+        "cosine_similarity": 0.9738,
         "name_affinity": 0.0,
-        "size_proximity": 0.0038,
+        "size_proximity": 0.0037,
         "overlap_score": 0.3907
       },
       {
@@ -13306,14 +13306,6 @@
         "overlap_score": 0.3894
       },
       {
-        "region_a": "roto_extractor",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9644,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0121,
-        "overlap_score": 0.3894
-      },
-      {
         "region_a": "chronos",
         "region_b": "sync",
         "cosine_similarity": 0.9591,
@@ -13327,6 +13319,14 @@
         "cosine_similarity": 0.9555,
         "name_affinity": 0.0,
         "size_proximity": 0.0236,
+        "overlap_score": 0.3893
+      },
+      {
+        "region_a": "roto_extractor",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9643,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0118,
         "overlap_score": 0.3893
       },
       {
@@ -13418,19 +13418,19 @@
         "overlap_score": 0.3885
       },
       {
-        "region_a": "SubstrateDeltaSieve",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9691,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0027,
-        "overlap_score": 0.3885
-      },
-      {
         "region_a": "ascii_research_presentation",
         "region_b": "avatar-core",
         "cosine_similarity": 0.9667,
         "name_affinity": 0.0,
         "size_proximity": 0.0059,
+        "overlap_score": 0.3884
+      },
+      {
+        "region_a": "SubstrateDeltaSieve",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.969,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0027,
         "overlap_score": 0.3884
       },
       {
@@ -13588,10 +13588,10 @@
       {
         "region_a": "trench_builder",
         "region_b": "vestibular_proof_kaggle",
-        "cosine_similarity": 0.9577,
+        "cosine_similarity": 0.9576,
         "name_affinity": 0.0,
-        "size_proximity": 0.0107,
-        "overlap_score": 0.3863
+        "size_proximity": 0.0104,
+        "overlap_score": 0.3862
       },
       {
         "region_a": "dev_archive",
@@ -13660,10 +13660,10 @@
       {
         "region_a": "fleet",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9582,
+        "cosine_similarity": 0.9581,
         "name_affinity": 0.0,
-        "size_proximity": 0.0068,
-        "overlap_score": 0.3853
+        "size_proximity": 0.0066,
+        "overlap_score": 0.3852
       },
       {
         "region_a": "dev_archive",
@@ -13844,10 +13844,10 @@
       {
         "region_a": "mantra-fm",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9428,
+        "cosine_similarity": 0.9427,
         "name_affinity": 0.0,
-        "size_proximity": 0.0163,
-        "overlap_score": 0.382
+        "size_proximity": 0.0159,
+        "overlap_score": 0.3819
       },
       {
         "region_a": "dev_archive",
@@ -13884,17 +13884,9 @@
       {
         "region_a": "density_spheres",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9475,
+        "cosine_similarity": 0.9474,
         "name_affinity": 0.0,
-        "size_proximity": 0.0083,
-        "overlap_score": 0.3815
-      },
-      {
-        "region_a": "manifold-model-router",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9514,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0028,
+        "size_proximity": 0.0081,
         "overlap_score": 0.3814
       },
       {
@@ -13903,6 +13895,14 @@
         "cosine_similarity": 0.9513,
         "name_affinity": 0.0,
         "size_proximity": 0.0024,
+        "overlap_score": 0.3813
+      },
+      {
+        "region_a": "manifold-model-router",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9513,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0027,
         "overlap_score": 0.3813
       },
       {
@@ -13964,10 +13964,10 @@
       {
         "region_a": "avatar",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9435,
+        "cosine_similarity": 0.9434,
         "name_affinity": 0.0,
-        "size_proximity": 0.0072,
-        "overlap_score": 0.3796
+        "size_proximity": 0.0071,
+        "overlap_score": 0.3795
       },
       {
         "region_a": "advra_archive",
@@ -13988,10 +13988,10 @@
       {
         "region_a": "ernie_agent",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9436,
+        "cosine_similarity": 0.9435,
         "name_affinity": 0.0,
-        "size_proximity": 0.0051,
-        "overlap_score": 0.379
+        "size_proximity": 0.005,
+        "overlap_score": 0.3789
       },
       {
         "region_a": "COMMENCINGTHESCOURGE",
@@ -14044,10 +14044,10 @@
       {
         "region_a": "parallax",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9412,
+        "cosine_similarity": 0.9411,
         "name_affinity": 0.0,
-        "size_proximity": 0.0044,
-        "overlap_score": 0.3778
+        "size_proximity": 0.0043,
+        "overlap_score": 0.3777
       },
       {
         "region_a": "avatar-core",
@@ -14100,18 +14100,10 @@
       {
         "region_a": "trench_builder",
         "region_b": "xpbd_solver",
-        "cosine_similarity": 0.9352,
+        "cosine_similarity": 0.9351,
         "name_affinity": 0.0,
-        "size_proximity": 0.0087,
-        "overlap_score": 0.3767
-      },
-      {
-        "region_a": "forensics",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9365,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0048,
-        "overlap_score": 0.3761
+        "size_proximity": 0.0085,
+        "overlap_score": 0.3766
       },
       {
         "region_a": "dev_archive",
@@ -14119,6 +14111,14 @@
         "cosine_similarity": 0.9344,
         "name_affinity": 0.0,
         "size_proximity": 0.0075,
+        "overlap_score": 0.376
+      },
+      {
+        "region_a": "forensics",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9364,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0047,
         "overlap_score": 0.376
       },
       {
@@ -14172,7 +14172,7 @@
       {
         "region_a": "acoustic_archive",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9362,
+        "cosine_similarity": 0.9361,
         "name_affinity": 0.0,
         "size_proximity": 0.0018,
         "overlap_score": 0.375
@@ -14212,7 +14212,7 @@
       {
         "region_a": "aegis_archive",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9339,
+        "cosine_similarity": 0.9338,
         "name_affinity": 0.0,
         "size_proximity": 0.0025,
         "overlap_score": 0.3743
@@ -14300,10 +14300,10 @@
       {
         "region_a": "advra_archive",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9283,
+        "cosine_similarity": 0.9282,
         "name_affinity": 0.0,
         "size_proximity": 0.0012,
-        "overlap_score": 0.3717
+        "overlap_score": 0.3716
       },
       {
         "region_a": "flux-chamber",
@@ -14356,10 +14356,10 @@
       {
         "region_a": "sync",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9249,
+        "cosine_similarity": 0.9248,
         "name_affinity": 0.0,
-        "size_proximity": 0.0031,
-        "overlap_score": 0.3709
+        "size_proximity": 0.003,
+        "overlap_score": 0.3708
       },
       {
         "region_a": "flux-chamber",
@@ -15196,14 +15196,14 @@
         "status": "ROBUST"
       },
       "trench_builder": {
-        "files": 226,
-        "vinculums": 28837,
-        "size_kb": 1968.06,
-        "vinculum_density": 127.6,
-        "kb_per_vinculum": 0.0682,
+        "files": 230,
+        "vinculums": 29524,
+        "size_kb": 2007.36,
+        "vinculum_density": 128.37,
+        "kb_per_vinculum": 0.068,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
-        "integrity_score": 0.584,
+        "integrity_score": 0.5841,
         "status": "ROBUST"
       },
       "vestibular_proof_kaggle": {
@@ -15470,10 +15470,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "conservation",
         "threshold",
         "reversible",
-        "dissipative"
+        "dissipative",
+        "conservation"
       ],
       "mean_dissipation_rate": 0.02125
     }
