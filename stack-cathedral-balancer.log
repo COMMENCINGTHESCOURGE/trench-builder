@@ -1,0 +1,57 @@
+[{"stream_name":"stderr","time":7.98483164,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":7.986109304,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":9.333602889,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.333645568,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.333650463,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.333653509,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.203130763,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.203164363,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.203168435,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.203171804,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.907681122,"data":"No logs found — using defaults\n"}
+,{"stream_name":"stdout","time":12.928572382,"data":"\n"}
+,{"stream_name":"stdout","time":12.928615471,"data":"=== BALANCE PATCH ===\n"}
+,{"stream_name":"stdout","time":12.928621076,"data":"{\n"}
+,{"stream_name":"stdout","time":12.928625098,"data":"  \"enemy_hp_mult\": {\n"}
+,{"stream_name":"stdout","time":12.928629321,"data":"    \"drift\": 1.0,\n"}
+,{"stream_name":"stdout","time":12.928635627,"data":"    \"chain\": 1.0,\n"}
+,{"stream_name":"stdout","time":12.928644459000001,"data":"    \"conflict\": 1.0,\n"}
+,{"stream_name":"stdout","time":12.92864728,"data":"    \"paren\": 1.0,\n"}
+,{"stream_name":"stdout","time":12.928650061,"data":"    \"bracket\": 1.0,\n"}
+,{"stream_name":"stdout","time":12.928652756,"data":"    \"brace\": 1.0\n"}
+,{"stream_name":"stdout","time":12.928655453,"data":"  },\n"}
+,{"stream_name":"stdout","time":12.928658063,"data":"  \"weapon_damage\": {\n"}
+,{"stream_name":"stdout","time":12.928660893,"data":"    \"apply\": 26,\n"}
+,{"stream_name":"stdout","time":12.928663605,"data":"    \"destroy\": 90,\n"}
+,{"stream_name":"stdout","time":12.928666346,"data":"    \"plan\": 8,\n"}
+,{"stream_name":"stdout","time":12.928669034,"data":"    \"rollback\": 999\n"}
+,{"stream_name":"stdout","time":12.928672342,"data":"  },\n"}
+,{"stream_name":"stdout","time":12.92869377,"data":"  \"spawn\": {\n"}
+,{"stream_name":"stdout","time":12.928698736,"data":"    \"drones\": 25,\n"}
+,{"stream_name":"stdout","time":12.928703493,"data":"    \"chains\": 6,\n"}
+,{"stream_name":"stdout","time":12.928707834,"data":"    \"conflicts\": 2,\n"}
+,{"stream_name":"stdout","time":12.928712591,"data":"    \"paren_pairs\": 8,\n"}
+,{"stream_name":"stdout","time":12.928717291,"data":"    \"bracket_pairs\": 6,\n"}
+,{"stream_name":"stdout","time":12.928721292,"data":"    \"brace_pairs\": 5\n"}
+,{"stream_name":"stdout","time":12.928725268,"data":"  },\n"}
+,{"stream_name":"stdout","time":12.928729118,"data":"  \"timing\": {\n"}
+,{"stream_name":"stdout","time":12.928733149,"data":"    \"wave_spacing\": 25,\n"}
+,{"stream_name":"stdout","time":12.928755982,"data":"    \"boss_spawn_wave\": 2,\n"}
+,{"stream_name":"stdout","time":12.928760199,"data":"    \"boss_frame_interval\": 9\n"}
+,{"stream_name":"stdout","time":12.928770245,"data":"  },\n"}
+,{"stream_name":"stdout","time":12.928773109,"data":"  \"player\": {\n"}
+,{"stream_name":"stdout","time":12.928775704,"data":"    \"hp\": 100,\n"}
+,{"stream_name":"stdout","time":12.928778465,"data":"    \"shield_regen\": 8,\n"}
+,{"stream_name":"stdout","time":12.928799018,"data":"    \"energy_regen\": 7,\n"}
+,{"stream_name":"stdout","time":12.928803792,"data":"    \"speed\": 45\n"}
+,{"stream_name":"stdout","time":12.928808479,"data":"  }\n"}
+,{"stream_name":"stdout","time":12.928813111,"data":"}\n"}
+,{"stream_name":"stderr","time":16.532402035,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16.532449458,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16.755040734,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16.755113169,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":17.561935971,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":17.965802031,"data":"[NbConvertApp] Writing 6992 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":21.415613764,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":22.534116888,"data":"[NbConvertApp] Writing 290582 bytes to __results__.html\n"}
+]
