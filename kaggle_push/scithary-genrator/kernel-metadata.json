@@ -5,6 +5,6 @@
   "kernel_type": "notebook",
   "code_file": "scithary-genrator-auto-regenerator.ipynb",
   "enable_gpu": true,
-  "enable_internet": false,
+  "enable_internet": true,
   "is_private": true
 }
