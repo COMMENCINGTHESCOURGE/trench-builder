@@ -15470,10 +15470,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "conservation",
+        "dissipative",
         "threshold",
         "reversible",
-        "dissipative"
+        "conservation"
       ],
       "mean_dissipation_rate": 0.02125
     }
