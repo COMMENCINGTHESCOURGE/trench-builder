@@ -1,15 +1,15 @@
 {
-  "total_files": 9026,
-  "total_vinculums": 833920,
+  "total_files": 2533,
+  "total_vinculums": 312336,
   "patterns": {
-    "fraction": 41662,
-    "group_brace": 243020,
-    "auto_close": 421388,
-    "chain": 63835,
-    "hyphen_bind": 53532,
-    "overline": 4365,
-    "repeat": 4083,
-    "negation": 2035
+    "fraction": 7277,
+    "group_brace": 60482,
+    "auto_close": 214634,
+    "chain": 8590,
+    "hyphen_bind": 16679,
+    "overline": 3136,
+    "repeat": 1482,
+    "negation": 56
   },
   "projects": {
     "acoustic_archive": {
@@ -63,9 +63,9 @@
       "kb": 12.1416015625
     },
     "avatar-core": {
-      "files": 233,
-      "v": 18657,
-      "kb": 3364.1767578125
+      "files": 4,
+      "v": 696,
+      "kb": 70.716796875
     },
     "blooming-onion": {
       "files": 18,
@@ -88,9 +88,9 @@
       "kb": 19.4921875
     },
     "COMMENCINGTHESCOURGE": {
-      "files": 6139,
-      "v": 486841,
-      "kb": 64596.501953125
+      "files": 245,
+      "v": 18445,
+      "kb": 1606.6904296875
     },
     "deepbio-prompt-pack": {
       "files": 3,
@@ -108,14 +108,9 @@
       "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 530,
-      "v": 62975,
-      "kb": 3796.5439453125
-    },
-    "erdos-straus": {
-      "files": 11,
-      "v": 4275,
-      "kb": 228.46484375
+      "files": 531,
+      "v": 63033,
+      "kb": 3823.08203125
     },
     "ernie_agent": {
       "files": 1,
@@ -128,9 +123,9 @@
       "kb": 10.4013671875
     },
     "flux-chamber": {
-      "files": 308,
-      "v": 25476,
-      "kb": 3767.9326171875
+      "files": 10,
+      "v": 1071,
+      "kb": 112.00390625
     },
     "forensics": {
       "files": 1,
@@ -143,9 +138,9 @@
       "kb": 159.275390625
     },
     "headroom": {
-      "files": 1139,
-      "v": 145660,
-      "kb": 12651.8505859375
+      "files": 1077,
+      "v": 139050,
+      "kb": 12152.7607421875
     },
     "hyperpoly-terrain": {
       "files": 29,
@@ -240,7 +235,7 @@
     "research": {
       "files": 17,
       "v": 2186,
-      "kb": 199.4912109375
+      "kb": 199.4794921875
     },
     "roto_extractor": {
       "files": 3,
@@ -284,8 +279,8 @@
     },
     "trench_builder": {
       "files": 252,
-      "v": 32003,
-      "kb": 2424.2802734375
+      "v": 32008,
+      "kb": 2424.6181640625
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -566,5 +561,5 @@
       ]
     }
   ],
-  "runtime_s": 72.6
+  "runtime_s": 10.2
 }
