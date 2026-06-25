@@ -1,14 +1,14 @@
 {
-  "total_files": 9010,
-  "total_vinculums": 832488,
+  "total_files": 9024,
+  "total_vinculums": 833825,
   "patterns": {
-    "fraction": 41649,
-    "group_brace": 242004,
-    "auto_close": 421062,
-    "chain": 63817,
-    "hyphen_bind": 53476,
+    "fraction": 41658,
+    "group_brace": 243004,
+    "auto_close": 421324,
+    "chain": 63830,
+    "hyphen_bind": 53526,
     "overline": 4365,
-    "repeat": 4080,
+    "repeat": 4083,
     "negation": 2035
   },
   "projects": {
@@ -113,9 +113,9 @@
       "kb": 3794.0458984375
     },
     "erdos-straus": {
-      "files": 9,
-      "v": 4261,
-      "kb": 226.494140625
+      "files": 10,
+      "v": 4267,
+      "kb": 227.5126953125
     },
     "ernie_agent": {
       "files": 1,
@@ -283,9 +283,9 @@
       "kb": 50.9384765625
     },
     "trench_builder": {
-      "files": 238,
-      "v": 30598,
-      "kb": 2208.7109375
+      "files": 251,
+      "v": 31929,
+      "kb": 2421.29296875
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -566,5 +566,5 @@
       ]
     }
   ],
-  "runtime_s": 65.7
+  "runtime_s": 76.6
 }
