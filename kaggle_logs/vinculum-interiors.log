@@ -1,61 +1,61 @@
-[{"stream_name":"stderr","time":6.557093587,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
-,{"stream_name":"stderr","time":6.5571750049999995,"data":"  validate(nb)\n"}
-,{"stream_name":"stderr","time":7.624712576,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":7.624749043,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":7.6247612369999995,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":7.6247655949999995,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stderr","time":8.3617632,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":8.361822407,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":8.361829544999999,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":8.36183451,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stdout","time":9.584708562,"data":"Interiors Optimizer — Kaggle GPU\n"}
-,{"stream_name":"stdout","time":9.604172735,"data":"Rooms: 8\n"}
-,{"stream_name":"stdout","time":9.618591841,"data":"DIMENSION ANALYSIS:\n"}
-,{"stream_name":"stdout","time":9.618645167,"data":"  SUPINE  :  120m2 (  480m3)  3 props  1 doors\n"}
-,{"stream_name":"stdout","time":9.618678697,"data":"  SCOOT   :   72m2 (  252m3)  2 props  2 doors\n"}
-,{"stream_name":"stdout","time":9.618684462000001,"data":"  CRAWL   :   42m2 (  118m3)  2 props  2 doors\n"}
-,{"stream_name":"stdout","time":9.61868905,"data":"  STAND   :  224m2 ( 1120m3)  3 props  2 doors\n"}
-,{"stream_name":"stdout","time":9.618693266,"data":"  BOUNCE  :  360m2 ( 2880m3)  3 props  1 doors\n"}
-,{"stream_name":"stdout","time":9.618698452,"data":"    WARNING: SINGLE EXIT IN LARGE ROOM\n"}
-,{"stream_name":"stdout","time":9.618703204,"data":"  WALK    :  280m2 ( 1680m3)  2 props  2 doors\n"}
-,{"stream_name":"stdout","time":9.618707227,"data":"  JUMP    :  576m2 ( 6912m3)  3 props  1 doors\n"}
-,{"stream_name":"stdout","time":9.618711269,"data":"    WARNING: SINGLE EXIT IN LARGE ROOM\n"}
-,{"stream_name":"stdout","time":9.618715363,"data":"  RUN     :  100m2 (  500m3)  3 props  1 doors\n"}
-,{"stream_name":"stdout","time":9.634478604,"data":"CHROMA ANALYSIS:\n"}
-,{"stream_name":"stdout","time":9.634524117,"data":"  SUPINE(220) → SCOOT (200)  Δ= 20°  ████░░░░░░░░  LOW\n"}
-,{"stream_name":"stdout","time":9.634531095,"data":"  SCOOT (200) → CRAWL ( 30)  Δ=170°  ██████████████████████████████████  GOOD\n"}
-,{"stream_name":"stdout","time":9.634536144,"data":"  CRAWL ( 30) → STAND (170)  Δ=140°  ████████████████████████████  GOOD\n"}
-,{"stream_name":"stdout","time":9.634540768,"data":"  STAND (170) → BOUNCE(140)  Δ= 30°  ██████░░░░░░  LOW\n"}
-,{"stream_name":"stdout","time":9.634565472,"data":"  BOUNCE(140) → WALK  (190)  Δ= 50°  ██████████░░  GOOD\n"}
-,{"stream_name":"stdout","time":9.634590715,"data":"  WALK  (190) → JUMP  ( 10)  Δ=180°  ████████████████████████████████████  GOOD\n"}
-,{"stream_name":"stdout","time":9.634596131,"data":"  JUMP  ( 10) → RUN   (  0)  Δ= 10°  ██░░░░░░░░░░  LOW\n"}
-,{"stream_name":"stdout","time":9.634600904,"data":"  RUN   (  0) → SUPINE(220)  Δ=140°  ████████████████████████████  GOOD\n"}
-,{"stream_name":"stdout","time":9.648619454,"data":"NAVIGATION CLEARANCE:\n"}
-,{"stream_name":"stdout","time":9.648661641,"data":"  SUPINE  : prop footprint=9m2  clearance=92%  ██████████████████░░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648667019,"data":"  SCOOT   : prop footprint=6m2  clearance=92%  ██████████████████░░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648670284,"data":"  CRAWL   : prop footprint=6m2  clearance=86%  █████████████████░░░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648673373,"data":"  STAND   : prop footprint=9m2  clearance=96%  ███████████████████░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648676484,"data":"  BOUNCE  : prop footprint=9m2  clearance=98%  ███████████████████░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648679378,"data":"  WALK    : prop footprint=6m2  clearance=98%  ███████████████████░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648682247,"data":"  JUMP    : prop footprint=9m2  clearance=98%  ███████████████████░ GOOD\n"}
-,{"stream_name":"stdout","time":9.648685368,"data":"  RUN     : prop footprint=9m2  clearance=91%  ██████████████████░░ GOOD\n"}
-,{"stream_name":"stdout","time":9.663137422,"data":"DOOR ACCESSIBILITY:\n"}
-,{"stream_name":"stdout","time":9.663171957,"data":"  SUPINE  : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
-,{"stream_name":"stdout","time":9.663179326,"data":"  SCOOT   : score=3/4  ███░  wide_enough=Y  multi_dir=Y\n"}
-,{"stream_name":"stdout","time":9.663184506,"data":"  CRAWL   : score=1/4  █░░░  wide_enough=Y  multi_dir=Y\n"}
-,{"stream_name":"stdout","time":9.663189665,"data":"  STAND   : score=2/4  ██░░  wide_enough=Y  multi_dir=N\n"}
-,{"stream_name":"stdout","time":9.663193818,"data":"  BOUNCE  : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
-,{"stream_name":"stdout","time":9.663198054,"data":"  WALK    : score=3/4  ███░  wide_enough=Y  multi_dir=Y\n"}
-,{"stream_name":"stdout","time":9.663202225,"data":"  JUMP    : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
-,{"stream_name":"stdout","time":9.663206326,"data":"  RUN     : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
-,{"stream_name":"stdout","time":9.678453143,"data":"Exported: vinculum_interiors_data.json\n"}
-,{"stream_name":"stdout","time":9.678520322,"data":"Rooms: 8  Doors: 12  Props: 21\n"}
-,{"stream_name":"stderr","time":12.915791302,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":12.915846396,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":13.104998846,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":13.105048064,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":13.808363815,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
-,{"stream_name":"stderr","time":14.182823263,"data":"[NbConvertApp] Writing 14945 bytes to __notebook__.ipynb\n"}
-,{"stream_name":"stderr","time":17.156219193,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
-,{"stream_name":"stderr","time":18.192996627,"data":"[NbConvertApp] Writing 314321 bytes to __results__.html\n"}
+[{"stream_name":"stderr","time":6.233418194,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.233507155,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.277016325,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.277051613,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.277058632,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.277064258,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.992737711,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.992790686,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.992798731,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.992804321,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.215340581,"data":"Interiors Optimizer — Kaggle GPU\n"}
+,{"stream_name":"stdout","time":9.235285479,"data":"Rooms: 8\n"}
+,{"stream_name":"stdout","time":9.251614517,"data":"DIMENSION ANALYSIS:\n"}
+,{"stream_name":"stdout","time":9.25165984,"data":"  SUPINE  :  120m2 (  480m3)  3 props  1 doors\n"}
+,{"stream_name":"stdout","time":9.25166692,"data":"  SCOOT   :   72m2 (  252m3)  2 props  2 doors\n"}
+,{"stream_name":"stdout","time":9.251672417,"data":"  CRAWL   :   42m2 (  118m3)  2 props  2 doors\n"}
+,{"stream_name":"stdout","time":9.251677454,"data":"  STAND   :  224m2 ( 1120m3)  3 props  2 doors\n"}
+,{"stream_name":"stdout","time":9.251682634,"data":"  BOUNCE  :  360m2 ( 2880m3)  3 props  1 doors\n"}
+,{"stream_name":"stdout","time":9.251687735,"data":"    WARNING: SINGLE EXIT IN LARGE ROOM\n"}
+,{"stream_name":"stdout","time":9.251693134,"data":"  WALK    :  280m2 ( 1680m3)  2 props  2 doors\n"}
+,{"stream_name":"stdout","time":9.2516981,"data":"  JUMP    :  576m2 ( 6912m3)  3 props  1 doors\n"}
+,{"stream_name":"stdout","time":9.251703116,"data":"    WARNING: SINGLE EXIT IN LARGE ROOM\n"}
+,{"stream_name":"stdout","time":9.251708077,"data":"  RUN     :  100m2 (  500m3)  3 props  1 doors\n"}
+,{"stream_name":"stdout","time":9.266916354,"data":"CHROMA ANALYSIS:\n"}
+,{"stream_name":"stdout","time":9.266952823,"data":"  SUPINE(220) → SCOOT (200)  Δ= 20°  ████░░░░░░░░  LOW\n"}
+,{"stream_name":"stdout","time":9.266960273,"data":"  SCOOT (200) → CRAWL ( 30)  Δ=170°  ██████████████████████████████████  GOOD\n"}
+,{"stream_name":"stdout","time":9.267031317,"data":"  CRAWL ( 30) → STAND (170)  Δ=140°  ████████████████████████████  GOOD\n"}
+,{"stream_name":"stdout","time":9.267037602,"data":"  STAND (170) → BOUNCE(140)  Δ= 30°  ██████░░░░░░  LOW\n"}
+,{"stream_name":"stdout","time":9.267048178,"data":"  BOUNCE(140) → WALK  (190)  Δ= 50°  ██████████░░  GOOD\n"}
+,{"stream_name":"stdout","time":9.267076478,"data":"  WALK  (190) → JUMP  ( 10)  Δ=180°  ████████████████████████████████████  GOOD\n"}
+,{"stream_name":"stdout","time":9.267082255,"data":"  JUMP  ( 10) → RUN   (  0)  Δ= 10°  ██░░░░░░░░░░  LOW\n"}
+,{"stream_name":"stdout","time":9.267086521,"data":"  RUN   (  0) → SUPINE(220)  Δ=140°  ████████████████████████████  GOOD\n"}
+,{"stream_name":"stdout","time":9.280625498,"data":"NAVIGATION CLEARANCE:\n"}
+,{"stream_name":"stdout","time":9.280661781,"data":"  SUPINE  : prop footprint=9m2  clearance=92%  ██████████████████░░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280669591,"data":"  SCOOT   : prop footprint=6m2  clearance=92%  ██████████████████░░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280674983,"data":"  CRAWL   : prop footprint=6m2  clearance=86%  █████████████████░░░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280680448,"data":"  STAND   : prop footprint=9m2  clearance=96%  ███████████████████░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280685053,"data":"  BOUNCE  : prop footprint=9m2  clearance=98%  ███████████████████░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280689402,"data":"  WALK    : prop footprint=6m2  clearance=98%  ███████████████████░ GOOD\n"}
+,{"stream_name":"stdout","time":9.28069373,"data":"  JUMP    : prop footprint=9m2  clearance=98%  ███████████████████░ GOOD\n"}
+,{"stream_name":"stdout","time":9.280698059,"data":"  RUN     : prop footprint=9m2  clearance=91%  ██████████████████░░ GOOD\n"}
+,{"stream_name":"stdout","time":9.295663953,"data":"DOOR ACCESSIBILITY:\n"}
+,{"stream_name":"stdout","time":9.295753698,"data":"  SUPINE  : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
+,{"stream_name":"stdout","time":9.295762881,"data":"  SCOOT   : score=3/4  ███░  wide_enough=Y  multi_dir=Y\n"}
+,{"stream_name":"stdout","time":9.295767942,"data":"  CRAWL   : score=1/4  █░░░  wide_enough=Y  multi_dir=Y\n"}
+,{"stream_name":"stdout","time":9.295773139,"data":"  STAND   : score=2/4  ██░░  wide_enough=Y  multi_dir=N\n"}
+,{"stream_name":"stdout","time":9.295785155,"data":"  BOUNCE  : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
+,{"stream_name":"stdout","time":9.295789069,"data":"  WALK    : score=3/4  ███░  wide_enough=Y  multi_dir=Y\n"}
+,{"stream_name":"stdout","time":9.295792129,"data":"  JUMP    : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
+,{"stream_name":"stdout","time":9.295795169,"data":"  RUN     : score=1/4  █░░░  wide_enough=Y  multi_dir=N\n"}
+,{"stream_name":"stdout","time":9.311760892,"data":"Exported: vinculum_interiors_data.json\n"}
+,{"stream_name":"stdout","time":9.311792561,"data":"Rooms: 8  Doors: 12  Props: 21\n"}
+,{"stream_name":"stderr","time":12.397101399,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12.397141936,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12.595761487,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12.59580352,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":13.29975706,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":13.674632871,"data":"[NbConvertApp] Writing 14945 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":16.614476357,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.650316784,"data":"[NbConvertApp] Writing 314321 bytes to __results__.html\n"}
 ]
