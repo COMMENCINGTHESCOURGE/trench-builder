@@ -2,7 +2,7 @@
   "metadata": {
     "generator": "scithary-genrator",
     "version": "1.0.0",
-    "generated_at": "2026-06-24",
+    "generated_at": "2026-06-25",
     "source": "trench_builder",
     "input_summary": {
       "total_regions": 60,
@@ -15470,8 +15470,8 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
-        "threshold",
         "dissipative",
+        "threshold",
         "reversible",
         "conservation"
       ],
