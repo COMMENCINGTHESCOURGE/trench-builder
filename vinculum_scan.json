@@ -1,14 +1,14 @@
 {
-  "total_files": 2560,
-  "total_vinculums": 316340,
+  "total_files": 2564,
+  "total_vinculums": 317158,
   "patterns": {
-    "fraction": 7327,
-    "group_brace": 61758,
-    "auto_close": 216721,
-    "chain": 8790,
-    "hyphen_bind": 16999,
-    "overline": 3204,
-    "repeat": 1485,
+    "fraction": 7340,
+    "group_brace": 61919,
+    "auto_close": 217321,
+    "chain": 8794,
+    "hyphen_bind": 17008,
+    "overline": 3234,
+    "repeat": 1486,
     "negation": 56
   },
   "projects": {
@@ -28,9 +28,9 @@
       "kb": 4.0595703125
     },
     "aetherion-continuum": {
-      "files": 76,
-      "v": 3040,
-      "kb": 175.65234375
+      "files": 77,
+      "v": 3385,
+      "kb": 190.1142578125
     },
     "aetheris_archive": {
       "files": 21,
@@ -118,9 +118,9 @@
       "kb": 3823.08203125
     },
     "erdos-straus": {
-      "files": 10,
-      "v": 686,
-      "kb": 32.6806640625
+      "files": 12,
+      "v": 937,
+      "kb": 42.384765625
     },
     "ernie_agent": {
       "files": 1,
@@ -143,9 +143,9 @@
       "kb": 6.8447265625
     },
     "fractype": {
-      "files": 22,
-      "v": 2552,
-      "kb": 159.275390625
+      "files": 23,
+      "v": 2688,
+      "kb": 165.6611328125
     },
     "headroom": {
       "files": 1077,
@@ -294,8 +294,8 @@
     },
     "trench_builder": {
       "files": 253,
-      "v": 32500,
-      "kb": 2522.6865234375
+      "v": 32586,
+      "kb": 2527.3974609375
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -357,6 +357,19 @@
         "fraction",
         "group_brace",
         "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "flight_demo.html",
+      "l": 406,
+      "v": 345,
+      "d": 85.0,
+      "t": [
+        "fraction",
+        "group_brace",
+        "hyphen_bind",
         "auto_close"
       ]
     },
@@ -561,20 +574,7 @@
         "auto_close",
         "repeat"
       ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "tripo_bars.json",
-      "l": 105,
-      "v": 30,
-      "d": 28.6,
-      "t": [
-        "group_brace",
-        "chain",
-        "hyphen_bind",
-        "auto_close"
-      ]
     }
   ],
-  "runtime_s": 11.4
+  "runtime_s": 10.8
 }
