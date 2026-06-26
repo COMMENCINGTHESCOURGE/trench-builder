@@ -1,14 +1,14 @@
 {
-  "total_files": 2533,
-  "total_vinculums": 312336,
+  "total_files": 2556,
+  "total_vinculums": 315638,
   "patterns": {
-    "fraction": 7277,
-    "group_brace": 60482,
-    "auto_close": 214634,
-    "chain": 8590,
-    "hyphen_bind": 16679,
-    "overline": 3136,
-    "repeat": 1482,
+    "fraction": 7321,
+    "group_brace": 61265,
+    "auto_close": 216577,
+    "chain": 8788,
+    "hyphen_bind": 16954,
+    "overline": 3192,
+    "repeat": 1485,
     "negation": 56
   },
   "projects": {
@@ -51,6 +51,11 @@
       "files": 2,
       "v": 110,
       "kb": 14.232421875
+    },
+    "asset_pack": {
+      "files": 7,
+      "v": 1715,
+      "kb": 104.4033203125
     },
     "aurora_archive": {
       "files": 6,
@@ -112,15 +117,20 @@
       "v": 63033,
       "kb": 3823.08203125
     },
+    "erdos-straus": {
+      "files": 8,
+      "v": 473,
+      "kb": 23.640625
+    },
     "ernie_agent": {
       "files": 1,
       "v": 148,
       "kb": 9.2802734375
     },
     "fleet": {
-      "files": 2,
-      "v": 195,
-      "kb": 10.4013671875
+      "files": 3,
+      "v": 240,
+      "kb": 13.20703125
     },
     "flux-chamber": {
       "files": 10,
@@ -172,15 +182,20 @@
       "v": 1273,
       "kb": 116.578125
     },
+    "legal": {
+      "files": 2,
+      "v": 11,
+      "kb": 3.3447265625
+    },
     "lenticular_pipeline": {
       "files": 6,
       "v": 589,
       "kb": 50.6044921875
     },
     "manifold": {
-      "files": 5,
-      "v": 581,
-      "kb": 44.51953125
+      "files": 6,
+      "v": 595,
+      "kb": 47.8583984375
     },
     "manifold-model-router": {
       "files": 1,
@@ -188,9 +203,9 @@
       "kb": 7.73046875
     },
     "mantra-fm": {
-      "files": 1,
-      "v": 470,
-      "kb": 22.6328125
+      "files": 5,
+      "v": 1514,
+      "kb": 218.830078125
     },
     "mecha_robotics_kit": {
       "files": 2,
@@ -224,7 +239,7 @@
     },
     "project_manager": {
       "files": 4,
-      "v": 1175,
+      "v": 1172,
       "kb": 140.1796875
     },
     "quantum_garden": {
@@ -279,8 +294,8 @@
     },
     "trench_builder": {
       "files": 252,
-      "v": 32008,
-      "kb": 2424.6181640625
+      "v": 32011,
+      "kb": 2424.533203125
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -561,5 +576,5 @@
       ]
     }
   ],
-  "runtime_s": 10.2
+  "runtime_s": 19.4
 }
