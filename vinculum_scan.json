@@ -1,12 +1,12 @@
 {
   "total_files": 2558,
-  "total_vinculums": 316205,
+  "total_vinculums": 316203,
   "patterns": {
     "fraction": 7325,
-    "group_brace": 61725,
+    "group_brace": 61724,
     "auto_close": 216634,
     "chain": 8790,
-    "hyphen_bind": 16998,
+    "hyphen_bind": 16997,
     "overline": 3192,
     "repeat": 1485,
     "negation": 56
@@ -119,8 +119,8 @@
     },
     "erdos-straus": {
       "files": 9,
-      "v": 553,
-      "kb": 27.5419921875
+      "v": 551,
+      "kb": 27.4501953125
     },
     "ernie_agent": {
       "files": 1,
@@ -295,7 +295,7 @@
     "trench_builder": {
       "files": 253,
       "v": 32500,
-      "kb": 2522.4638671875
+      "kb": 2522.4921875
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -576,5 +576,5 @@
       ]
     }
   ],
-  "runtime_s": 44.6
+  "runtime_s": 12.2
 }
