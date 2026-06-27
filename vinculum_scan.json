@@ -119,8 +119,8 @@
     },
     "erdos-straus": {
       "files": 12,
-      "v": 937,
-      "kb": 42.384765625
+      "v": 939,
+      "kb": 42.4765625
     },
     "ernie_agent": {
       "files": 1,
@@ -294,8 +294,8 @@
     },
     "trench_builder": {
       "files": 253,
-      "v": 32588,
-      "kb": 2527.375
+      "v": 32586,
+      "kb": 2527.4248046875
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -577,5 +577,5 @@
       ]
     }
   ],
-  "runtime_s": 15.1
+  "runtime_s": 12.0
 }
