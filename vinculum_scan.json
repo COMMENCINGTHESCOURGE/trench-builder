@@ -1,13 +1,13 @@
 {
   "total_files": 2564,
-  "total_vinculums": 317158,
+  "total_vinculums": 317279,
   "patterns": {
-    "fraction": 7340,
-    "group_brace": 61919,
-    "auto_close": 217321,
-    "chain": 8794,
-    "hyphen_bind": 17008,
-    "overline": 3234,
+    "fraction": 7347,
+    "group_brace": 61901,
+    "auto_close": 217437,
+    "chain": 8799,
+    "hyphen_bind": 17007,
+    "overline": 3246,
     "repeat": 1486,
     "negation": 56
   },
@@ -29,8 +29,8 @@
     },
     "aetherion-continuum": {
       "files": 77,
-      "v": 3385,
-      "kb": 190.1142578125
+      "v": 3504,
+      "kb": 192.341796875
     },
     "aetheris_archive": {
       "files": 21,
@@ -240,7 +240,7 @@
     "project_manager": {
       "files": 5,
       "v": 1172,
-      "kb": 140.6416015625
+      "kb": 140.6533203125
     },
     "quantum_garden": {
       "files": 8,
@@ -294,8 +294,8 @@
     },
     "trench_builder": {
       "files": 253,
-      "v": 32586,
-      "kb": 2527.3974609375
+      "v": 32588,
+      "kb": 2527.375
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -376,13 +376,14 @@
     {
       "p": "aetherion-continuum",
       "f": "index.html",
-      "l": 407,
-      "v": 235,
-      "d": 57.7,
+      "l": 432,
+      "v": 354,
+      "d": 81.9,
       "t": [
         "fraction",
+        "overline",
         "group_brace",
-        "hyphen_bind",
+        "chain",
         "auto_close"
       ]
     },
@@ -576,5 +577,5 @@
       ]
     }
   ],
-  "runtime_s": 10.8
+  "runtime_s": 15.1
 }
