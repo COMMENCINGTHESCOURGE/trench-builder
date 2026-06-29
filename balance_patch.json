@@ -1,0 +1,35 @@
+{
+  "enemy_hp_mult": {
+    "drift": 1.0,
+    "chain": 1.0,
+    "conflict": 1.0,
+    "paren": 1.0,
+    "bracket": 1.0,
+    "brace": 1.0
+  },
+  "weapon_damage": {
+    "apply": 26,
+    "destroy": 90,
+    "plan": 8,
+    "rollback": 999
+  },
+  "spawn": {
+    "drones": 25,
+    "chains": 6,
+    "conflicts": 2,
+    "paren_pairs": 8,
+    "bracket_pairs": 6,
+    "brace_pairs": 5
+  },
+  "timing": {
+    "wave_spacing": 25,
+    "boss_spawn_wave": 2,
+    "boss_frame_interval": 9
+  },
+  "player": {
+    "hp": 100,
+    "shield_regen": 8,
+    "energy_regen": 7,
+    "speed": 45
+  }
+}

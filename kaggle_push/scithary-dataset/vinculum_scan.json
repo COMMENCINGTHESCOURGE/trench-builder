@@ -1,15 +1,15 @@
 {
-  "total_files": 2565,
-  "total_vinculums": 317430,
+  "total_files": 9011,
+  "total_vinculums": 832494,
   "patterns": {
-    "fraction": 7353,
-    "group_brace": 61929,
-    "auto_close": 217553,
-    "chain": 8800,
-    "hyphen_bind": 17009,
-    "overline": 3247,
-    "repeat": 1483,
-    "negation": 56
+    "fraction": 41649,
+    "group_brace": 242006,
+    "auto_close": 421065,
+    "chain": 63817,
+    "hyphen_bind": 53477,
+    "overline": 4365,
+    "repeat": 4080,
+    "negation": 2035
   },
   "projects": {
     "acoustic_archive": {
@@ -28,9 +28,9 @@
       "kb": 4.0595703125
     },
     "aetherion-continuum": {
-      "files": 77,
-      "v": 3504,
-      "kb": 192.341796875
+      "files": 76,
+      "v": 3040,
+      "kb": 175.65234375
     },
     "aetheris_archive": {
       "files": 21,
@@ -52,11 +52,6 @@
       "v": 110,
       "kb": 14.232421875
     },
-    "asset_pack": {
-      "files": 7,
-      "v": 1715,
-      "kb": 104.4033203125
-    },
     "aurora_archive": {
       "files": 6,
       "v": 2058,
@@ -68,9 +63,9 @@
       "kb": 12.1416015625
     },
     "avatar-core": {
-      "files": 4,
-      "v": 696,
-      "kb": 70.716796875
+      "files": 233,
+      "v": 18657,
+      "kb": 3364.1767578125
     },
     "blooming-onion": {
       "files": 18,
@@ -78,9 +73,9 @@
       "kb": 311.3486328125
     },
     "bridge": {
-      "files": 16,
-      "v": 2265,
-      "kb": 141.6484375
+      "files": 15,
+      "v": 2189,
+      "kb": 137.3759765625
     },
     "chronos": {
       "files": 16,
@@ -93,9 +88,9 @@
       "kb": 19.4921875
     },
     "COMMENCINGTHESCOURGE": {
-      "files": 245,
-      "v": 18445,
-      "kb": 1606.6904296875
+      "files": 6139,
+      "v": 486841,
+      "kb": 64596.501953125
     },
     "deepbio-prompt-pack": {
       "files": 3,
@@ -113,14 +108,14 @@
       "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 531,
-      "v": 63077,
-      "kb": 3825.83203125
+      "files": 530,
+      "v": 62962,
+      "kb": 3794.0458984375
     },
     "erdos-straus": {
-      "files": 12,
-      "v": 937,
-      "kb": 42.2626953125
+      "files": 10,
+      "v": 4267,
+      "kb": 227.5126953125
     },
     "ernie_agent": {
       "files": 1,
@@ -128,14 +123,14 @@
       "kb": 9.2802734375
     },
     "fleet": {
-      "files": 3,
-      "v": 240,
-      "kb": 13.20703125
+      "files": 2,
+      "v": 195,
+      "kb": 10.4013671875
     },
     "flux-chamber": {
-      "files": 10,
-      "v": 1071,
-      "kb": 112.00390625
+      "files": 308,
+      "v": 25476,
+      "kb": 3767.9326171875
     },
     "forensics": {
       "files": 1,
@@ -143,14 +138,14 @@
       "kb": 6.8447265625
     },
     "fractype": {
-      "files": 23,
-      "v": 2753,
-      "kb": 170.6259765625
+      "files": 22,
+      "v": 2552,
+      "kb": 159.275390625
     },
     "headroom": {
-      "files": 1077,
-      "v": 139050,
-      "kb": 12152.7607421875
+      "files": 1139,
+      "v": 145660,
+      "kb": 12651.8505859375
     },
     "hyperpoly-terrain": {
       "files": 29,
@@ -182,20 +177,15 @@
       "v": 1273,
       "kb": 116.578125
     },
-    "legal": {
-      "files": 2,
-      "v": 11,
-      "kb": 3.3447265625
-    },
     "lenticular_pipeline": {
       "files": 6,
       "v": 589,
       "kb": 50.6044921875
     },
     "manifold": {
-      "files": 6,
-      "v": 595,
-      "kb": 47.8583984375
+      "files": 5,
+      "v": 581,
+      "kb": 44.51953125
     },
     "manifold-model-router": {
       "files": 1,
@@ -203,9 +193,9 @@
       "kb": 7.73046875
     },
     "mantra-fm": {
-      "files": 5,
-      "v": 1514,
-      "kb": 218.830078125
+      "files": 1,
+      "v": 470,
+      "kb": 22.6328125
     },
     "mecha_robotics_kit": {
       "files": 2,
@@ -238,9 +228,9 @@
       "kb": 45.716796875
     },
     "project_manager": {
-      "files": 5,
-      "v": 1169,
-      "kb": 140.6630859375
+      "files": 4,
+      "v": 1175,
+      "kb": 140.1796875
     },
     "quantum_garden": {
       "files": 8,
@@ -250,7 +240,7 @@
     "research": {
       "files": 17,
       "v": 2186,
-      "kb": 199.4794921875
+      "kb": 199.4912109375
     },
     "roto_extractor": {
       "files": 3,
@@ -293,9 +283,9 @@
       "kb": 50.9384765625
     },
     "trench_builder": {
-      "files": 253,
-      "v": 32557,
-      "kb": 2527.8095703125
+      "files": 238,
+      "v": 30598,
+      "kb": 2208.8046875
     },
     "vestibular_proof_kaggle": {
       "files": 2,
@@ -362,28 +352,14 @@
     },
     {
       "p": "aetherion-continuum",
-      "f": "flight_demo.html",
-      "l": 406,
-      "v": 345,
-      "d": 85.0,
+      "f": "index.html",
+      "l": 407,
+      "v": 235,
+      "d": 57.7,
       "t": [
         "fraction",
         "group_brace",
         "hyphen_bind",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "index.html",
-      "l": 432,
-      "v": 354,
-      "d": 81.9,
-      "t": [
-        "fraction",
-        "overline",
-        "group_brace",
-        "chain",
         "auto_close"
       ]
     },
@@ -575,7 +551,20 @@
         "auto_close",
         "repeat"
       ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "tripo_bars.json",
+      "l": 105,
+      "v": 30,
+      "d": 28.6,
+      "t": [
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close"
+      ]
     }
   ],
-  "runtime_s": 23.4
+  "runtime_s": 64.5
 }

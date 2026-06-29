@@ -1,0 +1,3095 @@
+{
+  "baseline": {
+    "label": "baseline",
+    "suit": {
+      "mass_kg": 30,
+      "joint_friction": 0.15,
+      "lag_ms": 50,
+      "power_assist": 0.3
+    },
+    "total_points": 48,
+    "stages": {
+      "SUPINE": {
+        "joints": [],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {}
+          },
+          {
+            "frame": 1,
+            "angles": {}
+          },
+          {
+            "frame": 2,
+            "angles": {}
+          },
+          {
+            "frame": 3,
+            "angles": {}
+          },
+          {
+            "frame": 4,
+            "angles": {}
+          },
+          {
+            "frame": 5,
+            "angles": {}
+          }
+        ]
+      },
+      "SCOOT": {
+        "joints": [
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "CRAWL": {
+        "joints": [
+          "shoulder",
+          "hip"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "STAND": {
+        "joints": [
+          "ankle",
+          "knee",
+          "hip",
+          "neck"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 557.9,
+                "realized_mm": 1833.3,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 210.0,
+                "realized_mm": 150.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 308.3,
+                "realized_mm": 1012.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 8.8,
+                "realized_mm": 28.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 1192.1,
+                "realized_mm": 3916.7,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 210.0,
+                "realized_mm": 150.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 2058.3,
+                "realized_mm": 6762.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1741.2,
+                "realized_mm": 5721.1,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          }
+        ]
+      },
+      "BOUNCE": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder",
+          "neck"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 557.9,
+                "realized_mm": 1833.3,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "neck": {
+                "angle_deg": 3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 210.0,
+                "realized_mm": 150.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 308.3,
+                "realized_mm": 1012.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 8.8,
+                "realized_mm": 28.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 1192.1,
+                "realized_mm": 3916.7,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "neck": {
+                "angle_deg": -3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 210.0,
+                "realized_mm": 150.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 2058.3,
+                "realized_mm": 6762.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1741.2,
+                "realized_mm": 5721.1,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 105.0,
+                "realized_mm": 75.0,
+                "efficiency_pct": 41.7
+              }
+            }
+          }
+        ]
+      },
+      "WALK": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 557.9,
+                "realized_mm": 1833.3,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 308.3,
+                "realized_mm": 1012.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 8.8,
+                "realized_mm": 28.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 1192.1,
+                "realized_mm": 3916.7,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 2058.3,
+                "realized_mm": 6762.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1741.2,
+                "realized_mm": 5721.1,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "JUMP": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 557.9,
+                "realized_mm": 1833.3,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 308.3,
+                "realized_mm": 1012.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 8.8,
+                "realized_mm": 28.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 1192.1,
+                "realized_mm": 3916.7,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 2058.3,
+                "realized_mm": 6762.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1741.2,
+                "realized_mm": 5721.1,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "RUN": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 557.9,
+                "realized_mm": 1833.3,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 308.3,
+                "realized_mm": 1012.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 8.8,
+                "realized_mm": 28.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 1192.1,
+                "realized_mm": 3916.7,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 2058.3,
+                "realized_mm": 6762.9,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1741.2,
+                "realized_mm": 5721.1,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "optimized": {
+    "label": "optimized",
+    "suit": {
+      "mass_kg": 30,
+      "joint_friction": 0.15,
+      "lag_ms": 50,
+      "power_assist": {
+        "knee": 0.5,
+        "neck": 0.6,
+        "default": 0.3
+      }
+    },
+    "total_points": 48,
+    "stages": {
+      "SUPINE": {
+        "joints": [],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {}
+          },
+          {
+            "frame": 1,
+            "angles": {}
+          },
+          {
+            "frame": 2,
+            "angles": {}
+          },
+          {
+            "frame": 3,
+            "angles": {}
+          },
+          {
+            "frame": 4,
+            "angles": {}
+          },
+          {
+            "frame": 5,
+            "angles": {}
+          }
+        ]
+      },
+      "SCOOT": {
+        "joints": [
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "CRAWL": {
+        "joints": [
+          "shoulder",
+          "hip"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "STAND": {
+        "joints": [
+          "ankle",
+          "knee",
+          "hip",
+          "neck"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 398.5,
+                "realized_mm": 1992.7,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 120.0,
+                "realized_mm": 240.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 220.2,
+                "realized_mm": 1100.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 6.3,
+                "realized_mm": 31.4,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 851.5,
+                "realized_mm": 4257.3,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 120.0,
+                "realized_mm": 240.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 1470.2,
+                "realized_mm": 7350.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1243.7,
+                "realized_mm": 6218.6,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          }
+        ]
+      },
+      "BOUNCE": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder",
+          "neck"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 398.5,
+                "realized_mm": 1992.7,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "neck": {
+                "angle_deg": 3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 120.0,
+                "realized_mm": 240.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 220.2,
+                "realized_mm": 1100.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 6.3,
+                "realized_mm": 31.4,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 851.5,
+                "realized_mm": 4257.3,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              },
+              "neck": {
+                "angle_deg": -3.0,
+                "intent_mm": 360.0,
+                "resistance_mm": 120.0,
+                "realized_mm": 240.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 1470.2,
+                "realized_mm": 7350.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": -1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1243.7,
+                "realized_mm": 6218.6,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              },
+              "neck": {
+                "angle_deg": 1.5,
+                "intent_mm": 180.0,
+                "resistance_mm": 60.0,
+                "realized_mm": 120.0,
+                "efficiency_pct": 66.7
+              }
+            }
+          }
+        ]
+      },
+      "WALK": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 398.5,
+                "realized_mm": 1992.7,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 220.2,
+                "realized_mm": 1100.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 6.3,
+                "realized_mm": 31.4,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 851.5,
+                "realized_mm": 4257.3,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 1470.2,
+                "realized_mm": 7350.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1243.7,
+                "realized_mm": 6218.6,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "JUMP": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 398.5,
+                "realized_mm": 1992.7,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 220.2,
+                "realized_mm": 1100.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 6.3,
+                "realized_mm": 31.4,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 851.5,
+                "realized_mm": 4257.3,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 1470.2,
+                "realized_mm": 7350.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1243.7,
+                "realized_mm": 6218.6,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      },
+      "RUN": {
+        "joints": [
+          "toe",
+          "ankle",
+          "knee",
+          "hip",
+          "shoulder"
+        ],
+        "frames": [
+          {
+            "frame": 0,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 6.7,
+                "intent_mm": 2022.9,
+                "resistance_mm": 472.0,
+                "realized_mm": 1550.9,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -8.0,
+                "intent_mm": 2391.2,
+                "resistance_mm": 398.5,
+                "realized_mm": 1992.7,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.2,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 1,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 23.1,
+                "intent_mm": 6937.8,
+                "resistance_mm": 1618.8,
+                "realized_mm": 5319.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": 4.4,
+                "intent_mm": 1321.1,
+                "resistance_mm": 220.2,
+                "realized_mm": 1100.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 15.0,
+                "intent_mm": 4500.0,
+                "resistance_mm": 1050.0,
+                "realized_mm": 3450.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 2,
+            "angles": {
+              "toe": {
+                "angle_deg": 40.0,
+                "intent_mm": 11992.8,
+                "resistance_mm": 2798.3,
+                "realized_mm": 9194.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 21.4,
+                "intent_mm": 6414.9,
+                "resistance_mm": 1496.8,
+                "realized_mm": 4918.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -0.1,
+                "intent_mm": 37.7,
+                "resistance_mm": 6.3,
+                "realized_mm": 31.4,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": 6.3,
+                "intent_mm": 1875.0,
+                "resistance_mm": 437.5,
+                "realized_mm": 1437.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 3,
+            "angles": {
+              "toe": {
+                "angle_deg": 7.5,
+                "intent_mm": 2250.0,
+                "resistance_mm": 525.0,
+                "realized_mm": 1725.0,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": 3.3,
+                "intent_mm": 977.1,
+                "resistance_mm": 228.0,
+                "realized_mm": 749.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -17.0,
+                "intent_mm": 5108.8,
+                "resistance_mm": 851.5,
+                "realized_mm": 4257.3,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": -0.0,
+                "intent_mm": 0.0,
+                "resistance_mm": 0.0,
+                "realized_mm": 0.0,
+                "efficiency_pct": 0.0
+              }
+            }
+          },
+          {
+            "frame": 4,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -13.1,
+                "intent_mm": 3937.8,
+                "resistance_mm": 918.8,
+                "realized_mm": 3019.0,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -29.4,
+                "intent_mm": 8821.1,
+                "resistance_mm": 1470.2,
+                "realized_mm": 7350.9,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -20.0,
+                "intent_mm": 6000.0,
+                "resistance_mm": 1400.0,
+                "realized_mm": 4600.0,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          },
+          {
+            "frame": 5,
+            "angles": {
+              "toe": {
+                "angle_deg": -25.0,
+                "intent_mm": 7492.8,
+                "resistance_mm": 1748.3,
+                "realized_mm": 5744.5,
+                "efficiency_pct": 76.7
+              },
+              "ankle": {
+                "angle_deg": -11.4,
+                "intent_mm": 3414.9,
+                "resistance_mm": 796.8,
+                "realized_mm": 2618.1,
+                "efficiency_pct": 76.7
+              },
+              "knee": {
+                "angle_deg": -24.9,
+                "intent_mm": 7462.3,
+                "resistance_mm": 1243.7,
+                "realized_mm": 6218.6,
+                "efficiency_pct": 83.3
+              },
+              "hip": {
+                "angle_deg": -11.2,
+                "intent_mm": 3375.0,
+                "resistance_mm": 787.5,
+                "realized_mm": 2587.5,
+                "efficiency_pct": 76.7
+              },
+              "shoulder": {
+                "angle_deg": 10.4,
+                "intent_mm": 3117.7,
+                "resistance_mm": 727.5,
+                "realized_mm": 2390.2,
+                "efficiency_pct": 76.7
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "stages": {
+      "SUPINE": {
+        "baseline_loss_mm": 0.0,
+        "optimized_loss_mm": 0.0,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0
+      },
+      "SCOOT": {
+        "baseline_loss_mm": 485.0,
+        "optimized_loss_mm": 485.0,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "CRAWL": {
+        "baseline_loss_mm": 1301.7,
+        "optimized_loss_mm": 1301.7,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "STAND": {
+        "baseline_loss_mm": 2856.3,
+        "optimized_loss_mm": 2516.9,
+        "improvement_mm": 339.4,
+        "improvement_pct": 11.9
+      },
+      "BOUNCE": {
+        "baseline_loss_mm": 5031.8,
+        "optimized_loss_mm": 4692.5,
+        "improvement_mm": 339.4,
+        "improvement_pct": 6.7
+      },
+      "WALK": {
+        "baseline_loss_mm": 4891.8,
+        "optimized_loss_mm": 4612.5,
+        "improvement_mm": 279.4,
+        "improvement_pct": 5.7
+      },
+      "JUMP": {
+        "baseline_loss_mm": 4891.8,
+        "optimized_loss_mm": 4612.5,
+        "improvement_mm": 279.4,
+        "improvement_pct": 5.7
+      },
+      "RUN": {
+        "baseline_loss_mm": 4891.8,
+        "optimized_loss_mm": 4612.5,
+        "improvement_mm": 279.4,
+        "improvement_pct": 5.7
+      }
+    },
+    "joints": {
+      "toe": {
+        "baseline_loss_mm": 1690.5,
+        "optimized_loss_mm": 1690.5,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "ankle": {
+        "baseline_loss_mm": 921.9,
+        "optimized_loss_mm": 921.9,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "knee": {
+        "baseline_loss_mm": 977.8,
+        "optimized_loss_mm": 698.4,
+        "improvement_mm": 279.4,
+        "improvement_pct": 28.6
+      },
+      "hip": {
+        "baseline_loss_mm": 816.7,
+        "optimized_loss_mm": 816.7,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "shoulder": {
+        "baseline_loss_mm": 485.0,
+        "optimized_loss_mm": 485.0,
+        "improvement_mm": 0.0,
+        "improvement_pct": 0.0
+      },
+      "neck": {
+        "baseline_loss_mm": 140.0,
+        "optimized_loss_mm": 80.0,
+        "improvement_mm": 60.0,
+        "improvement_pct": 42.9
+      }
+    }
+  },
+  "knee_fix": "assist 0.30 \u2192 0.50",
+  "neck_fix": "assist 0.30 \u2192 0.60 (independent actuator)",
+  "training_ready": true,
+  "total_data_points": 96,
+  "kaggle_ready": true
+}

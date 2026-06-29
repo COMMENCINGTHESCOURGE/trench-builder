@@ -1,0 +1,8 @@
+{
+  "name": "freeze",
+  "type": "reversible",
+  "channels": ["water", "ice"],
+  "rate": 0.01,
+  "mode": "reversible",
+  "classification": "STABLE"
+}
