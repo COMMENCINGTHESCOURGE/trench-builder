@@ -1,0 +1,32 @@
+{
+  "part": "GEARBOX_GEARBOX_FRONT",
+  "joints": [
+    {
+      "name": "GEARBOX_GEARBOX_FRONT",
+      "type": "fixed",
+      "axis": "Z",
+      "limits": {
+        "min_x_deg": 0,
+        "max_x_deg": 0,
+        "min_y_deg": 0,
+        "max_y_deg": 0,
+        "min_z_deg": 0,
+        "max_z_deg": 0
+      },
+      "friction_rating": "medium",
+      "connected_to": "FRAME"
+    }
+  ],
+  "collision_bounds": [],
+  "com_offset_mm": {
+    "x": -275.56,
+    "y": 0.96,
+    "z": 2834.32
+  },
+  "volume_cm3": 3975076.1,
+  "max_load_grams": 450,
+  "material": "PLA",
+  "tolerance_mm": 0.25,
+  "chamfer_mm": 0.5,
+  "polygon_count": 3000
+}

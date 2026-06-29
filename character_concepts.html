@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Concepts — High-Fidelity 3D Pipeline</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontsource-inter@5.0.0/index.css">
+<style>
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a25;
+    --accent-1: #c9a84c;
+    --accent-2: #00ffcc;
+    --accent-3: #f5a623;
+    --text-primary: #e8e6e1;
+    --text-secondary: #9a9a9a;
+    --text-muted: #6b6b6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(0,255,204,0.05) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    padding: 6px 18px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 200;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease-out 0.15s both;
+  }
+
+  .hero-title span {
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-1), #e8d5a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.45s both;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-value {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-primary);
+  }
+
+  .hero-stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Character Sections */
+  .character-section {
+    padding: 6rem 2rem;
+    position: relative;
+  }
+
+  .character-section:nth-child(even) {
+    background: var(--bg-secondary);
+  }
+
+  .section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .character-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .character-number {
+    font-size: 5rem;
+    font-weight: 100;
+    line-height: 1;
+    opacity: 0.15;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .character-title-group {
+    flex: 1;
+  }
+
+  .character-genre {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .character-name {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -1px;
+    line-height: 1.2;
+  }
+
+  .character-name strong {
+    font-weight: 700;
+  }
+
+  .character-mood {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    max-width: 700px;
+    font-style: italic;
+  }
+
+  /* Character Layout */
+  .character-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .character-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .character-image-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--bg-card);
+  }
+
+  .character-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .character-image-wrapper:hover img {
+    transform: scale(1.03);
+  }
+
+  .character-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,15,0.8) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .image-meta {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .image-meta-item {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .image-meta-item span {
+    color: white;
+    font-weight: 600;
+  }
+
+  /* Details Panel */
+  .details-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .detail-block {
+    border-left: 2px solid rgba(255,255,255,0.06);
+    padding-left: 1.5rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .detail-block:hover {
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .detail-label {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .detail-label .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .detail-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .detail-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .detail-text ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .detail-text ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-text ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .detail-text strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* Lighting Card */
+  .lighting-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .lighting-card-title {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .lighting-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Micro-details */
+  .micro-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .micro-tag {
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+
+  /* Color accents per character */
+  .char-1 .character-genre { color: var(--accent-1); }
+  .char-1 .detail-label .dot { background: var(--accent-1); }
+  .char-1 .character-name strong { color: var(--accent-1); }
+
+  .char-2 .character-genre { color: var(--accent-2); }
+  .char-2 .detail-label .dot { background: var(--accent-2); }
+  .char-2 .character-name strong { color: var(--accent-2); }
+
+  .char-3 .character-genre { color: var(--accent-3); }
+  .char-3 .detail-label .dot { background: var(--accent-3); }
+  .char-3 .character-name strong { color: var(--accent-3); }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  .footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.8);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav.visible {
+    transform: translateY(0);
+  }
+
+  .nav-logo {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
+  /* Divider */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Tech specs table */
+  .tech-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tech-spec {
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .tech-spec-label {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .tech-spec-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="mainNav">
+  <div class="nav-logo">Character Concepts</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#char1">Warlord</a>
+    <a class="nav-link" href="#char2">Archiviste</a>
+    <a class="nav-link" href="#char3">Drifter</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">High-Fidelity 3D Character Pipeline</div>
+    <h1 class="hero-title">Three Characters.<br><span>Infinite Detail.</span></h1>
+    <p class="hero-subtitle">
+      Each concept is engineered for maximum fidelity — from high-poly ZBrush sculpts and PBR material layers to grooming shaders and cinematic lighting. Every imperfection tells a story.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">3</div>
+        <div class="hero-stat-label">Characters</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">8K</div>
+        <div class="hero-stat-label">Texture Maps</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">PBR</div>
+        <div class="hero-stat-label">Material Pipeline</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">∞</div>
+        <div class="hero-stat-label">Micro-Details</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Character 1: The Remorseful Warlord -->
+<section class="character-section char-1" id="char1">
+  <div class="section-container">
+    <div class="character-header reveal">
+      <div class="character-number">01</div>
+      <div class="character-title-group">
+        <div class="character-genre">Brutal Fantasy</div>
+        <h2 class="character-name">The <strong>Remorseful Warlord</strong></h2>
+        <p class="character-mood">A fallen knight-king in his late 50s, haunted by past atrocities. He has renounced his throne and wanders, but his ornate, battle-scarred armour betrays his former status. The mood is heavy, introspective, and cold.</p>
+      </div>
+    </div>
+
+    <div class="character-layout">
+      <div class="character-image-wrapper reveal">
+        <img src="https://image.qwenlm.ai/public_source/4c2753f7-6e54-42af-8f39-7b891f884cc9/1c9758022-5ea3-40d4-869d-db16cdc14ab2.png" alt="The Remorseful Warlord">
+        <div class="character-image-overlay"></div>
+        <div class="image-meta">
+          <div class="image-meta-item">Height: <span>195 cm</span></div>
+          <div class="image-meta-item">Age: <span>~58</span></div>
+          <div class="image-meta-item">Build: <span>Broad, stooped</span></div>
+        </div>
+      </div>
+
+      <div class="details-panel">
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Anatomy & Physique</div>
+          <div class="detail-text">
+            <ul>
+              <li>Tall (195 cm), broad-shouldered but now slightly hollowed by age and guilt</li>
+              <li>Musculature still dense but softened, with a slight kyphotic stoop from decades wearing heavy plate</li>
+              <li>Heavy calloused hands with prominent knuckles, cracked nails, and a missing tip on the left ring finger</li>
+              <li>Thick wrists wrapped in dirty linen wraps that have unravelled slightly</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Skin & Subsurface</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Base:</strong> Pale, cool-undertoned skin with translucent quality. Deep reddish-orange SSS for thin areas (ear rims, nostril wings, eyelids), bluish tint for stubble shadow</li>
+              <li><strong>Micro-texture:</strong> Heavy sagging pores on nose and cheeks. Deep forehead furrows, pronounced nasolabial folds. Clusters of broken capillaries across nose and upper cheeks</li>
+              <li><strong>Imperfections:</strong> Long-healed vertical sword scar from brow to jaw on right side — waxy scar tissue with no pores, higher roughness, no subsurface. Liver spots on temples</li>
+              <li><strong>Roughness:</strong> Oily shine on nose/forehead, matte cheeks, flaky dry skin around scar. Dirt ingrained into every wrinkle via baked cavity map mask</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Face & Expression</div>
+          <div class="detail-text">
+            <ul>
+              <li>Hooded grey-blue eyes with pronounced tear troughs. Lower lids slightly red and watery. Irides have faint arcus senilis and goldish flecks</li>
+              <li>Heavy, furrowed brows, always slightly knitted. Thick nose broken at least twice and set imperfectly</li>
+              <li>Thin, chapped, slightly down-turned lips. Lower lip bears vertical split scar. Yellowed teeth, one bicuspid replaced with crude iron replica</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Hair & Grooming</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Facial hair:</strong> Grizzled, uneven beard of coarse wiry grey and faded copper. Patchy density with folliculitis bumps on neck. Strand-based with multiple clump maps</li>
+              <li><strong>Scalp:</strong> Thinning at crown, long greasy strands pulled back into failed warrior's knot. Dual specular lobe shader (sharp for grease, soft for dry fibers)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Clothing & Armor</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Chestplate:</strong> Etched ceremonial Damascus steel, corrosion-obscured. Deep axe scratches exposing raw steel, black rust on corners. Faded phoenix design half obliterated by melt-burn</li>
+              <li><strong>Fur mantle:</strong> Massive waterlogged wolf-pelt. Guard hairs clumped with rain and dried blood. Amber-to-dirt-brown gradient tips</li>
+              <li><strong>Leather tunic:</strong> Cracked dark oxblood leather. Sinew cross-stitching, some stitches snapped and frayed</li>
+              <li><strong>Trophy belt:</strong> Desiccated ears on twisted cord. Mummified waxy translucency with SSS mimicking old candle wax</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Micro-Details</div>
+          <div class="micro-details">
+            <span class="micro-tag">Rain droplets mid-bead on fur</span>
+            <span class="micro-tag">Droplet trembling at nose tip</span>
+            <span class="micro-tag">Frayed linen micro-fibers</span>
+            <span class="micro-tag">Iron tooth IOR edge rust</span>
+            <span class="micro-tag">Gold inlay catching warm light</span>
+          </div>
+        </div>
+
+        <div class="lighting-card reveal">
+          <div class="lighting-card-title">Suggested Lighting</div>
+          <p>Overcast HDRI with soft, cyan-tinted ambient light. A single warm sodium-tone key light from a nearby censer brazier catching the edge of the cheekbone and the metal's gold inlay, contrasting with the cold fill.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Character 2: The Deep-Sea Archiviste -->
+<section class="character-section char-2" id="char2">
+  <div class="section-container">
+    <div class="character-header reveal">
+      <div class="character-number">02</div>
+      <div class="character-title-group">
+        <div class="character-genre">Bio-Punk / Cosmic Horror</div>
+        <h2 class="character-name">The <strong>Deep-Sea Archiviste</strong></h2>
+        <p class="character-mood">A humanoid creature from an abyssal civilization, this archivist breathes through gills and sees via bioluminescent organs. It floats within an ancient library carved from a leviathan's skull. The mood is eerie, silent, and sacred.</p>
+      </div>
+    </div>
+
+    <div class="character-layout">
+      <div class="character-image-wrapper reveal">
+        <img src="https://image.qwenlm.ai/public_source/4c2753f7-6e54-42af-8f39-7b891f884cc9/161385728-3ce6-4da5-b998-69dea229f25a.png" alt="The Deep-Sea Archiviste">
+        <div class="character-image-overlay"></div>
+        <div class="image-meta">
+          <div class="image-meta-item">Height: <span>220 cm</span></div>
+          <div class="image-meta-item">Type: <span>Androgynous</span></div>
+          <div class="image-meta-item">Build: <span>Elongated, slender</span></div>
+        </div>
+      </div>
+
+      <div class="details-panel">
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Anatomy & Physique</div>
+          <div class="detail-text">
+            <ul>
+              <li>Androgynous, slender, elongated (220 cm). Graceful but unnerving limbs — extra phalanges on long, triple-jointed fingers</li>
+              <li>Serene, permanent slouch as if suspended in fluid</li>
+              <li>Ribcage externally visible, coated in semi-transparent chitinous webbing that glows faintly</li>
+              <li>No navel — instead a spiral scar of bioluminescent nodes connecting torso to floating detached spinal column trailing behind like a vestigial tail</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Skin & Subsurface</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Base:</strong> Smooth rubbery mantle like deep-sea cephalopod. High SSS with very short mean free path (dense, milky). Ghostly translucent white with indigo/violet chromatophores beneath surface that slowly shift</li>
+              <li><strong>Micro-texture:</strong> Pavement-like pattern of microscopic papillae (shark skin). Custom tileable normal map blending into fading fingerprints and dermal denticle texture</li>
+              <li><strong>Bioluminescent markings:</strong> Freckles of symbiotic bacteria emitting steady teal (#00FFCC) glow. Edges bleed into skin via subsurface glow map. Brighter where skin is thinner (cheekbones, knuckles, cranial ridge)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Face & Expression</div>
+          <div class="detail-text">
+            <ul>
+              <li>No nose, only a subtle vertical slit</li>
+              <li>Massive solid-black eyes with no sclera. Cornea faceted like compound eye, reflecting multiple tiny specular highlights. Wet nictitating membrane blinks sideways</li>
+              <li>Four soft prehensile maxillary palps (nautilus-like) covered in taste-sensitive cilia. Palps constantly undulate, wrapped over central bioluminescent vocal sac</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Symbiotic Filaments</div>
+          <div class="detail-text">
+            <ul>
+              <li>Long wafting sensory filaments from scalp and shoulder blades — like anglerfish barbels</li>
+              <li>Translucent hollow tubes filled with viscous golden ichor</li>
+              <li>Semi-rigid curves with finite thickness, capped with bioluminescent lure</li>
+              <li>Custom dielectric shader: high IOR (1.5), thin-film interference for pearlescent sheen, total internal reflection</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Attire & Integrated Tech</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Data mantle:</strong> Countless razor-thin hexagonal crystalline plates hovering 2 cm above body in magnetic field. Each plate etched with sub-micron glyphs. Anisotropic shader with directional roughness</li>
+              <li><strong>Interface rods:</strong> Four chrome-smooth bone-like rods piercing floating ribs, glowing with data-pulse rings. Entry wounds healed with swollen calcified keloids. Rainbow titanium oxide passivation layer</li>
+              <li><strong>Censer chain:</strong> Rust-free platinum chain across hips holding volcanic glass spheres containing dead star memories. Volume absorption shader for true depth</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Micro-Details</div>
+          <div class="micro-details">
+            <span class="micro-tag">Condensation on metal rods</span>
+            <span class="micro-tag">Parasitic barnacles on spine</span>
+            <span class="micro-tag">Nictitating membrane half-deployed</span>
+            <span class="micro-tag">Glyphs catching acute light</span>
+            <span class="micro-tag">Chromatophore shifting</span>
+          </div>
+        </div>
+
+        <div class="lighting-card reveal">
+          <div class="lighting-card-title">Suggested Lighting</div>
+          <p>Deep abyss darkness (95% black). Three-point lighting using bioluminescent sources: primary from creature's own glowing nodes, rim light from distant giant siphonophore, subtle fill from crystalline plates' internal refraction. Volumetric fog with high anisotropy (0.8).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Character 3: The Solar Punk Drifter -->
+<section class="character-section char-3" id="char3">
+  <div class="section-container">
+    <div class="character-header reveal">
+      <div class="character-number">03</div>
+      <div class="character-title-group">
+        <div class="character-genre">Optimistic Post-Cyberpunk</div>
+        <h2 class="character-name">The <strong>Solar Punk Drifter</strong></h2>
+        <p class="character-mood">A 22-year-old courier and solar-turbine mechanic from a reclaimed desert metropolis. Her gear is a vibrant blend of repaired tech, living moss cultures, and hand-woven textiles. The mood is warm, dusty, and full of kinetic energy.</p>
+      </div>
+    </div>
+
+    <div class="character-layout">
+      <div class="character-image-wrapper reveal">
+        <img src="assets/solar_punk_drifter_portrait.png" alt="The Solar Punk Drifter">
+        <div class="character-image-overlay"></div>
+        <div class="image-meta">
+          <div class="image-meta-item">Height: <span>168 cm</span></div>
+          <div class="image-meta-item">Age: <span>22</span></div>
+          <div class="image-meta-item">Build: <span>Lean, wiry</span></div>
+        </div>
+      </div>
+
+      <div class="details-panel">
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Anatomy & Physique</div>
+          <div class="detail-text">
+            <ul>
+              <li>Lean, wiry build with toned arms and shoulders from climbing turbine towers daily</li>
+              <li>Distinct tan lines: sharp contrast between sun-darkened forearms/face and paler torso</li>
+              <li>Hyper-flexible joints (slightly double-jointed fingers) with prominent veins on back of hands</li>
+              <li>Short practical fingernails painted with protective copper-infused lacquer, chipped at edges</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Skin & Subsurface</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Base:</strong> Warm olive skin with high melanin concentration, golden-brown hue. Rich saturated red-orange SSS glow in direct light (ear rims, between fingers)</li>
+              <li><strong>Micro-texture:</strong> Fine even pores across nose and inner cheeks. Ephelides (freckles) across nose bridge and upper shoulders, varying in size and density</li>
+              <li><strong>Imperfections:</strong> Faint hyperpigmentation patch on left jawline from childhood burn. Iron-oxide sand caked into skin's micro-folds and hair follicles. Sweat trails carving rivulets through dust on temples</li>
+              <li><strong>Ceremonial scars:</strong> Three delicate raised cicatrix lines on each bicep forming circuit-board pattern. Smoother, shinier scar tissue than surrounding skin</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Face & Expression</div>
+          <div class="detail-text">
+            <ul>
+              <li>Wide-set almond-shaped hazel eyes with permanent crow's feet from squinting into sun. Deep limbal ring, amber central heterochromia burst around pupils</li>
+              <li>Broad flat nose bridge. One eyebrow has tiny notch shaved through it, with a freckle exactly in the gap</li>
+              <li>Wide genuine smile creating deep dimples. Healthy teeth with custom golden filigree bicuspids forming small sunburst pattern when biting down</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Hair & Grooming</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Style:</strong> Thick tightly coiled 4B hair, shaved close on sides/back, erupting into high-top of free-form coils. Deliberately messy with threaded brass beads and solar-charging fiber-optics</li>
+              <li><strong>Grooming:</strong> Each coil is clump of curves with high children count. Custom anisotropic shader for light catching tight spirals. Sun-bleached tips from deep black to coppery-brown</li>
+              <li><strong>Peach fuzz:</strong> Downy translucent vellus hair on cheeks, jawline, upper lip catching golden rim light</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Clothing & Gear</div>
+          <div class="detail-text">
+            <ul>
+              <li><strong>Turbine jacket:</strong> Cropped collarless jacket from decommissioned aerogel insulation fabric. Matte rubbery texture with prismatic sparkle. Patched with indigo Kente cloth and orange Sashiko stitching</li>
+              <li><strong>Undershirt:</strong> Sweat-wicking recycled polymer mesh, pilled and frayed at hem. Translucency reveals darker skin beneath</li>
+              <li><strong>Harem pants:</strong> Repurposed cargo-parachute silk dyed with oxidized copper to deep teal. Integrated 3D-printed gyroid knee-pad system with trapped micro-dust</li>
+              <li><strong>Goggles:</strong> Diamond-like carbon coated lenses with magenta/cyan dichroic reflection. Cracked rubber seal repaired with waxed thread</li>
+              <li><strong>Living moss:</strong> Bioluminescent symbiotic culture in glass capsule necklace. Two-sided translucency shader, roughness varying from velvety (dry) to glossy (wet)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-block reveal">
+          <div class="detail-label"><span class="dot"></span> Micro-Details</div>
+          <div class="micro-details">
+            <span class="micro-tag">Gyroid pads deforming silk</span>
+            <span class="micro-tag">Fingerprint smudges on lenses</span>
+            <span class="micro-tag">Copper lacquer chipped in crescents</span>
+            <span class="micro-tag">Backlit hair split end</span>
+            <span class="micro-tag">Moss drip irrigation wet spots</span>
+          </div>
+        </div>
+
+        <div class="lighting-card reveal">
+          <div class="lighting-card-title">Suggested Lighting</div>
+          <p>Golden hour sun (Key: rich amber/orange, low angle ~15°). Fill from giant bouncing white stucco wall providing soft warm bounce. Rim light is direct setting sun creating fire-rimmed silhouette around hair flyaways and peach fuzz. Faint volumetric spotlight on moss necklace.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">Each character hinges on the interplay between macro silhouette and micro imperfection.</p>
+  <p class="footer-text opacity-50 mt-2">High-poly ZBrush sculpts → PBR map baking → Layered shaders → Cinematic lighting</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealElements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  revealElements.forEach(el => observer.observe(el));
+
+  // Nav visibility on scroll
+  const nav = document.getElementById('mainNav');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 400) {
+      nav.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+    }
+    lastScroll = currentScroll;
+  });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
