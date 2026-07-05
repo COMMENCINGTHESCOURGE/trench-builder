@@ -150,6 +150,14 @@ def root():
         ]
     })
 
+@app.route("/pricing.html")
+def serve_pricing():
+    return send_file("pricing.html")
+
+@app.route("/success.html")
+def serve_success():
+    return send_file("success.html")
+
 @app.route("/v1/license/generate", methods=["POST"])
 def create_license():
     """Generate a new license key."""
@@ -163,6 +171,8 @@ def create_license():
             return jsonify({"error": "Stripe is not configured. Cannot process paid tiers.", "code": "STRIPE_UNCONFIGURED"}), 501
         
         if STRIPE_SECRET.startswith("sk_test_mock"):
+            if os.environ.get("GCP_PROJECT"):
+                return jsonify({"error": "Mock Stripe checkout is disabled in production.", "code": "MOCK_DISABLED_PROD"}), 400
             # Generate local offline mock checkout flow
             session_id = f"mock_sess_{uuid.uuid4().hex[:16]}"
             checkout_url = f"http://127.0.0.1:8090/v1/mock-stripe-checkout?session_id={session_id}&tier={tier}"
@@ -175,6 +185,10 @@ def create_license():
         else:
             # Real Stripe Checkout Session Creation
             try:
+                origin = request.headers.get("Origin") or "https://commencingthescourge.github.io"
+                success_url = f"{origin}/success.html?session_id={{CHECKOUT_SESSION_ID}}"
+                cancel_url = f"{origin}/pricing.html"
+                
                 price_val = TIERS[tier]["price"]
                 session = stripe.checkout.Session.create(
                     payment_method_types=['card'],
@@ -190,8 +204,8 @@ def create_license():
                         'quantity': 1,
                     }],
                     mode='subscription',
-                    success_url='https://commencingthescourge.github.io/success?session_id={CHECKOUT_SESSION_ID}',
-                    cancel_url='https://commencingthescourge.github.io/pricing',
+                    success_url=success_url,
+                    cancel_url=cancel_url,
                     metadata={'tier': tier}
                 )
                 return jsonify({
@@ -554,6 +568,8 @@ def stripe_webhook():
     event = None
     
     if STRIPE_WEBHOOK_SECRET.startswith("whsec_mock") and sig_header == "t=12345,v1=mock_signature":
+        if os.environ.get("GCP_PROJECT"):
+            return jsonify({"error": "Mock Webhook verification is disabled in production.", "code": "MOCK_WEBHOOK_DISABLED_PROD"}), 400
         try:
             event = request.json
         except Exception as e:
@@ -576,6 +592,7 @@ def stripe_webhook():
         tier = metadata.get("tier", "pro")
         customer_id = session.get("customer")
         subscription_id = session.get("subscription")
+        session_id = session.get("id")
         
         license_key = generate_license(tier, duration_days=30)
         api_key = f"tb_{uuid.uuid4().hex[:24]}"
@@ -583,6 +600,7 @@ def stripe_webhook():
         
         licenses[license_key]["stripe_customer"] = customer_id
         licenses[license_key]["stripe_subscription"] = subscription_id
+        licenses[license_key]["stripe_session_id"] = session_id
         
         _save_state()
         print(f"[STRIPE WEBHOOK] Issued license {license_key} for tier {tier} (Sub: {subscription_id})")
@@ -615,8 +633,67 @@ def stripe_webhook():
     return jsonify({"received": True})
 
 # ═══════════════════════════════════════════════════════
-# ANTI-PIRACY: License integrity check
+# LICENSE RETRIEVAL & VERIFICATION
 # ═══════════════════════════════════════════════════════
+
+@app.route("/v1/checkout/retrieve", methods=["GET"])
+def retrieve_checkout_license():
+    """Retrieve the API and license keys generated for a completed Stripe session."""
+    session_id = request.args.get("session_id", "")
+    if not session_id:
+        return jsonify({"error": "Missing session_id"}), 400
+        
+    # Search for license with this stripe_session_id
+    for api_key, lic_key in api_keys.items():
+        lic = licenses.get(lic_key, {})
+        if lic.get("stripe_session_id") == session_id:
+            return jsonify({
+                "success": True,
+                "api_key": api_key,
+                "license_key": lic_key,
+                "tier": lic.get("tier"),
+                "expires": lic.get("expires")
+            })
+            
+    # Fallback: check Stripe directly
+    if STRIPE_SECRET and not STRIPE_SECRET.startswith("sk_test_mock"):
+        try:
+            stripe_session = stripe.checkout.Session.retrieve(session_id)
+            if stripe_session.payment_status == "paid":
+                metadata = stripe_session.metadata or {}
+                tier = metadata.get("tier", "pro")
+                customer_id = stripe_session.customer
+                subscription_id = stripe_session.subscription
+                
+                # Prevent duplicates
+                for ak, lk in list(api_keys.items()):
+                    if licenses.get(lk, {}).get("stripe_subscription") == subscription_id:
+                        return jsonify({
+                            "success": True,
+                            "api_key": ak,
+                            "license_key": lk,
+                            "tier": licenses[lk].get("tier"),
+                            "expires": licenses[lk].get("expires")
+                        })
+                
+                license_key = generate_license(tier, duration_days=30)
+                api_key = f"tb_{uuid.uuid4().hex[:24]}"
+                api_keys[api_key] = license_key
+                licenses[license_key]["stripe_customer"] = customer_id
+                licenses[license_key]["stripe_subscription"] = subscription_id
+                licenses[license_key]["stripe_session_id"] = session_id
+                _save_state()
+                return jsonify({
+                    "success": True,
+                    "api_key": api_key,
+                    "license_key": license_key,
+                    "tier": tier,
+                    "expires": licenses[license_key]["expires"]
+                })
+        except Exception as e:
+            return jsonify({"error": f"Failed to retrieve session from Stripe: {str(e)}"}), 500
+
+    return jsonify({"error": "License not found or webhook pending. Refresh in a few seconds."}), 404
 
 @app.route("/v1/license/verify", methods=["POST"])
 def verify_license():

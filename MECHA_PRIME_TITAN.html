@@ -361,6 +361,93 @@ joints.blade = blade;
 weapon.rotation.set(0.25, -0.15, 0.45);
 
 // ═══════════════════════════════════════════════════════════
+// DELTA B & C: VFX & HIERARCHY UPGRADES
+// ═══════════════════════════════════════════════════════════
+const vfx = new THREE.Group();
+scene.add(vfx);
+
+// Reactor Volumetrics
+const reactorCone = new THREE.Mesh(new THREE.ConeGeometry(0.2, 1.5, 16), new THREE.MeshBasicMaterial({color:'#00d4aa', transparent:true, opacity:0.0, blending:THREE.AdditiveBlending, depthWrite:false}));
+reactorCone.position.set(0, -0.75, 0); 
+reactorCone.rotation.x = Math.PI; 
+joints.reactor.add(reactorCone);
+joints.reactorCone = reactorCone;
+
+// Footstep Shockwaves
+const shockwaves = [];
+for(let i=0; i<4; i++){
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 4, 32), new THREE.MeshBasicMaterial({color:'#00d4aa', transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false}));
+  ring.rotation.x = Math.PI/2;
+  vfx.add(ring);
+  shockwaves.push({mesh: ring, time: 0, active: false});
+}
+
+function spawnShockwave(pos) {
+  const sw = shockwaves.find(s => !s.active) || shockwaves[0];
+  sw.active = true;
+  sw.time = 0;
+  sw.mesh.position.copy(pos);
+  sw.mesh.position.y = 0.02;
+  sw.mesh.scale.set(0.1, 0.1, 0.1);
+}
+
+// Blade Trail
+const trailGeo = new THREE.PlaneGeometry(1.2, 2.5);
+trailGeo.translate(0, 1.25, 0);
+const trailMat = new THREE.MeshBasicMaterial({color:'#00d4aa', transparent:true, opacity:0, blending:THREE.AdditiveBlending, side:THREE.DoubleSide, depthWrite:false});
+const bladeTrail = new THREE.Mesh(trailGeo, trailMat);
+joints.weapon.add(bladeTrail);
+
+// Hierarchy Fix for True FK
+for (let s of [-1, 1]) {
+  let side = s > 0 ? 'r' : 'l';
+  
+  // Arms
+  let arm = joints[`arm_${side}`];
+  let elbow = joints[`elbow_${side}`];
+  let lowerArmGroup = new THREE.Group();
+  lowerArmGroup.position.copy(elbow.position);
+  arm.add(lowerArmGroup);
+  joints[`lowerArm_${side}`] = lowerArmGroup;
+  
+  arm.children.slice().forEach(child => {
+    if (child !== lowerArmGroup && child !== joints[`upper_arm_${side}`] && child !== elbow && child.position.y < elbow.position.y) {
+      lowerArmGroup.add(child);
+      child.position.sub(elbow.position);
+    }
+  });
+  
+  // Legs
+  let leg = joints[`leg_${side}`];
+  let knee = joints[`knee_${side}`];
+  let lowerLegGroup = new THREE.Group();
+  lowerLegGroup.position.copy(knee.position);
+  leg.add(lowerLegGroup);
+  joints[`lowerLeg_${side}`] = lowerLegGroup;
+  
+  leg.children.slice().forEach(child => {
+    if (child !== lowerLegGroup && child !== joints[`thigh_${side}`] && child !== joints[`hip_${side}`] && child !== knee && child.position.y < knee.position.y) {
+      lowerLegGroup.add(child);
+      child.position.sub(knee.position);
+    }
+  });
+  
+  // Feet
+  let ankle = joints[`ankle_${side}`];
+  let foot = joints[`foot_${side}`];
+  let footGroup = new THREE.Group();
+  footGroup.position.copy(ankle.position);
+  lowerLegGroup.add(footGroup);
+  joints[`footGroup_${side}`] = footGroup;
+  lowerLegGroup.children.slice().forEach(child => {
+    if(child === foot) {
+      footGroup.add(child);
+      child.position.sub(ankle.position);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
 // POSE SYSTEM — 8 checkpoint stages
 // ═══════════════════════════════════════════════════════════
 const STAGES = [
@@ -373,53 +460,56 @@ const STAGES = [
   {name:'JUMP', desc:'Explosive launch — full extension'},
   {name:'RUN', desc:'Forward lean — arms pumping'},
 ];
+
 const POSES = {
-  0:{torso:[0,0,Math.PI/2],head:[0,0,0.1],arms:[-0.8,0,0.2],elbows:[1.2],knees:[0.8],hips:[0.6],bloom:0.25,glow:0.15},
-  1:{torso:[0,0,0.25],head:[0,0,0.05],arms:[-0.4,0,0.4],elbows:[0.8],knees:[0.5],hips:[0.3],bloom:0.3,glow:0.2},
-  2:{torso:[0.3,0,0.1],head:[0,0,0.08],arms:[-0.2,0,0.6],elbows:[0.6],knees:[0.4],hips:[0.2],bloom:0.35,glow:0.25},
-  3:{torso:[0,0,0],head:[0,0,0],arms:[0.08,0,0.1],elbows:[0.15],knees:[0.05],hips:[0],bloom:0.45,glow:0.35},
-  4:{torso:[0,0,0],head:[0,0,0.02],arms:[0.1,0,0.2],elbows:[0.3],knees:[0.35],hips:[0.1],bloom:0.55,glow:0.45},
-  5:{torso:[0.05,0,0.08],head:[0,0,0.03],arms:[0.15,0,0.35],elbows:[0.25],knees:[0.15],hips:[0.08],bloom:0.5,glow:0.4},
-  6:{torso:[0,0,0.1],head:[0,0,0.08],arms:[0.2,0,0.5],elbows:[0.4],knees:[0.5],hips:[0.2],bloom:0.7,glow:0.6},
-  7:{torso:[0.18,0,0.15],head:[0,0,0.05],arms:[0.25,0,0.55],elbows:[0.35],knees:[0.25],hips:[0.15],bloom:0.65,glow:0.55},
+  0:{torso:[0,0,Math.PI/2], head:[0,0,0.1], arms:[-0.8,0,0.2], lowerArmsZ:1.2, legsZ:0.6, legsX:0, lowerLegsZ:0.8, feetZ:0.2, bloom:0.25, glow:0.15},
+  1:{torso:[0,0,0.25], head:[0,0,0.05], arms:[-0.4,0,0.4], lowerArmsZ:0.8, legsZ:0.3, legsX:-0.2, lowerLegsZ:0.5, feetZ:0.1, bloom:0.3, glow:0.2},
+  2:{torso:[0.3,0,0.1], head:[0,0,0.08], arms:[-0.2,0,0.6], lowerArmsZ:0.6, legsZ:0.2, legsX:-0.1, lowerLegsZ:0.4, feetZ:0, bloom:0.35, glow:0.25},
+  3:{torso:[0,0,0], head:[0,0,0], arms:[0.08,0,0.1], lowerArmsZ:0.15, legsZ:0, legsX:0, lowerLegsZ:0.05, feetZ:0, bloom:0.45, glow:0.35},
+  4:{torso:[0,0,0], head:[0,0,0.02], arms:[0.1,0,0.2], lowerArmsZ:0.3, legsZ:0.1, legsX:-0.2, lowerLegsZ:0.35, feetZ:0.1, bloom:0.55, glow:0.45},
+  5:{torso:[0.05,0,0.08], head:[0,0,0.03], arms:[0.15,0,0.35], lowerArmsZ:0.25, legsZ:0.08, legsX:-0.1, lowerLegsZ:0.15, feetZ:0.05, bloom:0.5, glow:0.4},
+  6:{torso:[0,0,0.1], head:[0,0,0.08], arms:[0.2,0,0.5], lowerArmsZ:0.4, legsZ:0.2, legsX:-0.1, lowerLegsZ:0.5, feetZ:0.2, bloom:0.7, glow:0.6},
+  7:{torso:[0.18,0,0.15], head:[0,0,0.05], arms:[0.25,0,0.55], lowerArmsZ:0.35, legsZ:0.15, legsX:0.15, lowerLegsZ:0.25, feetZ:0, bloom:0.65, glow:0.55},
 };
+
 let stage = 3;
 let mode = 0;
+let targetPose = POSES[3];
+let currentPose = JSON.parse(JSON.stringify(POSES[3]));
+
 function lerp(a,b,t){ return a + (b-a)*t; }
-function setPose(target){
-  const p = POSES[target];
-  if(!p) return;
-  const duration = 500;
-  const start = performance.now();
-  function animatePose(){
-    const elapsed = performance.now() - start;
-    const t = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1-t, 3);
-    if(joints.torso){ joints.torso.rotation.z = lerp(joints.torso.rotation.z, p.torso[2], ease); joints.torso.rotation.x = lerp(joints.torso.rotation.x, p.torso[0], ease); }
-    if(joints.head){ joints.head.rotation.z = lerp(joints.head.rotation.z, p.head[2], ease); joints.head.rotation.x = lerp(joints.head.rotation.x, p.head[0], ease); }
-    for(let s of [-1, 1]){
-      const arm = joints[`arm_${s>0?'r':'l'}`];
-      const elbow = joints[`elbow_${s>0?'r':'l'}`];
-      const knee = joints[`knee_${s>0?'r':'l'}`];
-      const hip = joints[`hip_${s>0?'r':'l'}`];
-      if(arm){ arm.rotation.z = s * lerp(arm.rotation.z, p.arms[0], ease); arm.rotation.x = lerp(arm.rotation.x, p.arms[1], ease); }
-      if(elbow) elbow.rotation.z = s * lerp(elbow.rotation.z, p.elbows[0], ease);
-      if(knee) knee.rotation.z = s * lerp(knee.rotation.z, p.knees[0], ease);
-      if(hip) hip.rotation.z = s * lerp(hip.rotation.z, p.hips[0], ease);
-    }
-    bloom.strength = lerp(bloom.strength, p.bloom, ease);
-    mats.glow.opacity = lerp(mats.glow.opacity, p.glow, ease);
-    mats.au.emissiveIntensity = lerp(mats.au.emissiveIntensity, 0.25 + target * 0.05, ease);
-    if(t < 1) requestAnimationFrame(animatePose);
-  }
-  animatePose();
-}
 function setStage(s){
   stage = Math.max(0, Math.min(7, s));
+  targetPose = POSES[stage];
   document.getElementById('stageName').textContent = STAGES[stage].name;
   document.getElementById('stageDesc').textContent = STAGES[stage].desc;
   document.getElementById('pose').textContent = STAGES[stage].name;
-  setPose(stage);
+}
+
+const v3 = new THREE.Vector3();
+function checkGroundIK() {
+  mech.position.y = 0; 
+  mech.updateMatrixWorld(true);
+  let minY = Infinity;
+  let lowestPos = new THREE.Vector3();
+  ['footGroup_r', 'footGroup_l'].forEach(f => {
+    if(joints[f]){
+      joints[f].getWorldPosition(v3);
+      if(v3.y < minY) {
+        minY = v3.y;
+        lowestPos.copy(v3);
+      }
+    }
+  });
+  if (minY < 0.05) {
+    mech.position.y += (0.05 - minY);
+    // Footstep shockwave on hard plants
+    if (stage === 5 || stage === 7) { 
+      if (Math.abs(minY - 0.05) > 0.01 && Math.random() > 0.8) {
+         spawnShockwave(lowestPos);
+      }
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -430,9 +520,71 @@ function animate(){
   requestAnimationFrame(animate);
   controls.update();
   const t = clock.getElapsedTime();
-  if(stage === 3){ mech.position.y = Math.sin(t * 1.5) * 0.015; mats.glow.opacity = 0.35 + Math.sin(t * 2) * 0.05; }
-  mats.glow.opacity = 0.5 + Math.sin(t * 3) * 0.15;
+  const dt = 0.016;
+  
+  // 1. Lerp to target pose
+  const ease = 0.08;
+  for(let k in targetPose){
+    if(Array.isArray(targetPose[k])){
+      for(let i=0; i<targetPose[k].length; i++){
+        currentPose[k][i] = lerp(currentPose[k][i], targetPose[k][i], ease);
+      }
+    } else {
+      currentPose[k] = lerp(currentPose[k], targetPose[k], ease);
+    }
+  }
+
+  // 2. Idle Micro-motion
+  let breathe = Math.sin(t * 1.5) * 0.015;
+  if(stage === 7) breathe = Math.sin(t * 4.0) * 0.03; 
+
+  if(joints.torso){ joints.torso.rotation.z = currentPose.torso[2]; joints.torso.rotation.x = currentPose.torso[0] + breathe; }
+  if(joints.head){ joints.head.rotation.z = currentPose.head[2]; joints.head.rotation.x = currentPose.head[0] + breathe * 0.5; }
+  
+  // 3. Apply Gait & Poses
+  for(let s of [-1, 1]){
+    const side = s > 0 ? 'r' : 'l';
+    const arm = joints[`arm_${side}`];
+    const lowerArm = joints[`lowerArm_${side}`];
+    const leg = joints[`leg_${side}`];
+    const lowerLeg = joints[`lowerLeg_${side}`];
+    const footGroup = joints[`footGroup_${side}`];
+    
+    let gait = 0;
+    if (stage === 5) gait = Math.sin(t * 3.0) * s * 0.4;
+    if (stage === 7) gait = Math.sin(t * 6.0) * s * 0.6;
+
+    if(arm){ arm.rotation.z = s * (currentPose.arms[0]); arm.rotation.x = currentPose.arms[1] - gait; }
+    if(lowerArm) lowerArm.rotation.z = s * (currentPose.lowerArmsZ + Math.abs(gait)*0.5);
+    
+    if(leg){ leg.rotation.z = s * currentPose.legsZ; leg.rotation.x = currentPose.legsX + gait; }
+    if(lowerLeg) lowerLeg.rotation.z = s * (currentPose.lowerLegsZ + Math.max(0, -gait));
+    if(footGroup) footGroup.rotation.z = s * (currentPose.feetZ - gait * 0.2);
+  }
+
+  bloom.strength = currentPose.bloom;
+  mats.glow.opacity = currentPose.glow + Math.abs(breathe) * 5.0; 
+  mats.au.emissiveIntensity = 0.25 + stage * 0.05;
+  
+  // 4. VFX
+  if(joints.reactorCone) joints.reactorCone.material.opacity = mats.glow.opacity * 0.3;
   if(joints.blade) joints.blade.material.opacity = 0.75 + Math.sin(t * 4) * 0.15;
+  
+  const angularVelocity = Math.abs(currentPose.arms[0] - targetPose.arms[0]) * 10.0;
+  bladeTrail.material.opacity = lerp(bladeTrail.material.opacity, Math.min(1.0, angularVelocity), 0.1);
+
+  shockwaves.forEach(sw => {
+    if(sw.active) {
+      sw.time += dt;
+      sw.mesh.scale.setScalar(0.1 + sw.time * 15.0);
+      sw.mesh.material.opacity = Math.max(0, 0.5 - sw.time * 1.5);
+      if(sw.time > 0.5) sw.active = false;
+    }
+  });
+
+  // 5. Pseudo-IK
+  checkGroundIK();
+  
   ring.rotation.z = t * 0.08;
   composer.render();
 }
@@ -464,7 +616,7 @@ setTimeout(() => {
   document.getElementById('loading').style.transition = 'opacity 0.5s';
   setTimeout(() => document.getElementById('loading').style.display = 'none', 500);
 }, 1800);
-console.log('MECHA PRIME — TITAN CLASS // 42 joints // Kirigami-forged');
+console.log('MECHA PRIME — TITAN CLASS // 42 joints // VFX ACTIVE');
 </script>
 </body>
 </html>

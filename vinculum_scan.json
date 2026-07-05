@@ -1,101 +1,100 @@
 {
-  "total_files": 2565,
-  "total_vinculums": 317430,
+  "total_files": 2568,
+  "total_vinculums": 314588,
   "patterns": {
-    "fraction": 7353,
-    "group_brace": 61929,
-    "auto_close": 217553,
-    "chain": 8800,
-    "hyphen_bind": 17009,
-    "overline": 3247,
+    "fraction": 7359,
+    "group_brace": 61980,
+    "auto_close": 217876,
+    "chain": 8817,
+    "hyphen_bind": 17015,
     "repeat": 1483,
-    "negation": 56
+    "negation": 58
   },
   "projects": {
     "acoustic_archive": {
       "files": 1,
       "v": 52,
-      "kb": 3.3935546875
+      "kb": 3.4052734375
     },
     "advra_archive": {
       "files": 1,
       "v": 34,
-      "kb": 2.11328125
+      "kb": 2.115234375
     },
     "aegis_archive": {
       "files": 1,
       "v": 73,
-      "kb": 4.0595703125
+      "kb": 4.0771484375
     },
     "aetherion-continuum": {
       "files": 77,
-      "v": 3504,
-      "kb": 192.341796875
+      "v": 3448,
+      "kb": 194.162109375
     },
     "aetheris_archive": {
       "files": 21,
       "v": 3883,
-      "kb": 235.9560546875
+      "kb": 236.61328125
     },
     "agent_swarm": {
       "files": 3,
-      "v": 216,
-      "kb": 22.1171875
+      "v": 209,
+      "kb": 24.2490234375
     },
     "ale": {
       "files": 15,
       "v": 1860,
-      "kb": 139.1162109375
+      "kb": 141.9326171875
     },
     "ascii_research_presentation": {
       "files": 2,
       "v": 110,
-      "kb": 14.232421875
+      "kb": 14.328125
     },
     "asset_pack": {
       "files": 7,
-      "v": 1715,
-      "kb": 104.4033203125
+      "v": 1697,
+      "kb": 108.96484375
     },
     "aurora_archive": {
       "files": 6,
       "v": 2058,
-      "kb": 97.513671875
+      "kb": 97.5830078125
     },
     "avatar": {
       "files": 1,
-      "v": 209,
-      "kb": 12.1416015625
+      "v": 191,
+      "kb": 12.943359375
     },
     "avatar-core": {
       "files": 4,
       "v": 696,
-      "kb": 70.716796875
+      "kb": 70.720703125
     },
     "blooming-onion": {
       "files": 18,
-      "v": 6790,
-      "kb": 311.3486328125
+      "v": 6558,
+      "kb": 320.7060546875
     },
     "bridge": {
       "files": 16,
-      "v": 2265,
-      "kb": 141.6484375
+      "v": 2246,
+      "kb": 141.927734375
     },
     "chronos": {
       "files": 16,
-      "v": 4711,
-      "kb": 302.0712890625
+      "v": 4665,
+      "kb": 302.99609375
     },
     "collatz-exploration": {
       "files": 3,
       "v": 351,
-      "kb": 19.4921875
+      "kb": 19.4931640625
     },
     "COMMENCINGTHESCOURGE": {
       "files": 245,
-      "v": 18445,
-      "kb": 1606.6904296875
+      "v": 18210,
+      "kb": 1612.109375
     },
     "deepbio-prompt-pack": {
       "files": 3,
@@ -104,63 +103,63 @@
     },
     "deepseek_analysis": {
       "files": 4,
-      "v": 692,
-      "kb": 20.1767578125
+      "v": 676,
+      "kb": 20.9716796875
     },
     "density_spheres": {
       "files": 1,
       "v": 240,
-      "kb": 16.78515625
+      "kb": 17.8994140625
     },
     "dev_archive": {
-      "files": 531,
-      "v": 63077,
-      "kb": 3825.83203125
+      "files": 533,
+      "v": 62780,
+      "kb": 3892.6083984375
     },
     "erdos-straus": {
       "files": 12,
-      "v": 937,
-      "kb": 42.2626953125
+      "v": 877,
+      "kb": 45.458984375
     },
     "ernie_agent": {
       "files": 1,
       "v": 148,
-      "kb": 9.2802734375
+      "kb": 9.849609375
     },
     "fleet": {
       "files": 3,
-      "v": 240,
-      "kb": 13.20703125
+      "v": 236,
+      "kb": 13.232421875
     },
     "flux-chamber": {
       "files": 10,
-      "v": 1071,
-      "kb": 112.00390625
+      "v": 1030,
+      "kb": 113.224609375
     },
     "forensics": {
       "files": 1,
-      "v": 139,
-      "kb": 6.8447265625
+      "v": 133,
+      "kb": 6.8701171875
     },
     "fractype": {
       "files": 23,
-      "v": 2753,
-      "kb": 170.6259765625
+      "v": 2649,
+      "kb": 177.2255859375
     },
     "headroom": {
       "files": 1077,
-      "v": 139050,
-      "kb": 12152.7607421875
+      "v": 138268,
+      "kb": 12191.837890625
     },
     "hyperpoly-terrain": {
       "files": 29,
-      "v": 4476,
-      "kb": 274.5966796875
+      "v": 4367,
+      "kb": 283.8564453125
     },
     "kaggle_submissions": {
       "files": 5,
       "v": 427,
-      "kb": 27.8037109375
+      "kb": 28.3671875
     },
     "kimi_density_spheres": {
       "files": 8,
@@ -174,33 +173,33 @@
     },
     "labyrinth_archive": {
       "files": 2,
-      "v": 673,
-      "kb": 39.326171875
+      "v": 659,
+      "kb": 39.990234375
     },
     "lavish_furniture": {
       "files": 9,
       "v": 1273,
-      "kb": 116.578125
+      "kb": 116.6259765625
     },
     "legal": {
       "files": 2,
       "v": 11,
-      "kb": 3.3447265625
+      "kb": 3.345703125
     },
     "lenticular_pipeline": {
       "files": 6,
-      "v": 589,
-      "kb": 50.6044921875
+      "v": 584,
+      "kb": 51.95703125
     },
     "manifold": {
       "files": 6,
-      "v": 595,
-      "kb": 47.8583984375
+      "v": 497,
+      "kb": 48.8134765625
     },
     "manifold-model-router": {
       "files": 1,
-      "v": 81,
-      "kb": 7.73046875
+      "v": 77,
+      "kb": 7.869140625
     },
     "mantra-fm": {
       "files": 5,
@@ -215,7 +214,7 @@
     "minicity": {
       "files": 3,
       "v": 774,
-      "kb": 32.6328125
+      "kb": 32.646484375
     },
     "mycelia_game": {
       "files": 6,
@@ -224,23 +223,23 @@
     },
     "neon_dissection": {
       "files": 17,
-      "v": 1656,
-      "kb": 85.736328125
+      "v": 1576,
+      "kb": 88.6435546875
     },
     "parallax": {
       "files": 1,
-      "v": 127,
-      "kb": 7.5283203125
+      "v": 126,
+      "kb": 7.623046875
     },
     "part_affordance": {
       "files": 2,
-      "v": 601,
-      "kb": 45.716796875
+      "v": 587,
+      "kb": 46.7216796875
     },
     "project_manager": {
       "files": 5,
       "v": 1169,
-      "kb": 140.6630859375
+      "kb": 141.8837890625
     },
     "quantum_garden": {
       "files": 8,
@@ -249,33 +248,33 @@
     },
     "research": {
       "files": 17,
-      "v": 2186,
-      "kb": 199.4794921875
+      "v": 2093,
+      "kb": 205.9150390625
     },
     "roto_extractor": {
       "files": 3,
-      "v": 349,
-      "kb": 14.6171875
+      "v": 342,
+      "kb": 15.15234375
     },
     "sovereign-resonance-node": {
       "files": 19,
-      "v": 958,
-      "kb": 62.1005859375
+      "v": 916,
+      "kb": 62.91796875
     },
     "sovereign_archive": {
       "files": 14,
-      "v": 1608,
-      "kb": 98.6455078125
+      "v": 1689,
+      "kb": 106.916015625
     },
     "sovereign_resonance": {
       "files": 3,
-      "v": 461,
-      "kb": 20.669921875
+      "v": 421,
+      "kb": 20.8515625
     },
     "starfield_v3": {
       "files": 4,
-      "v": 1452,
-      "kb": 79.1484375
+      "v": 1422,
+      "kb": 80.3515625
     },
     "SubstrateDeltaSieve": {
       "files": 2,
@@ -285,32 +284,32 @@
     "sync": {
       "files": 1,
       "v": 89,
-      "kb": 3.6806640625
+      "kb": 3.6826171875
     },
     "thrown-planet": {
       "files": 4,
-      "v": 1006,
-      "kb": 50.9384765625
+      "v": 967,
+      "kb": 52.697265625
     },
     "trench_builder": {
-      "files": 253,
-      "v": 32557,
-      "kb": 2527.8095703125
+      "files": 254,
+      "v": 32161,
+      "kb": 2593.6474609375
     },
     "vestibular_proof_kaggle": {
       "files": 2,
       "v": 308,
-      "kb": 14.8662109375
+      "kb": 14.8720703125
     },
     "victus_bios_tool": {
       "files": 3,
       "v": 327,
-      "kb": 25.916015625
+      "kb": 26.15625
     },
     "void_archive": {
       "files": 3,
       "v": 368,
-      "kb": 23.076171875
+      "kb": 23.1044921875
     },
     "voxel_atelier": {
       "files": 8,
@@ -319,8 +318,8 @@
     },
     "xpbd_solver": {
       "files": 1,
-      "v": 252,
-      "kb": 9.8994140625
+      "v": 242,
+      "kb": 10.5654296875
     }
   },
   "top_files": [
@@ -377,11 +376,10 @@
       "p": "aetherion-continuum",
       "f": "index.html",
       "l": 432,
-      "v": 354,
-      "d": 81.9,
+      "v": 342,
+      "d": 79.2,
       "t": [
         "fraction",
-        "overline",
         "group_brace",
         "chain",
         "auto_close"
@@ -391,11 +389,10 @@
       "p": "aetherion-continuum",
       "f": "README.md",
       "l": 107,
-      "v": 63,
-      "d": 58.9,
+      "v": 25,
+      "d": 23.4,
       "t": [
         "fraction",
-        "overline",
         "chain",
         "auto_close"
       ]
@@ -518,11 +515,10 @@
       "p": "aetherion-continuum",
       "f": "reconstruct_gltf_from_sprites.py",
       "l": 266,
-      "v": 188,
-      "d": 70.7,
+      "v": 182,
+      "d": 68.4,
       "t": [
         "fraction",
-        "overline",
         "group_brace",
         "chain",
         "auto_close"
@@ -577,5 +573,5 @@
       ]
     }
   ],
-  "runtime_s": 23.4
+  "runtime_s": 11.3
 }

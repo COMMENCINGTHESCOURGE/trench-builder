@@ -122,6 +122,9 @@ TIER_BUDGETS_V3 = {
     3: 8,   # Single-word corruption markers
 }
 
+TIER_BUDGETS = TIER_BUDGETS_V3
+
+
 class MicroFrac:
     """FracType at minimum size — AI-native density."""
     

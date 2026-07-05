@@ -146,9 +146,80 @@ function updateChunks(){
   }
 }
 
+// AUDIO SYSTEM
+let audioCtx, beachSource, earthySource, intenseSource;
+let beachGain, earthyGain, intenseGain;
+let audioInitialized = false;
+
+function initAudio() {
+  if (audioInitialized) return;
+  audioInitialized = true;
+  
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  const loadTrack = (url, gainNode) => {
+    const audio = new Audio(url);
+    audio.loop = true;
+    audio.crossOrigin = "anonymous";
+    const source = audioCtx.createMediaElementSource(audio);
+    source.connect(gainNode);
+    audio.play().catch(e => console.log("Audio play error:", e));
+    return audio;
+  };
+  
+  beachGain = audioCtx.createGain();
+  earthyGain = audioCtx.createGain();
+  intenseGain = audioCtx.createGain();
+  
+  beachGain.connect(audioCtx.destination);
+  earthyGain.connect(audioCtx.destination);
+  intenseGain.connect(audioCtx.destination);
+  
+  beachSource = loadTrack('./overhauled_mix_85372.wav', beachGain);
+  earthySource = loadTrack('./overhauled_mix_91288.wav', earthyGain);
+  intenseSource = loadTrack('./overhauled_mix_93064.wav', intenseGain);
+  
+  beachGain.gain.value = 0.5;
+  earthyGain.gain.value = 0.0;
+  intenseGain.gain.value = 0.0;
+}
+
+function updateAudioMix() {
+  if (!audioInitialized) return;
+  const h = camera.position.y;
+  
+  // Beach zone: h < -2
+  // Earthy zone: -2 <= h <= 12
+  // Intense zone: h > 12
+  let beachVol = 0;
+  let earthyVol = 0;
+  let intenseVol = 0;
+  
+  if (h < -2) {
+    beachVol = 1.0;
+  } else if (h < 12) {
+    const t = (h - (-2)) / 14;
+    beachVol = 1.0 - t;
+    earthyVol = t;
+  } else if (h < 26) {
+    const t = (h - 12) / 14;
+    earthyVol = 1.0 - t;
+    intenseVol = t;
+  } else {
+    intenseVol = 1.0;
+  }
+  
+  beachGain.gain.setTargetAtTime(beachVol * 0.7, audioCtx.currentTime, 0.15);
+  earthyGain.gain.setTargetAtTime(earthyVol * 0.7, audioCtx.currentTime, 0.15);
+  intenseGain.gain.setTargetAtTime(intenseVol * 0.7, audioCtx.currentTime, 0.15);
+}
+
 // PLAYER
 const controls = new PointerLockControls(camera, document.body);
-document.addEventListener('click', () => controls.lock());
+document.addEventListener('click', () => {
+  controls.lock();
+  initAudio();
+});
 camera.position.set(0, 20, 0);
 
 const velocity = new THREE.Vector3();
@@ -259,6 +330,7 @@ function animate(){
     if(camera.position.y < gh+2){ velocity.y=0; camera.position.y=gh+2; }
     
     updateChunks();
+    updateAudioMix();
     
     hudTimer += dt;
     if(hudTimer > 0.15){ updateHUD(); hudTimer=0; drawMinimap(); }

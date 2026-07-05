@@ -1,17 +1,19 @@
 {
   "version": "1.0",
-  "generated": "2026-05-16T10:29:47.335363",
+  "generated": "2026-07-04T23:07:00.153901",
   "total_flashcards": 18,
   "total_sprite_frames": 8,
   "domains": [
     "human_mobility",
     "trench_builder",
+    "asset_pipeline",
     "mechanical_mobility"
   ],
   "output_files": [
     "human_mobility_flashcards.json",
     "human_mobility_sprite_sheet.json",
     "trench_builder_checkpoints.json",
+    "asset_pipeline_checkpoints.json",
     "mechanical_mobility_hypercheckpoints.json",
     "cross_domain_mapping.json"
   ],
