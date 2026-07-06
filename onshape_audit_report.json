@@ -1,0 +1,2649 @@
+{
+  "total_named_docs": 63,
+  "total_features_scanned": 3201,
+  "global_operation_counts": {
+    "THICKEN": 1208,
+    "SKETCH": 623,
+    "EXTRUDE": 469,
+    "CHAMFER": 267,
+    "LOFT": 128,
+    "FILLET": 124,
+    "MIRROR": 118,
+    "REVOLVE": 109,
+    "DELETE": 42,
+    "CIRCULAR": 29,
+    "LINEAR": 24,
+    "SWEEP": 17,
+    "HELIX": 13,
+    "BOOLEAN": 9,
+    "CURVE": 7,
+    "PLANE": 7,
+    "OFFSET": 7
+  },
+  "global_sketch_geometry": {
+    "LINE": 462,
+    "CIRCLE": 188,
+    "OTHER": 174,
+    "ELLIPSE": 26,
+    "SPLINE": 15
+  },
+  "documents": [
+    {
+      "name": "Tristan's mousepad",
+      "created": "2021-04-02",
+      "modified": "2021-04-02",
+      "total_features": 1,
+      "operations": {
+        "SKETCH": 1
+      },
+      "sketch_geometry": {
+        "LINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [],
+      "feature_list": [
+        "SKETCH: Sketch 1"
+      ]
+    },
+    {
+      "name": "bliy",
+      "created": "2021-05-11",
+      "modified": "2021-05-11",
+      "total_features": 0,
+      "operations": {},
+      "sketch_geometry": {},
+      "advanced_methods": [],
+      "feature_list": []
+    },
+    {
+      "name": "ring1001",
+      "created": "2021-08-10",
+      "modified": "2021-08-10",
+      "total_features": 15,
+      "operations": {
+        "SKETCH": 6,
+        "EXTRUDE": 5,
+        "SWEEP": 2,
+        "HELIX": 1,
+        "THICKEN": 1
+      },
+      "sketch_geometry": {
+        "LINE": 5,
+        "CIRCLE": 3,
+        "OTHER": 2,
+        "ELLIPSE": 1
+      },
+      "advanced_methods": [
+        "SWEEP",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 2",
+        "SWEEP: Sweep 1",
+        "SKETCH: Sketch 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 3",
+        "EXTRUDE: Extrude 4",
+        "SWEEP: Sweep 2",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 5",
+        "THICKEN: Thicken 1"
+      ]
+    },
+    {
+      "name": "light extender",
+      "created": "2021-09-12",
+      "modified": "2021-09-13",
+      "total_features": 31,
+      "operations": {
+        "SKETCH": 15,
+        "EXTRUDE": 6,
+        "REVOLVE": 3,
+        "THICKEN": 2,
+        "LOFT": 1,
+        "HELIX": 1,
+        "SWEEP": 1,
+        "CURVE": 1,
+        "CIRCULAR": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 10,
+        "LINE": 8,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 4",
+        "SWEEP: Sweep 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 5",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 6",
+        "REVOLVE: Revolve 2",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 8",
+        "REVOLVE: Revolve 3",
+        "SKETCH: Sketch 9",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 10"
+      ]
+    },
+    {
+      "name": "spring",
+      "created": "2021-09-14",
+      "modified": "2021-10-26",
+      "total_features": 34,
+      "operations": {
+        "SKETCH": 14,
+        "THICKEN": 5,
+        "REVOLVE": 4,
+        "EXTRUDE": 4,
+        "SWEEP": 2,
+        "PLANE": 1,
+        "LOFT": 1,
+        "HELIX": 1,
+        "OFFSET": 1,
+        "CURVE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 10,
+        "CIRCLE": 6,
+        "OTHER": 2
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 4",
+        "SWEEP: Sweep 1",
+        "SWEEP: Sweep 2",
+        "OFFSET: Offset surface 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 7",
+        "REVOLVE: Revolve 2",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 8",
+        "REVOLVE: Revolve 3",
+        "THICKEN: Thicken 3"
+      ]
+    },
+    {
+      "name": "gino hook",
+      "created": "2021-09-23",
+      "modified": "2021-09-23",
+      "total_features": 39,
+      "operations": {
+        "EXTRUDE": 12,
+        "SKETCH": 9,
+        "CHAMFER": 7,
+        "MIRROR": 6,
+        "THICKEN": 5
+      },
+      "sketch_geometry": {
+        "LINE": 8,
+        "OTHER": 3
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "EXTRUDE: Extrude 2",
+        "MIRROR: Mirror 1",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "CHAMFER: Chamfer 3",
+        "CHAMFER: Chamfer 4",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 4",
+        "MIRROR: Mirror 2",
+        "EXTRUDE: Extrude 5",
+        "CHAMFER: Chamfer 5",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 6",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2"
+      ]
+    },
+    {
+      "name": "gear",
+      "created": "2021-09-26",
+      "modified": "2022-01-30",
+      "total_features": 68,
+      "operations": {
+        "SKETCH": 19,
+        "THICKEN": 19,
+        "EXTRUDE": 9,
+        "REVOLVE": 5,
+        "CHAMFER": 5,
+        "MIRROR": 3,
+        "CURVE": 2,
+        "PLANE": 1,
+        "LOFT": 1,
+        "HELIX": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 11,
+        "LINE": 10,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 4",
+        "SWEEP: Sweep 1",
+        "REVOLVE: Revolve 1",
+        "REVOLVE: Revolve 2",
+        "EXTRUDE: Extrude 1",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 5",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 2",
+        "CHAMFER: Chamfer 1"
+      ]
+    },
+    {
+      "name": "ring",
+      "created": "2021-10-05",
+      "modified": "2021-10-05",
+      "total_features": 7,
+      "operations": {
+        "SKETCH": 2,
+        "REVOLVE": 2,
+        "THICKEN": 2,
+        "EXTRUDE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 1,
+        "OTHER": 1,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "REVOLVE: Revolve 2",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1"
+      ]
+    },
+    {
+      "name": "ringring",
+      "created": "2021-10-05",
+      "modified": "2022-07-22",
+      "total_features": 25,
+      "operations": {
+        "SKETCH": 11,
+        "EXTRUDE": 7,
+        "REVOLVE": 2,
+        "FILLET": 2,
+        "THICKEN": 1,
+        "MIRROR": 1,
+        "CHAMFER": 1
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "OTHER": 6,
+        "CIRCLE": 6
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 7",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 9",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 10",
+        "EXTRUDE: Extrude 6",
+        "MIRROR: Mirror 1"
+      ]
+    },
+    {
+      "name": "foundation",
+      "created": "2021-10-18",
+      "modified": "2021-10-18",
+      "total_features": 35,
+      "operations": {
+        "SKETCH": 12,
+        "EXTRUDE": 10,
+        "THICKEN": 9,
+        "FILLET": 3,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 12,
+        "OTHER": 6
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "EXTRUDE: Extrude 3",
+        "FILLET: Fillet 1",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 6",
+        "THICKEN: Thicken 3",
+        "FILLET: Fillet 2",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 7"
+      ]
+    },
+    {
+      "name": "hdl",
+      "created": "2021-11-14",
+      "modified": "2021-11-14",
+      "total_features": 3,
+      "operations": {
+        "SKETCH": 3
+      },
+      "sketch_geometry": {
+        "LINE": 3,
+        "OTHER": 1
+      },
+      "advanced_methods": [],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3"
+      ]
+    },
+    {
+      "name": "goil climb",
+      "created": "2021-11-14",
+      "modified": "2021-11-14",
+      "total_features": 59,
+      "operations": {
+        "THICKEN": 26,
+        "SKETCH": 12,
+        "EXTRUDE": 11,
+        "MIRROR": 7,
+        "REVOLVE": 3
+      },
+      "sketch_geometry": {
+        "LINE": 7,
+        "CIRCLE": 6,
+        "OTHER": 2,
+        "SPLINE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "EXTRUDE: Extrude 4",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 6",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9"
+      ]
+    },
+    {
+      "name": "guili",
+      "created": "2021-11-26",
+      "modified": "2021-11-26",
+      "total_features": 5,
+      "operations": {
+        "SKETCH": 2,
+        "REVOLVE": 1,
+        "HELIX": 1,
+        "SWEEP": 1
+      },
+      "sketch_geometry": {
+        "LINE": 2
+      },
+      "advanced_methods": [
+        "SWEEP",
+        "REVOLVE"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 2",
+        "SWEEP: Sweep 1"
+      ]
+    },
+    {
+      "name": "spacehenge",
+      "created": "2022-01-19",
+      "modified": "2022-01-19",
+      "total_features": 96,
+      "operations": {
+        "THICKEN": 66,
+        "CHAMFER": 11,
+        "SKETCH": 9,
+        "EXTRUDE": 6,
+        "REVOLVE": 3,
+        "OFFSET": 1
+      },
+      "sketch_geometry": {
+        "LINE": 8,
+        "OTHER": 4,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10",
+        "THICKEN: Thicken 11",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 12",
+        "THICKEN: Thicken 13",
+        "THICKEN: Thicken 14"
+      ]
+    },
+    {
+      "name": "spacedoor",
+      "created": "2022-01-19",
+      "modified": "2022-01-19",
+      "total_features": 0,
+      "operations": {},
+      "sketch_geometry": {},
+      "advanced_methods": [],
+      "feature_list": []
+    },
+    {
+      "name": "common",
+      "created": "2022-01-23",
+      "modified": "2022-01-23",
+      "total_features": 12,
+      "operations": {
+        "SKETCH": 4,
+        "REVOLVE": 3,
+        "EXTRUDE": 2,
+        "CIRCULAR": 1,
+        "THICKEN": 1,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 4,
+        "OTHER": 2,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "REVOLVE: Revolve 2",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 3",
+        "CIRCULAR: Circular pattern 1",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 1",
+        "MIRROR: Mirror 1"
+      ]
+    },
+    {
+      "name": "gun2",
+      "created": "2022-02-03",
+      "modified": "2022-03-13",
+      "total_features": 8,
+      "operations": {
+        "SKETCH": 3,
+        "THICKEN": 3,
+        "EXTRUDE": 2
+      },
+      "sketch_geometry": {
+        "LINE": 2,
+        "CIRCLE": 2,
+        "OTHER": 2,
+        "ELLIPSE": 1
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 3"
+      ]
+    },
+    {
+      "name": "rogue",
+      "created": "2022-03-03",
+      "modified": "2022-03-17",
+      "total_features": 34,
+      "operations": {
+        "THICKEN": 11,
+        "EXTRUDE": 8,
+        "SKETCH": 7,
+        "CHAMFER": 5,
+        "BOOLEAN": 2,
+        "FILLET": 1
+      },
+      "sketch_geometry": {
+        "LINE": 7,
+        "OTHER": 3
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 6",
+        "CHAMFER: Chamfer 3",
+        "CHAMFER: Chamfer 4",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5"
+      ]
+    },
+    {
+      "name": "gear",
+      "created": "2022-03-03",
+      "modified": "2022-03-03",
+      "total_features": 10,
+      "operations": {
+        "SKETCH": 3,
+        "EXTRUDE": 2,
+        "THICKEN": 2,
+        "REVOLVE": 1,
+        "MIRROR": 1,
+        "BOOLEAN": 1
+      },
+      "sketch_geometry": {
+        "LINE": 3,
+        "CIRCLE": 2
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "MIRROR: Mirror 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "BOOLEAN: Boolean 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2"
+      ]
+    },
+    {
+      "name": "Boule",
+      "created": "2022-04-21",
+      "modified": "2022-04-21",
+      "total_features": 77,
+      "operations": {
+        "THICKEN": 33,
+        "SKETCH": 20,
+        "CHAMFER": 11,
+        "EXTRUDE": 6,
+        "REVOLVE": 4,
+        "FILLET": 2,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 17,
+        "OTHER": 3,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6",
+        "THICKEN: Thicken 2",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "CHAMFER: Chamfer 3",
+        "CHAMFER: Chamfer 4",
+        "CHAMFER: Chamfer 5",
+        "CHAMFER: Chamfer 6",
+        "CHAMFER: Chamfer 7",
+        "CHAMFER: Chamfer 8",
+        "SKETCH: Sketch 7",
+        "SKETCH: Sketch 8",
+        "THICKEN: Thicken 3",
+        "REVOLVE: Revolve 1"
+      ]
+    },
+    {
+      "name": "\ud83d\ude01",
+      "created": "2022-05-02",
+      "modified": "2022-05-02",
+      "total_features": 3,
+      "operations": {
+        "SKETCH": 1,
+        "EXTRUDE": 1,
+        "CHAMFER": 1
+      },
+      "sketch_geometry": {
+        "LINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 1"
+      ]
+    },
+    {
+      "name": "lotusstar tray",
+      "created": "2022-06-30",
+      "modified": "2022-07-22",
+      "total_features": 11,
+      "operations": {
+        "SKETCH": 5,
+        "EXTRUDE": 2,
+        "PLANE": 1,
+        "LOFT": 1,
+        "HELIX": 1,
+        "SWEEP": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 3,
+        "LINE": 2
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 2",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "SWEEP: Sweep 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 5"
+      ]
+    },
+    {
+      "name": "wheel",
+      "created": "2022-07-19",
+      "modified": "2022-07-20",
+      "total_features": 77,
+      "operations": {
+        "THICKEN": 29,
+        "SKETCH": 23,
+        "EXTRUDE": 13,
+        "CHAMFER": 4,
+        "MIRROR": 3,
+        "PLANE": 1,
+        "LOFT": 1,
+        "HELIX": 1,
+        "SWEEP": 1,
+        "CIRCULAR": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 17,
+        "LINE": 7,
+        "OTHER": 5,
+        "ELLIPSE": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP",
+        "SURFACE_THICKEN",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 2",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 3",
+        "SWEEP: Sweep 1",
+        "SKETCH: Sketch 4",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 5",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 6",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 2"
+      ]
+    },
+    {
+      "name": "triage",
+      "created": "2022-07-21",
+      "modified": "2022-07-21",
+      "total_features": 8,
+      "operations": {
+        "SKETCH": 4,
+        "EXTRUDE": 2,
+        "REVOLVE": 1,
+        "HELIX": 1
+      },
+      "sketch_geometry": {
+        "LINE": 4,
+        "OTHER": 4
+      },
+      "advanced_methods": [
+        "REVOLVE"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "HELIX: Helix 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 5"
+      ]
+    },
+    {
+      "name": "ghert",
+      "created": "2022-08-11",
+      "modified": "2022-08-11",
+      "total_features": 16,
+      "operations": {
+        "SKETCH": 7,
+        "LOFT": 2,
+        "MIRROR": 2,
+        "EXTRUDE": 2,
+        "PLANE": 1,
+        "HELIX": 1,
+        "THICKEN": 1
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "CIRCLE": 4,
+        "OTHER": 3
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 2",
+        "LOFT: Loft 1",
+        "HELIX: Helix 1",
+        "SKETCH: Sketch 3",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 5",
+        "LOFT: Loft 2",
+        "THICKEN: Thicken 1",
+        "MIRROR: Mirror 1",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 2",
+        "MIRROR: Mirror 2"
+      ]
+    },
+    {
+      "name": "house",
+      "created": "2022-08-24",
+      "modified": "2022-08-24",
+      "total_features": 20,
+      "operations": {
+        "EXTRUDE": 8,
+        "THICKEN": 6,
+        "SKETCH": 4,
+        "CHAMFER": 2
+      },
+      "sketch_geometry": {
+        "LINE": 4,
+        "OTHER": 2
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "EXTRUDE: Extrude 2",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 4",
+        "THICKEN: Thicken 5",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 6",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 2",
+        "EXTRUDE: Extrude 7",
+        "EXTRUDE: Extrude 8"
+      ]
+    },
+    {
+      "name": "the super cart",
+      "created": "2022-09-01",
+      "modified": "2022-09-02",
+      "total_features": 21,
+      "operations": {
+        "SKETCH": 6,
+        "EXTRUDE": 6,
+        "THICKEN": 6,
+        "MIRROR": 2,
+        "CHAMFER": 1
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "OTHER": 6,
+        "CIRCLE": 3
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 4",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 6",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "MIRROR: Mirror 1",
+        "MIRROR: Mirror 2",
+        "EXTRUDE: Extrude 6",
+        "THICKEN: Thicken 5"
+      ]
+    },
+    {
+      "name": "clock",
+      "created": "2022-09-19",
+      "modified": "2022-09-23",
+      "total_features": 53,
+      "operations": {
+        "THICKEN": 15,
+        "SKETCH": 14,
+        "EXTRUDE": 11,
+        "CHAMFER": 3,
+        "SWEEP": 2,
+        "REVOLVE": 1,
+        "CIRCULAR": 1,
+        "PLANE": 1,
+        "MIRROR": 1,
+        "HELIX": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 8,
+        "LINE": 8,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 4",
+        "CIRCULAR: Circular pattern 1",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "PLANE: Plane 1",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 3",
+        "CHAMFER: Chamfer 1",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 7"
+      ]
+    },
+    {
+      "name": "doghouse",
+      "created": "2022-10-02",
+      "modified": "2022-10-02",
+      "total_features": 14,
+      "operations": {
+        "THICKEN": 8,
+        "SKETCH": 3,
+        "CHAMFER": 3
+      },
+      "sketch_geometry": {
+        "LINE": 3,
+        "OTHER": 1,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 7",
+        "CHAMFER: Chamfer 2",
+        "CHAMFER: Chamfer 3",
+        "THICKEN: Thicken 8"
+      ]
+    },
+    {
+      "name": "ring",
+      "created": "2022-10-05",
+      "modified": "2022-10-09",
+      "total_features": 80,
+      "operations": {
+        "THICKEN": 30,
+        "SKETCH": 16,
+        "EXTRUDE": 14,
+        "CHAMFER": 7,
+        "REVOLVE": 6,
+        "OFFSET": 3,
+        "FILLET": 2,
+        "MIRROR": 1,
+        "CIRCULAR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 11,
+        "CIRCLE": 7,
+        "OTHER": 6
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 5",
+        "REVOLVE: Revolve 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 2",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "FILLET: Fillet 1"
+      ]
+    },
+    {
+      "name": "golden",
+      "created": "2022-10-25",
+      "modified": "2023-03-26",
+      "total_features": 67,
+      "operations": {
+        "THICKEN": 36,
+        "SKETCH": 12,
+        "EXTRUDE": 10,
+        "REVOLVE": 5,
+        "CHAMFER": 2,
+        "LINEAR": 2
+      },
+      "sketch_geometry": {
+        "LINE": 7,
+        "CIRCLE": 6,
+        "ELLIPSE": 1,
+        "SPLINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 4",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10"
+      ]
+    },
+    {
+      "name": "cold",
+      "created": "2022-10-28",
+      "modified": "2022-10-29",
+      "total_features": 3,
+      "operations": {
+        "SKETCH": 1,
+        "THICKEN": 1,
+        "REVOLVE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 1,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "REVOLVE: Revolve 1"
+      ]
+    },
+    {
+      "name": "homty",
+      "created": "2023-05-02",
+      "modified": "2023-05-04",
+      "total_features": 32,
+      "operations": {
+        "EXTRUDE": 11,
+        "SKETCH": 10,
+        "THICKEN": 5,
+        "LINEAR": 1,
+        "DELETE": 1,
+        "CIRCULAR": 1,
+        "FILLET": 1,
+        "REVOLVE": 1,
+        "CHAMFER": 1
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "CIRCLE": 4,
+        "ELLIPSE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "EXTRUDE: Extrude 3",
+        "LINEAR: Linear pattern 1",
+        "DELETE: Delete part 1",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 5",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 4",
+        "CIRCULAR: Circular pattern 1",
+        "FILLET: Fillet 1",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 6",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 7",
+        "SKETCH: Sketch 7",
+        "REVOLVE: Revolve 1"
+      ]
+    },
+    {
+      "name": "googt",
+      "created": "2023-05-21",
+      "modified": "2023-06-22",
+      "total_features": 259,
+      "operations": {
+        "THICKEN": 100,
+        "SKETCH": 44,
+        "EXTRUDE": 35,
+        "MIRROR": 18,
+        "REVOLVE": 12,
+        "LOFT": 11,
+        "CHAMFER": 11,
+        "FILLET": 10,
+        "DELETE": 10,
+        "CIRCULAR": 5
+      },
+      "sketch_geometry": {
+        "LINE": 39,
+        "OTHER": 11,
+        "CIRCLE": 8,
+        "ELLIPSE": 5
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "MIRROR: Mirror 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 5",
+        "REVOLVE: Revolve 2",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 6",
+        "REVOLVE: Revolve 3",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 4",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 5"
+      ]
+    },
+    {
+      "name": "flight528",
+      "created": "2023-05-30",
+      "modified": "2023-05-31",
+      "total_features": 35,
+      "operations": {
+        "THICKEN": 19,
+        "REVOLVE": 5,
+        "SKETCH": 4,
+        "CHAMFER": 4,
+        "FILLET": 1,
+        "LOFT": 1,
+        "DELETE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 4,
+        "CIRCLE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "FILLET: Fillet 1",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 2",
+        "REVOLVE: Revolve 3",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "CHAMFER: Chamfer 1",
+        "SKETCH: Sketch 3",
+        "REVOLVE: Revolve 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "LOFT: Loft 1",
+        "THICKEN: Thicken 9",
+        "CHAMFER: Chamfer 2"
+      ]
+    },
+    {
+      "name": "boolean",
+      "created": "2023-07-09",
+      "modified": "2023-07-13",
+      "total_features": 70,
+      "operations": {
+        "THICKEN": 30,
+        "SKETCH": 14,
+        "EXTRUDE": 10,
+        "CHAMFER": 5,
+        "LOFT": 5,
+        "BOOLEAN": 1,
+        "DELETE": 1,
+        "FILLET": 1,
+        "REVOLVE": 1,
+        "HELIX": 1
+      },
+      "sketch_geometry": {
+        "LINE": 13,
+        "OTHER": 11,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 1",
+        "BOOLEAN: Boolean 1",
+        "DELETE: Delete part 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "LOFT: Loft 1",
+        "THICKEN: Thicken 8"
+      ]
+    },
+    {
+      "name": "lake",
+      "created": "2023-07-09",
+      "modified": "2023-07-13",
+      "total_features": 42,
+      "operations": {
+        "THICKEN": 17,
+        "SKETCH": 8,
+        "EXTRUDE": 4,
+        "CHAMFER": 3,
+        "MIRROR": 2,
+        "BOOLEAN": 2,
+        "LOFT": 2,
+        "FILLET": 1,
+        "REVOLVE": 1,
+        "LINEAR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "SPLINE": 3,
+        "CIRCLE": 2,
+        "OTHER": 2
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "FILLET: Fillet 1",
+        "MIRROR: Mirror 1",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "BOOLEAN: Boolean 1",
+        "SKETCH: Sketch 4",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6"
+      ]
+    },
+    {
+      "name": "hot tub",
+      "created": "2023-07-13",
+      "modified": "2023-07-13",
+      "total_features": 32,
+      "operations": {
+        "THICKEN": 20,
+        "SKETCH": 6,
+        "FILLET": 3,
+        "REVOLVE": 1,
+        "EXTRUDE": 1,
+        "LINEAR": 1
+      },
+      "sketch_geometry": {
+        "SPLINE": 2,
+        "CIRCLE": 2,
+        "LINE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 1",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "FILLET: Fillet 3",
+        "SKETCH: Sketch 3",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10",
+        "THICKEN: Thicken 11",
+        "THICKEN: Thicken 12",
+        "SKETCH: Sketch 4"
+      ]
+    },
+    {
+      "name": "circool",
+      "created": "2023-07-26",
+      "modified": "2023-09-10",
+      "total_features": 54,
+      "operations": {
+        "THICKEN": 32,
+        "SKETCH": 16,
+        "EXTRUDE": 4,
+        "REVOLVE": 1,
+        "CHAMFER": 1
+      },
+      "sketch_geometry": {
+        "LINE": 10,
+        "CIRCLE": 9,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 5",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 8",
+        "SKETCH: Sketch 7",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 9"
+      ]
+    },
+    {
+      "name": "sdk",
+      "created": "2023-08-01",
+      "modified": "2023-08-01",
+      "total_features": 10,
+      "operations": {
+        "SKETCH": 3,
+        "EXTRUDE": 2,
+        "CIRCULAR": 2,
+        "THICKEN": 2,
+        "LOFT": 1
+      },
+      "sketch_geometry": {
+        "LINE": 2,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SURFACE_THICKEN",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "CIRCULAR: Circular pattern 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "LOFT: Loft 1",
+        "CIRCULAR: Circular pattern 2",
+        "THICKEN: Thicken 2"
+      ]
+    },
+    {
+      "name": "light",
+      "created": "2023-08-05",
+      "modified": "2023-08-05",
+      "total_features": 24,
+      "operations": {
+        "THICKEN": 10,
+        "SKETCH": 6,
+        "CHAMFER": 2,
+        "EXTRUDE": 2,
+        "MIRROR": 2,
+        "LOFT": 1,
+        "CIRCULAR": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 3,
+        "LINE": 3,
+        "SPLINE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "SURFACE_THICKEN",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 1",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 2",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 1",
+        "LOFT: Loft 1",
+        "SKETCH: Sketch 5",
+        "CIRCULAR: Circular pattern 1",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 2",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 7"
+      ]
+    },
+    {
+      "name": "boomhower",
+      "created": "2023-08-11",
+      "modified": "2023-08-11",
+      "total_features": 61,
+      "operations": {
+        "THICKEN": 30,
+        "SKETCH": 12,
+        "EXTRUDE": 7,
+        "FILLET": 5,
+        "CHAMFER": 2,
+        "LOFT": 2,
+        "REVOLVE": 1,
+        "DELETE": 1,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 10,
+        "SPLINE": 3,
+        "OTHER": 3,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "FILLET: Fillet 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 4",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 1",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 9",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 2"
+      ]
+    },
+    {
+      "name": "broomstick",
+      "created": "2023-08-12",
+      "modified": "2023-08-13",
+      "total_features": 78,
+      "operations": {
+        "THICKEN": 35,
+        "FILLET": 13,
+        "CHAMFER": 10,
+        "SKETCH": 8,
+        "EXTRUDE": 5,
+        "SWEEP": 2,
+        "MIRROR": 2,
+        "REVOLVE": 1,
+        "LINEAR": 1,
+        "LOFT": 1
+      },
+      "sketch_geometry": {
+        "LINE": 7,
+        "SPLINE": 1,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 2",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 5",
+        "LINEAR: Linear pattern 1",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "FILLET: Fillet 2",
+        "FILLET: Fillet 3",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9",
+        "FILLET: Fillet 4",
+        "FILLET: Fillet 5",
+        "CHAMFER: Chamfer 1"
+      ]
+    },
+    {
+      "name": "spiral",
+      "created": "2023-09-13",
+      "modified": "2023-12-04",
+      "total_features": 106,
+      "operations": {
+        "THICKEN": 42,
+        "SKETCH": 27,
+        "EXTRUDE": 15,
+        "CIRCULAR": 7,
+        "DELETE": 7,
+        "MIRROR": 3,
+        "FILLET": 2,
+        "BOOLEAN": 1,
+        "CHAMFER": 1,
+        "LOFT": 1
+      },
+      "sketch_geometry": {
+        "LINE": 16,
+        "CIRCLE": 14,
+        "OTHER": 2,
+        "ELLIPSE": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "SKETCH: Sketch 4",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10",
+        "THICKEN: Thicken 11",
+        "THICKEN: Thicken 12",
+        "THICKEN: Thicken 13",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6",
+        "SKETCH: Sketch 7"
+      ]
+    },
+    {
+      "name": "yeRhct",
+      "created": "2024-03-15",
+      "modified": "2026-06-30",
+      "total_features": 375,
+      "operations": {
+        "THICKEN": 143,
+        "CHAMFER": 86,
+        "EXTRUDE": 74,
+        "SKETCH": 38,
+        "LOFT": 23,
+        "FILLET": 4,
+        "REVOLVE": 2,
+        "MIRROR": 2,
+        "DELETE": 2,
+        "LINEAR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 38,
+        "OTHER": 15
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 2",
+        "EXTRUDE: Extrude 3",
+        "CHAMFER: Chamfer 3",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "CHAMFER: Chamfer 4",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 5",
+        "SKETCH: Sketch 4"
+      ]
+    },
+    {
+      "name": "ghost",
+      "created": "2024-04-25",
+      "modified": "2024-07-08",
+      "total_features": 41,
+      "operations": {
+        "THICKEN": 21,
+        "SKETCH": 10,
+        "EXTRUDE": 5,
+        "LOFT": 3,
+        "MIRROR": 2
+      },
+      "sketch_geometry": {
+        "CIRCLE": 10,
+        "ELLIPSE": 1,
+        "SPLINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 5",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 4",
+        "THICKEN: Thicken 8",
+        "MIRROR: Mirror 1",
+        "LOFT: Loft 1"
+      ]
+    },
+    {
+      "name": "I'm the real sleighter",
+      "created": "2024-05-30",
+      "modified": "2026-05-02",
+      "total_features": 293,
+      "operations": {
+        "THICKEN": 133,
+        "SKETCH": 37,
+        "LOFT": 34,
+        "EXTRUDE": 29,
+        "CHAMFER": 21,
+        "MIRROR": 14,
+        "REVOLVE": 11,
+        "FILLET": 4,
+        "DELETE": 4,
+        "CIRCULAR": 3
+      },
+      "sketch_geometry": {
+        "LINE": 33,
+        "OTHER": 8,
+        "CIRCLE": 5
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "MIRROR: Mirror 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "MIRROR: Mirror 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10",
+        "THICKEN: Thicken 11",
+        "THICKEN: Thicken 12"
+      ]
+    },
+    {
+      "name": "coldont",
+      "created": "2024-06-25",
+      "modified": "2024-07-22",
+      "total_features": 57,
+      "operations": {
+        "SKETCH": 21,
+        "EXTRUDE": 13,
+        "THICKEN": 13,
+        "REVOLVE": 8,
+        "LINEAR": 1,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 21,
+        "OTHER": 5,
+        "CIRCLE": 3
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 1",
+        "SKETCH: Sketch 3",
+        "REVOLVE: Revolve 1",
+        "SKETCH: Sketch 4",
+        "REVOLVE: Revolve 2",
+        "SKETCH: Sketch 5",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 8",
+        "REVOLVE: Revolve 3",
+        "SKETCH: Sketch 9"
+      ]
+    },
+    {
+      "name": "window",
+      "created": "2024-06-29",
+      "modified": "2024-06-29",
+      "total_features": 1,
+      "operations": {
+        "SKETCH": 1
+      },
+      "sketch_geometry": {},
+      "advanced_methods": [],
+      "feature_list": [
+        "SKETCH: Sketch 1"
+      ]
+    },
+    {
+      "name": "window1",
+      "created": "2024-06-29",
+      "modified": "2024-06-30",
+      "total_features": 17,
+      "operations": {
+        "SKETCH": 10,
+        "EXTRUDE": 5,
+        "THICKEN": 2
+      },
+      "sketch_geometry": {
+        "LINE": 6,
+        "OTHER": 6
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 4",
+        "SKETCH: Sketch 5",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 7",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 4",
+        "EXTRUDE: Extrude 5",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 1"
+      ]
+    },
+    {
+      "name": "hold",
+      "created": "2024-07-15",
+      "modified": "2024-07-23",
+      "total_features": 66,
+      "operations": {
+        "SKETCH": 17,
+        "THICKEN": 16,
+        "EXTRUDE": 14,
+        "MIRROR": 10,
+        "DELETE": 4,
+        "CHAMFER": 2,
+        "CIRCULAR": 1,
+        "FILLET": 1,
+        "REVOLVE": 1
+      },
+      "sketch_geometry": {
+        "CIRCLE": 10,
+        "LINE": 8,
+        "OTHER": 3
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CIRCULAR: Circular pattern 1",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 4",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 4",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 5",
+        "MIRROR: Mirror 2",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 5"
+      ]
+    },
+    {
+      "name": "ghost",
+      "created": "2024-07-22",
+      "modified": "2024-07-22",
+      "total_features": 0,
+      "operations": {},
+      "sketch_geometry": {},
+      "advanced_methods": [],
+      "feature_list": []
+    },
+    {
+      "name": "latilp",
+      "created": "2024-11-10",
+      "modified": "2024-11-11",
+      "total_features": 52,
+      "operations": {
+        "SKETCH": 10,
+        "EXTRUDE": 9,
+        "MIRROR": 9,
+        "THICKEN": 7,
+        "LOFT": 7,
+        "CHAMFER": 5,
+        "DELETE": 4,
+        "REVOLVE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 10,
+        "OTHER": 8,
+        "CIRCLE": 3
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "LOFT: Loft 1",
+        "SKETCH: Sketch 2",
+        "THICKEN: Thicken 6",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 2",
+        "CHAMFER: Chamfer 2",
+        "LOFT: Loft 2",
+        "MIRROR: Mirror 1",
+        "MIRROR: Mirror 2",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 3",
+        "MIRROR: Mirror 3"
+      ]
+    },
+    {
+      "name": "space mining",
+      "created": "2024-11-10",
+      "modified": "2024-11-25",
+      "total_features": 72,
+      "operations": {
+        "THICKEN": 41,
+        "FILLET": 13,
+        "CHAMFER": 7,
+        "LINEAR": 7,
+        "SKETCH": 2,
+        "REVOLVE": 2
+      },
+      "sketch_geometry": {
+        "ELLIPSE": 2,
+        "LINE": 2
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "THICKEN: Thicken 1",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 2",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "FILLET: Fillet 3",
+        "FILLET: Fillet 4",
+        "THICKEN: Thicken 9",
+        "THICKEN: Thicken 10",
+        "THICKEN: Thicken 11",
+        "THICKEN: Thicken 12",
+        "THICKEN: Thicken 13",
+        "CHAMFER: Chamfer 1"
+      ]
+    },
+    {
+      "name": "bar",
+      "created": "2024-11-12",
+      "modified": "2025-06-10",
+      "total_features": 44,
+      "operations": {
+        "THICKEN": 17,
+        "CHAMFER": 7,
+        "LOFT": 7,
+        "SKETCH": 5,
+        "EXTRUDE": 5,
+        "FILLET": 1,
+        "MIRROR": 1,
+        "LINEAR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 5,
+        "OTHER": 4,
+        "CIRCLE": 1
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 1",
+        "CHAMFER: Chamfer 2",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "THICKEN: Thicken 5",
+        "LOFT: Loft 1",
+        "THICKEN: Thicken 6",
+        "CHAMFER: Chamfer 3",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 7",
+        "THICKEN: Thicken 8",
+        "LOFT: Loft 2",
+        "THICKEN: Thicken 9",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3"
+      ]
+    },
+    {
+      "name": "zombie",
+      "created": "2024-11-13",
+      "modified": "2025-06-10",
+      "total_features": 105,
+      "operations": {
+        "THICKEN": 55,
+        "FILLET": 19,
+        "CHAMFER": 13,
+        "SKETCH": 7,
+        "EXTRUDE": 6,
+        "REVOLVE": 2,
+        "LINEAR": 2,
+        "MIRROR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 5,
+        "OTHER": 3,
+        "CIRCLE": 2,
+        "ELLIPSE": 1
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "MIRROR: Mirror 1",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 1",
+        "CHAMFER: Chamfer 1",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "FILLET: Fillet 3",
+        "CHAMFER: Chamfer 2",
+        "LINEAR: Linear pattern 1",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "THICKEN: Thicken 7",
+        "FILLET: Fillet 4",
+        "THICKEN: Thicken 8",
+        "THICKEN: Thicken 9",
+        "FILLET: Fillet 5"
+      ]
+    },
+    {
+      "name": "blue",
+      "created": "2024-11-15",
+      "modified": "2024-11-23",
+      "total_features": 85,
+      "operations": {
+        "THICKEN": 18,
+        "SKETCH": 15,
+        "LOFT": 13,
+        "EXTRUDE": 12,
+        "MIRROR": 7,
+        "CHAMFER": 6,
+        "FILLET": 6,
+        "DELETE": 3,
+        "CIRCULAR": 2,
+        "LINEAR": 2
+      },
+      "sketch_geometry": {
+        "LINE": 12,
+        "ELLIPSE": 4,
+        "OTHER": 2
+      },
+      "advanced_methods": [
+        "LOFT",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "SKETCH: Sketch 3",
+        "REVOLVE: Revolve 1",
+        "MIRROR: Mirror 1",
+        "CHAMFER: Chamfer 1",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 2",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 1",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "FILLET: Fillet 2",
+        "LOFT: Loft 1",
+        "FILLET: Fillet 3",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 3",
+        "CIRCULAR: Circular pattern 1"
+      ]
+    },
+    {
+      "name": "pipe",
+      "created": "2024-11-20",
+      "modified": "2024-11-24",
+      "total_features": 48,
+      "operations": {
+        "THICKEN": 14,
+        "SKETCH": 9,
+        "FILLET": 9,
+        "EXTRUDE": 8,
+        "MIRROR": 3,
+        "REVOLVE": 2,
+        "CHAMFER": 2,
+        "CIRCULAR": 1
+      },
+      "sketch_geometry": {
+        "LINE": 7,
+        "OTHER": 3
+      },
+      "advanced_methods": [
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "PATTERN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "CHAMFER: Chamfer 1",
+        "THICKEN: Thicken 1",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 2",
+        "EXTRUDE: Extrude 1",
+        "FILLET: Fillet 1",
+        "THICKEN: Thicken 3",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 4",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 5",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 6",
+        "MIRROR: Mirror 2",
+        "EXTRUDE: Extrude 4",
+        "FILLET: Fillet 3",
+        "FILLET: Fillet 4"
+      ]
+    },
+    {
+      "name": "arm",
+      "created": "2024-12-11",
+      "modified": "2024-12-14",
+      "total_features": 98,
+      "operations": {
+        "THICKEN": 35,
+        "SKETCH": 14,
+        "FILLET": 13,
+        "REVOLVE": 9,
+        "CHAMFER": 9,
+        "EXTRUDE": 7,
+        "MIRROR": 4,
+        "LOFT": 2,
+        "HELIX": 2,
+        "SWEEP": 2
+      },
+      "sketch_geometry": {
+        "LINE": 11,
+        "CIRCLE": 5,
+        "OTHER": 4
+      },
+      "advanced_methods": [
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "BOOLEAN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "REVOLVE: Revolve 1",
+        "FILLET: Fillet 1",
+        "REVOLVE: Revolve 2",
+        "BOOLEAN: Boolean 1",
+        "MIRROR: Mirror 1",
+        "THICKEN: Thicken 1",
+        "FILLET: Fillet 2",
+        "THICKEN: Thicken 2",
+        "THICKEN: Thicken 3",
+        "THICKEN: Thicken 4",
+        "FILLET: Fillet 3",
+        "THICKEN: Thicken 5",
+        "THICKEN: Thicken 6",
+        "FILLET: Fillet 4",
+        "FILLET: Fillet 5",
+        "THICKEN: Thicken 7",
+        "CHAMFER: Chamfer 1",
+        "FILLET: Fillet 6",
+        "THICKEN: Thicken 8"
+      ]
+    },
+    {
+      "name": "ghj",
+      "created": "2026-03-01",
+      "modified": "2026-05-01",
+      "total_features": 91,
+      "operations": {
+        "THICKEN": 28,
+        "EXTRUDE": 22,
+        "SKETCH": 17,
+        "LOFT": 7,
+        "FILLET": 5,
+        "CHAMFER": 3,
+        "DELETE": 3,
+        "MIRROR": 2,
+        "SWEEP": 2,
+        "CURVE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 9,
+        "ELLIPSE": 7,
+        "OTHER": 6,
+        "CIRCLE": 2,
+        "SPLINE": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "LOFT",
+        "SWEEP",
+        "REVOLVE",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "CURVE: Curve pattern 1",
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "SKETCH: Sketch 2",
+        "EXTRUDE: Extrude 2",
+        "SKETCH: Sketch 3",
+        "EXTRUDE: Extrude 3",
+        "SKETCH: Sketch 4",
+        "EXTRUDE: Extrude 4",
+        "SKETCH: Sketch 5",
+        "EXTRUDE: Extrude 5",
+        "SKETCH: Sketch 6",
+        "EXTRUDE: Extrude 6",
+        "SKETCH: Sketch 7",
+        "EXTRUDE: Extrude 7",
+        "SKETCH: Sketch 8",
+        "EXTRUDE: Extrude 8",
+        "SKETCH: Sketch 9",
+        "EXTRUDE: Extrude 9",
+        "SKETCH: Sketch 10"
+      ]
+    },
+    {
+      "name": "holsti",
+      "created": "2026-03-01",
+      "modified": "2026-03-01",
+      "total_features": 9,
+      "operations": {
+        "MIRROR": 3,
+        "CHAMFER": 3,
+        "SKETCH": 1,
+        "THICKEN": 1,
+        "EXTRUDE": 1
+      },
+      "sketch_geometry": {
+        "LINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "MIRROR: Mirror 1",
+        "MIRROR: Mirror 2",
+        "MIRROR: Mirror 3",
+        "CHAMFER: Chamfer 1",
+        "CHAMFER: Chamfer 2",
+        "EXTRUDE: Extrude 1",
+        "CHAMFER: Chamfer 3"
+      ]
+    },
+    {
+      "name": "__d",
+      "created": "2026-05-06",
+      "modified": "2026-05-08",
+      "total_features": 8,
+      "operations": {
+        "EXTRUDE": 3,
+        "THICKEN": 3,
+        "SKETCH": 2
+      },
+      "sketch_geometry": {
+        "LINE": 2,
+        "OTHER": 2
+      },
+      "advanced_methods": [
+        "SURFACE_THICKEN"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "EXTRUDE: Extrude 1",
+        "THICKEN: Thicken 1",
+        "EXTRUDE: Extrude 2",
+        "THICKEN: Thicken 2",
+        "EXTRUDE: Extrude 3",
+        "THICKEN: Thicken 3",
+        "SKETCH: Sketch 2"
+      ]
+    },
+    {
+      "name": "cil",
+      "created": "2026-05-10",
+      "modified": "2026-05-10",
+      "total_features": 4,
+      "operations": {
+        "SKETCH": 1,
+        "THICKEN": 1,
+        "MIRROR": 1,
+        "FILLET": 1
+      },
+      "sketch_geometry": {
+        "SPLINE": 1,
+        "LINE": 1,
+        "OTHER": 1
+      },
+      "advanced_methods": [
+        "INTERPOLATED_SPLINES",
+        "SURFACE_THICKEN",
+        "FILLET",
+        "MIRROR"
+      ],
+      "feature_list": [
+        "SKETCH: Sketch 1",
+        "THICKEN: Thicken 1",
+        "MIRROR: Mirror 1",
+        "FILLET: Fillet 1"
+      ]
+    }
+  ]
+}

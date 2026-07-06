@@ -153,6 +153,7 @@ def collect_validation(obj, pole_threshold, curvature_angle, flow_alignment):
                     }
                 )
 
+    sdf_compat = len(non_manifold) == 0 and len(loose_verts) == 0
     report = {
         "object": obj.name,
         "vertices": len(mesh.vertices),
@@ -163,11 +164,13 @@ def collect_validation(obj, pole_threshold, curvature_angle, flow_alignment):
         "poles": poles,
         "valence_histogram": dict(sorted(valences.items())),
         "flow_risks": flow_risks,
+        "sdf_compatible": sdf_compat,
         "summary": {
             "non_manifold_edge_count": len(non_manifold),
             "loose_vertex_count": len(loose_verts),
             "pole_count": len(poles),
             "flow_risk_count": len(flow_risks),
+            "sdf_ready": sdf_compat,
         },
     }
     bm.free()
@@ -286,6 +289,7 @@ class ETSProperties(bpy.types.PropertyGroup):
     check_loose_verts: BoolProperty(name="Loose Vertices", default=True)
     check_poles: BoolProperty(name="Pole Count", default=True)
     check_edge_flow: BoolProperty(name="Edge Flow Direction", default=True)
+    check_sdf: BoolProperty(name="SDF Node Ready", default=True, description="Ensure mesh is watertight for Geometry Nodes SDF")
     continuity_type: EnumProperty(
         name="Continuity Type",
         items=[
@@ -403,13 +407,14 @@ class ETS_OT_import_validate(bpy.types.Operator):
             totals.update(report["summary"])
         self.report(
             {"INFO"},
-            "Validated %d mesh(es): %d non-manifold, %d loose, %d poles, %d flow risks"
+            "Validated %d mesh(es): %d non-manifold, %d loose, %d poles, %d flow risks. SDF Ready: %s"
             % (
                 len(imported),
                 totals["non_manifold_edge_count"],
                 totals["loose_vertex_count"],
                 totals["pole_count"],
                 totals["flow_risk_count"],
+                str(bool(totals["sdf_ready"])),
             ),
         )
         return {"FINISHED"}
@@ -432,12 +437,13 @@ class ETS_OT_validate_selected(bpy.types.Operator):
             totals.update(report["summary"])
         self.report(
             {"INFO"},
-            "Validation: %d non-manifold, %d loose, %d poles, %d flow risks"
+            "Validation: %d non-manifold, %d loose, %d poles, %d flow risks. SDF Ready: %s"
             % (
                 totals["non_manifold_edge_count"],
                 totals["loose_vertex_count"],
                 totals["pole_count"],
                 totals["flow_risk_count"],
+                str(bool(totals["sdf_ready"])),
             ),
         )
         return {"FINISHED"}
@@ -668,6 +674,7 @@ class ETS_PT_topology_suite(bpy.types.Panel):
         check_box.prop(props, "check_loose_verts")
         check_box.prop(props, "check_poles")
         check_box.prop(props, "check_edge_flow")
+        check_box.prop(props, "check_sdf")
         row = box.row(align=True)
         row.prop(props, "pole_threshold")
         row.prop(props, "flow_alignment")
@@ -685,10 +692,13 @@ class ETS_PT_topology_suite(bpy.types.Panel):
             if props.check_edge_flow:
                 flow_text = "Consistent" if summary["flow_risk_count"] == 0 else f"{summary['flow_risk_count']} risks"
                 report_box.label(text=f"Edge Flow: {flow_text}")
+            if props.check_sdf:
+                report_box.label(text="SDF Geometry Ready: YES" if summary['sdf_ready'] else "SDF Geometry Ready: NO (Needs watertight mesh)")
             passed = (
                 (not props.check_non_manifold or summary["non_manifold_edge_count"] == 0)
                 and (not props.check_loose_verts or summary["loose_vertex_count"] == 0)
                 and (not props.check_edge_flow or summary["flow_risk_count"] == 0)
+                and (not props.check_sdf or summary["sdf_ready"])
             )
             report_box.label(text="VALIDATION PASSED" if passed else "VALIDATION NEEDS REVIEW", icon="CHECKMARK" if passed else "ERROR")
         box.operator("ets.export_validation_report", text="Export Report", icon="EXPORT")
