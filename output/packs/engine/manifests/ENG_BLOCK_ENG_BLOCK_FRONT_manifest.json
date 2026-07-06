@@ -1,0 +1,32 @@
+{
+  "part": "ENG_BLOCK_ENG_BLOCK_FRONT",
+  "joints": [
+    {
+      "name": "ENG_BLOCK_ENG_BLOCK_FRONT",
+      "type": "fixed",
+      "axis": "Z",
+      "limits": {
+        "min_x_deg": 0,
+        "max_x_deg": 0,
+        "min_y_deg": 0,
+        "max_y_deg": 0,
+        "min_z_deg": 0,
+        "max_z_deg": 0
+      },
+      "friction_rating": "medium",
+      "connected_to": "Root"
+    }
+  ],
+  "collision_bounds": [],
+  "com_offset_mm": {
+    "x": -12.7,
+    "y": 12.86,
+    "z": 995.03
+  },
+  "volume_cm3": 4316709.69,
+  "max_load_grams": 450,
+  "material": "PLA",
+  "tolerance_mm": 0.25,
+  "chamfer_mm": 0.5,
+  "polygon_count": 3000
+}

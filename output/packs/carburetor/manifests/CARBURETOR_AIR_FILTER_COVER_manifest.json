@@ -1,0 +1,32 @@
+{
+  "part": "CARBURETOR_AIR_FILTER_COVER",
+  "joints": [
+    {
+      "name": "CARBURETOR_AIR_FILTER_COVER",
+      "type": "fixed",
+      "axis": "Z",
+      "limits": {
+        "min_x_deg": 0,
+        "max_x_deg": 0,
+        "min_y_deg": 0,
+        "max_y_deg": 0,
+        "min_z_deg": 0,
+        "max_z_deg": 0
+      },
+      "friction_rating": "medium",
+      "connected_to": "ENG_BLOCK"
+    }
+  ],
+  "collision_bounds": [],
+  "com_offset_mm": {
+    "x": -954.86,
+    "y": 6.88,
+    "z": 2760.43
+  },
+  "volume_cm3": 2682096.71,
+  "max_load_grams": 450,
+  "material": "PLA",
+  "tolerance_mm": 0.25,
+  "chamfer_mm": 0.5,
+  "polygon_count": 3000
+}

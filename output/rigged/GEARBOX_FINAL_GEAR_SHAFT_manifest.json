@@ -1,0 +1,65 @@
+{
+  "part": "GEARBOX_FINAL_GEAR_SHAFT",
+  "joints": [
+    {
+      "name": "GEARBOX_FINAL_GEAR_SHAFT",
+      "type": "revolute",
+      "axis": "Z",
+      "limits": {
+        "min_x_deg": 0,
+        "max_x_deg": 0,
+        "min_y_deg": 0,
+        "max_y_deg": 0,
+        "min_z_deg": 0,
+        "max_z_deg": 359
+      },
+      "friction_rating": "medium",
+      "connected_to": "GEARBOX_REAR",
+      "friction_coefficient": 0.15,
+      "drive_ratio": 0.75,
+      "inertia_kg_m2": 0.000533,
+      "driven_by": "REDUCTION_GEAR_SHAFT"
+    }
+  ],
+  "collision_bounds": [],
+  "com_offset_mm": {
+    "x": 0.01,
+    "y": -0.01,
+    "z": 2603.23
+  },
+  "volume_cm3": 966749.59,
+  "max_load_grams": 450,
+  "material": "PLA",
+  "tolerance_mm": 0.25,
+  "chamfer_mm": 0.5,
+  "polygon_count": 3000,
+  "mechanism_type": "spur_gear_train",
+  "mechanical_advantage": {
+    "gear_ratio": "60:45",
+    "ratio_numeric": 1.33,
+    "input_rpm_multiplier": 1.0,
+    "output_rpm_multiplier": 0.75,
+    "torque_multiplier": 1.33,
+    "speed_reducer": true,
+    "backlash_mm": 0.2,
+    "pressure_angle_deg": 20,
+    "module_mm": 1.5,
+    "driver_teeth": 45,
+    "driven_teeth": 60,
+    "mates_with": "REDUCTION_GEAR_SHAFT"
+  },
+  "physical_limits": {
+    "max_input_torque_nm": 0.07,
+    "max_output_torque_nm": 0.09,
+    "failure_mode": "tooth_shear_at_>0.1Nm",
+    "print_orientation": "axial_z_axis",
+    "material_requirement": "PETG minimum (PLA will fatigue)",
+    "infill_requirement": "4-5 perimeters, 100% infill or 60% gyroid",
+    "lubrication": "PTFE dry grease recommended",
+    "material": "PLA",
+    "force_per_tooth_n": 15.0,
+    "tooth_width_mm": 6.0,
+    "torque_formula": "T_max = (15.0N \u00d7 6.0mm \u00d7 1.5mm) / 2 = 0.07 N\u00b7m"
+  },
+  "_estimation_note": "Tooth counts (45T driver, 60T driven) estimated from mesh geometry. Verify with parametric CAD. Backlash must be validated with physical tolerance tower."
+}

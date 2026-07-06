@@ -144,7 +144,20 @@ body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdh
 </div>
 <div class="achieve-toast" id="achieve-toast"><div class="t"></div><div class="d"></div></div>
 <div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill" style="width:100%"></div></div></div>
-<div class="weather-fx" id="weather-fx"></div>
+<div class="pause-menu" id="pause-screen" style="display:none; position:fixed; inset:0; z-index:9999; align-items:center; justify-content:center; background:rgba(2,6,16,0.85); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);">
+  <div style="background:rgba(8,12,30,0.95); border:2px solid #8b5cf6; padding:30px; border-radius:12px; text-align:center; box-shadow:0 0 35px rgba(139,92,246,0.3); width:350px;">
+    <h2 style="font-family:Orbitron; color:#8b5cf6; font-size:22px; letter-spacing:4px; margin-bottom:20px; text-shadow: 0 0 10px rgba(139,92,246,0.5)">SYSTEM PAUSED</h2>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <button onclick="togglePause()" style="padding:10px; background:rgba(139,92,246,0.15); border:1px solid #8b5cf6; color:#fff; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(139,92,246,0.35)'" onmouseout="this.style.background='rgba(139,92,246,0.15)'">RESUME</button>
+      <button onclick="saveGame()" style="padding:10px; background:rgba(255,215,0,0.1); border:1px solid #ffd700; color:#ffd700; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,215,0,0.2)'" onmouseout="this.style.background='rgba(255,215,0,0.1)'">SAVE GAME [F5]</button>
+      <button onclick="loadGame()" style="padding:10px; background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.5); color:#8aa1b5; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(139,92,246,0.2)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">LOAD GAME [F9]</button>
+      <button onclick="deleteSave()" style="padding:10px; background:rgba(255,68,68,0.1); border:1px solid #ff4444; color:#ff4444; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,68,68,0.2)'" onmouseout="this.style.background='rgba(255,68,68,0.1)'">DELETE SAVE</button>
+    </div>
+    <div style="margin-top:20px; font-size:9px; color:#8aa1b5; font-family:'Share Tech Mono'">
+      NOVA HORIZON ENGINE v3.1 | SYNC ACQUIRED
+    </div>
+  </div>
+</div>
 
 <script src="js/game_design_core.js"></script>
 <script src="js/b_roll_scenarios.js"></script>
@@ -271,8 +284,31 @@ scene.add(sun);
 scene.add(new THREE.HemisphereLight('#8899cc', '#331108', 0.6));
 
 const controls = new PointerLockControls(cam, document.body);
-controls.addEventListener('lock', () => document.body.style.cursor = 'none');
-controls.addEventListener('unlock', () => document.body.style.cursor = 'default');
+controls.addEventListener('lock', () => {
+  document.body.style.cursor = 'none';
+  gamePaused = false;
+  const pauseScreen = document.getElementById('pause-screen');
+  if (pauseScreen) pauseScreen.style.display = 'none';
+});
+controls.addEventListener('unlock', () => {
+  document.body.style.cursor = 'default';
+  
+  const startScreen = document.getElementById('start-screen');
+  const invPanel = document.getElementById('inv-panel');
+  const upgradeMenu = document.getElementById('upgrade-menu');
+  const mbModal = document.getElementById('mission-board-modal');
+  
+  const isOverlayOpen = (startScreen && startScreen.style.display !== 'none') || 
+                        (invPanel && invPanel.style.display === 'flex') || 
+                        (upgradeMenu && upgradeMenu.style.display === 'flex') ||
+                        (mbModal && mbModal.style.display === 'flex');
+                        
+  if (!isOverlayOpen) {
+    gamePaused = true;
+    const pauseScreen = document.getElementById('pause-screen');
+    if (pauseScreen) pauseScreen.style.display = 'flex';
+  }
+});
 
 // Faction Selection Modal Overlay Injector
 (function initFactionIntegration() {
@@ -2172,6 +2208,17 @@ function loadGame() {
 function deleteSave() {
   localStorage.removeItem('nova_horizon_save');
   notify('SAVE DELETED');
+}
+
+function togglePause() {
+  const startScreen = document.getElementById('start-screen');
+  if (startScreen && startScreen.style.display !== 'none') return;
+  
+  if (gamePaused) {
+    controls.lock();
+  } else {
+    controls.unlock();
+  }
 }
 
 // Initialize inventory

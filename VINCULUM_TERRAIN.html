@@ -85,10 +85,50 @@ function getHeight(x, z){
   return h;
 }
 
-function getChromaColor(height){
-  // Map height to CHROMA layer
-  const t = (height + HEIGHT_MULT*1.5) / (HEIGHT_MULT*3); // normalize 0-1
-  const idx = Math.floor(Math.max(0, Math.min(8, t*9)));
+// Voronoi biome cells → mod9 values → CHROMA cascade (preserves vinculum framework)
+const VORONOI_SEEDS = 12;  // number of biome regions
+const VORONOI_SCALE = 0.008;  // cell size ~125 units
+const voronoiCache = new Map();
+
+function voronoiMod9(x, z) {
+  const key = `${Math.floor(x*VORONOI_SCALE)},${Math.floor(z*VORONOI_SCALE)}`;
+  if (voronoiCache.has(key)) return voronoiCache.get(key);
+  
+  // Generate seed points using simplex noise (deterministic per region)
+  const gx = Math.floor(x * VORONOI_SCALE);
+  const gz = Math.floor(z * VORONOI_SCALE);
+  
+  let bestDist = Infinity, bestMod9 = 0;
+  
+  // Check 3x3 grid of cells for nearest seed
+  for (let dx = -1; dx <= 1; dx++) {
+    for (let dz = -1; dz <= 1; dz++) {
+      const sx = gx + dx, sz = gz + dz;
+      // Deterministic seed position within cell using simplex
+      const seedX = (sx + simplex.noise2D(sx*7.3, sz*7.3)*0.5) / VORONOI_SCALE;
+      const seedZ = (sz + simplex.noise2D(sx*3.7, sz*3.7)*0.5) / VORONOI_SCALE;
+      const dist = (x - seedX)**2 + (z - seedZ)**2;
+      
+      if (dist < bestDist) {
+        bestDist = dist;
+        // Seed's biome = mod9 from its grid position
+        bestMod9 = ((sx * 31 + sz * 17) % 9 + 9) % 9;
+      }
+    }
+  }
+  
+  voronoiCache.set(key, bestMod9);
+  return bestMod9;
+}
+
+function getChromaColor(height, x, z) {
+  // Voronoi biome provides base mod9, height provides variation within biome
+  const biomeMod9 = voronoiMod9(x, z);
+  const heightMod9 = Math.floor(Math.max(0, Math.min(8, ((height + HEIGHT_MULT*1.5) / (HEIGHT_MULT*3)) * 9)));
+  
+  // Blend: biome dominates (70%), height adds local variation (30%)
+  const blended = Math.round(biomeMod9 * 0.7 + heightMod9 * 0.3);
+  const idx = Math.max(0, Math.min(8, blended));
   return new THREE.Color(CHROMA[idx]);
 }
 
@@ -105,7 +145,7 @@ function generateChunk(cx, cz){
     const h = getHeight(wx, wz);
     verts[i+1] = h;
     
-    const c = getChromaColor(h);
+    const c = getChromaColor(h, wx, wz);
     colors[i] = c.r; colors[i+1] = c.g; colors[i+2] = c.b;
   }
   
@@ -250,8 +290,7 @@ document.addEventListener('keyup', e => {
 let hudTimer = 0;
 function updateHUD(){
   const h = getHeight(camera.position.x, camera.position.z);
-  const t = (h + HEIGHT_MULT*1.5)/(HEIGHT_MULT*3);
-  const layerIdx = Math.floor(Math.max(0, Math.min(8, t*9)));
+  const layerIdx = Math.floor(Math.max(0, Math.min(8, voronoiMod9(camera.position.x, camera.position.z))));
   const layerNames = ['INFRARED','RED','ORANGE','YELLOW','GREEN','BLUE','INDIGO','VIOLET','UV'];
   const mod9 = layerIdx;
   
@@ -288,9 +327,10 @@ function drawMinimap(){
     for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
       const mx = ox + x*CHUNK_SIZE*scale;
       const mz = oz + z*CHUNK_SIZE*scale;
-      const h = getHeight(camera.position.x+x*CHUNK_SIZE/2, camera.position.z+z*CHUNK_SIZE/2);
-      const t = (h+HEIGHT_MULT*1.5)/(HEIGHT_MULT*3);
-      const c = CHROMA[Math.floor(Math.max(0,Math.min(8,t*9)))];
+      const wx = camera.position.x + x*CHUNK_SIZE/2;
+      const wz = camera.position.z + z*CHUNK_SIZE/2;
+      const h = getHeight(wx, wz);
+      const c = getChromaColor(h, wx, wz);
       mmCtx.fillStyle = c;
       mmCtx.fillRect(mx, mz, CHUNK_SIZE*scale/2, CHUNK_SIZE*scale/2);
     }
