@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MEMORY CORE — Architectural Camera v0.2 + Shadow Lag</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;overflow:hidden;font:10px 'Courier New',monospace}
+canvas{display:block}
+#hud{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:#556;background:rgba(2,2,4,.9);padding:5px 14px;border:1px solid #1a1a22;border-radius:3px;pointer-events:none;z-index:10;display:flex;gap:16px;font-size:9px;letter-spacing:1px}
+#hud .val{color:#889}
+#hud .warn{color:#a44}
+#hud .shadow-on{color:#a84}
+#crosshair{position:fixed;top:50%;left:50%;width:20px;height:20px;transform:translate(-50%,-50%);pointer-events:none;z-index:11;opacity:.3}
+#crosshair::before,#crosshair::after{content:'';position:absolute;background:#888}
+#crosshair::before{width:20px;height:1px;top:10px;left:0}
+#crosshair::after{width:1px;height:20px;top:0;left:10px}
+#instructions{position:fixed;top:10px;left:10px;color:#445;font-size:8px;letter-spacing:.5px;z-index:10;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="hud">
+  <span>YAW:<span class="val" id="yaw-disp">0.00</span>°</span>
+  <span>LAYER:<span class="val" id="layer-disp">0</span></span>
+  <span>R:<span class="val" id="r-disp">5.00</span>m</span>
+  <span>SHADOW:<span class="val" id="shadow-disp">IDLE</span></span>
+  <span>LOCK:<span class="val" id="lock-disp">ACTIVE</span></span>
+</div>
+<div id="crosshair"></div>
+<div id="instructions">WASD: walk · MOUSE: yaw · SCROLL: layer transition (triggers shadow lag) · F: unlock</div>
+
+<!-- CDN: unpkg.com/jsdelivr. If CDN is down, vendor three.js locally: npm install three@0.160.0 and update paths. -->
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+const W=innerWidth, H=innerHeight;
+const $=id=>document.getElementById(id);
+
+// ── Renderer ──
+const R=new THREE.WebGLRenderer({antialias:true});
+R.setSize(W,H); R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping; R.toneMappingExposure=1.0;
+document.body.appendChild(R.domElement);
+
+const S=new THREE.Scene();
+S.background=new THREE.Color(0x020208);
+S.fog=new THREE.FogExp2(0x000008, 0.0008);
+
+// ═══════════════════════════════════════════════════════════════
+// SHADOW LAG SYSTEM — The Memory Imprint
+// Solves: how to cast a "shadow" without a light source.
+// Answer: the cylinder IS the recording medium.
+// The player's angular passage darkens the glass.
+// ═══════════════════════════════════════════════════════════════
+
+const SHADOW_BUFFER_SIZE = 30;   // 0.5s at 60fps
+const SHADOW_TRAIL_SECONDS = 0.3; // SACRED: the self arrives before its memory
+
+class ShadowLag {
+  constructor() {
+    // Ring buffer of {yaw, time, intensity}
+    this.buffer = new Array(SHADOW_BUFFER_SIZE).fill(null);
+    this.writeIndex = 0;
+    this.active = false;         // only during layer transitions
+    this.transitionTimer = 0;   // how long we've been transitioning
+    this.transitionDecay = 0;   // persistence after transition ends
+
+    // Packed uniform: [yaw0, intensity0, yaw1, intensity1, ...]
+    this.shadowData = new Float32Array(SHADOW_BUFFER_SIZE * 2);
+    this.shadowCount = 0;
+  }
+
+  // Called every frame with player yaw and whether currently transitioning
+  update(deltaTime, yaw, isTransitioning) {
+    // Activate during layer transitions
+    if (isTransitioning) {
+      this.active = true;
+      this.transitionTimer += deltaTime;
+      this.transitionDecay = 1.0;
+    } else if (this.active) {
+      // Decay persistence after transition ends
+      this.transitionDecay -= deltaTime * 2.0; // fade over ~0.5s
+      if (this.transitionDecay <= 0) {
+        this.active = false;
+        this.transitionTimer = 0;
+        this.transitionDecay = 0;
+        this.buffer.fill(null);
+      }
+    }
+
+    if (!this.active && this.transitionDecay <= 0) {
+      this.shadowCount = 0;
+      return;
+    }
+
+    // Write current position to ring buffer
+    // Only record if we were recently transitioning
+    if (this.active || this.transitionDecay > 0.5) {
+      this.buffer[this.writeIndex] = {
+        yaw: yaw,
+        time: this.transitionTimer,
+        intensity: this.active ? 1.0 : this.transitionDecay
+      };
+      this.writeIndex = (this.writeIndex + 1) % SHADOW_BUFFER_SIZE;
+    }
+
+    // Decay old entries
+    const now = this.transitionTimer;
+    this.shadowCount = 0;
+    for (let i = 0; i < SHADOW_BUFFER_SIZE; i++) {
+      const entry = this.buffer[i];
+      if (entry === null) continue;
+
+      const age = now - entry.time;
+      if (age > SHADOW_TRAIL_SECONDS) {
+        this.buffer[i] = null;
+        continue;
+      }
+
+      // Intensity: recent = bright, old = dim
+      const intensity = entry.intensity * (1.0 - age / SHADOW_TRAIL_SECONDS);
+
+      // Pack into uniform array
+      this.shadowData[this.shadowCount * 2] = entry.yaw;
+      this.shadowData[this.shadowCount * 2 + 1] = intensity;
+      this.shadowCount++;
+
+      if (this.shadowCount >= SHADOW_BUFFER_SIZE) break;
+    }
+  }
+
+  isActive() {
+    return this.active || this.transitionDecay > 0;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ARCHITECTURAL CAMERA
+// ═══════════════════════════════════════════════════════════════
+
+class ArchitecturalCamera {
+  constructor() {
+    this.camera = new THREE.PerspectiveCamera(45, W/H, 0.1, 200);
+
+    this.yaw = 0.0;
+    this.pitch = 0.0;    // SACRED
+    this.roll = 0.0;     // SACRED
+
+    this.R_BASE = 5.0;
+    this.LAMBDA = 0.15;
+    this.layerIndex = 0;
+    this.previousLayerIndex = 0;
+
+    this.cylRadius = this.computeLayerRadius(0);
+    this.cylHeight = 1.6;
+
+    this.walkSpeed = 4.0;
+    this.mouseSensitivity = 0.002;
+
+    this.locked = true;
+    this.keys = {};
+
+    this._applyPosition();
+    this._applyRotation();
+
+    this._onMouseMove = this._onMouseMove.bind(this);
+    this._onKeyDown = this._onKeyDown.bind(this);
+    this._onKeyUp = this._onKeyUp.bind(this);
+    this._onWheel = this._onWheel.bind(this);
+
+    document.addEventListener('mousemove', this._onMouseMove);
+    document.addEventListener('keydown', this._onKeyDown);
+    document.addEventListener('keyup', this._onKeyUp);
+    document.addEventListener('wheel', this._onWheel, {passive:false});
+  }
+
+  computeLayerRadius(layerIndex) {
+    return this.R_BASE * Math.exp(this.LAMBDA * layerIndex);
+  }
+
+  // Expose transition state for shadow system
+  isLayerTransitioning() {
+    const targetR = this.computeLayerRadius(this.layerIndex);
+    return Math.abs(targetR - this.cylRadius) > 0.01;
+  }
+
+  _applyPosition() {
+    const x = this.cylRadius * Math.cos(this.yaw);
+    const z = this.cylRadius * Math.sin(this.yaw);
+    this.camera.position.set(x, this.cylHeight, z);
+  }
+
+  _applyRotation() {
+    const lookYaw = this.yaw + Math.PI / 2;
+    const forward = new THREE.Vector3(Math.sin(lookYaw), 0, Math.cos(lookYaw));
+    const target = this.camera.position.clone().add(forward);
+    this.camera.lookAt(target);
+    this.camera.rotation.x = 0;
+    this.camera.rotation.z = 0;
+  }
+
+  _onMouseMove(e) {
+    if (!this.locked) return;
+    if (e.movementX !== undefined) {
+      this.yaw -= e.movementX * this.mouseSensitivity;
+    }
+  }
+
+  _onKeyDown(e) { this.keys[e.key.toLowerCase()] = true; }
+  _onKeyUp(e) { this.keys[e.key.toLowerCase()] = false; }
+
+  _onWheel(e) {
+    e.preventDefault();
+    if (!this.locked) return;
+    const newLayer = Math.max(0, Math.min(5, this.layerIndex + Math.sign(e.deltaY)));
+    if (newLayer !== this.layerIndex) {
+      this.previousLayerIndex = this.layerIndex;
+      this.layerIndex = newLayer;
+    }
+  }
+
+  update(deltaTime) {
+    if (!this.locked) return;
+
+    const forwardSpeed = (this.keys['w']?1:0) - (this.keys['s']?1:0);
+    const strafeSpeed = (this.keys['a']?1:0) - (this.keys['d']?1:0);
+
+    if (forwardSpeed !== 0) {
+      this.yaw += (forwardSpeed * this.walkSpeed * deltaTime) / this.cylRadius;
+    }
+    if (strafeSpeed !== 0) {
+      this.yaw -= (strafeSpeed * this.walkSpeed * deltaTime) / this.cylRadius;
+    }
+
+    const targetR = this.computeLayerRadius(this.layerIndex);
+    this.cylRadius += (targetR - this.cylRadius) * 3.0 * deltaTime;
+    if (Math.abs(targetR - this.cylRadius) < 0.001) {
+      this.cylRadius = targetR;
+    }
+
+    this._applyPosition();
+    this._applyRotation();
+  }
+
+  enterStack(position, yaw) {
+    this.yaw = yaw;
+    this.cylRadius = this.computeLayerRadius(0);
+    this.layerIndex = 0;
+    this.cylHeight = position.y || 1.6;
+    this._applyPosition();
+    this._applyRotation();
+  }
+
+  toggleLock() {
+    this.locked = !this.locked;
+    if (this.locked) {
+      document.body.requestPointerLock();
+    } else {
+      document.exitPointerLock();
+    }
+  }
+
+  getState() {
+    return {
+      yawDeg: THREE.MathUtils.radToDeg(this.yaw % (Math.PI*2)),
+      layer: this.layerIndex,
+      radius: this.cylRadius,
+      locked: this.locked,
+      transitioning: this.isLayerTransitioning()
+    };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CYLINDER — Obsidian Glass with Shadow Imprint
+// ═══════════════════════════════════════════════════════════════
+
+function buildCylinder(shadowLag) {
+  const group = new THREE.Group();
+
+  // Cylinder shader with shadow imprint support
+  const cylGeo = new THREE.CylinderGeometry(7.0, 7.0, 8.0, 128, 1, true);
+  const cylMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      // Shadow imprint: array of {yaw, intensity} pairs
+      uShadowData: { value: shadowLag.shadowData },
+      uShadowCount: { value: 0 },
+      uShadowMaxCount: { value: SHADOW_BUFFER_SIZE }
+    },
+    vertexShader: `
+      varying vec3 vWorldPos;
+      varying vec3 vWorldNormal;
+      varying float vAngle;  // angular position on cylinder [0, 2π)
+      varying vec2 vUv;
+      void main() {
+        vec4 worldPos = modelMatrix * vec4(position, 1.0);
+        vWorldPos = worldPos.xyz;
+        vWorldNormal = normalize(mat3(modelMatrix) * normal);
+
+        // Compute angular position from world XZ
+        vAngle = atan(worldPos.z, worldPos.x); // range [-π, π]
+        vAngle = vAngle < 0.0 ? vAngle + 6.283185307 : vAngle; // map to [0, 2π)
+
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float uTime;
+      uniform float uShadowData[${SHADOW_BUFFER_SIZE * 2}];
+      uniform int uShadowCount;
+      uniform int uShadowMaxCount;
+      varying vec3 vWorldPos;
+      varying vec3 vWorldNormal;
+      varying float vAngle;
+      varying vec2 vUv;
+
+      float hash(vec2 p) {
+        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+      }
+      float snoise(vec2 p) {
+        vec2 i = floor(p);
+        vec2 f = fract(p);
+        f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i+vec2(1,0)), f.x),
+                   mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y);
+      }
+
+      void main() {
+        vec3 viewDir = normalize(cameraPosition - vWorldPos);
+        float fresnel = 1.0 - abs(dot(viewDir, vWorldNormal));
+
+        // Obsidian base
+        vec3 baseColor = vec3(0.015, 0.015, 0.018);
+        float noise = snoise(vWorldPos.xz * 4.0 + uTime * 0.1) * 0.5 + 0.5;
+        float luminance = 0.04 + fresnel * fresnel * 0.22 + noise * 0.04;
+        vec3 finalColor = mix(baseColor, vec3(luminance), 0.5);
+
+        // ── SHADOW IMPRINT: the memory of where the observer was ──
+        // Each shadow is an angular position + intensity.
+        // Darken the glass near that angle — like a cold spot.
+        float shadowDarkening = 0.0;
+        int count = uShadowCount;
+        for (int i = 0; i < ${SHADOW_BUFFER_SIZE}; i++) {
+          if (i >= count) break;
+
+          float imprintYaw = uShadowData[i * 2];
+          float intensity = uShadowData[i * 2 + 1];
+
+          // Angular distance on cylinder (wrap around)
+          float angleDelta = abs(vAngle - imprintYaw);
+          angleDelta = min(angleDelta, 6.283185307 - angleDelta); // wrap around π
+
+          // Gaussian falloff: ±15° cone (±0.26 rad)
+          float sigma = 0.15; // ~8.6°
+          float imprint = intensity * exp(-angleDelta * angleDelta / (2.0 * sigma * sigma));
+
+          // Accumulate: multiple overlapping imprints darken more
+          shadowDarkening = max(shadowDarkening, imprint);
+        }
+
+        // Apply darkening: the glass becomes DARKER where the imprint is.
+        // Not brighter. The observer's passage absorbs light.
+        // Like a shadow that forgot to need a light source.
+        float darkenFactor = 1.0 - shadowDarkening * 0.55;
+        finalColor *= darkenFactor;
+
+        // Add subtle cold-blue edge at imprint boundaries
+        // (the architecture marks thresholds)
+        float edgeGlow = shadowDarkening * (1.0 - abs(shadowDarkening - 0.8) * 5.0);
+        finalColor += vec3(0.001, 0.002, 0.006) * edgeGlow * 2.0;
+
+        float alpha = 0.92 + fresnel * 0.06;
+        gl_FragColor = vec4(finalColor, alpha);
+      }
+    `,
+    transparent: true,
+    depthWrite: true,
+    side: THREE.DoubleSide
+  });
+
+  const cylinder = new THREE.Mesh(cylGeo, cylMat);
+  cylinder.name = 'memoryCoreCylinder';
+  group.add(cylinder);
+
+  // Floor
+  const floorGeo = new THREE.CylinderGeometry(6.95, 6.95, 0.05, 64);
+  const floorMat = new THREE.MeshStandardMaterial({
+    color: 0x0a0a10, roughness: 0.9, metalness: 0.1
+  });
+  const floor = new THREE.Mesh(floorGeo, floorMat);
+  floor.position.y = -4.0;
+  floor.receiveShadow = true;
+  group.add(floor);
+
+  // Layer marker rings
+  for (let l = 0; l < 5; l++) {
+    const r = 5.0 * Math.exp(0.15 * l);
+    const ringGeo = new THREE.TorusGeometry(r, 0.01, 16, 128);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x223344, transparent: true, opacity: 0.3
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 0;
+    ring.name = `layerRing_${l}`;
+    group.add(ring);
+  }
+
+  // Vertical struts
+  for (let i = 0; i < 24; i++) {
+    const angle = (i / 24) * Math.PI * 2;
+    const strutGeo = new THREE.CylinderGeometry(0.03, 0.03, 8.0, 8);
+    const strutMat = new THREE.MeshStandardMaterial({
+      color: 0x111122, roughness: 0.5, metalness: 0.6
+    });
+    const strut = new THREE.Mesh(strutGeo, strutMat);
+    strut.position.set(Math.cos(angle) * 7.0, 0, Math.sin(angle) * 7.0);
+    group.add(strut);
+  }
+
+  return group;
+}
+
+// ── Lighting: ambient-only. No sun. ──
+S.add(new THREE.AmbientLight(0x111122, 0.6));
+S.add(new THREE.PointLight(0x334466, 2.0, 20)).position.set(0, 6, 0);
+S.add(new THREE.PointLight(0x112233, 1.5, 15)).position.set(0, -0.5, 0);
+
+// ── Build scene ──
+const shadowLag = new ShadowLag();
+const coreCylinder = buildCylinder(shadowLag);
+S.add(coreCylinder);
+
+// Center reference
+S.add(new THREE.Mesh(
+  new THREE.SphereGeometry(0.05, 8, 8),
+  new THREE.MeshBasicMaterial({ color: 0x334466 })
+));
+
+// ═══════════════════════════════════════════════════════════════
+// AUTO-RENDER MODE — Camera path driven by query params or JS API
+// ═══════════════════════════════════════════════════════════════
+
+const AUTO_MODE = new URLSearchParams(location.search).has('auto');
+
+class AutoRenderer {
+  constructor(camera, shadowLag) {
+    this.camera = camera;
+    this.shadowLag = shadowLag;
+    this.segments = [];
+    this.currentSegment = 0;
+    this.segmentTime = 0;
+    this.active = false;
+    this.done = false;
+    this.onFrame = null;    // callback(frameData) each frame
+    this.onComplete = null; // callback() when path finishes
+
+    // Default demo path if none provided
+    this.defaultPath = [
+      { yaw: 0, layer: 0, duration: 1.5, desc: 'HOLD: entry' },
+      { yaw: Math.PI * 0.5, layer: 0, duration: 2.0, desc: 'PAN: quarter orbit' },
+      { yaw: Math.PI * 0.5, layer: 1, duration: 2.5, desc: 'TRANSITION: layer 0→1 (shadow)' },
+      { yaw: Math.PI * 0.5, layer: 2, duration: 2.0, desc: 'TRANSITION: layer 1→2 (shadow)' },
+      { yaw: Math.PI * 1.2, layer: 2, duration: 2.0, desc: 'PAN: to 216°' },
+      { yaw: Math.PI * 1.2, layer: 0, duration: 3.0, desc: 'TRANSITION: layer 2→0 (deep shadow)' },
+      { yaw: Math.PI * 1.8, layer: 0, duration: 2.0, desc: 'PAN: to 324°' },
+      { yaw: Math.PI * 2.0, layer: 0, duration: 2.0, desc: 'PAN: full circle' },
+    ];
+  }
+
+  loadPath(segments) {
+    this.segments = segments;
+  }
+
+  start() {
+    if (this.segments.length === 0) {
+      this.segments = this.defaultPath;
+    }
+    this.currentSegment = 0;
+    this.segmentTime = 0;
+    this.active = true;
+    this.done = false;
+
+    // Snap to first segment
+    const seg = this.segments[0];
+    this.camera.yaw = seg.yaw;
+    this.camera.layerIndex = seg.layer;
+    this.camera._applyPosition();
+    this.camera._applyRotation();
+  }
+
+  update(deltaTime) {
+    if (!this.active || this.done) return;
+
+    const seg = this.segments[this.currentSegment];
+    if (!seg) {
+      this.finish();
+      return;
+    }
+
+    this.segmentTime += deltaTime;
+
+    // Check if segment complete
+    if (this.segmentTime >= seg.duration) {
+      // Snap to exact target
+      this.camera.yaw = seg.yaw;
+      this.camera.layerIndex = seg.layer;
+      this.camera.cylRadius = this.camera.computeLayerRadius(seg.layer);
+
+      this.currentSegment++;
+      this.segmentTime = 0;
+
+      // Trigger shadow lag on layer transitions
+      if (this.currentSegment > 0) {
+        const prevSeg = this.segments[this.currentSegment - 1];
+        if (prevSeg.layer !== seg.layer) {
+          // Force shadow imprint at transition point
+          this.shadowLag.active = true;
+          this.shadowLag.transitionDecay = 1.0;
+          this.shadowLag.transitionTimer = 0;
+        }
+      }
+
+      if (this.currentSegment >= this.segments.length) {
+        this.finish();
+        return;
+      }
+    }
+
+    // Interpolate within segment — linear, no easing
+    const seg2 = this.segments[this.currentSegment];
+    if (!seg2 || seg2.duration <= 0) return;
+    const t = this.segmentTime / seg2.duration;
+
+    // Smooth step for yaw (wrap-aware)
+    let targetYaw = seg2.yaw;
+    // Unwrap: take shortest path
+    let delta = targetYaw - this.camera.yaw;
+    while (delta > Math.PI) delta -= Math.PI * 2;
+    while (delta < -Math.PI) delta += Math.PI * 2;
+    this.camera.yaw += delta * Math.min(t * 3.0, 1.0) * deltaTime * 4.0; // chase target
+
+    // Snap layer
+    this.camera.layerIndex = seg2.layer;
+  }
+
+  finish() {
+    this.active = false;
+    this.done = true;
+    window.__AUTO_RENDER_COMPLETE = true;
+    if (this.onComplete) this.onComplete();
+  }
+
+  getState() {
+    if (!this.active) return { status: 'idle' };
+    const seg = this.segments[this.currentSegment];
+    return {
+      status: this.done ? 'complete' : 'rendering',
+      segment: this.currentSegment,
+      total: this.segments.length,
+      segmentTime: this.segmentTime,
+      segmentDuration: seg ? seg.duration : 0,
+      desc: seg ? seg.desc : '',
+      yaw: this.camera.yaw,
+      layer: this.camera.layerIndex,
+      shadowActive: this.shadowLag.isActive()
+    };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+
+const archCam = new ArchitecturalCamera();
+archCam.enterStack({ x: 0, y: 1.6, z: 0 }, 0);
+
+const autoRenderer = new AutoRenderer(archCam, shadowLag);
+window.__autoRenderer = autoRenderer; // expose for puppeteer control
+
+if (AUTO_MODE) {
+  // Hide HUD, disable pointer lock, start demo path
+  document.getElementById('hud').style.opacity = '0.3';
+  document.getElementById('instructions').textContent = 'AUTO RENDER — camera path executing';
+  document.getElementById('crosshair').style.opacity = '0.1';
+  archCam.locked = true;
+  autoRenderer.start();
+} else {
+  R.domElement.addEventListener('click', () => {
+    if (archCam.locked) document.body.requestPointerLock();
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key.toLowerCase() === 'f') archCam.toggleLock();
+});
+
+// ═══════════════════════════════════════════════════════════════
+// LOOP
+// ═══════════════════════════════════════════════════════════════
+
+const clk = new THREE.Clock();
+
+function loop() {
+  requestAnimationFrame(loop);
+  const dt = Math.min(clk.getDelta(), 0.1);
+  const t = performance.now() * 0.001;
+
+  archCam.update(dt);
+
+  // Auto-render mode: drive camera path instead of manual input
+  if (AUTO_MODE && !autoRenderer.done) {
+    autoRenderer.update(dt);
+    // Feed shadow lag from auto-renderer transitions
+    const arState = autoRenderer.getState();
+    if (arState.shadowActive && !shadowLag.active) {
+      shadowLag.update(dt, archCam.yaw, true);
+    } else if (!arState.shadowActive) {
+      shadowLag.update(dt, archCam.yaw, false);
+    }
+  } else if (!AUTO_MODE) {
+    // Shadow lag: feed player yaw + transition state (manual mode)
+    shadowLag.update(dt, archCam.yaw, archCam.isLayerTransitioning());
+  }
+
+  // Push shadow data to cylinder shader
+  const cyl = S.getObjectByName('memoryCoreCylinder');
+  if (cyl && cyl.material.uniforms) {
+    cyl.material.uniforms.uTime.value = t;
+    cyl.material.uniforms.uShadowCount.value = shadowLag.shadowCount;
+    // Copy shadow data (uniform array must be set fresh each frame)
+    if (shadowLag.shadowCount > 0) {
+      cyl.material.uniforms.uShadowData.value = new Float32Array(shadowLag.shadowData);
+    }
+  }
+
+  // HUD
+  const state = archCam.getState();
+  $('yaw-disp').textContent = state.yawDeg.toFixed(1);
+  $('layer-disp').textContent = state.layer;
+  $('r-disp').textContent = state.radius.toFixed(2);
+  $('shadow-disp').textContent = shadowLag.isActive() ? 'IMPRINT' : 'IDLE';
+  $('shadow-disp').className = shadowLag.isActive() ? 'shadow-on' : 'val';
+  $('lock-disp').textContent = state.locked ? 'ACTIVE' : 'FREE';
+  $('lock-disp').className = state.locked ? 'val' : 'warn';
+
+  R.render(S, archCam.camera);
+}
+
+window.addEventListener('resize', () => {
+  archCam.camera.aspect = innerWidth / innerHeight;
+  archCam.camera.updateProjectionMatrix();
+  R.setSize(innerWidth, innerHeight);
+});
+
+loop();
+document.body.requestPointerLock();
+
+console.log('╔══════════════════════════════════════════╗');
+console.log('║  ARCHITECTURAL CAMERA v0.2 — ACTIVE     ║');
+console.log('║  + Shadow Lag: memory imprint on glass  ║');
+console.log('║  SCROLL: layer transition → shadow      ║');
+console.log('║  WASD: walk · F: unlock                 ║');
+console.log('╚══════════════════════════════════════════╝');
+</script>
+</body>
+</html>

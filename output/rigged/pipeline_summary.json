@@ -1,0 +1,8 @@
+{
+  "pipeline": "mechanical_rig_pipeline.py",
+  "blender_version": "5.1.1",
+  "tolerance_mm": 0.25,
+  "chamfer_mm": 0.5,
+  "assemblies_processed": 31,
+  "output_dir": "C:\\Users\\dasha\\trench-builder\\output\\rigged"
+}

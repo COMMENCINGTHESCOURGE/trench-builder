@@ -2,7 +2,7 @@
 """VINCULUM FAST SCAN — Optimized for A100 / any GPU"""
 import json, os, re
 from pathlib import Path
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime
 
 t0 = __import__('time').time()
@@ -24,38 +24,45 @@ results = []
 counts = Counter()
 projects = defaultdict(lambda: {'files':0,'v':0,'kb':0})
 
-for proj_dir in sorted(BASE.iterdir()):
-    if not proj_dir.is_dir() or proj_dir.name.startswith('.'): continue
+proj_dirs = [d for d in sorted(BASE.iterdir()) if d.is_dir() and not d.name.startswith('.')]
+total_dirs = len(proj_dirs)
+for di, proj_dir in enumerate(proj_dirs):
+    print(f'[{di+1}/{total_dirs}] {proj_dir.name}...', flush=True)
     
-    for fp in proj_dir.rglob('*'):
-        if fp.suffix not in ('.py','.html','.md','.json','.ipynb'): continue
-        if any(p in fp.parts for p in ('.git','__pycache__')): continue
+    for root, dirs, files in os.walk(proj_dir):
+        # Prune directories we never want to descend into
+        dirs[:] = [d for d in dirs if d not in ('.git','__pycache__','node_modules')]
+        for fname in files:
+            fp = Path(root) / fname
+            ext = os.path.splitext(fname)[1]
+            if ext not in ('.py','.html','.md','.json','.ipynb'): continue
+            if not fp.exists(): continue
         
-        try:
-            content = fp.read_text(errors='ignore')[:100000]  # cap at 100KB
-            lines = content.count('\n')
-            fv = 0
-            ftypes = []
-            
-            for name, pat in PATTERNS.items():
-                m = pat.findall(content)
-                if m:
-                    c = len(m)
-                    fv += c
-                    counts[name] += c
-                    ftypes.append(name)
-            
-            if fv > 0:
-                density = fv / max(1, lines) * 100
-                results.append({
-                    'p': proj_dir.name, 'f': fp.name,
-                    'l': lines, 'v': fv, 'd': round(density, 1),
-                    't': ftypes[:5]
-                })
-                projects[proj_dir.name]['files'] += 1
-                projects[proj_dir.name]['v'] += fv
-                projects[proj_dir.name]['kb'] += len(content) / 1024
-        except: pass
+            try:
+                content = fp.read_text(errors='ignore')[:100000]  # cap at 100KB
+                lines = content.count('\n')
+                fv = 0
+                ftypes = []
+                
+                for name, pat in PATTERNS.items():
+                    m = pat.findall(content)
+                    if m:
+                        c = len(m)
+                        fv += c
+                        counts[name] += c
+                        ftypes.append(name)
+                
+                if fv > 0:
+                    density = fv / max(1, lines) * 100
+                    results.append({
+                        'p': proj_dir.name, 'f': fp.name,
+                        'l': lines, 'v': fv, 'd': round(density, 1),
+                        't': ftypes[:5]
+                    })
+                    projects[proj_dir.name]['files'] += 1
+                    projects[proj_dir.name]['v'] += fv
+                    projects[proj_dir.name]['kb'] += len(content) / 1024
+            except: pass
 
 # Summary
 total_v = sum(d['v'] for d in results)

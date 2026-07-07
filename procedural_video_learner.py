@@ -264,75 +264,82 @@ class QualityScorer:
     """Score clip quality and generate specific improvement recommendations."""
     
     @staticmethod
-    def score(clip_name, frame_data, grammar, spatial_data, motion_data, audio_data, cuts):
-        score = 0
-        recs = []
-        
-        # 1. Visual clarity (0-25)
+    def _score_visual_clarity(grammar, recs) -> int:
         brt = float(grammar.get("target_brightness", 0))
         ctr = float(grammar.get("target_contrast", 0))
-        
         if brt > 40 and ctr > 35:
-            score += 25
+            return 25
         elif brt > 25:
-            score += 15
             recs.append(f"Increase brightness: current {brt:.0f}, target >40 for visual clarity")
+            return 15
         else:
-            score += 8
             recs.append(f"Too dark: brightness {brt:.0f}. Boost key light or increase exposure.")
-        
-        # 2. Composition quality (0-25)
+            return 8
+
+    @staticmethod
+    def _score_composition(spatial_data, recs) -> int:
         compositions = [SpatialAnalyzer.composition_type(s) for s in spatial_data]
         centered_count = sum(1 for c in compositions if "CENTER" in c)
-        
         if centered_count >= len(compositions) * 0.5:
-            score += 25
             recs.append("Strong center-focus composition throughout")
+            return 25
         else:
-            score += 12
             recs.append("Composition inconsistent — frame subject in center for impact")
-        
-        # 3. Motion sophistication (0-25)
+            return 12
+
+    @staticmethod
+    def _score_motion(motion_data, recs) -> int:
         motion_types = set()
         for m_list in motion_data:
             for m in m_list:
                 motion_types.add(m)
-        
         if len(motion_types) >= 2 and "STATIC" not in motion_types:
-            score += 25
             recs.append(f"Rich motion vocabulary: {', '.join(motion_types)}")
+            return 25
         elif "STATIC" in motion_types and len(motion_types) > 1:
-            score += 18
             recs.append("Mix of static and motion — add continuous movement for cinematic feel")
+            return 18
         elif len(motion_types) == 1:
-            score += 12
             recs.append("Single motion type — vary between orbit/pan/dolly for depth")
+            return 12
         else:
-            score += 5
             recs.append("No camera motion detected — add slow orbit or dolly")
-        
-        # 4. Audio quality (0-15)
+            return 5
+
+    @staticmethod
+    def _score_audio(audio_data, recs) -> int:
         if audio_data.get("audio_present"):
-            score += 15
             recs.append(f"Audio: {audio_data.get('character')} at {audio_data.get('tempo_bpm',0):.0f} BPM")
+            return 15
         else:
-            score += 3
             recs.append("No audio track — add ambient music or sound design")
-        
-        # 5. Narrative fit (0-10)
+            return 3
+
+    @staticmethod
+    def _score_narrative_fit(clip_name, grammar, recs) -> int:
         energy = grammar.get("energy", "")
         if clip_name == "CLIP_1_HOOK" and "DYNAMIC" in energy:
-            score += 10
             recs.append("✓ Perfect hook energy — grabs attention immediately")
+            return 10
         elif clip_name == "CLIP_3_DEPTH" and ("WARM" in grammar.get("color_temperature", "") or "DEPTH" in energy):
-            score += 10
             recs.append("✓ Effective depth clip — warm, dark, emotional weight")
+            return 10
         elif clip_name == "CLIP_2_RESOLUTION" and "RESOLUTION" in energy:
-            score += 10
             recs.append("✓ Clean resolution — bright, calm, confident")
+            return 10
         else:
-            score += 5
-        
+            return 5
+
+    @staticmethod
+    def score(clip_name, frame_data, grammar, spatial_data, motion_data, audio_data, cuts):
+        recs = []
+        score = (
+            QualityScorer._score_visual_clarity(grammar, recs) +
+            QualityScorer._score_composition(spatial_data, recs) +
+            QualityScorer._score_motion(motion_data, recs) +
+            QualityScorer._score_audio(audio_data, recs) +
+            QualityScorer._score_narrative_fit(clip_name, grammar, recs)
+        )
         return {
             "total_score": score,
             "grade": "A" if score >= 80 else "B" if score >= 65 else "C" if score >= 50 else "D",
@@ -515,7 +522,7 @@ if __name__ == "__main__":
     pairs = [("CLIP_1_HOOK", "CLIP_3_DEPTH"), ("CLIP_3_DEPTH", "CLIP_2_RESOLUTION")]
     for a, b in pairs:
         result = TransitionScorer.score(grammar_rules[a], grammar_rules[b])
-        print(f"  {a} → {b}: {result['score']}/100")
+        print(f"  {a} -> {b}: {result['score']}/100")
         for note in result['notes']:
             print(f"    {note}")
     

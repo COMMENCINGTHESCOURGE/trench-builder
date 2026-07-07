@@ -251,6 +251,34 @@ S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.3));
 // ── Grid ──
 const grid=new THREE.GridHelper(TERRAIN_SIZE,TERRAIN_SIZE,0x221100,0x110804);grid.position.y=.005;S.add(grid);
 
+// Parallax Background Silhouette Layers (Layer 0 Background)
+const parallaxGroup = new THREE.Group();
+S.add(parallaxGroup);
+window.__parallaxLayers = [];
+
+const parallaxMat = new THREE.MeshBasicMaterial({
+  color: 0x111625,
+  transparent: true,
+  opacity: 0.25,
+  wireframe: true
+});
+
+for (let i = 0; i < 3; i++) {
+  const layer = new THREE.Group();
+  const zDepth = -30 - (i * 20);
+  const scale = 1 + (i * 0.5);
+  
+  // Distant scaffold structures
+  for (let j = 0; j < 5; j++) {
+    const box = new THREE.Mesh(new THREE.BoxGeometry(10 * scale, 30 * scale, 5), parallaxMat);
+    box.position.set((j - 2) * 20 * scale, 10 * scale, zDepth);
+    layer.add(box);
+  }
+  
+  parallaxGroup.add(layer);
+  window.__parallaxLayers.push(layer);
+}
+
 // ═══════════════════════════════════════════
 // AVATAR
 // ═══════════════════════════════════════════
@@ -341,7 +369,18 @@ function build(type,pos){
       }
       break}
   }
-  if(m){m.castShadow=true;m.receiveShadow=true;m.userData={type,pos:[p.x,p.z],ts:Date.now()};S.add(m);structures.push(m);built++;$('built-count').textContent=`BUILT: ${built}`;}
+  if(m){m.castShadow=true;m.receiveShadow=true;m.userData={type,pos:[p.x,p.z],ts:Date.now()};S.add(m);structures.push(m);built++;$('built-count').textContent=`BUILT: ${built}`;
+    // Play construction sound
+    if(window.__sfx){
+      try{
+        if(type==='wall'||type==='floor'||type==='foundation')window.__sfx.hammerHit(0.6);
+        else if(type==='plumbing'||type==='electrical')window.__sfx.gearGrind(0.3);
+        else if(type==='framing')window.__sfx.hammerHit(0.4);
+        else if(type==='roof')window.__sfx.concretePour(1.0);
+        else if(type==='tree')window.__sfx.footstep('gravel');
+      }catch(e){}
+    }
+  }
 }
 
 // ── Placement ──
@@ -534,7 +573,50 @@ function loop(){
     if(trainOn&&fc%6===0){goproFrames.push({ts:t,pos:gCam.position.toArray(),look:ld.toArray(),built});if(goproFrames.length>2000)goproFrames.shift();}
   }
 
-  ctrl.update();R.render(S,C);
+  // Infinite treadmill shift (Townscaper matching)
+  const shiftThreshold = 10;
+  if (Math.abs(AV.position.x) > shiftThreshold || Math.abs(AV.position.z) > shiftThreshold) {
+    const shiftX = Math.round(AV.position.x);
+    const shiftZ = Math.round(AV.position.z);
+    
+    // Shift Avatar
+    AV.position.x -= shiftX;
+    AV.position.z -= shiftZ;
+    target.x -= shiftX;
+    target.z -= shiftZ;
+    ctrl.target.x -= shiftX;
+    ctrl.target.z -= shiftZ;
+    
+    // Shift all structures
+    structures.forEach(s => {
+      s.position.x -= shiftX;
+      s.position.z -= shiftZ;
+      if (s.userData && s.userData.pos) {
+        s.userData.pos[0] -= shiftX;
+        s.userData.pos[1] -= shiftZ;
+      }
+    });
+    
+    // Shift survey markers
+    surveyGroup.children.forEach(m => {
+      m.position.x -= shiftX;
+      m.position.z -= shiftZ;
+    });
+    surveyPoints.forEach(p => {
+      p.pos[0] -= shiftX;
+      p.pos[2] -= shiftZ;
+    });
+  }
+
+  // Update parallax layers (Layer 2 composite)
+  if (window.__parallaxLayers) {
+    window.__parallaxLayers.forEach((layer, idx) => {
+      const depthFactor = (idx + 1) * 0.15;
+      layer.position.x = cam.position.x * (1 - depthFactor);
+    });
+  }
+
+  ctrl.update();R.render(S,cam);
 
   fc++;if(t-lf>.5){$('fps').textContent=`${Math.round(fc/(t-lf))} FPS`;fc=0;lf=t;}
 }
@@ -550,7 +632,13 @@ window.addEventListener('keydown',e=>{
 });
 
 loop();
-console.log('╔══════════════════════════════════════════╗\n║  TRENCH BUILDER v3 — TOPO + DESIGN + RT ║\n║  Survey · Contour · Room Scan · Material ║\n║  Raytrace · Vanishing Pt · GoPro Train   ║\n║  Press E to export  ·  Click to build    ║\n╚══════════════════════════════════════════╝');
+console.log('╔══════════════════════════════════════════╗\n║  TRENCH BUILDER v3 — TOPO + DESIGN + RT ║\n║  Survey · Contour · Room Scan · Material ║\n║  Raytrace · Vanishing Pt · GoPro Train   ║\n║  Press E to export  ·  Click to build    ║\n║  Construction audio active                ║\n╚══════════════════════════════════════════╝');
+
+// Initialize procedural construction audio
+const script=document.createElement('script');
+script.type='module';
+script.textContent=`import {ConstructionAudio} from './assets/sfx/construction_audio.js';window.__sfx=new ConstructionAudio();document.addEventListener('click',()=>{try{window.__sfx._ensureContext()}catch(e){}},{once:true});`;
+document.body.appendChild(script);
 </script>
 </body>
 </html>

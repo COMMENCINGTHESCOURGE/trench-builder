@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trench Builder — Premium Access Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #060814;
+            --card-bg: rgba(15, 20, 38, 0.5);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-pro: #10b981;
+            --accent-studio: #8b5cf6;
+            --glow-pro: rgba(16, 185, 129, 0.15);
+            --glow-studio: rgba(139, 92, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card.pro:hover {
+            box-shadow: 0 20px 40px var(--glow-pro);
+            border-color: var(--accent-pro);
+        }
+
+        .card.studio:hover {
+            box-shadow: 0 20px 40px var(--glow-studio);
+            border-color: var(--accent-studio);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid var(--accent-studio);
+            color: #c084fc;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tier-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .currency {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-right: 2px;
+        }
+
+        .period {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-left: 8px;
+        }
+
+        .desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            min-height: 45px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: var(--text-primary);
+            font-weight: bold;
+            margin-right: 12px;
+            display: inline-block;
+        }
+
+        .card.pro .features-list li::before {
+            color: var(--accent-pro);
+        }
+
+        .card.studio .features-list li::before {
+            color: var(--accent-studio);
+        }
+
+        .cta-btn {
+            width: 100%;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .card.pro .cta-btn {
+            background: linear-gradient(135deg, var(--accent-pro), #059669);
+            color: #ffffff;
+        }
+
+        .card.pro .cta-btn:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transform: scale(1.02);
+        }
+
+        .card.studio .cta-btn {
+            background: linear-gradient(135deg, var(--accent-studio), #7c3aed);
+            color: #ffffff;
+        }
+
+        .card.studio .cta-btn:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            transform: scale(1.02);
+        }
+
+        .error-message {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            display: none;
+            text-align: center;
+            width: 100%;
+            max-width: 1100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Select Your Access Tier</h1>
+        <p>Unlock high-throughput rendering pipelines, Blackwell strikes, and custom lowpoly voxel synthesis engines instantly.</p>
+    </div>
+
+    <div class="grid">
+        <!-- PRO TIER -->
+        <div class="card pro">
+            <div class="tier-name">PRO TIER</div>
+            <div class="price-container">
+                <span class="currency">$</span>
+                <span class="price">29</span>
+                <span class="period">/mo</span>
+            </div>
+            <p class="desc">High performance engine scaling for independent creators and indie studios.</p>
+            <ul class="features-list">
+                <li>5,000 API Requests per Month</li>
+                <li>300 Render Minutes / Month</li>
+                <li>Access to DeepSeek-Chat & Hermes-3</li>
+                <li>PBR Material Generator</li>
+                <li>Standard 3D Export (GLB/OBJ)</li>
+            </ul>
+            <button class="cta-btn" onclick="startCheckout('pro')">Subscribe to Pro</button>
+        </div>
+
+        <!-- STUDIO TIER -->
+        <div class="card studio">
+            <span class="popular-badge">Popular</span>
+            <div class="tier-name">STUDIO TIER</div>
+            <div class="price-container">
+                <span class="currency">$</span>
+                <span class="price">149</span>
+                <span class="period">/mo</span>
+            </div>
+            <p class="desc">Ultimate performance capabilities, massive context length, and full raw model weights.</p>
+            <ul class="features-list">
+                <li>50,000 API Requests per Month</li>
+                <li>2,000 Render Minutes / Month</li>
+                <li>Access to GPT-4o & Qwen-3.5</li>
+                <li>Headless Blender Script Runner</li>
+                <li>Priority Render Queue Processing</li>
+                <li>24/7 Priority Support</li>
+            </ul>
+            <button class="cta-btn" onclick="startCheckout('studio')">Subscribe to Studio</button>
+        </div>
+    </div>
+
+    <div class="error-message" id="errorBox"></div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8090";
+
+        async function startCheckout(tier) {
+            const errorBox = document.getElementById("errorBox");
+            errorBox.style.display = "none";
+            
+            try {
+                const response = await fetch(`${API_URL}/v1/license/generate`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Origin": window.location.origin
+                    },
+                    body: JSON.stringify({ tier: tier })
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || "Failed to initialize checkout.");
+                }
+
+                if (data.checkout_url) {
+                    window.location.href = data.checkout_url;
+                } else {
+                    throw new Error("API did not return a valid checkout session.");
+                }
+            } catch (err) {
+                errorBox.innerText = `Checkout Error: ${err.message}`;
+                errorBox.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

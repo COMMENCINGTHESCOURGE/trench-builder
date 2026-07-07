@@ -1,0 +1,44 @@
+{
+  "licenses": {
+    "TB-PRO-67100C9C-4A2773EB71371E2F": {
+      "tier": "pro",
+      "expires": "2027-07-04T22:24:40.696335",
+      "max_requests": 5000,
+      "used_requests": 0,
+      "created": "2026-07-04T22:24:40.697335"
+    },
+    "TB-PRO-974EFB49-AB8502780F435A4C": {
+      "tier": "pro",
+      "expires": "2027-07-04T22:24:44.475526",
+      "max_requests": 5000,
+      "used_requests": 0,
+      "created": "2026-07-04T22:24:44.476526"
+    },
+    "TB-PRO-2A111300-201CB4BE7B328996": {
+      "tier": "pro",
+      "expires": "2027-07-05T02:01:06.700761",
+      "max_requests": 5000,
+      "used_requests": 0,
+      "created": "2026-07-05T02:01:06.700761"
+    },
+    "TB-FREE-46276179-0C502C5C17BF092E": {
+      "tier": "free",
+      "expires": "2026-08-04T02:10:29.686839",
+      "max_requests": 100,
+      "used_requests": 0,
+      "created": "2026-07-05T02:10:29.716593"
+    },
+    "TB-PRO-AAD4356F-A3E219150AEBC8CA": {
+      "tier": "pro",
+      "expires": "2027-07-05T02:11:38.967585",
+      "max_requests": 5000,
+      "used_requests": 0,
+      "created": "2026-07-05T02:11:38.967585"
+    }
+  },
+  "api_keys": {
+    "tb_52fe45eb4182451d9a4d65de": "TB-PRO-2A111300-201CB4BE7B328996",
+    "tb_3725ce244b794ebc97b1e0aa": "TB-FREE-46276179-0C502C5C17BF092E"
+  },
+  "sessions": {}
+}

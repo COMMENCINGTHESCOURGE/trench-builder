@@ -1,0 +1,8 @@
+{
+  "name": "hydro",
+  "type": "conservation",
+  "channels": ["water", "sediment"],
+  "rate": 0.05,
+  "mode": "conservation",
+  "classification": "NEUTRAL"
+}

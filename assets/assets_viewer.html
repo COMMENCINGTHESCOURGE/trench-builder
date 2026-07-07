@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Viewer — Trench Builder</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; overflow: hidden; font-family: 'Segoe UI', monospace; }
+  canvas { display: block; }
+  #hud {
+    position: fixed; top: 12px; left: 12px; color: #aaa; font-size: 11px;
+    background: rgba(0,0,0,0.7); padding: 8px 12px; border-radius: 4px;
+    border-left: 2px solid #555; line-height: 1.6; pointer-events: none;
+  }
+  #asset-bar {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 10;
+  }
+  #asset-bar button {
+    background: rgba(30,30,30,0.85); color: #999; border: 1px solid #444;
+    padding: 10px 16px; border-radius: 4px; cursor: pointer; font-size: 12px;
+    transition: all 0.15s; font-family: inherit;
+  }
+  #asset-bar button:hover { background: rgba(60,60,60,0.9); color: #ddd; border-color: #888; }
+  #asset-bar button.active { background: rgba(80,60,20,0.9); color: #fa0; border-color: #c80; }
+  #stats { position: fixed; top: 12px; right: 12px; color: #666; font-size: 10px; }
+</style>
+</head>
+<body>
+<div id="hud">
+  <div id="asset-name">Loading...</div>
+  <div id="asset-info"></div>
+</div>
+<div id="stats"></div>
+<div id="asset-bar">
+  <button data-asset="elevator.glb">Elevator</button>
+  <button data-asset="staircase.glb">Staircase</button>
+  <button data-asset="gear_3m_24t.glb">Gear</button>
+  <button data-asset="pulley_vbelt_120mm_3gr.glb">V-Belt Pulley</button>
+  <button data-asset="pulley_flat_120mm.glb">Flat Pulley</button>
+  <button data-asset="pulley_timing_40t_GT2.glb">Timing Pulley</button>
+  <button data-asset="chair.glb">Chair</button>
+  <button data-asset="table.glb">Table</button>
+  <button data-asset="shelf.glb">Shelf</button>
+  <button data-asset="bed.glb">Bed</button>
+  <button data-asset="cabinet.glb">Cabinet</button>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+// ── Scene setup ─────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1a1a);
+scene.fog = new THREE.Fog(0x1a1a1a, 15, 60);
+
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(6, 4, 8);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.appendChild(renderer.domElement);
+
+// ── Lighting ────────────────────────────────────────────────
+const ambient = new THREE.AmbientLight(0x404060, 0.8);
+scene.add(ambient);
+
+const sun = new THREE.DirectionalLight(0xffeedd, 4.5);
+sun.position.set(8, 12, 4);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 0.5;
+sun.shadow.camera.far = 50;
+sun.shadow.camera.left = -10;
+sun.shadow.camera.right = 10;
+sun.shadow.camera.top = 10;
+sun.shadow.camera.bottom = -10;
+sun.shadow.bias = -0.0001;
+scene.add(sun);
+
+const fill = new THREE.DirectionalLight(0x8899cc, 1.2);
+fill.position.set(-4, 2, -2);
+scene.add(fill);
+
+const rim = new THREE.DirectionalLight(0xffffff, 1.5);
+rim.position.set(0, 1, -6);
+scene.add(rim);
+
+// ── Ground grid ─────────────────────────────────────────────
+const grid = new THREE.GridHelper(20, 40, 0x333333, 0x222222);
+scene.add(grid);
+
+const groundGeo = new THREE.PlaneGeometry(30, 30);
+const groundMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.9, metalness: 0.1 });
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.01;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// ── Controls ────────────────────────────────────────────────
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(0, 1.5, 0);
+controls.update();
+
+// ── Loader ──────────────────────────────────────────────────
+const loader = new GLTFLoader();
+const draco = new DRACOLoader();
+draco.setDecoderPath('https://unpkg.com/three@0.170.0/examples/jsm/libs/draco/');
+loader.setDRACOLoader(draco);
+
+let currentModel = null;
+
+function loadAsset(filename) {
+  if (currentModel) {
+    scene.remove(currentModel);
+    // Dispose geometry + materials
+    currentModel.traverse(child => {
+      if (child.geometry) child.geometry.dispose();
+      if (child.material) {
+        if (Array.isArray(child.material)) {
+          child.material.forEach(m => m.dispose());
+        } else {
+          child.material.dispose();
+        }
+      }
+    });
+  }
+
+  const path = `dist/${filename}`;
+  document.getElementById('asset-name').textContent = filename;
+  document.getElementById('asset-info').textContent = 'Loading...';
+
+  loader.load(path, (gltf) => {
+    currentModel = gltf.scene;
+
+    // Center and scale
+    const box = new THREE.Box3().setFromObject(currentModel);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = maxDim > 8 ? 8 / maxDim : 1;
+
+    currentModel.position.sub(center.multiplyScalar(scale));
+    currentModel.scale.setScalar(scale);
+
+    // Enable shadows
+    currentModel.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    scene.add(currentModel);
+
+    // HUD info
+    let meshCount = 0, matCount = 0;
+    currentModel.traverse(c => { if (c.isMesh) meshCount++; });
+    const matSet = new Set();
+    currentModel.traverse(c => {
+      if (c.material) {
+        const mats = Array.isArray(c.material) ? c.material : [c.material];
+        mats.forEach(m => matSet.add(m.name || m.uuid));
+      }
+    });
+    matCount = matSet.size;
+
+    document.getElementById('asset-info').innerHTML =
+      `${meshCount} meshes &middot; ${matCount} materials<br>` +
+      `size: ${size.x.toFixed(1)}×${size.y.toFixed(1)}×${size.z.toFixed(1)} m`;
+  }, (xhr) => {
+    // Progress
+  }, (err) => {
+    document.getElementById('asset-info').textContent = 'Error loading asset';
+    console.error(err);
+  });
+
+  // Update active button
+  document.querySelectorAll('#asset-bar button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.asset === filename);
+  });
+}
+
+// ── Button handlers ─────────────────────────────────────────
+document.querySelectorAll('#asset-bar button').forEach(btn => {
+  btn.addEventListener('click', () => loadAsset(btn.dataset.asset));
+});
+
+// ── Keyboard shortcuts ──────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  const assets = ['elevator.glb', 'staircase.glb', 'gear_3m_24t.glb',
+                   'pulley_vbelt_120mm_3gr.glb', 'pulley_flat_120mm.glb',
+                   'pulley_timing_40t_GT2.glb'];
+  const idx = parseInt(e.key);
+  if (idx >= 1 && idx <= assets.length) {
+    loadAsset(assets[idx - 1]);
+  }
+});
+
+// ── Render loop ─────────────────────────────────────────────
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+  document.getElementById('stats').textContent =
+    `${renderer.info.render.triangles.toLocaleString()} tris &middot; ${renderer.info.render.calls} calls`;
+}
+animate();
+
+// ── Resize ──────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ── Auto-load first asset ───────────────────────────────────
+loadAsset('elevator.glb');
+</script>
+</body>
+</html>

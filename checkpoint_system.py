@@ -51,6 +51,42 @@ TRENCH_BUILDER = {
     ]
 }
 
+ASSET_PIPELINE = {
+    "goal": "Procedural asset generation pipeline — from script to GLB, version-controlled, game-engine ready",
+    "checkpoints": [
+        {"id": "AP1", "name": "Supine — Single Generator Script", "energy": 0,
+         "deliverable": "generate_elevator.py → elevator.glb (106 KB, 50 meshes)",
+         "flashcard": "First asset. One script. Does it run headless? Yes. Does it export GLB? Yes. Can a game engine load it? Yes."},
+        {"id": "AP2", "name": "Scoot — Material Library Foundation", "energy": 15,
+         "deliverable": "material_library.py (49 PBR materials, 6 categories)",
+         "flashcard": "Materials aren't baked into scripts — they're imported from a shared library. Any generator can call get_material()."},
+        {"id": "AP3", "name": "Crawl — Mechanical Parts Family", "energy": 30,
+         "deliverable": "generate_gear.py + generate_pulley.py (3 pulley variants)",
+         "flashcard": "Involute gear with actual tooth geometry. Not a cylinder with bumps. Three pulley types share one script."},
+        {"id": "AP4", "name": "Stand — Architectural Elements", "energy": 45,
+         "deliverable": "elevator.glb + staircase.glb verified as valid GLB",
+         "flashcard": "Full upright. Elevator with steel cage, cable drum, sliding doors. Staircase with dual stringers, 14 treads, pipe handrails."},
+        {"id": "AP5", "name": "Walk — Automated Build Pipeline", "energy": 60,
+         "deliverable": "build_all_assets.py — regenerates all GLBs from source scripts",
+         "flashcard": "Reciprocal gait. One command regenerates every asset. Change a parameter, run build, and new GLBs appear."},
+        {"id": "AP6", "name": "Jump — Validation & Integrity Checks", "energy": 75,
+         "deliverable": "validate_assets.py — GLB header check, mesh count, material audit",
+         "flashcard": "A generated GLB could be 0 bytes or have 0 meshes. The validator catches this before it reaches the game engine."},
+        {"id": "AP7", "name": "Run — Game Engine Integration", "energy": 85,
+         "deliverable": "assets_viewer.html — Three.js loader demo with all assets",
+         "flashcard": "Assets aren't just files — they're visible in the game. Elevator doors slide. Gear meshes with another gear."},
+        {"id": "AP8", "name": "Leap — Parametric Variant Matrix", "energy": 92,
+         "deliverable": "12 gear variants + 9 pulley variants from parameter sweeps",
+         "flashcard": "Explosive generation. One script → parameter matrix → N GLB files. The pipeline proves it scales."},
+        {"id": "AP9", "name": "Fly — Version-Controlled Asset Registry", "energy": 96,
+         "deliverable": "asset_registry.json — every GLB tracked with source hash + params",
+         "flashcard": "Git commit hooks trigger regeneration if scripts change. CI validates. Registry tells which GLB came from which version."},
+        {"id": "AP10", "name": "Soar — Cross-Project Deployment", "energy": 100,
+         "deliverable": "Assets deployed to hyperpoly-terrain, Thrown Planet, Trench Builder",
+         "flashcard": "One material library. One gear generator. One elevator. Used across every project from a single source of truth."},
+    ]
+}
+
 HUMAN_MOBILITY = {
     "goal": "Full bipedal locomotion — developmental sequence",
     "checkpoints": [
@@ -284,6 +320,16 @@ def export_training_data(output_dir=None):
     with open(output_dir / "trench_builder_checkpoints.json", 'w') as f:
         json.dump(tb_cards, f, indent=2)
     
+    # ASSET PIPELINE
+    print("\n═══ ASSET PIPELINE ═══")
+    ap = CheckpointSystem(ASSET_PIPELINE)
+    ap_cards = ap.generate_flashcards()
+    print(f"  Flashcards: {len(ap_cards)} generated")
+    for card in ap_cards:
+        print(f"    {card['id']} | {card['energy_percent']:>3}% | {card['front'][:35]:<35} → {card['back'][:80]}")
+    with open(output_dir / "asset_pipeline_checkpoints.json", 'w') as f:
+        json.dump(ap_cards, f, indent=2)
+
     # Mechanical mobility
     print("\n═══ MECHANICAL MOBILITY ═══")
     mm = CheckpointSystem(MECHANICAL_MOBILITY)
@@ -327,11 +373,12 @@ def export_training_data(output_dir=None):
         "generated": datetime.now().isoformat(),
         "total_flashcards": len(flashcards) + len(mech_cards),
         "total_sprite_frames": sprite_sheet["total_frames"],
-        "domains": ["human_mobility", "trench_builder", "mechanical_mobility"],
+        "domains": ["human_mobility", "trench_builder", "asset_pipeline", "mechanical_mobility"],
         "output_files": [
             "human_mobility_flashcards.json",
             "human_mobility_sprite_sheet.json",
             "trench_builder_checkpoints.json",
+            "asset_pipeline_checkpoints.json",
             "mechanical_mobility_hypercheckpoints.json",
             "cross_domain_mapping.json",
         ],

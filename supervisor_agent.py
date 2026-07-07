@@ -1,35 +1,76 @@
 #!/usr/bin/env python
 """
 TRENCH BUILDER SUPERVISOR AGENT — The Foreman
-═══════════════════════════════════════════════════
-Watches all AI workers, reads GoPro footage, validates
-construction logic, and outputs hyperrealism directives.
+═══════════════════════════════════════════════
+Scans local build artifacts (HTML files, Python scripts) for building-code
+compliance patterns and hyperrealism material usage. Reads GoPro file metadata
+when available. Produces a JSON directives file for downstream agents.
+
+Current scope: file-content scanning (regex/keyword), GoPro file enumeration,
+building-code string matching. Not yet: frame extraction, 3D coordinate
+verification, cross-agent semantic analysis.
 
 DaShawn / Guinea Pig Trench LLC — May 2026
 """
-import os, json, time, hashlib
+
+import os, json, time, hashlib, sys
 from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
+
+from trench_config import PATHS
+
+# ═══════════════════════════════════════════════════════
+# STARTUP VALIDATION — Don't silently scan nothing
+# ═══════════════════════════════════════════════════════
+
+def validate_paths():
+    """
+    Check all required paths exist before scanning.
+    If a critical path is missing, warn loudly instead of producing empty output.
+    """
+    CONFIG_PATHS = {}
+    if hasattr(PATHS, 'gemini_brain'): CONFIG_PATHS['gemini_brain'] = PATHS.gemini_brain
+    if hasattr(PATHS, 'gemini_chats'): CONFIG_PATHS['gemini_chats'] = PATHS.gemini_chats
+    if hasattr(PATHS, 'kimi_plans'): CONFIG_PATHS['kimi_plans'] = PATHS.kimi_plans
+    if hasattr(PATHS, 'trench_builder'): CONFIG_PATHS['trench_builder'] = PATHS.trench_builder
+
+    missing = []
+    found = []
+    for name, path in CONFIG_PATHS.items():
+        p = Path(path)
+        if p.exists():
+            found.append(name)
+        else:
+            missing.append(name)
+
+    if missing:
+        print(f"[WARN] Supervisor — {len(missing)} path(s) not found:")
+        for name in missing:
+            print(f"       {name}: {CONFIG_PATHS[name]}")
+        print(f"[WARN] Continuing with {len(found)} available path(s).")
+        print(f"[WARN] Output will be partial. Fix paths in trench_config.py\n")
+
+    return missing
 
 # ═══════════════════════════════════════════════════════
 # CONFIG — Where to look
 # ═══════════════════════════════════════════════════════
 
 WATCH_PATHS = {
-    "gemini_brain":  Path.home() / ".gemini/antigravity/brain",
-    "gemini_chats":  Path.home() / ".gemini/tmp/dasha/chats",
-    "kimi_plans":    Path.home() / ".kimi/plans",
-    "kimi_sessions": Path.home() / ".kimi/sessions",
-    "claude_sessions": Path.home() / ".claude/projects/C--Users-dasha",
-    "hermes_memory": Path.home() / "AppData/Local/hermes/memories",
-    "trench_builder": Path.home() / "Projects/trench_builder",
-    "erdos_straus":   Path.home() / "Projects/erdos-straus",
-    "gopro_footage":  Path("G:/My Drive/Trench_Builder/go pro"),  # GoPro drop
-    "gdrive_archive": Path("G:/My Drive/Trench_Builder"),
+    "gemini_brain":  PATHS.gemini_brain,
+    "gemini_chats":  PATHS.gemini_chats,
+    "kimi_plans":    PATHS.kimi_plans,
+    "kimi_sessions": PATHS.kimi_sessions,
+    "claude_sessions": PATHS.claude_sessions,
+    "hermes_memory": PATHS.hermes_memory,
+    "trench_builder": PATHS.trench_builder,
+    "erdos_straus":  PATHS.erdos_straus,
+    "gopro_footage": PATHS.gopro_footage,
+    "gdrive_archive": PATHS.gdrive_trench,
 }
 
-OUTPUT_FILE = Path.home() / "Projects/trench_builder/supervisor_directives.json"
+OUTPUT_FILE = PATHS.supervisor_output
 
 # ═══════════════════════════════════════════════════════
 # BUILDING REALM RULES — What must be correct
@@ -451,6 +492,9 @@ def generate_directives():
 # ═══════════════════════════════════════════════════════
 
 if __name__ == "__main__":
+    # Validate paths before doing anything
+    missing = validate_paths()
+
     import sys
     
     if "--view-gopro" in sys.argv:

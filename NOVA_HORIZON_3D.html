@@ -3,7 +3,80 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>NOVA HORIZON 3D — Open World</title>
+<<<<<<< HEAD
 <link rel="stylesheet" href="nova_style.css">
+=======
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;overflow:hidden;color:#8b5cf6;font-family:'Rajdhani',sans-serif;user-select:none;-webkit-user-select:none}
+:root {
+  --theme-color: #8b5cf6;
+  --theme-color-rgb: 139, 92, 246;
+  --theme-color-light: #a78bfa;
+}
+canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1}
+body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdhani',sans-serif;user-select:none;-webkit-user-select:none}
+.scanlines{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:0.25;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.3) 2px,rgba(0,0,0,0.3) 4px)}
+.vignette{position:fixed;inset:0;z-index:19;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.7) 100%)}
+.crosshair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;pointer-events:none}
+.crosshair-r{position:absolute;width:20px;height:20px;top:-10px;left:-10px;border:1px solid rgba(var(--theme-color-rgb),0.4);border-radius:50%}
+.crosshair-d{position:absolute;width:3px;height:3px;top:-1.5px;left:-1.5px;background:var(--theme-color);border-radius:50%;box-shadow:0 0 6px var(--theme-color)}
+.hud{position:fixed;inset:0;z-index:10;pointer-events:none}
+.hud-panel{position:absolute;background:rgba(10,20,30,0.75);border:1px solid rgba(var(--theme-color-rgb),0.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:auto}
+.logo{top:14px;left:14px;padding:10px 18px;border-radius:0 12px 0 12px;display:flex;align-items:center;gap:10px}
+.logo h1{font-family:'Orbitron';font-size:16px;letter-spacing:3px;text-shadow:0 0 10px rgba(var(--theme-color-rgb),0.4)}
+.logo span{font-size:10px;opacity:0.6;letter-spacing:1px}
+.stats{top:14px;right:14px;padding:8px 16px;border-radius:12px 0 12px 0;display:flex;gap:16px}
+.st{text-align:center}.st .v{font-family:'Orbitron';font-size:14px;font-weight:700}.st .l{font-size:7px;opacity:0.5;letter-spacing:1px;text-transform:uppercase}
+.suit{bottom:14px;left:14px;padding:10px 14px;border-radius:0 12px 12px 0;display:flex;align-items:center;gap:10px}
+.suit-ring{position:relative;width:64px;height:64px}
+.suit-ring svg{transform:rotate(-90deg)}
+.suit-ring .v{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Orbitron';font-size:16px;font-weight:700}
+.suit-bars{display:flex;flex-direction:column;gap:4px}
+.sb{width:80px;height:5px;background:rgba(var(--theme-color-rgb),0.15);border-radius:3px;overflow:hidden}
+.sb-f{height:100%;border-radius:3px;transition:width 0.5s}
+.sb-f.h{background:var(--theme-color)}.sb-f.sh{background:#b0886e}.sb-f.e{background:#ff9f43}
+.obj{top:80px;left:14px;width:220px;padding:12px;border-radius:0 10px 10px 0;font-size:12px}
+.obj h3{font-family:'Orbitron';font-size:9px;letter-spacing:2px;opacity:0.5;margin-bottom:6px;text-transform:uppercase}
+.oi{display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid rgba(var(--theme-color-rgb),0.08)}
+.oi:last-child{border:none}
+.oi .d{font-size:10px;opacity:0.5}
+.oi.done{opacity:0.3;text-decoration:line-through}
+.weather{top:80px;right:14px;width:150px;padding:12px;border-radius:10px 0 0 10px;text-align:right}
+.notify{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:rgba(10,20,30,0.9);border:1px solid var(--theme-color);padding:16px 32px;border-radius:6px;font-family:'Orbitron';font-size:14px;letter-spacing:2px;text-align:center;opacity:0;transition:all 0.4s;z-index:100;box-shadow:0 0 30px rgba(var(--theme-color-rgb),0.2)}
+.notify.s{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.hotbar{bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;padding:6px 10px;border-radius:10px}
+.hs{width:56px;height:56px;border:1px solid rgba(var(--theme-color-rgb),0.2);border-radius:6px;background:rgba(0,20,30,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
+.hs.a{border-color:var(--theme-color);box-shadow:0 0 12px rgba(var(--theme-color-rgb),0.4),inset 0 0 8px rgba(var(--theme-color-rgb),0.2)}
+.hs .n{position:absolute;top:1px;left:4px;font-size:7px;opacity:0.4;font-family:'Orbitron'}
+.hs .i{font-size:22px}
+.hs .a{font-family:'Share Tech Mono';font-size:10px}
+.interact{position:fixed;top:56%;left:50%;transform:translateX(-50%);padding:4px 10px;background:rgba(0,0,0,0.7);border:1px solid var(--theme-color);border-radius:3px;font-size:11px;letter-spacing:1px;opacity:0;transition:opacity 0.3s;z-index:16;pointer-events:none}
+.interact.s{opacity:1}
+.dmg{position:fixed;inset:0;z-index:18;pointer-events:none;opacity:0;transition:opacity 0.2s;background:radial-gradient(ellipse at center,transparent 30%,rgba(255,0,0,0.3) 100%)}
+
+.minimap{position:fixed;bottom:20px;right:20px;width:180px;height:180px;z-index:12;border:2px solid rgba(139,92,246,0.3);border-radius:50%;overflow:hidden;background:rgba(5,15,25,0.85);display:none;box-shadow:0 0 20px rgba(139,92,246,0.15)}
+.minimap canvas{width:100%;height:100%;border-radius:50%}
+.inventory-panel{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,6,16,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.inventory-grid{display:grid;grid-template-columns:repeat(6,80px);gap:6px;padding:12px}
+.inv-slot{width:80px;height:80px;background:rgba(10,20,30,0.8);border:1px solid rgba(139,92,246,0.2);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:10px;color:#8aa1b5}
+.inv-slot:hover{border-color:#8b5cf6;box-shadow:0 0 12px rgba(139,92,246,0.3)}
+.inv-slot .ico{font-size:24px;margin-bottom:2px}
+.inv-slot .cnt{font-size:9px;font-family:'Share Tech Mono';color:#ffd700}
+.achieve-toast{position:fixed;top:120px;right:20px;z-index:300;background:rgba(10,20,30,0.95);border:1px solid #ffd700;border-radius:8px;padding:12px 20px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;font-family:'Rajdhani',sans-serif;max-width:280px;pointer-events:none}
+.achieve-toast.s{opacity:1;transform:translateX(0)}
+.achieve-toast .t{color:#ffd700;font-family:Orbitron;font-size:12px;letter-spacing:1px;margin-bottom:4px}
+.achieve-toast .d{color:#8aa1b5;font-size:10px}
+.boss-bar{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:250;display:none;flex-direction:column;align-items:center;gap:4px}
+.boss-bar .name{font-family:Orbitron;font-size:12px;color:#ff4444;letter-spacing:2px;text-shadow:0 0 12px rgba(255,0,0,0.5)}
+.boss-bar .track{width:300px;height:8px;background:rgba(255,0,0,0.15);border-radius:4px;overflow:hidden;border:1px solid rgba(255,0,0,0.3)}
+.boss-bar .fill{height:100%;background:linear-gradient(90deg,#ff0000,#ff4444,#ff6666);border-radius:4px;transition:width 0.3s}
+.weather-fx{position:fixed;inset:0;z-index:17;pointer-events:none;opacity:0;transition:opacity 2s}
+</style>
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 <base target="_blank">
 </head>
 <body>
@@ -13,8 +86,13 @@
 <div class="dmg" id="dmg"></div>
 <div class="hud">
   <div class="hud-panel logo">
+<<<<<<< HEAD
     <div class="logo-icon">
       <span class="logo-icon-text">N</span>
+=======
+    <div style="width:32px;height:32px;border:2px solid #8b5cf6;border-radius:50%;display:grid;place-items:center;animation:pulse 4s infinite">
+      <span style="font-size:8px;font-weight:700">N</span>
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     </div>
     <div><h1>NOVA HORIZON</h1><span>// OPEN WORLD 3D</span></div>
   </div>
@@ -68,6 +146,7 @@
 
 <!-- CDN: unpkg.com/jsdelivr. If CDN is down, vendor three.js locally: npm install three@0.160.0 and update paths. -->
 
+<<<<<<< HEAD
 <canvas id="minimap-canvas" width="180" height="180" class="minimap"></canvas>
 <div class="inventory-panel" id="inv-panel">
   <div class="inventory-content">
@@ -82,6 +161,35 @@
 <div class="achieve-toast" id="achieve-toast"><div class="t"></div><div class="d"></div></div>
 <div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill"></div></div></div>
 <div class="weather-fx" id="weather-fx"></div>
+=======
+<canvas id="minimap-canvas" width="180" height="180" class="minimap" style="display:none"></canvas>
+<div class="inventory-panel" id="inv-panel">
+  <div style="background:rgba(8,12,30,0.95);border:1px solid #8b5cf6;padding:20px;border-radius:8px;text-align:center;box-shadow:0 0 25px rgba(139,92,246,0.25)">
+    <h2 style="font-family:Orbitron;color:#8b5cf6;font-size:14px;letter-spacing:3px;margin-bottom:8px">INVENTORY</h2>
+    <div class="inventory-grid" id="inv-grid"></div>
+    <div style="margin-top:12px;font-size:11px;color:#8aa1b5;font-family:'Share Tech Mono'">
+      <span id="inv-credits">CREDITS: 12.4k</span> | <span id="inv-weight">WEIGHT: 0/250kg</span>
+    </div>
+    <button onclick="document.getElementById('inv-panel').style.display='none';controls.lock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [I]</button>
+  </div>
+</div>
+<div class="achieve-toast" id="achieve-toast"><div class="t"></div><div class="d"></div></div>
+<div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill" style="width:100%"></div></div></div>
+<div class="pause-menu" id="pause-screen" style="display:none; position:fixed; inset:0; z-index:9999; align-items:center; justify-content:center; background:rgba(2,6,16,0.85); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);">
+  <div style="background:rgba(8,12,30,0.95); border:2px solid #8b5cf6; padding:30px; border-radius:12px; text-align:center; box-shadow:0 0 35px rgba(139,92,246,0.3); width:350px;">
+    <h2 style="font-family:Orbitron; color:#8b5cf6; font-size:22px; letter-spacing:4px; margin-bottom:20px; text-shadow: 0 0 10px rgba(139,92,246,0.5)">SYSTEM PAUSED</h2>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <button onclick="togglePause()" style="padding:10px; background:rgba(139,92,246,0.15); border:1px solid #8b5cf6; color:#fff; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(139,92,246,0.35)'" onmouseout="this.style.background='rgba(139,92,246,0.15)'">RESUME</button>
+      <button onclick="saveGame()" style="padding:10px; background:rgba(255,215,0,0.1); border:1px solid #ffd700; color:#ffd700; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,215,0,0.2)'" onmouseout="this.style.background='rgba(255,215,0,0.1)'">SAVE GAME [F5]</button>
+      <button onclick="loadGame()" style="padding:10px; background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.5); color:#8aa1b5; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(139,92,246,0.2)'" onmouseout="this.style.background='rgba(139,92,246,0.1)'">LOAD GAME [F9]</button>
+      <button onclick="deleteSave()" style="padding:10px; background:rgba(255,68,68,0.1); border:1px solid #ff4444; color:#ff4444; font-family:Orbitron; font-size:12px; letter-spacing:2px; border-radius:6px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,68,68,0.2)'" onmouseout="this.style.background='rgba(255,68,68,0.1)'">DELETE SAVE</button>
+    </div>
+    <div style="margin-top:20px; font-size:9px; color:#8aa1b5; font-family:'Share Tech Mono'">
+      NOVA HORIZON ENGINE v3.1 | SYNC ACQUIRED
+    </div>
+  </div>
+</div>
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 
 <script src="js/game_design_core.js"></script>
 <script src="js/b_roll_scenarios.js"></script>
@@ -104,6 +212,7 @@ flashlight.position.set(0, 0, 0);
 cam.add(flashlight);
 flashlight.target.position.set(0, 0, -1);
 cam.add(flashlight.target);
+<<<<<<< HEAD
 
         // Programmatic Rim Light Addition (Hyperrealism Baseline)
         const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
@@ -111,6 +220,9 @@ cam.add(flashlight.target);
         scene.add(rimLight);
         
         scene.add(cam);
+=======
+scene.add(cam);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 cam.position.set(0, 4, 0);
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:document.getElementById('c')});
 renderer.setSize(innerWidth,innerHeight);
@@ -214,8 +326,319 @@ scene.add(sun);
 scene.add(new THREE.HemisphereLight('#8899cc', '#331108', 0.6));
 
 const controls = new PointerLockControls(cam, document.body);
+<<<<<<< HEAD
 controls.addEventListener('lock', () => document.body.style.cursor = 'none');
 controls.addEventListener('unlock', () => document.body.style.cursor = 'default');
+=======
+controls.addEventListener('lock', () => {
+  document.body.style.cursor = 'none';
+  gamePaused = false;
+  const pauseScreen = document.getElementById('pause-screen');
+  if (pauseScreen) pauseScreen.style.display = 'none';
+});
+controls.addEventListener('unlock', () => {
+  document.body.style.cursor = 'default';
+  
+  const startScreen = document.getElementById('start-screen');
+  const invPanel = document.getElementById('inv-panel');
+  const upgradeMenu = document.getElementById('upgrade-menu');
+  const mbModal = document.getElementById('mission-board-modal');
+  
+  const isOverlayOpen = (startScreen && startScreen.style.display !== 'none') || 
+                        (invPanel && invPanel.style.display === 'flex') || 
+                        (upgradeMenu && upgradeMenu.style.display === 'flex') ||
+                        (mbModal && mbModal.style.display === 'flex');
+                        
+  if (!isOverlayOpen) {
+    gamePaused = true;
+    const pauseScreen = document.getElementById('pause-screen');
+    if (pauseScreen) pauseScreen.style.display = 'flex';
+  }
+});
+
+// Faction Selection Modal Overlay Injector
+(function initFactionIntegration() {
+  const startScreen = document.createElement('div');
+  startScreen.id = 'start-screen';
+  startScreen.style.cssText = `
+    position: fixed; inset: 0; background: radial-gradient(circle, rgba(1, 10, 24, 0.98) 0%, rgba(0, 2, 5, 0.99) 100%);
+    z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #e0e0e0; font-family: 'Rajdhani', sans-serif;
+  `;
+  
+  const title = document.createElement('h1');
+  title.textContent = 'NOVA HORIZON 3D';
+  title.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-weight: 900; font-size: 48px;
+    margin-bottom: 20px; text-shadow: 0 0 25px rgba(139,92,246,0.45); letter-spacing: 6px;
+  `;
+  startScreen.appendChild(title);
+
+  const controlsBox = document.createElement('div');
+  controlsBox.style.cssText = `
+    color: #8aa1b5; font-size: 11px; line-height: 1.8; text-align: left;
+    margin-bottom: 20px; width: 520px; background: rgba(10, 20, 30, 0.75);
+    border: 1px solid rgba(139,92,246,0.22); padding: 18px 24px; border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Share Tech Mono', monospace;
+  `;
+  controlsBox.innerHTML = `
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">W/A/S/D</span> — Movement Walk<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">SPACE</span> — Jump vertical lift<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">MOUSE</span> — Pitch & Yaw look around<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">1-6 KEYS</span> — Select Active Loadout<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">CLICK</span> — Fire Weapons / Consume cells<br>
+    <span style="color:#8b5cf6;font-family:Orbitron;font-weight:700">E KEY</span> — Scan Wildlife / Acquire Signal
+  `;
+  startScreen.appendChild(controlsBox);
+
+  const selectTitle = document.createElement('h3');
+  selectTitle.textContent = 'SELECT FACTION LOADOUT';
+  selectTitle.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-size: 11px; letter-spacing: 2px; margin-bottom: 10px;
+  `;
+  startScreen.appendChild(selectTitle);
+
+  const cardsContainer = document.createElement('div');
+  cardsContainer.style.cssText = `
+    display: flex; gap: 8px; margin-bottom: 25px;
+  `;
+  
+  window.selectedFactionIndex = 0;
+
+  window.GameDesignCore.CHARACTERS.forEach((char, idx) => {
+    const card = document.createElement('div');
+    card.style.cssText = `
+      background: rgba(10,20,30,0.85); border: 1px solid rgba(139,92,246,0.2);
+      padding: 8px; border-radius: 5px; width: 85px; text-align: center;
+      cursor: pointer; transition: all 0.2s; color: #8aa1b5; font-size: 9px;
+    `;
+    if (idx === 0) {
+      card.style.borderColor = '#8b5cf6';
+      card.style.color = '#fff';
+      card.style.background = 'rgba(139,92,246,0.12)';
+    }
+    card.innerHTML = `
+      <div style="font-weight:bold;color:#ffd700;margin-bottom:4px;font-family:Orbitron;">${char.name.split(' ')[0]}</div>
+      <div style="font-size: 8px; line-height: 1.1;">${char.bonus.substring(0, 18)}...</div>
+    `;
+    card.onclick = (e) => {
+      e.stopPropagation();
+      cardsContainer.childNodes.forEach(c => {
+        c.style.borderColor = 'rgba(139,92,246,0.2)';
+        c.style.color = '#8aa1b5';
+        c.style.background = 'rgba(10,20,30,0.85)';
+      });
+      card.style.borderColor = '#8b5cf6';
+      card.style.color = '#fff';
+      card.style.background = 'rgba(139,92,246,0.12)';
+      window.selectedFactionIndex = idx;
+    };
+    cardsContainer.appendChild(card);
+  });
+  startScreen.appendChild(cardsContainer);
+
+  const startButton = document.createElement('div');
+  startButton.textContent = 'START COGNITIVE SYNC';
+  startButton.style.cssText = `
+    color: #8b5cf6; font-family: 'Orbitron'; font-size: 14px; letter-spacing: 2px;
+    cursor: pointer; padding: 10px 24px; border: 1px solid #8b5cf6; border-radius: 4px;
+    transition: all 0.2s; background: rgba(139,92,246,0.08); font-weight: bold;
+  `;
+  startButton.onmouseover = () => {
+    startButton.style.background = 'rgba(139,92,246,0.2)';
+    startButton.style.color = '#fff';
+  };
+  startButton.onmouseout = () => {
+    startButton.style.background = 'rgba(139,92,246,0.08)';
+    startButton.style.color = '#8b5cf6';
+  };
+  startButton.onclick = (e) => {
+    e.stopPropagation();
+    const faction = window.GameDesignCore.CHARACTERS[window.selectedFactionIndex];
+    window.selectedFaction = faction;
+    const stats = window.GameDesignCore.FACTION_STATS[faction.id];
+    player.maxShield = Math.ceil(player.maxShield * stats.ground_hull_mult);
+    player.shield = player.maxShield;
+    player.maxHp = Math.ceil(player.maxHp * stats.ground_hull_mult);
+    player.hp = player.maxHp;
+
+    // MECHA SUIT v3.0 — full vinculum-validated suit (PASS: 249/250kg)
+    const SUIT = {"speed_mult":1.02,"shield_mult":1.13,"energy_mult":1.15,"damage_reduction":0.10,"mass_kg":169,"max_speed_ms":3.5};
+    player.maxShield = Math.ceil(player.maxShield * SUIT.shield_mult);
+    player.shield = player.maxShield;
+    player.maxHp = Math.ceil(player.maxHp * SUIT.shield_mult);
+    player.hp = player.maxHp;
+    player.maxEnergy = Math.ceil(player.maxEnergy * SUIT.energy_mult);
+    player.energy = player.maxEnergy;
+    player.suitMass = SUIT.mass_kg;
+    player.suitSpeed = SUIT.max_speed_ms;
+    player.suitDamageReduction = SUIT.damage_reduction;
+    console.log('MECHA SUIT v3.0 ONLINE —', SUIT.mass_kg+'kg,', 'armor +'+(SUIT.shield_mult-1)*100+'%,', 'power +'+(SUIT.energy_mult-1)*100+'%');
+    
+    startScreen.style.display = 'none';
+    controls.lock();
+    
+    window.gameDay = 1;
+    window.lastDistance = 0;
+    
+    try {
+      window.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      // Ambient drone — low hum that breathes with the scene
+      window._droneOsc = window.audioCtx.createOscillator();
+      window._droneGain = window.audioCtx.createGain();
+      window._droneOsc.type = 'sine';
+      window._droneOsc.frequency.value = 55;
+      window._droneGain.gain.value = 0.03;
+      window._droneOsc.connect(window._droneGain);
+      window._droneGain.connect(window.audioCtx.destination);
+      window._droneOsc.start();
+    } catch(ex){}
+  };
+  startScreen.appendChild(startButton);
+  document.body.appendChild(startScreen);
+
+  document.removeEventListener('click', window.lockHandler);
+  window.lockHandler = () => {
+    if (startScreen.style.display !== 'none') return;
+    controls.lock();
+  };
+  document.addEventListener('click', window.lockHandler);
+
+  // Pause menu overlay
+  pauseScreen = document.createElement('div');
+  pauseScreen.id = 'pause-screen';
+  pauseScreen.style.cssText = `
+    position:fixed; inset:0; background:rgba(2,6,16,0.92); z-index:200;
+    display:none; flex-direction:column; align-items:center; justify-content:center;
+    font-family:'Rajdhani',sans-serif; color:#8b5cf6; backdrop-filter:blur(8px);
+  `;
+  pauseScreen.innerHTML = `
+    <h1 style="font-family:Orbitron; font-size:42px; letter-spacing:6px; margin-bottom:30px; text-shadow:0 0 20px rgba(139,92,246,0.3);">SYSTEM PAUSED</h1>
+    <div style="display:flex; gap:40px; width:700px;">
+      <div style="flex:1; background:rgba(10,20,30,0.8); border:1px solid rgba(139,92,246,0.2); padding:20px; border-radius:8px;">
+        <h3 style="font-family:Orbitron; font-size:10px; letter-spacing:3px; opacity:0.5; margin-bottom:12px;">SUIT STATUS</h3>
+        <div id="pause-suit-stats" style="font-size:12px; line-height:2;"></div>
+      </div>
+      <div style="flex:1; background:rgba(10,20,30,0.8); border:1px solid rgba(139,92,246,0.2); padding:20px; border-radius:8px;">
+        <h3 style="font-family:Orbitron; font-size:10px; letter-spacing:3px; opacity:0.5; margin-bottom:12px;">OBJECTIVES</h3>
+        <div id="pause-objectives" style="font-size:12px; line-height:2;"></div>
+      </div>
+    </div>
+    <button id="btn-resume" style="margin-top:30px; padding:12px 40px; background:rgba(139,92,246,0.1); border:1px solid #8b5cf6; color:#8b5cf6; font-family:Orbitron; font-size:14px; letter-spacing:3px; border-radius:4px; cursor:pointer;">RESUME</button>
+    <button id="btn-quit" style="margin-top:10px; padding:8px 20px; background:transparent; border:1px solid rgba(255,71,87,0.3); color:rgba(255,71,87,0.6); font-family:Orbitron; font-size:10px; letter-spacing:2px; border-radius:4px; cursor:pointer;">RETURN TO FACTION SELECT</button>
+  `;
+  document.body.appendChild(pauseScreen);
+  })();
+
+  function togglePause() {
+      const startScreen = document.getElementById('start-screen');
+      if (!startScreen || startScreen.style.display !== 'none') return;
+    gamePaused = !gamePaused;
+    if (gamePaused) {
+      controls.unlock();
+      pauseScreen.style.display = 'flex';
+      const faction = window.selectedFaction || {name:'UNKNOWN'};
+      document.getElementById('pause-suit-stats').innerHTML = 'FACTION: <span style=color:#ffd700>' + faction.name.toUpperCase() + '</span><br>SHIELD: ' + player.shield + '/' + player.maxShield + '<br>ENERGY: ' + Math.floor(player.energy) + '/' + player.maxEnergy + '<br>HP: ' + Math.floor(player.hp) + '/' + player.maxHp + '<br>SUIT MASS: ' + (player.suitMass||169) + 'kg / 250kg<br>ARMOR: +' + ((player.suitDamageReduction||0.1)*100).toFixed(0) + '% reduction<br>DAY: ' + (window.gameDay||1);
+      document.getElementById('pause-objectives').innerHTML = 'OUTPOST: ' + (player.hasSignal?'ACQUIRED':'SEARCHING') + '<br>WILDLIFE: ' + player.wildlifeScanned + '/6 scanned<br>HOSTILES: ' + player.hostilesKilled + '/8 neutralized<br>DATAPADS: ' + player.datapadsRec + ' recovered<br>CREDITS: ' + (player.credits/1000).toFixed(1) + 'k';
+    } else {
+      pauseScreen.style.display = 'none';
+      controls.lock();
+    }
+  }
+
+  document.getElementById('btn-resume').onclick = () => togglePause();
+  document.getElementById('btn-quit').onclick = () => {
+    gamePaused = false;
+    pauseScreen.style.display = 'none';
+    document.getElementById('start-screen').style.display = 'flex';
+    startScreen.querySelector('h1').textContent = 'NOVA HORIZON 3D';
+    const hint = startScreen.querySelector('.start-hint') || startScreen.querySelector('p'); if (hint) hint.textContent = 'CLICK TO IGNITE ENGINES';
+  };
+
+  function pickDialogue(tone) {
+    const seeds = window.DIALOGUE_SEEDS || [];
+    if (!seeds.length) return null;
+    const toneMap = {hostile:[0,1,2],seductive:[3,4,5],desperate:[6,7,8],philosophical:[9,10,11],betrayal:[12,13,14]};
+    const pool = toneMap[tone] || [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+    return seeds[pool[Math.floor(Math.random()*pool.length)]];
+  }
+
+  function pickCharacter() {
+    const chars = window.CHARACTERS || [];
+    return chars.length ? chars[Math.floor(Math.random()*chars.length)] : null;
+  }
+
+function triggerTransplantEvent(ev) {
+  if (!ev) return;
+  controls.unlock();
+  
+  let modal = document.getElementById('event-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'event-modal';
+    modal.style.cssText = `
+      position: fixed; inset: 0; background: rgba(1, 4, 8, 0.94);
+      z-index: 10001; display: none; align-items: center; justify-content: center;
+      flex-direction: column; color: #e0e0e0; font-family: 'Share Tech Mono', monospace;
+    `;
+    modal.innerHTML = `
+      <div style="background: rgba(8, 12, 30, 0.95); border: 1px solid #ff8800; padding: 30px; border-radius: 8px; width: 450px; text-align: center; box-shadow: 0 0 25px rgba(255, 136, 0, 0.35);">
+        <h2 id="event-title" style="color: #ff8800; letter-spacing: 3px; margin-bottom: 15px; font-family: Orbitron;">EVENT</h2>
+        <p id="event-text" style="font-size: 13px; line-height: 1.6; white-space: pre-wrap; margin-bottom: 20px;"></p>
+        <button id="event-close-btn" style="margin-top: 20px; padding: 10px 25px; background: rgba(255,136,0,0.15); border: 1px solid #ff8800; color: #ff8800; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-weight: bold;">ACKNOWLEDGE</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  document.getElementById('event-title').textContent = ev.type.toUpperCase().replace('_', ' ');
+  
+  let desc = '';
+  let action = () => {};
+
+  if (ev.type === 'market_crash') {
+    const d = pickDialogue('philosophical');
+    desc = `COGNITIVE MATRIX SHIFT!\n` + (d || `Forced data recalibration. Lost -10% credits.`);
+    action = () => { player.credits = Math.max(0, Math.floor(player.credits * 0.9)); };
+  } else if (ev.type === 'price_surge') {
+    const d = pickDialogue('seductive');
+    desc = `MARKET REPLENISHED!\n` + (d || `Credit account received auxiliary payout (+15%).`);
+    action = () => { player.credits = Math.floor(player.credits * 1.15); };
+  } else if (ev.type === 'police_raid') {
+    const d = pickDialogue('hostile');
+    desc = `VANGUARD SCANNER LOCK!\n` + (d || `Authorities fine you. Lost -500 credits.`);
+    action = () => { player.credits = Math.max(0, player.credits - 500); };
+  } else if (ev.type === 'pirate_ambush') {
+    const c = pickCharacter();
+    const d = pickDialogue('hostile');
+    desc = (c ? c.name.toUpperCase() + ' AMBUSH!\n' : 'ORBITAL DEBRIS COLLISION!\n') + (d || `Hull shielding compromised by minor impact.`);
+    action = () => {
+      player.shield = Math.max(10, player.shield - 25);
+      // Spawn the character in the world if one was picked
+      if (c) {
+        const dist = 12 + Math.random() * 4;
+        const angle = Math.random() * Math.PI * 2;
+        spawnCharacter(c.name, cam.position.x + Math.cos(angle) * dist, cam.position.z + Math.sin(angle) * dist);
+      }
+    };
+  } else if (ev.type === 'lucky_find') {
+    desc = `ABANDONED RECON CACHE UNLOCKED!\nRecovered credits (+${ev.cash}) and energy cell.`;
+    action = () => { player.credits += ev.cash; player.energy = Math.min(player.maxEnergy, player.energy + 20); };
+  } else if (ev.type === 'wormhole') {
+    desc = `TEMPORAL ANOMALY DETECTED!\nPlayer sync frequency stabilized (+5%).`;
+    action = () => { player.sync = Math.min(100, player.sync + 5); };
+  }
+
+  document.getElementById('event-text').textContent = desc;
+  modal.style.display = 'flex';
+
+  document.getElementById('event-close-btn').onclick = () => {
+    action();
+    modal.style.display = 'none';
+    controls.lock();
+  };
+}
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 
 // Faction Selection Modal Overlay Injector
 (function initFactionIntegration() {
@@ -560,8 +983,12 @@ function updateChunks() {
   const ccx = Math.floor(cam.position.x / CHUNK);
   const ccz = Math.floor(cam.position.z / CHUNK);
   const needed = new Set();
-  for (let x = -3; x <= 3; x++) {
-    for (let z = -3; z <= 3; z++) {
+  
+  // FracType Spatial Budgeting: higher torsion shrinks render distance
+  const renderDist = player.torsion > 80 ? 1 : (player.torsion > 50 ? 2 : 3);
+  
+  for (let x = -renderDist; x <= renderDist; x++) {
+    for (let z = -renderDist; z <= renderDist; z++) {
       const key = `${ccx+x},${ccz+z}`;
       needed.add(key);
       if (!chunks.has(key)) chunks.set(key, buildChunk(ccx+x, ccz+z));
@@ -576,6 +1003,7 @@ function updateChunks() {
 const TREE_COUNT = 200;
 const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 3, 5);
 const leavesGeo = new THREE.ConeGeometry(2, 4, 6);
+<<<<<<< HEAD
 const trunkMat = new THREE.MeshPhysicalMaterial({color:'#5c4033',
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
@@ -588,6 +1016,10 @@ const leavesMat = new THREE.MeshPhysicalMaterial({color:'#3a7a2f',
         transmission: 0.3,
         thickness: 0.5
     });
+=======
+const trunkMat = new THREE.MeshStandardMaterial({color:'#5c4033'});
+const leavesMat = new THREE.MeshStandardMaterial({color:'#3a7a2f'});
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 
 const trunkInstanced = new THREE.InstancedMesh(trunkGeo, trunkMat, TREE_COUNT);
 trunkInstanced.castShadow = true;
@@ -678,12 +1110,16 @@ scene.add(leavesInstanced);
 // Rocks instanced
 const ROCK_COUNT = 150;
 const rockGeo = new THREE.IcosahedronGeometry(1.0, 1);
+<<<<<<< HEAD
 const rockMat = new THREE.MeshPhysicalMaterial({color:'#555555', roughness:0.8,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     });
+=======
+const rockMat = new THREE.MeshStandardMaterial({color:'#555555', roughness:0.8});
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 const rockInstanced = new THREE.InstancedMesh(rockGeo, rockMat, ROCK_COUNT);
 rockInstanced.castShadow = true;
 rockInstanced.receiveShadow = true;
@@ -731,12 +1167,16 @@ for (let i = 0; i < 10; i++) {
 const wildlife = [];
 const wildMeshes = [];
 for (let i = 0; i < 8; i++) {
+<<<<<<< HEAD
   const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshPhysicalMaterial({color:'#b0886e',emissive:'#003322',emissiveIntensity:0.2,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     }));
+=======
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshStandardMaterial({color:'#b0886e',emissive:'#003322',emissiveIntensity:0.2}));
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   body.castShadow = true;
   body.position.set((Math.random()-0.5)*WORLD*0.6, 2, (Math.random()-0.5)*WORLD*0.6);
   scene.add(body);
@@ -862,23 +1302,31 @@ function spawnCharacter(name, worldX, worldZ) {
     // Procedural fallback — colored biped
     const body = new THREE.Mesh(
       new THREE.CylinderGeometry(0.3, 0.4, 1.2, 8),
+<<<<<<< HEAD
       new THREE.MeshPhysicalMaterial({ color: 0x8b5cf6, roughness: 0.5,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     })
+=======
+      new THREE.MeshStandardMaterial({ color: 0x8b5cf6, roughness: 0.5 })
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     );
     body.position.y = 0.6;
     proxy.add(body);
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.22, 8, 6),
+<<<<<<< HEAD
       new THREE.MeshPhysicalMaterial({ color: 0xa78bfa, roughness: 0.4,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     })
+=======
+      new THREE.MeshStandardMaterial({ color: 0xa78bfa, roughness: 0.4 })
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     );
     head.position.y = 1.35;
     proxy.add(head);
@@ -945,10 +1393,17 @@ function showCharacterDialogue(name, text) {
 const envAssets = {};  // key → { scene, geometry, material, loaded }
 const ENV_ASSETS = {
   // Trees
+<<<<<<< HEAD
   tree_pine:   '/assets/environment/tree_pine_hf.glb',
   tree_oak:    '/assets/environment/tree_oak_hf.glb',
   tree_dead:   '/assets/environment/tree_dead_hf.glb',
   tree_alien:  '/assets/environment/tree_alien_hf.glb',
+=======
+  tree_pine:   '/assets/environment/tree_pine_v1.glb',
+  tree_oak:    '/assets/environment/tree_oak_v1.glb',
+  tree_dead:   '/assets/environment/tree_dead_v1.glb',
+  tree_alien:  '/assets/environment/tree_alien_v1.glb',
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // Rocks
   rock_boulder:  '/assets/environment/rock_boulder_v1.glb',
   rock_crystal:  '/assets/environment/rock_crystal_v1.glb',
@@ -1778,6 +2233,7 @@ gltfLoader.load(
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
+<<<<<<< HEAD
           child.material = new THREE.MeshPhysicalMaterial({
             color: colorHex, roughness: 0.1, metalness: 0.9,
             flatShading: true, emissive: glowHex, emissiveIntensity: 0.6,
@@ -1786,6 +2242,12 @@ gltfLoader.load(
         transmission: 0.3,
         thickness: 0.5
     });
+=======
+          child.material = new THREE.MeshStandardMaterial({
+            color: colorHex, roughness: 0.1, metalness: 0.9,
+            flatShading: true, emissive: glowHex, emissiveIntensity: 0.6
+          });
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
         }
       });
     };
@@ -1796,18 +2258,27 @@ gltfLoader.load(
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
+<<<<<<< HEAD
           child.material = new THREE.MeshPhysicalMaterial({
+=======
+          child.material = new THREE.MeshStandardMaterial({
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
             map: spriteTex,
             roughness: 0.3,
             metalness: 0.6,
             emissive: 0x442244,
             emissiveIntensity: 0.3,
+<<<<<<< HEAD
             emissiveMap: spriteTex,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     });
+=======
+            emissiveMap: spriteTex
+          });
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
         }
       });
     };
@@ -1851,7 +2322,7 @@ const player = {
   suitStatus: 100, credits: 12450, level: 24, sync: 98,
   weapon: 0, ammo: [32, 120, 3, 5, 2, 1],
   wildlifeScanned: 0, hostilesKilled: 0, datapadsRec: 0, hasSignal: false,
-  yVel: 0, onGround: true,
+  yVel: 0, onGround: true, torsion: 0, kssFlow: 100
 };
 window.breathe = 0.8;
 const weapons = [
@@ -2102,7 +2573,11 @@ function toggleUpgradeMenu() {
     </div>`;
   });
   html += '</div><div id="upg-msg" style="margin-top:8px;font-size:10px;color:#88ffcc;height:16px"></div>';
+<<<<<<< HEAD
   html += '<button onclick="document.getElementById(\'upgrade-menu\').style.display=\'none\';document.body.requestPointerLock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [U]</button>';
+=======
+  html += '<button onclick="document.getElementById('upgrade-menu').style.display='none';document.body.requestPointerLock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [U]</button>';
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   html += '</div>';
   menu.innerHTML = html;
   document.body.appendChild(menu);
@@ -2176,6 +2651,20 @@ function deleteSave() {
   notify('SAVE DELETED');
 }
 
+<<<<<<< HEAD
+=======
+function togglePause() {
+  const startScreen = document.getElementById('start-screen');
+  if (startScreen && startScreen.style.display !== 'none') return;
+  
+  if (gamePaused) {
+    controls.lock();
+  } else {
+    controls.unlock();
+  }
+}
+
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 // Initialize inventory
 window._inventory = window._inventory || [];
 window._weaponUpgrades = window._weaponUpgrades || {};
@@ -2208,6 +2697,13 @@ function animate(time) {
   const dt = Math.min(time - (animate._last || time), 50);
   animate._last = time;
 
+<<<<<<< HEAD
+=======
+  // Torsion Decay
+  if (player.torsion > 0) player.torsion = Math.max(0, player.torsion - 0.05 * dt * 0.06);
+  if (player.kssFlow < 100) player.kssFlow = Math.min(100, player.kssFlow + 0.05 * dt * 0.06);
+
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // Animate sprite sheet on mecha knee
   updateSpriteAnimation(dt * 0.001);
 
@@ -2223,18 +2719,36 @@ function animate(time) {
   // Parallax sky dome uniforms
   skyMat.uniforms.uCameraPos.value.copy(cam.position);
   skyMat.uniforms.uBreathe.value = window.breathe;
+<<<<<<< HEAD
   skyMat.uniforms.uTime.value = time * 0.001;
+=======
+  skyMat.uniforms.uTime.value = time * 0.001 + (player.torsion * 0.1);
+
+  // HUD Glitch and Torsion UI
+  const hudOpacity = 1 - (player.torsion / 200);
+  const hudTransform = player.torsion > 50 ? `translate(${(Math.random()-0.5)*player.torsion*0.1}px, ${(Math.random()-0.5)*player.torsion*0.1}px)` : 'none';
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 
   // Ambient pulse — breathing light strobe on scene + HUD outline
   window.breathe = 0.8 + Math.sin(time * 0.0015) * 0.2;
   ambientPulse.intensity = 0.9 + Math.sin(time * 0.0015) * 0.3;
   // Audio sync — drone hum follows breath
   if (window._droneOsc && window._droneGain) {
+<<<<<<< HEAD
     window._droneOsc.frequency.value = 48 + window.breathe * 18;
     window._droneGain.gain.value = 0.02 + window.breathe * 0.04;
   }
   document.querySelectorAll('.hud-panel').forEach(el => {
     el.style.boxShadow = `0 0 ${8 + window.breathe * 12}px rgba(139,92,246,${0.15 + window.breathe * 0.2})`;
+=======
+    window._droneOsc.frequency.value = 48 + window.breathe * 18 + player.torsion;
+    window._droneGain.gain.value = 0.02 + window.breathe * 0.04;
+  }
+  document.querySelectorAll('.hud-panel').forEach(el => {
+    el.style.opacity = hudOpacity;
+    el.style.transform = hudTransform;
+    el.style.boxShadow = `0 0 ${8 + window.breathe * 12 + player.torsion}px rgba(${player.torsion>50?'255,0,0':'139,92,246'},${0.15 + window.breathe * 0.2})`;
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   });
   // Particle size pulse — all spawned particles scale with breath
   if (window._particles) {
@@ -2313,8 +2827,15 @@ function update(dt) {
   const dayBrightness = 0.4 + Math.sin(dayProgress * Math.PI * 2) * 0.6;
   sun.intensity = 0.3 + dayBrightness * 1.5;
   sun.color.setHSL(0.12, 0.4, 0.3 + dayBrightness * 0.5);
+<<<<<<< HEAD
   ambientPulse.intensity = 0.3 + dayBrightness * 0.6;
   scene.fog.density = 0.0006 - dayBrightness * 0.0003;
+=======
+  
+  const torsionMod = player.torsion / 100;
+  ambientPulse.intensity = 0.3 + dayBrightness * 0.6 + (torsionMod * 0.5);
+  scene.fog.density = 0.0006 - dayBrightness * 0.0003 + (torsionMod * 0.002);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // Sky brightness tied to cycle
   skyMat.uniforms.uBreathe.value = window.breathe * (0.5 + dayBrightness * 0.5);
   
@@ -2447,12 +2968,16 @@ function update(dt) {
 
             // Loot drop — glowing orb with random reward
             const lootGeo = new THREE.SphereGeometry(0.35, 8, 8);
+<<<<<<< HEAD
             const lootMat = new THREE.MeshPhysicalMaterial({color:0xffd700, emissive:0x553300, emissiveIntensity:0.7, roughness:0.2,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
         transmission: 0.3,
         thickness: 0.5
     });
+=======
+            const lootMat = new THREE.MeshStandardMaterial({color:0xffd700, emissive:0x553300, emissiveIntensity:0.7, roughness:0.2});
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
             const loot = new THREE.Mesh(lootGeo, lootMat);
             loot.position.copy(hostileMeshes[j].position);
             loot.position.y += 1.5;
@@ -2559,6 +3084,74 @@ function update(dt) {
     }
   }
 
+<<<<<<< HEAD
+=======
+
+// ═══ BOSS SYSTEM — elite hostiles with health bars and special drops ═══
+function spawnBoss(x, z) {
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(2.5, 2), new THREE.MeshStandardMaterial({color:'#440000',emissive:'#220000',emissiveIntensity:0.6,roughness:0.3}));
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(3, 0.3, 8, 24), new THREE.MeshBasicMaterial({color:'#ff0000'}));
+  body.add(ring);
+  const crown = new THREE.Mesh(new THREE.ConeGeometry(2, 3, 6), new THREE.MeshStandardMaterial({color:'#ff4444',emissive:'#440000',emissiveIntensity:0.8}));
+  crown.position.y = 2.5;
+  body.add(crown);
+  body.castShadow = true;
+  body.position.set(x, getH(x,z)+5, z);
+  scene.add(body);
+  
+  const idx = hostiles.length;
+  hostileMeshes.push(body);
+  hostiles.push({
+    mesh: body, hp: 300, maxHp: 300, speed: 0.04, fireTimer: 0, alive: true,
+    isBoss: true, name: 'OVERLORD ' + ['ZEK','THRAX','VORN','MALAK'][Math.floor(Math.random()*4)]
+  });
+  
+  document.getElementById('boss-bar').style.display = 'flex';
+  document.getElementById('boss-bar').querySelector('.name').textContent = hostiles[idx].name;
+  
+  notify('⚠ BOSS ENCOUNTER: ' + hostiles[idx].name + ' ⚠');
+  return idx;
+}
+
+function updateBossBar() {
+  const boss = hostiles.find(h => h.alive && h.isBoss);
+  const bar = document.getElementById('boss-bar');
+  if (!boss) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+  bar.querySelector('.name').textContent = boss.name;
+  document.getElementById('boss-fill').style.width = (boss.hp / boss.maxHp * 100) + '%';
+}
+
+// Boss spawns every 5 game days when far from outpost
+
+function spawnHostile() {
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshStandardMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4}));
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.15, 8, 16), new THREE.MeshBasicMaterial({color:'#ff0000'}));
+  body.add(ring);
+  body.castShadow = true;
+  const a = Math.random() * Math.PI * 2;
+  body.position.set(cam.position.x + Math.cos(a) * 30, getH(cam.position.x+Math.cos(a)*30, cam.position.z+Math.sin(a)*30)+4, cam.position.z + Math.sin(a) * 30);
+  scene.add(body);
+  hostileMeshes.push(body);
+  hostiles.push({mesh: body, hp: 60, maxHp: 60, speed: 0.06, fireTimer: 0, alive: true});
+}
+
+function checkBossSpawning() {
+  if (hostiles.some(h => h.alive && h.isBoss)) return; // Only one boss at a time
+  const day = window.gameDay || 1;
+  if (day % 5 !== 0) return;
+  // Guard: only spawn once per qualifying day
+  if (window._bossSpawnedDay === day) return;
+  window._bossSpawnedDay = day;
+  const distFromOutpost = cam.position.distanceTo(outpostG.position);
+  if (distFromOutpost < 200) return;
+  
+  const angle = Math.random() * Math.PI * 2;
+  const d = 80 + Math.random() * 60;
+  spawnBoss(cam.position.x + Math.cos(angle) * d, cam.position.z + Math.sin(angle) * d);
+}
+
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // Hostile respawn after 30s near player
   for (let i = 0; i < hostiles.length; i++) {
     const h = hostiles[i];
@@ -2699,6 +3292,11 @@ function fire() {
   const w = weapons[player.weapon];
   if (player.ammo[player.weapon] <= 0) return;
 
+<<<<<<< HEAD
+=======
+  player.torsion = Math.min(100, player.torsion + 5);
+
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // Audio trigger
   if (window.audioCtx) {
     window.GameDesignCore.playProceduralLaser(window.audioCtx, window.audioCtx.currentTime);
@@ -2738,6 +3336,11 @@ function spawnParticles(pos, color, count) {
 }
 
 function takeDamage(amount) {
+<<<<<<< HEAD
+=======
+  player.torsion = Math.min(100, player.torsion + 25);
+  player.kssFlow = Math.max(0, player.kssFlow - 20);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   // MECHA SUIT v3.0 armor — 10% damage reduction from validated plating
   if (player.suitDamageReduction) amount *= (1 - player.suitDamageReduction);
   if (player.shield > 0) {
@@ -2773,6 +3376,11 @@ function interact() {
       if (r.im) { r.im.setMatrixAt(r.localIdx, dummy.matrix); r.im.instanceMatrix.needsUpdate = true; }
       const minerals = 50 + Math.floor(Math.random() * 150);
       player.credits += minerals;
+<<<<<<< HEAD
+=======
+      player.kssFlow = Math.min(100, player.kssFlow + 5);
+      player.torsion = Math.max(0, player.torsion - 5);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
       notify('MINED +' + minerals + ' CREDITS');
       return;
     }

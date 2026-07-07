@@ -1,0 +1,8 @@
+{
+  "name": "storm-cycle",
+  "type": "dissipative",
+  "channels": ["water", "organic"],
+  "rate": 0.005,
+  "mode": "dissipative",
+  "classification": "STABLE"
+}

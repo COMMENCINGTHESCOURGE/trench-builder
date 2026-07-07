@@ -21,6 +21,8 @@ import os, json, re, sys
 from pathlib import Path
 from datetime import datetime
 
+from trench_config import PATHS
+
 # ═══════════════════════════════════════════════════════
 # 1. KNOWLEDGE CORPUS — What we know exists
 # ═══════════════════════════════════════════════════════
@@ -107,10 +109,10 @@ def find_deltas():
     
     # Scan all projects
     projects = {
-        "trench_builder": scan_project(os.path.expanduser("~/Projects/trench_builder")),
-        "avatar": scan_project(os.path.expanduser("~/Projects/avatar")),
-        "erdos_straus": scan_project(os.path.expanduser("~/Projects/erdos-straus")),
-        "ale": scan_project(os.path.expanduser("~/Projects/ale")),
+        "trench_builder": scan_project(PATHS.trench_builder),
+        "avatar": scan_project(PATHS.projects / "avatar"),
+        "erdos_straus": scan_project(PATHS.erdos_straus),
+        "ale": scan_project(PATHS.projects / "ale"),
     }
     
     # Count statuses
@@ -161,7 +163,7 @@ def extract_agent_insights():
     insights = []
     
     # Gemini CLI insights
-    gemini_brain = Path.home() / ".gemini/antigravity/brain"
+    gemini_brain = PATHS.gemini_brain
     if gemini_brain.exists():
         for entry in gemini_brain.iterdir():
             if entry.is_dir():
@@ -179,7 +181,7 @@ def extract_agent_insights():
                             })
     
     # Kimi CLI insights
-    kimi_history = Path.home() / ".kimi/user-history"
+    kimi_history = PATHS.home / ".kimi/user-history"
     if kimi_history.exists():
         for f in kimi_history.glob("*.jsonl"):
             size = f.stat().st_size
@@ -314,7 +316,7 @@ if __name__ == "__main__":
         "insights": insights,
     }
     
-    export_path = Path.home() / "Projects/trench_builder/delta_report.json"
+    export_path = PATHS.delta_report
     with open(export_path, 'w') as f:
         json.dump(export, f, indent=2, default=str)
     print(f"  Report exported: {export_path}")

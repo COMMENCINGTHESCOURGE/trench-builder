@@ -1,51 +1,64 @@
 #!/usr/bin/env python
 """FRACTYPE v6 — Overline Mode. Every vinculum afterlife as a typed diacritic macro."""
 
-# Modes
-MODES = {
-    "overline":   {"glyph": chr(9472), "meaning": "GROUPING", "origin": "Al-Hassar 12thC"},
-    "radical":    {"glyph": chr(9472), "meaning": "ROOT", "origin": "Rudolff 1525"},
-    "repeat":     {"glyph": chr(9472), "meaning": "INFINITE", "origin": "Marsh 18thC"},
-    "conjugate":  {"glyph": chr(9472), "meaning": "MIRROR", "origin": "Modern"},
-    "complement": {"glyph": chr(9472), "meaning": "OUTSIDE", "origin": "Modern"},
-    "negation":   {"glyph": chr(9472), "meaning": "CORRECT", "origin": "Modern"},
-    "amplify":    {"glyph": chr(9472), "meaning": "MULTIPLY", "origin": "Roman"},
-    "fraction":   {"glyph": chr(9472), "meaning": "DIVIDE", "origin": "Al-Hassar 12thC"},
+import sys
+from pathlib import Path
+
+# Anchor to the canonical bridge schema
+bridge_path = Path(__file__).parent.parent / "fractype" / "bridge"
+sys.path.insert(0, str(bridge_path))
+
+from fractype_schema import FracNode, VinculumRole
+
+# Modes mapping from ad-hoc strings to canonical VinculumRole
+MODE_TO_ROLE = {
+    "overline":   VinculumRole.GROUPING,
+    "radical":    VinculumRole.RADICAL,
+    "repeat":     VinculumRole.REPETITION,
+    "conjugate":  VinculumRole.CONJUGATE,
+    "complement": VinculumRole.COMPLEMENT,
+    "negation":   VinculumRole.NEGATION,
+    "amplify":    VinculumRole.MULTIPLICATION,
+    "fraction":   VinculumRole.DIVISION,
 }
 
-COMBINING = chr(773)
 
 class Vinculum:
     def __init__(self, content, mode="overline"):
         self.content = content
         self.mode = mode
-        self.spec = MODES.get(mode, MODES["overline"])
+        self.role = MODE_TO_ROLE.get(mode, VinculumRole.GROUPING)
+        # Binds content using the canonical FracNode
+        self.node = FracNode(top=content, bottom="", role=self.role)
     
-    def render_overline(self, width=60):
-        bar = self.spec["glyph"] * (len(self.content)+4)
-        return f"  {bar}\n  {self.content}  [{self.spec['meaning']}]"
-
-    def render_inline(self):
-        out = ""
-        for i, ch in enumerate(self.content):
-            out += ch + COMBINING if i==len(self.content)-1 and self.mode in ["repeat","negation"] else ch
-        return f"{out} [{self.spec['meaning']}]" if self.mode in ["repeat","negation","conjugate","complement"] else out
-
-    def render_fraction(self, den=""):
-        if not den: return self.render_overline()
-        w = max(len(self.content), len(den))+4
-        bar = self.spec["glyph"]*w
-        return f"  {self.content}\n  {bar}  [{self.spec['meaning']}]\n  {den}"
-
-    def render_roman(self):
-        box = "|" + self.content + COMBINING + "|"
-        return f"{box} = {self.content} x 1,000 [{self.spec['meaning']}]"
-
     def __str__(self):
-        if self.mode == "fraction": return self.render_fraction()
-        if self.mode == "amplify": return self.render_roman()
-        if self.mode in ["negation","repeat","conjugate","complement"]: return self.render_inline()
-        return self.render_overline()
+        # Delegate to the canonical FracNode's terminal lines
+        lines = self.node.to_terminal_lines()
+        
+        # Highlight semantic meaning dynamically from the schema's role
+        meaning = self.role.name
+        if self.role == VinculumRole.DIVISION:
+            meaning = "DIVIDE"
+        elif self.role == VinculumRole.MULTIPLICATION:
+            meaning = "MULTIPLY"
+        elif self.role == VinculumRole.REPETITION:
+            meaning = "INFINITE"
+        elif self.role == VinculumRole.CONJUGATE:
+            meaning = "MIRROR"
+        elif self.role == VinculumRole.COMPLEMENT:
+            meaning = "OUTSIDE"
+        elif self.role == VinculumRole.NEGATION:
+            meaning = "CORRECT"
+            
+        # Format the output block with the semantic annotation tag
+        if len(lines) >= 2:
+            main_content_idx = 1 if self.role in (VinculumRole.GROUPING, VinculumRole.CONJUGATE, VinculumRole.MULTIPLICATION, VinculumRole.REPETITION, VinculumRole.RADICAL) else 0
+            lines[main_content_idx] = f"{lines[main_content_idx]}  [{meaning}]"
+            return "\n".join(lines)
+        elif len(lines) == 1:
+            return f"{lines[0]}  [{meaning}]"
+        return "\n".join(lines)
+
 
 # Demo
 if __name__ == "__main__":

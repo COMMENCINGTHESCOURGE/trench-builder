@@ -13,17 +13,27 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
+from trench_config import PATHS
+
 # ═══════════════════════════════════════════════════════
 # AUDIT SCOPE — Everything we've built
 # ═══════════════════════════════════════════════════════
 
 base_scratch = Path("C:/Users/dasha/.gemini/antigravity-ide/scratch")
 AUDIT_PATHS = {
+<<<<<<< HEAD
     "trench_builder": base_scratch / "trench-builder" if (base_scratch / "trench-builder").exists() else Path.home() / "Projects/trench_builder",
     "erdos_straus":   base_scratch / "erdos-straus-solver" if (base_scratch / "erdos-straus-solver").exists() else Path.home() / "Projects/erdos-straus",
     "gdrive_trench":  Path("G:/My Drive/Trench_Builder"),
     "gdrive_resonance": Path("G:/My Drive/Resonance_Archive"),
     "desktop":        Path.home() / "Desktop",
+=======
+    "trench_builder": PATHS.trench_builder,
+    "erdos_straus":   PATHS.erdos_straus,
+    "gdrive_trench":  PATHS.gdrive_trench,
+    "gdrive_resonance": PATHS.gdrive_resonance,
+    "desktop":        PATHS.home / "Desktop",
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 }
 
 # ═══════════════════════════════════════════════════════
@@ -184,7 +194,7 @@ def check_steps_files():
                     try:
                         shutil.copy2(source, loc / fname)
                         results.append(f"✓ Copied {fname} to {loc}")
-                    except:
+                    except (OSError, shutil.Error):
                         results.append(f"✗ Could not copy {fname} to {loc}")
     
     return results
@@ -240,7 +250,7 @@ class RetroactiveAuditor:
                                         matches.append(str(f))
                                     else:
                                         matches.append(str(f))
-                            except:
+                            except (UnicodeDecodeError, OSError):
                                 pass
                         else:
                             matches.append(str(f))
@@ -349,7 +359,11 @@ if __name__ == "__main__":
     report = auditor.run_audit()
     
     # Save report
+<<<<<<< HEAD
     report_path = AUDIT_PATHS["trench_builder"] / "retroactive_audit.json"
+=======
+    report_path = PATHS.retroactive_audit
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     with open(report_path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
     print(f"\n[OK] Audit report saved to {report_path}")

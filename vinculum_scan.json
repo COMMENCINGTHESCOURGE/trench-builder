@@ -1,0 +1,577 @@
+{
+  "total_files": 2568,
+  "total_vinculums": 314588,
+  "patterns": {
+    "fraction": 7359,
+    "group_brace": 61980,
+    "auto_close": 217876,
+    "chain": 8817,
+    "hyphen_bind": 17015,
+    "repeat": 1483,
+    "negation": 58
+  },
+  "projects": {
+    "acoustic_archive": {
+      "files": 1,
+      "v": 52,
+      "kb": 3.4052734375
+    },
+    "advra_archive": {
+      "files": 1,
+      "v": 34,
+      "kb": 2.115234375
+    },
+    "aegis_archive": {
+      "files": 1,
+      "v": 73,
+      "kb": 4.0771484375
+    },
+    "aetherion-continuum": {
+      "files": 77,
+      "v": 3448,
+      "kb": 194.162109375
+    },
+    "aetheris_archive": {
+      "files": 21,
+      "v": 3883,
+      "kb": 236.61328125
+    },
+    "agent_swarm": {
+      "files": 3,
+      "v": 209,
+      "kb": 24.2490234375
+    },
+    "ale": {
+      "files": 15,
+      "v": 1860,
+      "kb": 141.9326171875
+    },
+    "ascii_research_presentation": {
+      "files": 2,
+      "v": 110,
+      "kb": 14.328125
+    },
+    "asset_pack": {
+      "files": 7,
+      "v": 1697,
+      "kb": 108.96484375
+    },
+    "aurora_archive": {
+      "files": 6,
+      "v": 2058,
+      "kb": 97.5830078125
+    },
+    "avatar": {
+      "files": 1,
+      "v": 191,
+      "kb": 12.943359375
+    },
+    "avatar-core": {
+      "files": 4,
+      "v": 696,
+      "kb": 70.720703125
+    },
+    "blooming-onion": {
+      "files": 18,
+      "v": 6558,
+      "kb": 320.7060546875
+    },
+    "bridge": {
+      "files": 16,
+      "v": 2246,
+      "kb": 141.927734375
+    },
+    "chronos": {
+      "files": 16,
+      "v": 4665,
+      "kb": 302.99609375
+    },
+    "collatz-exploration": {
+      "files": 3,
+      "v": 351,
+      "kb": 19.4931640625
+    },
+    "COMMENCINGTHESCOURGE": {
+      "files": 245,
+      "v": 18210,
+      "kb": 1612.109375
+    },
+    "deepbio-prompt-pack": {
+      "files": 3,
+      "v": 91,
+      "kb": 11.2197265625
+    },
+    "deepseek_analysis": {
+      "files": 4,
+      "v": 676,
+      "kb": 20.9716796875
+    },
+    "density_spheres": {
+      "files": 1,
+      "v": 240,
+      "kb": 17.8994140625
+    },
+    "dev_archive": {
+      "files": 533,
+      "v": 62780,
+      "kb": 3892.6083984375
+    },
+    "erdos-straus": {
+      "files": 12,
+      "v": 877,
+      "kb": 45.458984375
+    },
+    "ernie_agent": {
+      "files": 1,
+      "v": 148,
+      "kb": 9.849609375
+    },
+    "fleet": {
+      "files": 3,
+      "v": 236,
+      "kb": 13.232421875
+    },
+    "flux-chamber": {
+      "files": 10,
+      "v": 1030,
+      "kb": 113.224609375
+    },
+    "forensics": {
+      "files": 1,
+      "v": 133,
+      "kb": 6.8701171875
+    },
+    "fractype": {
+      "files": 23,
+      "v": 2649,
+      "kb": 177.2255859375
+    },
+    "headroom": {
+      "files": 1077,
+      "v": 138268,
+      "kb": 12191.837890625
+    },
+    "hyperpoly-terrain": {
+      "files": 29,
+      "v": 4367,
+      "kb": 283.8564453125
+    },
+    "kaggle_submissions": {
+      "files": 5,
+      "v": 427,
+      "kb": 28.3671875
+    },
+    "kimi_density_spheres": {
+      "files": 8,
+      "v": 1205,
+      "kb": 106.2958984375
+    },
+    "kimi_sealed_spheres": {
+      "files": 8,
+      "v": 1205,
+      "kb": 106.248046875
+    },
+    "labyrinth_archive": {
+      "files": 2,
+      "v": 659,
+      "kb": 39.990234375
+    },
+    "lavish_furniture": {
+      "files": 9,
+      "v": 1273,
+      "kb": 116.6259765625
+    },
+    "legal": {
+      "files": 2,
+      "v": 11,
+      "kb": 3.345703125
+    },
+    "lenticular_pipeline": {
+      "files": 6,
+      "v": 584,
+      "kb": 51.95703125
+    },
+    "manifold": {
+      "files": 6,
+      "v": 497,
+      "kb": 48.8134765625
+    },
+    "manifold-model-router": {
+      "files": 1,
+      "v": 77,
+      "kb": 7.869140625
+    },
+    "mantra-fm": {
+      "files": 5,
+      "v": 1514,
+      "kb": 218.830078125
+    },
+    "mecha_robotics_kit": {
+      "files": 2,
+      "v": 449,
+      "kb": 93.150390625
+    },
+    "minicity": {
+      "files": 3,
+      "v": 774,
+      "kb": 32.646484375
+    },
+    "mycelia_game": {
+      "files": 6,
+      "v": 789,
+      "kb": 63.146484375
+    },
+    "neon_dissection": {
+      "files": 17,
+      "v": 1576,
+      "kb": 88.6435546875
+    },
+    "parallax": {
+      "files": 1,
+      "v": 126,
+      "kb": 7.623046875
+    },
+    "part_affordance": {
+      "files": 2,
+      "v": 587,
+      "kb": 46.7216796875
+    },
+    "project_manager": {
+      "files": 5,
+      "v": 1169,
+      "kb": 141.8837890625
+    },
+    "quantum_garden": {
+      "files": 8,
+      "v": 1201,
+      "kb": 106.154296875
+    },
+    "research": {
+      "files": 17,
+      "v": 2093,
+      "kb": 205.9150390625
+    },
+    "roto_extractor": {
+      "files": 3,
+      "v": 342,
+      "kb": 15.15234375
+    },
+    "sovereign-resonance-node": {
+      "files": 19,
+      "v": 916,
+      "kb": 62.91796875
+    },
+    "sovereign_archive": {
+      "files": 14,
+      "v": 1689,
+      "kb": 106.916015625
+    },
+    "sovereign_resonance": {
+      "files": 3,
+      "v": 421,
+      "kb": 20.8515625
+    },
+    "starfield_v3": {
+      "files": 4,
+      "v": 1422,
+      "kb": 80.3515625
+    },
+    "SubstrateDeltaSieve": {
+      "files": 2,
+      "v": 79,
+      "kb": 7.53125
+    },
+    "sync": {
+      "files": 1,
+      "v": 89,
+      "kb": 3.6826171875
+    },
+    "thrown-planet": {
+      "files": 4,
+      "v": 967,
+      "kb": 52.697265625
+    },
+    "trench_builder": {
+      "files": 254,
+      "v": 32161,
+      "kb": 2593.6474609375
+    },
+    "vestibular_proof_kaggle": {
+      "files": 2,
+      "v": 308,
+      "kb": 14.8720703125
+    },
+    "victus_bios_tool": {
+      "files": 3,
+      "v": 327,
+      "kb": 26.15625
+    },
+    "void_archive": {
+      "files": 3,
+      "v": 368,
+      "kb": 23.1044921875
+    },
+    "voxel_atelier": {
+      "files": 8,
+      "v": 1205,
+      "kb": 106.3095703125
+    },
+    "xpbd_solver": {
+      "files": 1,
+      "v": 242,
+      "kb": 10.5654296875
+    }
+  },
+  "top_files": [
+    {
+      "p": "acoustic_archive",
+      "f": "ACOUSTIC_HOLOGRAPHY_SIM.py",
+      "l": 83,
+      "v": 52,
+      "d": 62.7,
+      "t": [
+        "fraction",
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "advra_archive",
+      "f": "ADVRA_KADEBRA_RESONATOR.py",
+      "l": 63,
+      "v": 34,
+      "d": 54.0,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aegis_archive",
+      "f": "AEGIS_TERMINAL.py",
+      "l": 114,
+      "v": 73,
+      "d": 64.0,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "flight_demo.html",
+      "l": 406,
+      "v": 345,
+      "d": 85.0,
+      "t": [
+        "fraction",
+        "group_brace",
+        "hyphen_bind",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "index.html",
+      "l": 432,
+      "v": 342,
+      "d": 79.2,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "README.md",
+      "l": 107,
+      "v": 25,
+      "d": 23.4,
+      "t": [
+        "fraction",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "VINCULUM_REHABILITATION_PLAN.md",
+      "l": 37,
+      "v": 5,
+      "d": 13.5,
+      "t": [
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "cat_baseline.json",
+      "l": 159,
+      "v": 31,
+      "d": 19.5,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "hypercat.html",
+      "l": 253,
+      "v": 272,
+      "d": 107.5,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "hypercat_world.html",
+      "l": 327,
+      "v": 565,
+      "d": 172.8,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "colab_hunyuan.ipynb",
+      "l": 161,
+      "v": 82,
+      "d": 50.9,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "kaggle_hunyuan_kernel.py",
+      "l": 143,
+      "v": 106,
+      "d": 74.1,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "phase5_kaggle.py",
+      "l": 217,
+      "v": 149,
+      "d": 68.7,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "phase5_lightning.py",
+      "l": 162,
+      "v": 107,
+      "d": 66.0,
+      "t": [
+        "fraction",
+        "group_brace",
+        "hyphen_bind",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "phase5_tripo.py",
+      "l": 226,
+      "v": 169,
+      "d": 74.8,
+      "t": [
+        "fraction",
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "reconstruct_gltf_from_sprites.py",
+      "l": 266,
+      "v": 182,
+      "d": 68.4,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "render_gltf_sprites.py",
+      "l": 262,
+      "v": 166,
+      "d": 63.4,
+      "t": [
+        "fraction",
+        "group_brace",
+        "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "sprite_bars.json",
+      "l": 48,
+      "v": 39,
+      "d": 81.2,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "sprite_pipeline.py",
+      "l": 330,
+      "v": 353,
+      "d": 107.0,
+      "t": [
+        "fraction",
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "aetherion-continuum",
+      "f": "SPRITE_REFINEMENT_PLAN.md",
+      "l": 29,
+      "v": 10,
+      "d": 34.5,
+      "t": [
+        "chain",
+        "auto_close",
+        "repeat"
+      ]
+    }
+  ],
+  "runtime_s": 11.3
+}

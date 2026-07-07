@@ -1,0 +1,9 @@
+{
+  "name": "erosion",
+  "type": "threshold",
+  "channels": ["rock", "sand"],
+  "rate": 0.02,
+  "mode": "threshold",
+  "threshold": 3.0,
+  "classification": "BREACH"
+}

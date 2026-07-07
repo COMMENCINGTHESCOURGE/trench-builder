@@ -1,6 +1,35 @@
 # Downloaded external assets (too large for git)
 assets/external/
-# Python cache
+
+# Build output (duplicates of assets/ root; rebuild from source)
+assets/dist/
+
+# Rendered video frames
+video_frames*/
+training_checkpoints/
+memory_core_snapshots/
+
+# Python
 __pycache__/
+<<<<<<< HEAD
 monetization_engine/__pycache__/
 monetization_engine/*.pyc
+=======
+*.pyc
+.venv/
+venv/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Large binary intermediates
+*.stl
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64

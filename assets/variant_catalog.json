@@ -1,0 +1,223 @@
+{
+  "timestamp": "2026-05-27T22:06:37.139412",
+  "total_variants": 21,
+  "ok": 21,
+  "failed": 0,
+  "total_time_s": 31.21,
+  "gear_variants": 12,
+  "pulley_variants": 9,
+  "results": [
+    {
+      "label": "Gear 2M 16T",
+      "status": "ok",
+      "time_s": 3.37,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_2m_16t.glb"
+    },
+    {
+      "label": "Gear 2M 20T",
+      "status": "ok",
+      "time_s": 1.93,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_2m_20t.glb"
+    },
+    {
+      "label": "Gear 2M 24T",
+      "status": "ok",
+      "time_s": 1.68,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_2m_24t.glb"
+    },
+    {
+      "label": "Gear 3M 16T",
+      "status": "ok",
+      "time_s": 1.38,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_3m_16t.glb"
+    },
+    {
+      "label": "Gear 3M 20T",
+      "status": "ok",
+      "time_s": 1.46,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_3m_20t.glb"
+    },
+    {
+      "label": "Gear 3M 24T",
+      "status": "ok",
+      "time_s": 1.55,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_3m_24t.glb"
+    },
+    {
+      "label": "Gear 4M 16T",
+      "status": "ok",
+      "time_s": 1.38,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_4m_16t.glb"
+    },
+    {
+      "label": "Gear 4M 20T",
+      "status": "ok",
+      "time_s": 1.39,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_4m_20t.glb"
+    },
+    {
+      "label": "Gear 4M 24T",
+      "status": "ok",
+      "time_s": 1.31,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_4m_24t.glb"
+    },
+    {
+      "label": "Gear 5M 12T",
+      "status": "ok",
+      "time_s": 1.15,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_5m_12t.glb"
+    },
+    {
+      "label": "Gear 5M 16T",
+      "status": "ok",
+      "time_s": 1.19,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_5m_16t.glb"
+    },
+    {
+      "label": "Gear 5M 20T",
+      "status": "ok",
+      "time_s": 1.24,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\gear_5m_20t.glb"
+    },
+    {
+      "label": "V-Belt D=80mm",
+      "status": "ok",
+      "time_s": 1.1,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_vbelt_80mm_3gr.glb"
+    },
+    {
+      "label": "V-Belt D=120mm",
+      "status": "ok",
+      "time_s": 0.99,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_vbelt_120mm_3gr.glb"
+    },
+    {
+      "label": "V-Belt D=160mm",
+      "status": "ok",
+      "time_s": 1.06,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_vbelt_160mm_3gr.glb"
+    },
+    {
+      "label": "Flat D=80mm",
+      "status": "ok",
+      "time_s": 1.02,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_flat_80mm.glb"
+    },
+    {
+      "label": "Flat D=120mm",
+      "status": "ok",
+      "time_s": 1.02,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_flat_120mm.glb"
+    },
+    {
+      "label": "Flat D=160mm",
+      "status": "ok",
+      "time_s": 1.15,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_flat_160mm.glb"
+    },
+    {
+      "label": "Timing D=80mm",
+      "status": "ok",
+      "time_s": 2.02,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_timing_40t_GT2.glb"
+    },
+    {
+      "label": "Timing D=120mm",
+      "status": "ok",
+      "time_s": 1.91,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_timing_40t_GT2.glb"
+    },
+    {
+      "label": "Timing D=160mm",
+      "status": "ok",
+      "time_s": 1.91,
+      "export_path": "C:\\Users\\dasha\\Projects\\trench_builder\\assets\\pulley_timing_40t_GT2.glb"
+    }
+  ],
+  "dist_files": [
+    {
+      "name": "elevator.glb",
+      "size_kb": 104.2
+    },
+    {
+      "name": "gear_2m_16t.glb",
+      "size_kb": 118.8
+    },
+    {
+      "name": "gear_2m_20t.glb",
+      "size_kb": 160.1
+    },
+    {
+      "name": "gear_2m_24t.glb",
+      "size_kb": 190.9
+    },
+    {
+      "name": "gear_3m_16t.glb",
+      "size_kb": 131.2
+    },
+    {
+      "name": "gear_3m_20t.glb",
+      "size_kb": 159.8
+    },
+    {
+      "name": "gear_3m_24t.glb",
+      "size_kb": 190.6
+    },
+    {
+      "name": "gear_4m_16t.glb",
+      "size_kb": 130.9
+    },
+    {
+      "name": "gear_4m_20t.glb",
+      "size_kb": 159.9
+    },
+    {
+      "name": "gear_4m_24t.glb",
+      "size_kb": 190.9
+    },
+    {
+      "name": "gear_5m_12t.glb",
+      "size_kb": 103.2
+    },
+    {
+      "name": "gear_5m_16t.glb",
+      "size_kb": 131.0
+    },
+    {
+      "name": "gear_5m_20t.glb",
+      "size_kb": 160.0
+    },
+    {
+      "name": "pulley_flat_120mm.glb",
+      "size_kb": 185.5
+    },
+    {
+      "name": "pulley_flat_160mm.glb",
+      "size_kb": 185.5
+    },
+    {
+      "name": "pulley_flat_80mm.glb",
+      "size_kb": 185.5
+    },
+    {
+      "name": "pulley_timing_40t_GT2.glb",
+      "size_kb": 33.8
+    },
+    {
+      "name": "pulley_vbelt_120mm_3gr.glb",
+      "size_kb": 98.0
+    },
+    {
+      "name": "pulley_vbelt_160mm_3gr.glb",
+      "size_kb": 98.0
+    },
+    {
+      "name": "pulley_vbelt_80mm_3gr.glb",
+      "size_kb": 98.0
+    },
+    {
+      "name": "staircase.glb",
+      "size_kb": 460.0
+    }
+  ]
+}
