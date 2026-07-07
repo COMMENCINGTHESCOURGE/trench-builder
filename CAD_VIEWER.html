@@ -312,6 +312,12 @@
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
         mainLight.shadow.bias = -0.0001;
+        
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
         scene.add(mainLight);
 
         const blueFillLight = new THREE.DirectionalLight(0x4488ff, 1.5);
@@ -372,13 +378,17 @@
 
                     // Premium PBR Material
                     const color = getPartColor(part.index);
-                    const material = new THREE.MeshStandardMaterial({
+                    const material = new THREE.MeshPhysicalMaterial({
                         color: color,
                         metalness: 0.7,
                         roughness: 0.3,
                         flatShading: false,
-                        envMapIntensity: 1.0
-                    });
+                        envMapIntensity: 1.0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
                     const mesh = new THREE.Mesh(geometry, material);
                     mesh.castShadow = true;

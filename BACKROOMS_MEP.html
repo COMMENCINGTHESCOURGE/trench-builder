@@ -63,14 +63,54 @@ S.add(new THREE.PointLight(0x8899aa,3,8,2)).position.set(4,2.5,-2);
 // MEP INFRASTRUCTURE BUILDER
 // ═══════════════════════════════════════
 
-const wallMat=new THREE.MeshStandardMaterial({color:0xc8ccd0,roughness:.85,metalness:.02}); // pale gray, not yellow
-const floorMat=new THREE.MeshStandardMaterial({color:0x889094,roughness:.7,metalness:.05});
-const ceilMat=new THREE.MeshStandardMaterial({color:0x9ba4a8,roughness:.9,metalness:.02});
-const metalMat=new THREE.MeshStandardMaterial({color:0x8899aa,metalness:.85,roughness:.25});
-const copperMat=new THREE.MeshStandardMaterial({color:0xcc8844,metalness:.95,roughness:.2});
-const plasticMat=new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.5,metalness:.05});
-const ventMat=new THREE.MeshStandardMaterial({color:0x99aabb,metalness:.7,roughness:.35});
-const glassMat=new THREE.MeshStandardMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.4});
+const wallMat=new THREE.MeshPhysicalMaterial({color:0xc8ccd0,roughness:.85,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }); // pale gray, not yellow
+const floorMat=new THREE.MeshPhysicalMaterial({color:0x889094,roughness:.7,metalness:.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const ceilMat=new THREE.MeshPhysicalMaterial({color:0x9ba4a8,roughness:.9,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const metalMat=new THREE.MeshPhysicalMaterial({color:0x8899aa,metalness:.85,roughness:.25,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const copperMat=new THREE.MeshPhysicalMaterial({color:0xcc8844,metalness:.95,roughness:.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const plasticMat=new THREE.MeshPhysicalMaterial({color:0xdde0e4,roughness:.5,metalness:.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const ventMat=new THREE.MeshPhysicalMaterial({color:0x99aabb,metalness:.7,roughness:.35,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const glassMat=new THREE.MeshPhysicalMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function box(w,h,d,mat,castShadow=true){
   const g=new THREE.BoxGeometry(w,h,d);
@@ -99,9 +139,19 @@ function makeOutlet(x,y,z,rotY=0){
   // Faceplate
   const plate=box(.22,.005,.28,plasticMat,false);plate.position.set(0,0,0);g.add(plate);
   // Top socket
-  const s1=box(.06,.01,.08,new THREE.MeshStandardMaterial({color:0x334455,roughness:.3,metalness:.6}),false);s1.position.set(-.04,.003,.04);g.add(s1);
+  const s1=box(.06,.01,.08,new THREE.MeshPhysicalMaterial({color:0x334455,roughness:.3,metalness:.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);s1.position.set(-.04,.003,.04);g.add(s1);
   // Bottom socket
-  const s2=box(.06,.01,.08,new THREE.MeshStandardMaterial({color:0x334455,roughness:.3,metalness:.6}),false);s2.position.set(-.04,.003,-.04);g.add(s2);
+  const s2=box(.06,.01,.08,new THREE.MeshPhysicalMaterial({color:0x334455,roughness:.3,metalness:.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);s2.position.set(-.04,.003,-.04);g.add(s2);
   // Screw
   const screw=new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.005,8),metalMat);screw.position.set(.08,.003,0);g.add(screw);
   g.position.set(x,y,z);g.rotation.y=rotY;return g;
@@ -122,7 +172,12 @@ function makeSwitch(x,y,z,rotY=0){
   const g=new THREE.Group();
   const plate=box(.16,.005,.24,plasticMat,false);plate.position.set(0,0,0);g.add(plate);
   // Toggle
-  const toggle=box(.03,.015,.08,new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.4,metalness:.1}),false);
+  const toggle=box(.03,.015,.08,new THREE.MeshPhysicalMaterial({color:0xdde0e4,roughness:.4,metalness:.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
   toggle.position.set(0,.008,0);g.add(toggle);
   // Screws
   const s1=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,.004,8),metalMat);s1.position.set(0,.003,.08);g.add(s1);
@@ -140,7 +195,12 @@ for(let z=-4;z<=4;z+=4){
 // ═══════════════════════════════════════
 function makeJunctionBox(x,y,z){
   const g=new THREE.Group();
-  const body=box(.3,.25,.3,new THREE.MeshStandardMaterial({color:0x667788,metalness:.8,roughness:.3}),false);
+  const body=box(.3,.25,.3,new THREE.MeshPhysicalMaterial({color:0x667788,metalness:.8,roughness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
   body.position.set(0,.12,0);g.add(body);
   // Knockouts (circular punch-outs)
   for(let i=0;i<4;i++){
@@ -167,11 +227,21 @@ function makeThermostat(x,y,z,rotY=0){
   const g=new THREE.Group();
   const body=box(.22,.005,.3,plasticMat,false);body.position.set(0,0,0);g.add(body);
   // Screen
-  const screen=box(.14,.003,.1,new THREE.MeshStandardMaterial({color:0x334455,roughness:.1,emissive:0x111122,emissiveIntensity:.3}),false);
+  const screen=box(.14,.003,.1,new THREE.MeshPhysicalMaterial({color:0x334455,roughness:.1,emissive:0x111122,emissiveIntensity:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
   screen.position.set(0,.003,.04);g.add(screen);
   // Display digits (tiny boxes pretending to be LCD segments)
   for(let i=0;i<3;i++){
-    const seg=box(.02,.001,.005,new THREE.MeshStandardMaterial({color:0x88aacc,emissive:0x446688,emissiveIntensity:.5}),false);
+    const seg=box(.02,.001,.005,new THREE.MeshPhysicalMaterial({color:0x88aacc,emissive:0x446688,emissiveIntensity:.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
     seg.position.set(-.03+i*.03,.003,.03);g.add(seg);
   }
   g.position.set(x,y,z);g.rotation.y=rotY;return g;
@@ -188,7 +258,12 @@ function makeVent(x,y,z,rotX=0,rotZ=0,size=.6){
   const frame=box(size,.04,.3,ventMat,false);frame.position.set(0,0,0);g.add(frame);
   // Louvers
   for(let i=0;i<6;i++){
-    const fin=box(.02,.005,size-.08,new THREE.MeshStandardMaterial({color:0xaabbcc,metalness:.6,roughness:.3}),false);
+    const fin=box(.02,.005,size-.08,new THREE.MeshPhysicalMaterial({color:0xaabbcc,metalness:.6,roughness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
     fin.position.set(0,0,-.1+i*.04);fin.rotation.x=.3;g.add(fin);
   }
   g.position.set(x,y,z);g.rotation.x=rotX;g.rotation.z=rotZ;return g;
@@ -211,7 +286,12 @@ function makeDoorway(x,y,z,rotY=0){
   const rightJamb=box(.08,2.4,.15,metalMat,false);rightJamb.position.set(.5,1.2,0);g.add(rightJamb);
   const header=box(1.08,.08,.15,metalMat,false);header.position.set(0,2.4,0);g.add(header);
   // Door (slightly open)
-  const door=box(.9,2.3,.04,new THREE.MeshStandardMaterial({color:0x445566,roughness:.4,metalness:.3}),false);
+  const door=box(.9,2.3,.04,new THREE.MeshPhysicalMaterial({color:0x445566,roughness:.4,metalness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }),false);
   door.position.set(.42,1.15,.1);door.rotation.y=.3;g.add(door);
   // Handle
   const handle=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.12,8),metalMat);
@@ -225,7 +305,12 @@ S.add(makeDoorway(-5.9,.05,2,Math.PI/2)); // left side
 // ═══════════════════════════════════════
 // BASEBOARDS — Floor-wall junction trim
 // ═══════════════════════════════════════
-const baseMat=new THREE.MeshStandardMaterial({color:0xbcc0c4,roughness:.6,metalness:.05});
+const baseMat=new THREE.MeshPhysicalMaterial({color:0xbcc0c4,roughness:.6,metalness:.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function makeBaseboard(x,y,z,length,rotY=0){
   const g=new THREE.Group();
@@ -250,7 +335,12 @@ S.add(makeBaseboard(-2.5,.06,5.95,2,0));
 // ═══════════════════════════════════════
 // CROWN MOLDING — Ceiling-wall junction
 // ═══════════════════════════════════════
-const crownMat=new THREE.MeshStandardMaterial({color:0xc8ccd0,roughness:.5,metalness:.08});
+const crownMat=new THREE.MeshPhysicalMaterial({color:0xc8ccd0,roughness:.5,metalness:.08,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function makeCrown(x,y,z,length,rotY=0){
   const g=new THREE.Group();
@@ -275,7 +365,12 @@ S.add(makeCrown(-2.5,0,5.95,2,0));
 // ═══════════════════════════════════════
 // RUNWAY RUGS — Long corridor runners
 // ═══════════════════════════════════════
-const rugMat=new THREE.MeshStandardMaterial({color:0x334455,roughness:.95,metalness:.02});
+const rugMat=new THREE.MeshPhysicalMaterial({color:0x334455,roughness:.95,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function makeRug(x,z,length,color=null){
   const mat=color||rugMat;
@@ -285,9 +380,24 @@ function makeRug(x,z,length,color=null){
 }
 
 // Three staggered runway rugs down the corridor
-S.add(makeRug(-1.2,-4,5,new THREE.MeshStandardMaterial({color:0x2a3a4a,roughness:.95,metalness:.02})));
-S.add(makeRug(1.2,1,6,new THREE.MeshStandardMaterial({color:0x3a4a5a,roughness:.95,metalness:.02})));
-S.add(makeRug(-.8,4,3,new THREE.MeshStandardMaterial({color:0x253545,roughness:.95,metalness:.02})));
+S.add(makeRug(-1.2,-4,5,new THREE.MeshPhysicalMaterial({color:0x2a3a4a,roughness:.95,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })));
+S.add(makeRug(1.2,1,6,new THREE.MeshPhysicalMaterial({color:0x3a4a5a,roughness:.95,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })));
+S.add(makeRug(-.8,4,3,new THREE.MeshPhysicalMaterial({color:0x253545,roughness:.95,metalness:.02,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })));
 
 // ═══════════════════════════════════════
 // FURNITURE — Liminal office pieces
@@ -296,7 +406,12 @@ S.add(makeRug(-.8,4,3,new THREE.MeshStandardMaterial({color:0x253545,roughness:.
 // ── DESK ──
 function makeDesk(x,y,z,rotY=0){
   const g=new THREE.Group();
-  const deskMat2=new THREE.MeshStandardMaterial({color:0x556677,roughness:.4,metalness:.3});
+  const deskMat2=new THREE.MeshPhysicalMaterial({color:0x556677,roughness:.4,metalness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
   // Top
   g.add(Object.assign(box(1.4,.04,.7,deskMat2),{position:new THREE.Vector3(0,.75,0)}));
   // Legs
@@ -311,7 +426,12 @@ function makeDesk(x,y,z,rotY=0){
 // ── OFFICE CHAIR ──
 function makeChair(x,y,z,rotY=0){
   const g=new THREE.Group();
-  const chairMat2=new THREE.MeshStandardMaterial({color:0x334455,roughness:.5,metalness:.2});
+  const chairMat2=new THREE.MeshPhysicalMaterial({color:0x334455,roughness:.5,metalness:.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
   // Seat
   g.add(Object.assign(box(.4,.05,.4,chairMat2),{position:new THREE.Vector3(0,.48,0)}));
   // Backrest
@@ -326,7 +446,12 @@ function makeChair(x,y,z,rotY=0){
   // Casters
   for(let i=0;i<5;i++){
     const a=i/5*Math.PI*2;
-    g.add(Object.assign(new THREE.Mesh(new THREE.SphereGeometry(.025,8,6),new THREE.MeshStandardMaterial({color:0x222222,roughness:.3})),{position:new THREE.Vector3(Math.cos(a)*.25,.025,Math.sin(a)*.25)}));
+    g.add(Object.assign(new THREE.Mesh(new THREE.SphereGeometry(.025,8,6),new THREE.MeshPhysicalMaterial({color:0x222222,roughness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })),{position:new THREE.Vector3(Math.cos(a)*.25,.025,Math.sin(a)*.25)}));
   }
   g.position.set(x,y,z);g.rotation.y=rotY;return g;
 }
@@ -339,9 +464,19 @@ function makeLamp(x,y,z){
   // Pole
   g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.015,.015,1.5,8),metalMat),{position:new THREE.Vector3(0,.8,0)}));
   // Shade (cone)
-  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.05,.25,.3,16,1,true),new THREE.MeshStandardMaterial({color:0xdde0e4,roughness:.4,metalness:.1,side:THREE.DoubleSide})),{position:new THREE.Vector3(0,1.6,0)}));
+  g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.05,.25,.3,16,1,true),new THREE.MeshPhysicalMaterial({color:0xdde0e4,roughness:.4,metalness:.1,side:THREE.DoubleSide,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })),{position:new THREE.Vector3(0,1.6,0)}));
   // Bulb glow
-  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.04,8,6),new THREE.MeshStandardMaterial({color:0xffeedd,emissive:0xffddaa,emissiveIntensity:.4}));
+  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.04,8,6),new THREE.MeshPhysicalMaterial({color:0xffeedd,emissive:0xffddaa,emissiveIntensity:.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   bulb.position.set(0,1.5,0);g.add(bulb);
   g.position.set(x,y,z);return g;
 }
@@ -349,11 +484,21 @@ function makeLamp(x,y,z){
 // ── FILING CABINET ──
 function makeCabinet(x,y,z,rotY=0){
   const g=new THREE.Group();
-  const cabMat=new THREE.MeshStandardMaterial({color:0x667788,roughness:.3,metalness:.4});
+  const cabMat=new THREE.MeshPhysicalMaterial({color:0x667788,roughness:.3,metalness:.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
   g.add(Object.assign(box(.4,.8,.5,cabMat),{position:new THREE.Vector3(0,.4,0)}));
   // Drawer fronts
   for(let i=0;i<3;i++){
-    g.add(Object.assign(box(.36,.22,.02,new THREE.MeshStandardMaterial({color:0x778899,roughness:.3,metalness:.4})),{position:new THREE.Vector3(0,.18+i*.25,.26)}));
+    g.add(Object.assign(box(.36,.22,.02,new THREE.MeshPhysicalMaterial({color:0x778899,roughness:.3,metalness:.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })),{position:new THREE.Vector3(0,.18+i*.25,.26)}));
     // Handle
     g.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(.008,.008,.1,8),metalMat),{position:new THREE.Vector3(0,.18+i*.25,.28),rotation:{x:Math.PI/2,y:0,z:0}}));
   }

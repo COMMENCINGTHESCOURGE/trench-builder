@@ -1,11 +1,12 @@
 {
-  "timestamp": "2026-06-19T11:34:59.237493",
+  "timestamp": "2026-07-07T12:08:43.074727",
   "rules_run": 13,
   "auto_fixes": 0,
-  "flagged": 36,
+  "flagged": 41,
   "fixes_applied": [],
   "fixes_needed": [
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\BACKROOMS_MEP.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
+    "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\CAD_VIEWER.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\CINEMATOGRAPHY_ENGINE.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\FACIAL_CITY_GRID.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\HYPERPOLY_v5.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
@@ -13,8 +14,7 @@
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\MANIFESTATION_BRIDGE.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\MECHA_VINCULUM.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\NOVA_HORIZON_3D.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
-    "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\STACK_CATHEDRAL.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
-    "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\TRENCH_BUILDER_v1.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
+    "[html_uses_standard_material] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\nova_horizon_subwoofer.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] G:\\My Drive\\Trench_Builder\\TRENCH_BUILDER_v2.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] G:\\My Drive\\Trench_Builder\\TRENCH_BUILDER_v1.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_uses_standard_material] G:\\My Drive\\Trench_Builder\\TRENCH_BUILDER_v3.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
@@ -27,6 +27,9 @@
     "[html_uses_standard_material] G:\\My Drive\\Trench_Builder\\KIRAGAMI_MECH.html \u2014 MeshPhysicalMaterial with clearcoat/transmission for hyperrealism (Gemini directive)",
     "[html_missing_outlet_height] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\BACKROOMS_MEP.html",
     "[html_missing_outlet_height] G:\\My Drive\\Trench_Builder\\BACKROOMS_MEP.html",
+    "[python_uses_python3_not_python] C:\\Users\\dasha\\.gemini\\antigravity-ide\\scratch\\trench-builder\\trenchOS_server.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
+    "[python_uses_python3_not_python] C:\\Users\\dasha\\Projects\\erdos-straus\\master_orchestrator.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
+    "[python_uses_python3_not_python] C:\\Users\\dasha\\Projects\\erdos-straus\\run_sieve.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_uses_python3_not_python] G:\\My Drive\\Trench_Builder\\kinetic_torsion_engine.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_uses_python3_not_python] G:\\My Drive\\Trench_Builder\\apply_balance_patch.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_uses_python3_not_python] G:\\My Drive\\Trench_Builder\\bridge.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
@@ -39,6 +42,8 @@
     "[python_uses_python3_not_python] G:\\My Drive\\Resonance_Archive\\sieve_log_vacuum.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_uses_python3_not_python] G:\\My Drive\\Resonance_Archive\\sync_project.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_uses_python3_not_python] G:\\My Drive\\Resonance_Archive\\launch_h200_b200.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
+    "[python_uses_python3_not_python] G:\\My Drive\\Resonance_Archive\\run_sieve.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
+    "[python_uses_python3_not_python] G:\\My Drive\\Resonance_Archive\\cold_storage\\run_sieve.py \u2014 Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
     "[python_fcntl_import] G:\\My Drive\\Trench_Builder\\retroactive_agent.py \u2014 Replace with file-based locking (atomic_writer.py pattern)",
     "[python_statistics_unused] G:\\My Drive\\Trench_Builder\\retroactive_agent.py \u2014 Replace with numpy (np.mean, np.std) \u2014 already done in procedural_video_learner.py"
   ]

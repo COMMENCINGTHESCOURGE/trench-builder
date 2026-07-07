@@ -1,5 +1,6 @@
-
 # Downloaded external assets (too large for git)
 assets/external/
 # Python cache
 __pycache__/
+monetization_engine/__pycache__/
+monetization_engine/*.pyc

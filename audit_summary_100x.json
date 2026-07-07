@@ -1,0 +1,1215 @@
+{
+  "reviews_count": 100,
+  "source_report_timestamp": "2026-07-07T12:08:34.284560",
+  "total_rules_run": 13,
+  "total_issues_flagged": 41,
+  "summary_metrics": {
+    "html_uses_standard_material": 20,
+    "html_missing_outlet_height": 2,
+    "python_uses_python3_not_python": 17,
+    "python_fcntl_import": 1,
+    "python_statistics_unused": 1
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 2,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 3,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 4,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 5,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 6,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 7,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 8,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 9,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 10,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 11,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 12,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 13,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 14,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 15,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 16,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 17,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 18,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 19,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 20,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 21,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 22,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 23,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 24,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 25,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 26,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 27,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 28,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 29,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 30,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 31,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 32,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 33,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 34,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 35,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 36,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 37,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 38,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 39,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 40,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 41,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 42,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 43,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 44,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 45,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 46,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 47,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 48,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 49,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 50,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 51,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 52,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 53,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 54,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 55,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 56,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 57,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 58,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 59,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 60,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 61,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 62,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 63,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 64,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 65,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 66,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 67,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 68,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 69,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 70,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 71,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 72,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 73,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 74,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 75,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 76,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 77,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 78,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 79,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 80,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 81,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 82,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 83,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 84,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 85,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 86,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 87,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 88,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 89,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 90,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 91,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 92,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 93,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 94,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 95,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 96,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 97,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 98,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 99,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    },
+    {
+      "iteration": 100,
+      "rules_checked": 13,
+      "total_flagged": 41,
+      "by_rule": {
+        "html_uses_standard_material": 20,
+        "html_missing_outlet_height": 2,
+        "python_uses_python3_not_python": 17,
+        "python_fcntl_import": 1,
+        "python_statistics_unused": 1
+      }
+    }
+  ]
+}

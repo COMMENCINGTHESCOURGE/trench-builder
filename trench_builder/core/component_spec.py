@@ -43,6 +43,10 @@ class ComponentSpec:
     parameters: Dict[str, Any] = field(default_factory=dict)
     mount_points: List[str] = field(default_factory=list)
     tags: List[str] = field(default_factory=list)
+    # Surface attachment for decals/badges — projects onto parent geometry
+    surface_normal: Optional[List[float]] = None       # [nx, ny, nz] projection direction
+    projection_mode: Optional[str] = None              # "shrinkwrap" | "uv_decal" | "planar"
+    surface_conformity: float = 0.0                    # 0.0 = flat, 1.0 = full surface conform
 
     def to_dict(self) -> dict:
         d = asdict(self)
@@ -68,6 +72,9 @@ class ComponentSpec:
             parameters=data.get("parameters", {}),
             mount_points=data.get("mount_points", []),
             tags=data.get("tags", []),
+            surface_normal=data.get("surface_normal"),
+            projection_mode=data.get("projection_mode"),
+            surface_conformity=data.get("surface_conformity", 0.0),
         )
 
     def validate_against_vinculum(self, measurements: Dict[str, float]) -> List[str]:

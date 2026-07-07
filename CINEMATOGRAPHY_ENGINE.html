@@ -109,7 +109,12 @@ cam.position.set(8,5,8);cam.lookAt(0,0,0);
 
 // Ground
 const gGeo=new THREE.PlaneGeometry(30,30,40,40);gGeo.rotateX(-Math.PI/2);
-const gMat=new THREE.MeshStandardMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true});
+const gMat=new THREE.MeshPhysicalMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const terrainHeights=new Float32Array(gGeo.attributes.position.count);
 for(let i=0;i<gGeo.attributes.position.count;i++){
   const x=gGeo.attributes.position.getX(i),z=gGeo.attributes.position.getY(i);
@@ -129,17 +134,32 @@ sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;s
 S.add(sun);S.add(new THREE.AmbientLight(0x221111,.5));S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.3));
 
 // ── Subject: Copper winding ring (our "helta" target) ──
-const copperMat=new THREE.MeshStandardMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100,emissiveIntensity:.15});
+const copperMat=new THREE.MeshPhysicalMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100,emissiveIntensity:.15,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const subject=new THREE.Group();
 // Magnet core
-subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.8,48),new THREE.MeshStandardMaterial({color:0x444455,metalness:.7,roughness:.45}))).position.y=-.4;
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.8,48),new THREE.MeshPhysicalMaterial({color:0x444455,metalness:.7,roughness:.45,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }))).position.y=-.4;
 // Copper windings (the helta shot target)
 for(let i=0;i<5;i++){
   const r=new THREE.Mesh(new THREE.TorusGeometry(.65,.04,32,80),copperMat);
   r.rotation.x=Math.PI/2;r.position.y=-.2+i*.2;subject.add(r);
 }
 // Top plate
-subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.58,.64,.1,48),new THREE.MeshStandardMaterial({color:0xaaaacc,metalness:.85,roughness:.25}))).position.y=.4;
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.58,.64,.1,48),new THREE.MeshPhysicalMaterial({color:0xaaaacc,metalness:.85,roughness:.25,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }))).position.y=.4;
 // EM field ring (subtle glow)
 const emRing=new THREE.Mesh(new THREE.TorusGeometry(.72,.015,16,120),new THREE.MeshBasicMaterial({color:0xff6644,transparent:true,opacity:.3}));
 emRing.rotation.x=Math.PI/2;emRing.position.y=.25;emRing.name='emRing';subject.add(emRing);
@@ -148,7 +168,12 @@ subject.position.set(0,.5,0);S.add(subject);
 // ── Background structures (B-roll context) ──
 for(let i=0;i<6;i++){
   const a=i/6*Math.PI*2,r=4+Math.random()*3;
-  const p=new THREE.Mesh(new THREE.BoxGeometry(.3,.05,1.5+Math.random()),new THREE.MeshStandardMaterial({color:0x887766,roughness:.7}));
+  const p=new THREE.Mesh(new THREE.BoxGeometry(.3,.05,1.5+Math.random()),new THREE.MeshPhysicalMaterial({color:0x887766,roughness:.7,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   p.position.set(Math.cos(a)*r,hAt(Math.cos(a)*r,Math.sin(a)*r)+.75,Math.sin(a)*r);p.castShadow=true;S.add(p);
 }
 

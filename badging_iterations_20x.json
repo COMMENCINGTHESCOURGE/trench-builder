@@ -1,0 +1,194 @@
+{
+  "run_count": 20,
+  "variants": [
+    {
+      "id": 4,
+      "text": "CONVEYOR",
+      "font": "Eurostile Bold",
+      "badge_material": "Raw Cast Iron",
+      "decal_style": "Frosted Glass Edge-glow",
+      "substrate_texture": "Machined Swirls",
+      "eval_score": 2.7
+    },
+    {
+      "id": 16,
+      "text": "VANGUARD",
+      "font": "Consolas",
+      "badge_material": "Anodized Gold",
+      "decal_style": "Amber Emissive Inlay",
+      "substrate_texture": "Matte Oxide",
+      "eval_score": 2.6
+    },
+    {
+      "id": 5,
+      "text": "GHOST BRAID",
+      "font": "Futura Bold",
+      "badge_material": "Raw Cast Iron",
+      "decal_style": "Laser Engraved Etching",
+      "substrate_texture": "Carbon Fiber weave",
+      "eval_score": 2.4
+    },
+    {
+      "id": 17,
+      "text": "TRENCH",
+      "font": "Roboto Mono",
+      "badge_material": "Polished Chrome",
+      "decal_style": "Frosted Glass Edge-glow",
+      "substrate_texture": "Machined Swirls",
+      "eval_score": 2.4
+    },
+    {
+      "id": 6,
+      "text": "CONVEYOR",
+      "font": "Eurostile Bold",
+      "badge_material": "Obsidian",
+      "decal_style": "Amber Emissive Inlay",
+      "substrate_texture": "Hammered Steel",
+      "eval_score": 2.3
+    },
+    {
+      "id": 8,
+      "text": "CONVEYOR",
+      "font": "Microgramma",
+      "badge_material": "Polished Chrome",
+      "decal_style": "Frosted Glass Edge-glow",
+      "substrate_texture": "Sandblasted Aluminum",
+      "eval_score": 2.3
+    },
+    {
+      "id": 13,
+      "text": "VANGUARD",
+      "font": "Helvetica Neue",
+      "badge_material": "Obsidian",
+      "decal_style": "Frosted Glass Edge-glow",
+      "substrate_texture": "Sandblasted Aluminum",
+      "eval_score": 2.3
+    },
+    {
+      "id": 7,
+      "text": "PANGEA",
+      "font": "Roboto Mono",
+      "badge_material": "Brushed Titanium",
+      "decal_style": "Liquid Copper Spill",
+      "substrate_texture": "Carbon Fiber weave",
+      "eval_score": 2.2
+    },
+    {
+      "id": 18,
+      "text": "CONVEYOR",
+      "font": "Impact",
+      "badge_material": "Raw Cast Iron",
+      "decal_style": "Laser Engraved Etching",
+      "substrate_texture": "Machined Swirls",
+      "eval_score": 2.1
+    },
+    {
+      "id": 9,
+      "text": "GHOST BRAID",
+      "font": "Eurostile Bold",
+      "badge_material": "Matte Carbon Fiber",
+      "decal_style": "Laser Engraved Etching",
+      "substrate_texture": "Machined Swirls",
+      "eval_score": 2.0
+    },
+    {
+      "id": 19,
+      "text": "OBELISK",
+      "font": "Eurostile Bold",
+      "badge_material": "Raw Cast Iron",
+      "decal_style": "Liquid Copper Spill",
+      "substrate_texture": "Sandblasted Aluminum",
+      "eval_score": 2.0
+    },
+    {
+      "id": 14,
+      "text": "OBELISK",
+      "font": "Roboto Mono",
+      "badge_material": "Matte Carbon Fiber",
+      "decal_style": "Liquid Copper Spill",
+      "substrate_texture": "Sandblasted Aluminum",
+      "eval_score": 1.9
+    },
+    {
+      "id": 12,
+      "text": "TRENCH",
+      "font": "Consolas",
+      "badge_material": "Obsidian",
+      "decal_style": "Stenciled White Enamel",
+      "substrate_texture": "Carbon Fiber weave",
+      "eval_score": 1.8
+    },
+    {
+      "id": 1,
+      "text": "VANGUARD",
+      "font": "Eurostile Bold",
+      "badge_material": "Matte Carbon Fiber",
+      "decal_style": "Stenciled White Enamel",
+      "substrate_texture": "Carbon Fiber weave",
+      "eval_score": 1.7
+    },
+    {
+      "id": 3,
+      "text": "CONVEYOR",
+      "font": "Futura Bold",
+      "badge_material": "Polished Chrome",
+      "decal_style": "Stenciled White Enamel",
+      "substrate_texture": "Matte Oxide",
+      "eval_score": 1.7
+    },
+    {
+      "id": 10,
+      "text": "OBELISK",
+      "font": "Helvetica Neue",
+      "badge_material": "Polished Chrome",
+      "decal_style": "Laser Engraved Etching",
+      "substrate_texture": "Hammered Steel",
+      "eval_score": 1.6
+    },
+    {
+      "id": 11,
+      "text": "OBELISK",
+      "font": "Futura Bold",
+      "badge_material": "Matte Carbon Fiber",
+      "decal_style": "Stenciled White Enamel",
+      "substrate_texture": "Carbon Fiber weave",
+      "eval_score": 1.6
+    },
+    {
+      "id": 2,
+      "text": "TRENCH",
+      "font": "Impact",
+      "badge_material": "Polished Chrome",
+      "decal_style": "Liquid Copper Spill",
+      "substrate_texture": "Hammered Steel",
+      "eval_score": 1.5
+    },
+    {
+      "id": 15,
+      "text": "TRENCH",
+      "font": "Impact",
+      "badge_material": "Obsidian",
+      "decal_style": "Stenciled White Enamel",
+      "substrate_texture": "Matte Oxide",
+      "eval_score": 1.5
+    },
+    {
+      "id": 20,
+      "text": "TRENCH",
+      "font": "Helvetica Neue",
+      "badge_material": "Bismuth Crystal",
+      "decal_style": "Liquid Copper Spill",
+      "substrate_texture": "Machined Swirls",
+      "eval_score": 1.5
+    }
+  ],
+  "best_variant": {
+    "id": 4,
+    "text": "CONVEYOR",
+    "font": "Eurostile Bold",
+    "badge_material": "Raw Cast Iron",
+    "decal_style": "Frosted Glass Edge-glow",
+    "substrate_texture": "Machined Swirls",
+    "eval_score": 2.7
+  }
+}

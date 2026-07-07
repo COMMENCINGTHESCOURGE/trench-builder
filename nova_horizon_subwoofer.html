@@ -97,7 +97,13 @@ controls.dampingFactor = 0.05;
 scene.add(new THREE.AmbientLight(0x222222));
 const sun = new THREE.DirectionalLight(0xffcc88, 1.5);
 sun.position.set(5, 10, 5);
-scene.add(sun);
+
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(sun);
 
 // --- Cross Pollinate 1: Parallax Sky Dome + Chroma Cascade ---
 const skyGeo = new THREE.SphereGeometry(300, 64, 32);
@@ -148,12 +154,22 @@ scene.add(sky);
 
 // --- Cross Pollinate 2: Subwoofer Base Model ---
 const subwoofer = new THREE.Group();
-const magnetMat = new THREE.MeshStandardMaterial({color:0x444455, metalness:0.7, roughness:0.4});
+const magnetMat = new THREE.MeshPhysicalMaterial({color:0x444455, metalness:0.7, roughness:0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const magnet = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1.5, 32), magnetMat);
 magnet.position.y = -0.75;
 subwoofer.add(magnet);
 
-const coneMat = new THREE.MeshStandardMaterial({color:0xccaa88, roughness:0.55, metalness:0.1});
+const coneMat = new THREE.MeshPhysicalMaterial({color:0xccaa88, roughness:0.55, metalness:0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const cone = new THREE.Mesh(new THREE.ConeGeometry(2.5, 1.2, 32, 1), coneMat);
 cone.position.y = 0.6;
 subwoofer.add(cone);

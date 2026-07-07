@@ -33,6 +33,7 @@ class ConstraintKind(Enum):
     EXACT = "exact"
     MASS = "mass"
     TOLERANCE = "tolerance"
+    CURVATURE = "curvature"    # G0/G1/G2/G3 continuity validation
 
 
 @dataclass
@@ -97,6 +98,13 @@ class Constraint:
                 return False, f"{self.key}: {value} outside tolerance \u00b1{half}"
             return True, "ok"
 
+        elif self.kind == ConstraintKind.CURVATURE:
+            # Curvature continuity levels: 0=G0 (positional), 1=G1 (tangent),
+            # 2=G2 (curvature), 3=G3 (rate of curvature change)
+            if self.min is not None and value < self.min:
+                return False, f"{self.key}: continuity G{value} < required G{self.min}"
+            return True, "ok"
+
         return True, "ok"
 
     def to_dict(self) -> dict:
@@ -121,6 +129,11 @@ class Constraint:
     @classmethod
     def bounds(cls, key: str, min_val: float, max_val: float, desc: str = "") -> "Constraint":
         return cls(kind=ConstraintKind.RANGE, key=key, min=min_val, max=max_val, description=desc)
+
+    @classmethod
+    def curvature(cls, key: str, min_grade: float = 2.0, desc: str = "") -> "Constraint":
+        """Require minimum geometric continuity grade (G0/G1/G2/G3)."""
+        return cls(kind=ConstraintKind.CURVATURE, key=key, min=min_grade, description=desc)
 
 
 @dataclass
@@ -202,4 +215,30 @@ class Vinculum:
             Constraint.angle("right_shoulder_abduction", -90, 45, "Locked right \u2014 corruption")
         ).add(
             Constraint.ratio("torso_twist_degrees", 15, 0.3, "Permanent spinal twist")
+        )
+
+    @classmethod
+    def typography(cls) -> "Vinculum":
+        """Typography/signage constraints — G2 bevels, precise kerning, clean extrusion.
+
+        Vinculum Role 1 (Division):  glyph_area / substrate_area = coverage ratio
+        Vinculum Role 2 (Grouping):  {word_block} = one kerned unit
+        Vinculum Role 3 (Multiply):  base_metal × noise × emission = final appearance
+        Vinculum Role 4 (Sequence):  variant̄ = iterate sweep until converged
+        """
+        return cls(domain="typography").add(
+            Constraint.curvature("bevel_continuity", 2.0, "G2 minimum — smooth reflections across bevel")
+        ).add(
+            Constraint.ratio("extrusion_depth_ratio", 0.15, 0.03,
+                             "Extrusion depth ≈ 15% of cap height")
+        ).add(
+            Constraint(kind=ConstraintKind.TOLERANCE, key="kerning_tolerance",
+                       target=0.0, tolerance=0.04,
+                       description="Kerning deviation ±0.02em from font metric")
+        ).add(
+            Constraint.bounds("chamfer_segments", 8, 64,
+                              "Enough segments for smooth bevel, not so many it's wasteful")
+        ).add(
+            Constraint.ratio("coverage_ratio", 0.65, 0.15,
+                             "Glyph area / substrate area ≈ 65% — not overcrowded, not empty")
         )

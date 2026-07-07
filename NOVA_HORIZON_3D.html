@@ -48,6 +48,12 @@
     <div id="wTemp">18°C</div>
     <div id="wDesc">OVERCAST</div>
   </div>
+  <div class="hud-panel telemetry" id="telemetryHUD" style="border-left: 2px solid #8b5cf6;">
+    <h3 style="color: #8b5cf6;">Tensor Field</h3>
+    <div class="st"><div class="v" id="tVRAM" style="color:#d4a854;">0.8GB</div><div class="l">VRAM BUDGET</div></div>
+    <div class="st"><div class="v" id="tChunks" style="color:#d4a854;">64</div><div class="l">ACTIVE CHUNKS</div></div>
+    <div class="st"><div class="v" id="tLoad" style="color:#d4a854;">14ms</div><div class="l">ASYNC LOAD</div></div>
+  </div>
   <div class="hud-panel hotbar" id="hotbar">
     <div class="hs a" data-s="0"><span class="n">1</span><span class="i">¤</span><span class="a" id="a0">32</span></div>
     <div class="hs" data-s="1"><span class="n">2</span><span class="i">≡</span><span class="a" id="a1">120</span></div>
@@ -98,7 +104,13 @@ flashlight.position.set(0, 0, 0);
 cam.add(flashlight);
 flashlight.target.position.set(0, 0, -1);
 cam.add(flashlight.target);
-scene.add(cam);
+
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(cam);
 cam.position.set(0, 4, 0);
 const renderer = new THREE.WebGLRenderer({antialias:true,canvas:document.getElementById('c')});
 renderer.setSize(innerWidth,innerHeight);
@@ -507,7 +519,12 @@ function getH(x, z) {
 
 // Build terrain chunks
 const chunks = new Map();
-const terrainMat = new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.95,flatShading:true});
+const terrainMat = new THREE.MeshPhysicalMaterial({vertexColors:true,roughness:0.95,flatShading:true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function getTerrainColor(h) {
   if (h < -3) return new THREE.Color('#1a3050'); // water
@@ -559,8 +576,18 @@ function updateChunks() {
 const TREE_COUNT = 200;
 const trunkGeo = new THREE.CylinderGeometry(0.3, 0.5, 3, 5);
 const leavesGeo = new THREE.ConeGeometry(2, 4, 6);
-const trunkMat = new THREE.MeshStandardMaterial({color:'#5c4033'});
-const leavesMat = new THREE.MeshStandardMaterial({color:'#3a7a2f'});
+const trunkMat = new THREE.MeshPhysicalMaterial({color:'#5c4033',
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const leavesMat = new THREE.MeshPhysicalMaterial({color:'#3a7a2f',
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 const trunkInstanced = new THREE.InstancedMesh(trunkGeo, trunkMat, TREE_COUNT);
 trunkInstanced.castShadow = true;
@@ -651,7 +678,12 @@ scene.add(leavesInstanced);
 // Rocks instanced
 const ROCK_COUNT = 150;
 const rockGeo = new THREE.IcosahedronGeometry(1.0, 1);
-const rockMat = new THREE.MeshStandardMaterial({color:'#555555', roughness:0.8});
+const rockMat = new THREE.MeshPhysicalMaterial({color:'#555555', roughness:0.8,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const rockInstanced = new THREE.InstancedMesh(rockGeo, rockMat, ROCK_COUNT);
 rockInstanced.castShadow = true;
 rockInstanced.receiveShadow = true;
@@ -680,7 +712,12 @@ scene.add(rockInstanced);
 const hostiles = [];
 const hostileMeshes = [];
 for (let i = 0; i < 10; i++) {
-  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshStandardMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4}));
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshPhysicalMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.15, 8, 16), new THREE.MeshBasicMaterial({color:'#ff0000'}));
   body.add(ring);
   body.castShadow = true;
@@ -694,7 +731,12 @@ for (let i = 0; i < 10; i++) {
 const wildlife = [];
 const wildMeshes = [];
 for (let i = 0; i < 8; i++) {
-  const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshStandardMaterial({color:'#b0886e',emissive:'#003322',emissiveIntensity:0.2}));
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.6, 8, 8), new THREE.MeshPhysicalMaterial({color:'#b0886e',emissive:'#003322',emissiveIntensity:0.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   body.castShadow = true;
   body.position.set((Math.random()-0.5)*WORLD*0.6, 2, (Math.random()-0.5)*WORLD*0.6);
   scene.add(body);
@@ -705,7 +747,12 @@ for (let i = 0; i < 8; i++) {
 // DATAPADS
 const datapads = [];
 for (let i = 0; i < 5; i++) {
-  const pad = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.2, 0.8), new THREE.MeshStandardMaterial({color:'#ffd93d',emissive:'#332200',emissiveIntensity:0.5}));
+  const pad = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.2, 0.8), new THREE.MeshPhysicalMaterial({color:'#ffd93d',emissive:'#332200',emissiveIntensity:0.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   pad.position.set((Math.random()-0.5)*WORLD*0.5, 2, (Math.random()-0.5)*WORLD*0.5);
   pad.castShadow = true;
   scene.add(pad);
@@ -714,11 +761,21 @@ for (let i = 0; i < 5; i++) {
 
 // OUTPOST
 const outpostG = new THREE.Group();
-const tower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 20, 8), new THREE.MeshStandardMaterial({color:'#1a1a2e'}));
+const tower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 20, 8), new THREE.MeshPhysicalMaterial({color:'#1a1a2e',
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
 tower.position.y = 10;
 tower.castShadow = true;
 outpostG.add(tower);
-const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.5, 8, 8), new THREE.MeshStandardMaterial({color:'#ff6b6b'}));
+const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.5, 8, 8), new THREE.MeshPhysicalMaterial({color:'#ff6b6b',
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
 antenna.position.y = 24;
 outpostG.add(antenna);
 const light = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), new THREE.MeshBasicMaterial({color:'#ff0000'}));
@@ -805,13 +862,23 @@ function spawnCharacter(name, worldX, worldZ) {
     // Procedural fallback — colored biped
     const body = new THREE.Mesh(
       new THREE.CylinderGeometry(0.3, 0.4, 1.2, 8),
-      new THREE.MeshStandardMaterial({ color: 0x8b5cf6, roughness: 0.5 })
+      new THREE.MeshPhysicalMaterial({ color: 0x8b5cf6, roughness: 0.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })
     );
     body.position.y = 0.6;
     proxy.add(body);
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.22, 8, 6),
-      new THREE.MeshStandardMaterial({ color: 0xa78bfa, roughness: 0.4 })
+      new THREE.MeshPhysicalMaterial({ color: 0xa78bfa, roughness: 0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })
     );
     head.position.y = 1.35;
     proxy.add(head);
@@ -1711,10 +1778,14 @@ gltfLoader.load(
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          child.material = new THREE.MeshStandardMaterial({
+          child.material = new THREE.MeshPhysicalMaterial({
             color: colorHex, roughness: 0.1, metalness: 0.9,
-            flatShading: true, emissive: glowHex, emissiveIntensity: 0.6
-          });
+            flatShading: true, emissive: glowHex, emissiveIntensity: 0.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
         }
       });
     };
@@ -1725,14 +1796,18 @@ gltfLoader.load(
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
-          child.material = new THREE.MeshStandardMaterial({
+          child.material = new THREE.MeshPhysicalMaterial({
             map: spriteTex,
             roughness: 0.3,
             metalness: 0.6,
             emissive: 0x442244,
             emissiveIntensity: 0.3,
-            emissiveMap: spriteTex
-          });
+            emissiveMap: spriteTex,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
         }
       });
     };
@@ -2372,7 +2447,12 @@ function update(dt) {
 
             // Loot drop — glowing orb with random reward
             const lootGeo = new THREE.SphereGeometry(0.35, 8, 8);
-            const lootMat = new THREE.MeshStandardMaterial({color:0xffd700, emissive:0x553300, emissiveIntensity:0.7, roughness:0.2});
+            const lootMat = new THREE.MeshPhysicalMaterial({color:0xffd700, emissive:0x553300, emissiveIntensity:0.7, roughness:0.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
             const loot = new THREE.Mesh(lootGeo, lootMat);
             loot.position.copy(hostileMeshes[j].position);
             loot.position.y += 1.5;
@@ -2538,10 +2618,20 @@ function update(dt) {
 
 // ═══ BOSS SYSTEM — elite hostiles with health bars and special drops ═══
 function spawnBoss(x, z) {
-  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(2.5, 2), new THREE.MeshStandardMaterial({color:'#440000',emissive:'#220000',emissiveIntensity:0.6,roughness:0.3}));
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(2.5, 2), new THREE.MeshPhysicalMaterial({color:'#440000',emissive:'#220000',emissiveIntensity:0.6,roughness:0.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   const ring = new THREE.Mesh(new THREE.TorusGeometry(3, 0.3, 8, 24), new THREE.MeshBasicMaterial({color:'#ff0000'}));
   body.add(ring);
-  const crown = new THREE.Mesh(new THREE.ConeGeometry(2, 3, 6), new THREE.MeshStandardMaterial({color:'#ff4444',emissive:'#440000',emissiveIntensity:0.8}));
+  const crown = new THREE.Mesh(new THREE.ConeGeometry(2, 3, 6), new THREE.MeshPhysicalMaterial({color:'#ff4444',emissive:'#440000',emissiveIntensity:0.8,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   crown.position.y = 2.5;
   body.add(crown);
   body.castShadow = true;
@@ -2574,7 +2664,12 @@ function updateBossBar() {
 // Boss spawns every 5 game days when far from outpost
 
 function spawnHostile() {
-  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshStandardMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4}));
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshPhysicalMaterial({color:'#880000',emissive:'#220000',emissiveIntensity:0.3,roughness:0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.15, 8, 16), new THREE.MeshBasicMaterial({color:'#ff0000'}));
   body.add(ring);
   body.castShadow = true;
