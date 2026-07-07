@@ -1,0 +1,368 @@
+{
+  "model_id": "kael_vos_v1",
+  "domain": "character",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "character",
+    "constraints": {
+      "left_shoulder_abduction": {
+        "kind": "angle",
+        "key": "left_shoulder_abduction",
+        "target": null,
+        "min": -15,
+        "max": 180,
+        "tolerance": 0.05,
+        "description": "Hyperflexible left"
+      },
+      "right_shoulder_abduction": {
+        "kind": "angle",
+        "key": "right_shoulder_abduction",
+        "target": null,
+        "min": -90,
+        "max": 45,
+        "tolerance": 0.05,
+        "description": "Locked right \u2014 corruption"
+      },
+      "torso_twist_degrees": {
+        "kind": "ratio",
+        "key": "torso_twist_degrees",
+        "target": 15,
+        "min": null,
+        "max": null,
+        "tolerance": 0.3,
+        "description": "Permanent spinal twist"
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "torso",
+      "component_type": "torso",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "torso_height_to_total": {
+            "kind": "ratio",
+            "key": "torso_height_to_total",
+            "target": 0.35,
+            "min": null,
+            "max": null,
+            "tolerance": 0.05,
+            "description": "Torso ~35% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "torso_type": "corrupted",
+        "scale": 1.0
+      },
+      "mount_points": [
+        "head",
+        "l_shoulder",
+        "r_shoulder",
+        "hips"
+      ],
+      "tags": [
+        "torso",
+        "corrupted"
+      ]
+    },
+    {
+      "name": "left_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_shoulder_abduction": {
+            "kind": "angle",
+            "key": "left_shoulder_abduction",
+            "target": null,
+            "min": -15,
+            "max": 180,
+            "tolerance": 0.05,
+            "description": "Hyperflexible left"
+          },
+          "right_shoulder_abduction": {
+            "kind": "angle",
+            "key": "right_shoulder_abduction",
+            "target": null,
+            "min": -90,
+            "max": 45,
+            "tolerance": 0.05,
+            "description": "Locked right \u2014 corruption"
+          },
+          "torso_twist_degrees": {
+            "kind": "ratio",
+            "key": "torso_twist_degrees",
+            "target": 15,
+            "min": null,
+            "max": null,
+            "tolerance": 0.3,
+            "description": "Permanent spinal twist"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "corrupted",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "corrupted",
+        "left_arm"
+      ]
+    },
+    {
+      "name": "right_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_shoulder_abduction": {
+            "kind": "angle",
+            "key": "left_shoulder_abduction",
+            "target": null,
+            "min": -15,
+            "max": 180,
+            "tolerance": 0.05,
+            "description": "Hyperflexible left"
+          },
+          "right_shoulder_abduction": {
+            "kind": "angle",
+            "key": "right_shoulder_abduction",
+            "target": null,
+            "min": -90,
+            "max": 45,
+            "tolerance": 0.05,
+            "description": "Locked right \u2014 corruption"
+          },
+          "torso_twist_degrees": {
+            "kind": "ratio",
+            "key": "torso_twist_degrees",
+            "target": 15,
+            "min": null,
+            "max": null,
+            "tolerance": 0.3,
+            "description": "Permanent spinal twist"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "corrupted",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "corrupted",
+        "right_arm"
+      ]
+    },
+    {
+      "name": "left_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_shoulder_abduction": {
+            "kind": "angle",
+            "key": "left_shoulder_abduction",
+            "target": null,
+            "min": -15,
+            "max": 180,
+            "tolerance": 0.05,
+            "description": "Hyperflexible left"
+          },
+          "right_shoulder_abduction": {
+            "kind": "angle",
+            "key": "right_shoulder_abduction",
+            "target": null,
+            "min": -90,
+            "max": 45,
+            "tolerance": 0.05,
+            "description": "Locked right \u2014 corruption"
+          },
+          "torso_twist_degrees": {
+            "kind": "ratio",
+            "key": "torso_twist_degrees",
+            "target": 15,
+            "min": null,
+            "max": null,
+            "tolerance": 0.3,
+            "description": "Permanent spinal twist"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "corrupted",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "corrupted",
+        "left_leg"
+      ]
+    },
+    {
+      "name": "right_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_shoulder_abduction": {
+            "kind": "angle",
+            "key": "left_shoulder_abduction",
+            "target": null,
+            "min": -15,
+            "max": 180,
+            "tolerance": 0.05,
+            "description": "Hyperflexible left"
+          },
+          "right_shoulder_abduction": {
+            "kind": "angle",
+            "key": "right_shoulder_abduction",
+            "target": null,
+            "min": -90,
+            "max": 45,
+            "tolerance": 0.05,
+            "description": "Locked right \u2014 corruption"
+          },
+          "torso_twist_degrees": {
+            "kind": "ratio",
+            "key": "torso_twist_degrees",
+            "target": 15,
+            "min": null,
+            "max": null,
+            "tolerance": 0.3,
+            "description": "Permanent spinal twist"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "corrupted",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "corrupted",
+        "right_leg"
+      ]
+    },
+    {
+      "name": "head",
+      "component_type": "head",
+      "parent": "torso",
+      "joint_type": "ball_socket",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -70,
+        70
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "head_height_to_total": {
+            "kind": "ratio",
+            "key": "head_height_to_total",
+            "target": 0.125,
+            "min": null,
+            "max": null,
+            "tolerance": 0.03,
+            "description": "Head ~12.5% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "head_type": "corrupted",
+        "scale": 0.85
+      },
+      "mount_points": [
+        "neck"
+      ],
+      "tags": [
+        "head",
+        "corrupted"
+      ]
+    }
+  ],
+  "character_name": "Kael Vos",
+  "role": "Disposable Wingman",
+  "archetype": "Loyal until the price is right",
+  "lore": "Flies with you for 10 missions. On the 11th, a rival offers him 3x your net worth. He takes it. But he leaves a back door in his ship systems \u2014 he wants to be caught. He wants you to stop him.",
+  "dialogue_seeds": [
+    "\"I didn't betray you for money. I betrayed you so you would finally take me seriously.\"",
+    "\"The back door is still open. I never closed it. I was waiting for you to notice.\""
+  ],
+  "sprite_params": {
+    "sheet": "mecha_walk_4_corrupted.png",
+    "frame_count": 4,
+    "palette": "corrupted_teal",
+    "variant": "corrupted"
+  },
+  "glb_export_name": "kael_vos.glb",
+  "faction": "grief_wastes",
+  "abilities": [
+    "corrupted_overdrive",
+    "joint_lock",
+    "back_door_access"
+  ],
+  "mission_triggers": [
+    "awakening",
+    "betrayal"
+  ],
+  "stats": {
+    "loyalty": 0.3,
+    "combat": 0.7,
+    "stealth": 0.5,
+    "negotiation": 0.4
+  },
+  "glb_path": null,
+  "sprite_sheet_path": null
+}

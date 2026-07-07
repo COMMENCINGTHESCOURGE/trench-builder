@@ -1,0 +1,46 @@
+{
+  "model_id": "rock_boulder_v1",
+  "domain": "environment",
+  "version": "1.0",
+  "global_vinculum": null,
+  "metadata": {},
+  "components": [
+    {
+      "name": "body",
+      "component_type": "rock",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "size": 1.5,
+        "subdivisions": 4,
+        "displacement": 0.25,
+        "color": [
+          0.3,
+          0.28,
+          0.26,
+          1.0
+        ],
+        "shape": "boulder"
+      },
+      "mount_points": [],
+      "tags": []
+    }
+  ],
+  "asset_type": "rock",
+  "variant": "boulder",
+  "biome": "any",
+  "scale_range": [
+    0.5,
+    1.5
+  ],
+  "material_color": [
+    0.3,
+    0.28,
+    0.26,
+    1.0
+  ],
+  "glb_export_name": "rock_boulder.glb"
+}

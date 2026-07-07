@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Vinculum Bridge — connects the HTML frontend to Gemma 4 via llama.cpp.
    Runs on localhost:5000. No cloud. No API keys. No internet required."""
 

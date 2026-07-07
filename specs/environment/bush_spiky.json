@@ -1,0 +1,45 @@
+{
+  "model_id": "bush_spiky_v1",
+  "domain": "environment",
+  "version": "1.0",
+  "global_vinculum": null,
+  "metadata": {},
+  "components": [
+    {
+      "name": "body",
+      "component_type": "bush",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "size": 0.8,
+        "cluster_count": 7,
+        "color": [
+          0.15,
+          0.3,
+          0.12,
+          1.0
+        ],
+        "shape": "spiky"
+      },
+      "mount_points": [],
+      "tags": []
+    }
+  ],
+  "asset_type": "bush",
+  "variant": "spiky",
+  "biome": "rocky",
+  "scale_range": [
+    0.6,
+    1.4
+  ],
+  "material_color": [
+    0.15,
+    0.3,
+    0.12,
+    1.0
+  ],
+  "glb_export_name": "bush_spiky.glb"
+}

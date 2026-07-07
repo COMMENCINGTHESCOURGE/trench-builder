@@ -1,0 +1,81 @@
+{
+  "model_id": "tree_pine_v1",
+  "domain": "environment",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "environment",
+    "constraints": {
+      "canopy_to_trunk_ratio": {
+        "kind": "ratio",
+        "key": "canopy_to_trunk_ratio",
+        "target": 6.0,
+        "min": null,
+        "max": null,
+        "tolerance": 0.3,
+        "description": ""
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "trunk",
+      "component_type": "trunk",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "height": 2.4,
+        "radius": 0.3,
+        "color": [
+          0.25,
+          0.18,
+          0.12,
+          1.0
+        ]
+      },
+      "mount_points": [],
+      "tags": []
+    },
+    {
+      "name": "canopy",
+      "component_type": "foliage",
+      "parent": "trunk",
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "radius": 1.8,
+        "height": 1.6,
+        "color": [
+          0.08,
+          0.35,
+          0.15,
+          1.0
+        ],
+        "shape": "cone",
+        "density": 3
+      },
+      "mount_points": [],
+      "tags": []
+    }
+  ],
+  "asset_type": "tree",
+  "variant": "pine",
+  "biome": "forest",
+  "scale_range": [
+    0.7,
+    1.3
+  ],
+  "material_color": [
+    0.25,
+    0.18,
+    0.12,
+    1.0
+  ],
+  "glb_export_name": "tree_pine.glb"
+}

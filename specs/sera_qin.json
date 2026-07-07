@@ -1,0 +1,296 @@
+{
+  "model_id": "sera_qin_v1",
+  "domain": "character",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "character",
+    "constraints": {
+      "arm_span_to_height": {
+        "kind": "ratio",
+        "key": "arm_span_to_height",
+        "target": 1.0,
+        "min": null,
+        "max": null,
+        "tolerance": 0.05,
+        "description": "Wingspan \u2248 height"
+      },
+      "head_to_body": {
+        "kind": "ratio",
+        "key": "head_to_body",
+        "target": 0.125,
+        "min": null,
+        "max": null,
+        "tolerance": 0.02,
+        "description": "Head \u2248 1/8 total height"
+      },
+      "leg_to_torso": {
+        "kind": "ratio",
+        "key": "leg_to_torso",
+        "target": 1.1,
+        "min": null,
+        "max": null,
+        "tolerance": 0.08,
+        "description": "Legs slightly longer than torso"
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "torso",
+      "component_type": "torso",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "torso_height_to_total": {
+            "kind": "ratio",
+            "key": "torso_height_to_total",
+            "target": 0.35,
+            "min": null,
+            "max": null,
+            "tolerance": 0.05,
+            "description": "Torso ~35% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "torso_type": "standard",
+        "scale": 0.92
+      },
+      "mount_points": [
+        "head",
+        "l_shoulder",
+        "r_shoulder",
+        "hips"
+      ],
+      "tags": [
+        "torso",
+        "standard"
+      ]
+    },
+    {
+      "name": "left_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "humanoid left arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "humanoid",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "humanoid",
+        "left_arm"
+      ]
+    },
+    {
+      "name": "right_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "humanoid right arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "humanoid",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "humanoid",
+        "right_arm"
+      ]
+    },
+    {
+      "name": "left_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "humanoid left leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "humanoid",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "humanoid",
+        "left_leg"
+      ]
+    },
+    {
+      "name": "right_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "humanoid right leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "humanoid",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "humanoid",
+        "right_leg"
+      ]
+    },
+    {
+      "name": "head",
+      "component_type": "head",
+      "parent": "torso",
+      "joint_type": "ball_socket",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -70,
+        70
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "head_height_to_total": {
+            "kind": "ratio",
+            "key": "head_height_to_total",
+            "target": 0.125,
+            "min": null,
+            "max": null,
+            "tolerance": 0.03,
+            "description": "Head ~12.5% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "head_type": "standard",
+        "scale": 0.782
+      },
+      "mount_points": [
+        "neck"
+      ],
+      "tags": [
+        "head",
+        "standard"
+      ]
+    }
+  ],
+  "character_name": "Sera Qin",
+  "role": "The Informant",
+  "archetype": "Knows everything, tells nothing",
+  "lore": "Feeds you tips that are always accurate but always incomplete. Each tip makes you money AND creates an enemy. She is building a network of people who owe her \u2014 and you're the glue.",
+  "dialogue_seeds": [
+    "\"I told you where the cargo was. I didn't tell you who else knew. That costs extra.\"",
+    "\"Information is the only currency that appreciates the more you spend it.\""
+  ],
+  "sprite_params": {
+    "sheet": "dim_mak_fighter_full_sheet.jpg",
+    "frame_count": 6,
+    "palette": "dim_mak_crimson",
+    "variant": "stealth"
+  },
+  "glb_export_name": "sera_qin.glb",
+  "faction": "dim_mak",
+  "abilities": [
+    "info_network",
+    "double_tip",
+    "enemy_catalog"
+  ],
+  "mission_triggers": [
+    "inside_man",
+    "false_flag"
+  ],
+  "stats": {
+    "loyalty": 0.1,
+    "combat": 0.3,
+    "stealth": 0.9,
+    "negotiation": 0.95
+  },
+  "glb_path": null,
+  "sprite_sheet_path": null
+}

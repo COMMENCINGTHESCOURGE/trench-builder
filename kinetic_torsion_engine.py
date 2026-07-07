@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 KINETIC_TORSION_ENGINE v2.0 — Production-Hardened
 ═══════════════════════════════════════════════════════
