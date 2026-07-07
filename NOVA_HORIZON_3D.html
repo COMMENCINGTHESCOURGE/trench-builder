@@ -3,76 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>NOVA HORIZON 3D — Open World</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;overflow:hidden;color:#8b5cf6;font-family:'Rajdhani',sans-serif;user-select:none}
-:root {
-  --theme-color: #8b5cf6;
-  --theme-color-rgb: 139, 92, 246;
-  --theme-color-light: #a78bfa;
-}
-canvas{display:block;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1}
-body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdhani',sans-serif;user-select:none}
-.scanlines{position:fixed;inset:0;z-index:20;pointer-events:none;opacity:0.25;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.3) 2px,rgba(0,0,0,0.3) 4px)}
-.vignette{position:fixed;inset:0;z-index:19;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.7) 100%)}
-.crosshair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;pointer-events:none}
-.crosshair-r{position:absolute;width:20px;height:20px;top:-10px;left:-10px;border:1px solid rgba(var(--theme-color-rgb),0.4);border-radius:50%}
-.crosshair-d{position:absolute;width:3px;height:3px;top:-1.5px;left:-1.5px;background:var(--theme-color);border-radius:50%;box-shadow:0 0 6px var(--theme-color)}
-.hud{position:fixed;inset:0;z-index:10;pointer-events:none}
-.hud-panel{position:absolute;background:rgba(10,20,30,0.75);border:1px solid rgba(var(--theme-color-rgb),0.25);backdrop-filter:blur(8px);pointer-events:auto}
-.logo{top:14px;left:14px;padding:10px 18px;border-radius:0 12px 0 12px;display:flex;align-items:center;gap:10px}
-.logo h1{font-family:'Orbitron';font-size:16px;letter-spacing:3px;text-shadow:0 0 10px rgba(var(--theme-color-rgb),0.4)}
-.logo span{font-size:10px;opacity:0.6;letter-spacing:1px}
-.stats{top:14px;right:14px;padding:8px 16px;border-radius:12px 0 12px 0;display:flex;gap:16px}
-.st{text-align:center}.st .v{font-family:'Orbitron';font-size:14px;font-weight:700}.st .l{font-size:7px;opacity:0.5;letter-spacing:1px;text-transform:uppercase}
-.suit{bottom:14px;left:14px;padding:10px 14px;border-radius:0 12px 12px 0;display:flex;align-items:center;gap:10px}
-.suit-ring{position:relative;width:64px;height:64px}
-.suit-ring svg{transform:rotate(-90deg)}
-.suit-ring .v{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Orbitron';font-size:16px;font-weight:700}
-.suit-bars{display:flex;flex-direction:column;gap:4px}
-.sb{width:80px;height:5px;background:rgba(var(--theme-color-rgb),0.15);border-radius:3px;overflow:hidden}
-.sb-f{height:100%;border-radius:3px;transition:width 0.5s}
-.sb-f.h{background:var(--theme-color)}.sb-f.sh{background:#b0886e}.sb-f.e{background:#ff9f43}
-.obj{top:80px;left:14px;width:220px;padding:12px;border-radius:0 10px 10px 0;font-size:12px}
-.obj h3{font-family:'Orbitron';font-size:9px;letter-spacing:2px;opacity:0.5;margin-bottom:6px;text-transform:uppercase}
-.oi{display:flex;align-items:flex-start;gap:6px;padding:4px 0;border-bottom:1px solid rgba(var(--theme-color-rgb),0.08)}
-.oi:last-child{border:none}
-.oi .d{font-size:10px;opacity:0.5}
-.oi.done{opacity:0.3;text-decoration:line-through}
-.weather{top:80px;right:14px;width:150px;padding:12px;border-radius:10px 0 0 10px;text-align:right}
-.notify{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:rgba(10,20,30,0.9);border:1px solid var(--theme-color);padding:16px 32px;border-radius:6px;font-family:'Orbitron';font-size:14px;letter-spacing:2px;text-align:center;opacity:0;transition:all 0.4s;z-index:100;box-shadow:0 0 30px rgba(var(--theme-color-rgb),0.2)}
-.notify.s{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.hotbar{bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;padding:6px 10px;border-radius:10px}
-.hs{width:56px;height:56px;border:1px solid rgba(var(--theme-color-rgb),0.2);border-radius:6px;background:rgba(0,20,30,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
-.hs.a{border-color:var(--theme-color);box-shadow:0 0 12px rgba(var(--theme-color-rgb),0.4),inset 0 0 8px rgba(var(--theme-color-rgb),0.2)}
-.hs .n{position:absolute;top:1px;left:4px;font-size:7px;opacity:0.4;font-family:'Orbitron'}
-.hs .i{font-size:22px}
-.hs .a{font-family:'Share Tech Mono';font-size:10px}
-.interact{position:fixed;top:56%;left:50%;transform:translateX(-50%);padding:4px 10px;background:rgba(0,0,0,0.7);border:1px solid var(--theme-color);border-radius:3px;font-size:11px;letter-spacing:1px;opacity:0;transition:opacity 0.3s;z-index:16;pointer-events:none}
-.interact.s{opacity:1}
-.dmg{position:fixed;inset:0;z-index:18;pointer-events:none;opacity:0;transition:opacity 0.2s;background:radial-gradient(ellipse at center,transparent 30%,rgba(255,0,0,0.3) 100%)}
-
-.minimap{position:fixed;bottom:20px;right:20px;width:180px;height:180px;z-index:12;border:2px solid rgba(139,92,246,0.3);border-radius:50%;overflow:hidden;background:rgba(5,15,25,0.85);display:none;box-shadow:0 0 20px rgba(139,92,246,0.15)}
-.minimap canvas{width:100%;height:100%;border-radius:50%}
-.inventory-panel{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,6,16,0.92);backdrop-filter:blur(12px)}
-.inventory-grid{display:grid;grid-template-columns:repeat(6,80px);gap:6px;padding:12px}
-.inv-slot{width:80px;height:80px;background:rgba(10,20,30,0.8);border:1px solid rgba(139,92,246,0.2);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:10px;color:#8aa1b5}
-.inv-slot:hover{border-color:#8b5cf6;box-shadow:0 0 12px rgba(139,92,246,0.3)}
-.inv-slot .ico{font-size:24px;margin-bottom:2px}
-.inv-slot .cnt{font-size:9px;font-family:'Share Tech Mono';color:#ffd700}
-.achieve-toast{position:fixed;top:120px;right:20px;z-index:300;background:rgba(10,20,30,0.95);border:1px solid #ffd700;border-radius:8px;padding:12px 20px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;font-family:'Rajdhani',sans-serif;max-width:280px;pointer-events:none}
-.achieve-toast.s{opacity:1;transform:translateX(0)}
-.achieve-toast .t{color:#ffd700;font-family:Orbitron;font-size:12px;letter-spacing:1px;margin-bottom:4px}
-.achieve-toast .d{color:#8aa1b5;font-size:10px}
-.boss-bar{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:250;display:none;flex-direction:column;align-items:center;gap:4px}
-.boss-bar .name{font-family:Orbitron;font-size:12px;color:#ff4444;letter-spacing:2px;text-shadow:0 0 12px rgba(255,0,0,0.5)}
-.boss-bar .track{width:300px;height:8px;background:rgba(255,0,0,0.15);border-radius:4px;overflow:hidden;border:1px solid rgba(255,0,0,0.3)}
-.boss-bar .fill{height:100%;background:linear-gradient(90deg,#ff0000,#ff4444,#ff6666);border-radius:4px;transition:width 0.3s}
-.weather-fx{position:fixed;inset:0;z-index:17;pointer-events:none;opacity:0;transition:opacity 2s}
-</style>
+<link rel="stylesheet" href="nova_style.css">
 <base target="_blank">
 </head>
 <body>
@@ -82,8 +13,8 @@ body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdh
 <div class="dmg" id="dmg"></div>
 <div class="hud">
   <div class="hud-panel logo">
-    <div style="width:32px;height:32px;border:2px solid #8b5cf6;border-radius:50%;display:grid;place-items:center;animation:pulse 4s infinite">
-      <span style="font-size:8px;font-weight:700">N</span>
+    <div class="logo-icon">
+      <span class="logo-icon-text">N</span>
     </div>
     <div><h1>NOVA HORIZON</h1><span>// OPEN WORLD 3D</span></div>
   </div>
@@ -98,24 +29,24 @@ body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdh
       <div class="v" id="suitP">100%</div>
     </div>
     <div class="suit-bars">
-      <div class="sb"><div class="sb-f h" id="bHp" style="width:100%"></div></div>
-      <div class="sb"><div class="sb-f sh" id="bSh" style="width:100%"></div></div>
-      <div class="sb"><div class="sb-f e" id="bEn" style="width:85%"></div></div>
+      <div class="sb"><div class="sb-f h" id="bHp"></div></div>
+      <div class="sb"><div class="sb-f sh" id="bSh"></div></div>
+      <div class="sb"><div class="sb-f e" id="bEn"></div></div>
     </div>
   </div>
   <div class="hud-panel obj">
     <h3>Primary</h3>
     <div class="oi" id="oPrim"><span>◈</span><span>Locate Outpost Signal</span><span class="d" id="oDist">2.3 km</span></div>
-    <h3 style="margin-top:8px">Optional</h3>
+    <h3 class="optional-title">Optional</h3>
     <div class="oi" id="oWild"><span>○</span><span>Scan Wildlife (<b id="wCnt">2</b>/6)</span></div>
     <div class="oi" id="oData"><span>○</span><span>Recover Data Pads</span></div>
     <div class="oi" id="oHost"><span>○</span><span>Neutralize Hostiles (<b id="hCnt">0</b>/8)</span></div>
   </div>
   <div class="hud-panel weather">
-    <h3 style="font-family:Orbitron;font-size:9px;letter-spacing:2px;opacity:0.5;margin-bottom:6px">Weather</h3>
-    <div style="font-size:28px" id="wIcon">☁</div>
-    <div style="font-size:28px;font-family:Orbitron;font-weight:300" id="wTemp">18°C</div>
-    <div style="font-size:10px;opacity:0.7" id="wDesc">OVERCAST</div>
+    <h3>Weather</h3>
+    <div id="wIcon">☁</div>
+    <div id="wTemp">18°C</div>
+    <div id="wDesc">OVERCAST</div>
   </div>
   <div class="hud-panel hotbar" id="hotbar">
     <div class="hs a" data-s="0"><span class="n">1</span><span class="i">¤</span><span class="a" id="a0">32</span></div>
@@ -131,19 +62,19 @@ body{background:#000;overflow:hidden;color:var(--theme-color);font-family:'Rajdh
 
 <!-- CDN: unpkg.com/jsdelivr. If CDN is down, vendor three.js locally: npm install three@0.160.0 and update paths. -->
 
-<canvas id="minimap-canvas" width="180" height="180" class="minimap" style="display:none"></canvas>
+<canvas id="minimap-canvas" width="180" height="180" class="minimap"></canvas>
 <div class="inventory-panel" id="inv-panel">
-  <div style="background:rgba(8,12,30,0.95);border:1px solid #8b5cf6;padding:20px;border-radius:8px;text-align:center;box-shadow:0 0 25px rgba(139,92,246,0.25)">
-    <h2 style="font-family:Orbitron;color:#8b5cf6;font-size:14px;letter-spacing:3px;margin-bottom:8px">INVENTORY</h2>
+  <div class="inventory-content">
+    <h2>INVENTORY</h2>
     <div class="inventory-grid" id="inv-grid"></div>
-    <div style="margin-top:12px;font-size:11px;color:#8aa1b5;font-family:'Share Tech Mono'">
+    <div class="inventory-stats">
       <span id="inv-credits">CREDITS: 12.4k</span> | <span id="inv-weight">WEIGHT: 0/250kg</span>
     </div>
-    <button onclick="document.getElementById('inv-panel').style.display='none';controls.lock()" style="margin-top:12px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid #8b5cf6;color:#8b5cf6;font-family:Orbitron;font-size:11px;letter-spacing:2px;border-radius:4px;cursor:pointer">CLOSE [I]</button>
+    <button onclick="document.getElementById('inv-panel').style.display='none';controls.lock()" class="btn-inv-close">CLOSE [I]</button>
   </div>
 </div>
 <div class="achieve-toast" id="achieve-toast"><div class="t"></div><div class="d"></div></div>
-<div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill" style="width:100%"></div></div></div>
+<div class="boss-bar" id="boss-bar"><div class="name"></div><div class="track"><div class="fill" id="boss-fill"></div></div></div>
 <div class="weather-fx" id="weather-fx"></div>
 
 <script src="js/game_design_core.js"></script>
@@ -947,10 +878,10 @@ function showCharacterDialogue(name, text) {
 const envAssets = {};  // key → { scene, geometry, material, loaded }
 const ENV_ASSETS = {
   // Trees
-  tree_pine:   '/assets/environment/tree_pine_v1.glb',
-  tree_oak:    '/assets/environment/tree_oak_v1.glb',
-  tree_dead:   '/assets/environment/tree_dead_v1.glb',
-  tree_alien:  '/assets/environment/tree_alien_v1.glb',
+  tree_pine:   '/assets/environment/tree_pine_hf.glb',
+  tree_oak:    '/assets/environment/tree_oak_hf.glb',
+  tree_dead:   '/assets/environment/tree_dead_hf.glb',
+  tree_alien:  '/assets/environment/tree_alien_hf.glb',
   // Rocks
   rock_boulder:  '/assets/environment/rock_boulder_v1.glb',
   rock_crystal:  '/assets/environment/rock_crystal_v1.glb',
@@ -2548,6 +2479,62 @@ function update(dt) {
     }
   }
 
+  // Hostile respawn after 30s near player
+  for (let i = 0; i < hostiles.length; i++) {
+    const h = hostiles[i];
+    if (!h.alive && Date.now() - (h.deathTime || 0) > 30000) {
+      const a = Math.random() * Math.PI * 2;
+      const d = 60 + Math.random() * 100;
+      hostileMeshes[i].position.set(cam.position.x+Math.cos(a)*d, getH(cam.position.x+Math.cos(a)*d,cam.position.z+Math.sin(a)*d)+4, cam.position.z+Math.sin(a)*d);
+      h.hp = 40; h.alive = true; h.deathTime = 0;
+      hostileMeshes[i].visible = true;
+    }
+  }
+
+  // Wildlife wander
+  for (let i = 0; i < wildlife.length; i++) {
+    const w = wildlife[i];
+    const m = wildMeshes[i];
+    w.angle += (Math.random()-0.5)*0.03;
+    m.position.x += Math.cos(w.angle)*w.speed * dt * 0.06;
+    m.position.z += Math.sin(w.angle)*w.speed * dt * 0.06;
+    const gh = getH(m.position.x, m.position.z) + 2;
+    m.position.y = gh;
+  }
+
+  // Loot pickup — auto-collect nearby drops
+  for (let i = drops.length-1; i >= 0; i--) {
+    const d = drops[i];
+    d.userData.life -= dt;
+    d.position.y += Math.sin(Date.now()*0.003) * 0.003; // gentle bob
+    if (d.userData.life <= 0) { scene.remove(d); d.geometry.dispose(); drops.splice(i,1); continue; }
+    if (d.position.distanceTo(cam.position) < 3) {
+      const r = d.userData.reward;
+      const v = d.userData.value;
+      if (r === 'ammo') { player.ammo[player.weapon] += v; updateHotbar(); notify('+'+v+' AMMO'); collectLoot(r); }
+      else if (r === 'energy') { player.energy = Math.min(player.maxEnergy, player.energy + v); notify('+'+v+' ENERGY'); collectLoot(r); }
+      else if (r === 'shield') { player.shield = Math.min(player.maxShield, player.shield + v); notify('+'+v+' SHIELD'); collectLoot(r); }
+      else { player.credits += v; notify('+'+v+' CREDITS'); collectLoot(r); }
+      scene.remove(d); d.geometry.dispose(); drops.splice(i,1); window._lootCollected = (window._lootCollected||0)+1;
+    }
+  }
+
+  // Shield recharge (dt-normalized to 60fps)
+  if (player.shield < player.maxShield && player.energy > 10) {
+    player.shield = Math.min(player.maxShield, player.shield + 0.03 * dt * 0.06);
+    player.energy -= 0.005 * dt * 0.06;
+  }
+
+  // Suit repair: slow recovery when shield near full
+  if (player.shield >= player.maxShield * 0.9 && player.energy > 50 && player.suitStatus < 100) {
+    player.energy -= 3 * dt * 0.001;
+    player.suitStatus = Math.min(100, player.suitStatus + 8 * dt * 0.001);
+  }
+
+  // Achievement checks
+  checkAchievements();
+  updateInteract();
+}
 
 // ═══ BOSS SYSTEM — elite hostiles with health bars and special drops ═══
 function spawnBoss(x, z) {
@@ -2611,63 +2598,6 @@ function checkBossSpawning() {
   const angle = Math.random() * Math.PI * 2;
   const d = 80 + Math.random() * 60;
   spawnBoss(cam.position.x + Math.cos(angle) * d, cam.position.z + Math.sin(angle) * d);
-}
-
-  // Hostile respawn after 30s near player
-  for (let i = 0; i < hostiles.length; i++) {
-    const h = hostiles[i];
-    if (!h.alive && Date.now() - (h.deathTime || 0) > 30000) {
-      const a = Math.random() * Math.PI * 2;
-      const d = 60 + Math.random() * 100;
-      hostileMeshes[i].position.set(cam.position.x+Math.cos(a)*d, getH(cam.position.x+Math.cos(a)*d,cam.position.z+Math.sin(a)*d)+4, cam.position.z+Math.sin(a)*d);
-      h.hp = 40; h.alive = true; h.deathTime = 0;
-      hostileMeshes[i].visible = true;
-    }
-  }
-
-  // Wildlife wander
-  for (let i = 0; i < wildlife.length; i++) {
-    const w = wildlife[i];
-    const m = wildMeshes[i];
-    w.angle += (Math.random()-0.5)*0.03;
-    m.position.x += Math.cos(w.angle)*w.speed * dt * 0.06;
-    m.position.z += Math.sin(w.angle)*w.speed * dt * 0.06;
-    const gh = getH(m.position.x, m.position.z) + 2;
-    m.position.y = gh;
-  }
-
-  // Loot pickup — auto-collect nearby drops
-  for (let i = drops.length-1; i >= 0; i--) {
-    const d = drops[i];
-    d.userData.life -= dt;
-    d.position.y += Math.sin(Date.now()*0.003) * 0.003; // gentle bob
-    if (d.userData.life <= 0) { scene.remove(d); d.geometry.dispose(); drops.splice(i,1); continue; }
-    if (d.position.distanceTo(cam.position) < 3) {
-      const r = d.userData.reward;
-      const v = d.userData.value;
-      if (r === 'ammo') { player.ammo[player.weapon] += v; updateHotbar(); notify('+'+v+' AMMO'); collectLoot(r); }
-      else if (r === 'energy') { player.energy = Math.min(player.maxEnergy, player.energy + v); notify('+'+v+' ENERGY'); collectLoot(r); }
-      else if (r === 'shield') { player.shield = Math.min(player.maxShield, player.shield + v); notify('+'+v+' SHIELD'); collectLoot(r); }
-      else { player.credits += v; notify('+'+v+' CREDITS'); collectLoot(r); }
-      scene.remove(d); d.geometry.dispose(); drops.splice(i,1); window._lootCollected = (window._lootCollected||0)+1;
-    }
-  }
-
-  // Shield recharge (dt-normalized to 60fps)
-  if (player.shield < player.maxShield && player.energy > 10) {
-    player.shield = Math.min(player.maxShield, player.shield + 0.03 * dt * 0.06);
-    player.energy -= 0.005 * dt * 0.06;
-  }
-
-  // Suit repair: slow recovery when shield near full
-  if (player.shield >= player.maxShield * 0.9 && player.energy > 50 && player.suitStatus < 100) {
-    player.energy -= 3 * dt * 0.001;
-    player.suitStatus = Math.min(100, player.suitStatus + 8 * dt * 0.001);
-  }
-
-  // Achievement checks
-  checkAchievements();
-  updateInteract();
 }
 
 function fire() {

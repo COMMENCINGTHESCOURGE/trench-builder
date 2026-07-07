@@ -68,19 +68,19 @@ def sync_all():
                 fname = os.path.join(export_dir, f'{safe_name}.stl')
                 
                 size = export_stl(DOC_ID, ws_id, eid, pid, fname)
-                print(f'  ✓ {safe_name} ({size:,} bytes)')
+                print(f'  [OK] {safe_name} ({size:,} bytes)')
                 manifest.append({
                     'element': ename, 'type': etype, 'part': pname,
                     'file': fname, 'size': size
                 })
         except Exception as e:
-            print(f'  ✗ {ename}: {e}')
+            print(f'  [ERR] {ename}: {e}')
     
     # Save manifest
     with open(os.path.join(export_dir, 'manifest.json'), 'w') as f:
         json.dump(manifest, f, indent=2)
     
-    print(f'\n✓ {len(manifest)} parts exported')
+    print(f'\n[OK] {len(manifest)} parts exported')
     return manifest
 
 if __name__ == '__main__':

@@ -1,0 +1,40 @@
+{
+  "model_id": "armored_cabin_bass_bin_v1",
+  "domain": "vehicle_audio",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "vehicle_audio",
+    "constraints": {
+      "panel_thickness_mm": {
+        "kind": "range",
+        "key": "panel_thickness_mm",
+        "min": 4.0,
+        "max": 10.0
+      }
+    }
+  },
+  "metadata": {
+    "use_case": "Heavy-duty armored vehicle cabin sound bin and driver protection plate",
+    "manufacturing": "Laser-cut 5mm high-tensile steel folding with interlocking tabs"
+  },
+  "components": [
+    {
+      "name": "armored_box",
+      "component_type": "kirigami_sheet",
+      "parent": "chassis_frame",
+      "joint_type": "fixed",
+      "parameters": {
+        "flat_width": 1.4,
+        "flat_depth": 1.0,
+        "panel_gap": 0.005,
+        "fold_angle_deg": 90.0,
+        "solidify_thickness": 0.005,
+        "color": [0.22, 0.25, 0.22, 1.0]
+      },
+      "relief_cuts": [
+        { "type": "slotted_opening", "width": 0.4, "height": 0.1, "center": [0.0, 0.0] },
+        { "type": "interlocking_tab", "length": 0.05, "count": 6 }
+      ]
+    }
+  ]
+}

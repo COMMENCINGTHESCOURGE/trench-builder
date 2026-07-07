@@ -1,0 +1,40 @@
+{
+  "model_id": "compact_door_subwoofer_v1",
+  "domain": "vehicle_audio",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "vehicle_audio",
+    "constraints": {
+      "panel_thickness_mm": {
+        "kind": "range",
+        "key": "panel_thickness_mm",
+        "min": 1.5,
+        "max": 3.0
+      }
+    }
+  },
+  "metadata": {
+    "use_case": "Civilian car door side panel speaker integration",
+    "manufacturing": "Stamped 2mm aluminum sheet folding"
+  },
+  "components": [
+    {
+      "name": "door_plate",
+      "component_type": "kirigami_sheet",
+      "parent": "door_frame",
+      "joint_type": "fixed",
+      "parameters": {
+        "flat_width": 0.8,
+        "flat_depth": 0.5,
+        "panel_gap": 0.003,
+        "fold_angle_deg": 90.0,
+        "solidify_thickness": 0.002,
+        "color": [0.4, 0.42, 0.45, 1.0]
+      },
+      "relief_cuts": [
+        { "type": "circular_opening", "radius": 0.15, "center": [-0.2, 0.0] },
+        { "type": "circular_opening", "radius": 0.15, "center": [0.2, 0.0] }
+      ]
+    }
+  ]
+}

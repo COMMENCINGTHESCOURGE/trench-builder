@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MANIFOLD — Building Model Viewer</title>
+<style>
+    :root {
+        --bg-color: #05070f;
+        --panel-bg: rgba(8, 12, 24, 0.75);
+        --border-color: rgba(139, 92, 246, 0.25);
+        --text-color: #a78bfa;
+        --accent-color: #8b5cf6;
+        --glass-blur: blur(15px);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-color); overflow: hidden; font-family: 'Segoe UI', Roboto, sans-serif; color: #cbd5e1; }
+    canvas { display: block; }
+    
+    #info-panel {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: var(--panel-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 15px 20px;
+        z-index: 10;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    #info-panel h1 {
+        font-size: 15px;
+        letter-spacing: 2px;
+        color: #ddd6fe;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+    #info-panel p {
+        font-size: 11px;
+        font-family: monospace;
+        color: #7c3aed;
+    }
+
+    #controls {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--panel-bg);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--border-color);
+        border-radius: 30px;
+        padding: 8px 24px;
+        display: flex;
+        gap: 15px;
+        z-index: 10;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    .btn {
+        background: transparent;
+        border: none;
+        color: #ddd6fe;
+        cursor: pointer;
+        font-size: 11px;
+        font-family: monospace;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        transition: all 0.2s;
+    }
+    .btn:hover {
+        color: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    #loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-color);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.4s ease-out;
+    }
+    .spinner {
+        width: 30px;
+        height: 30px;
+        border: 2px solid rgba(139, 92, 246, 0.1);
+        border-radius: 50%;
+        border-top-color: var(--accent-color);
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+    #loading-text {
+        font-family: monospace;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        color: #8b5cf6;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <div id="loading-text">LOADING MODEL TENSOR [buildin.glb]...</div>
+</div>
+
+<div id="info-panel">
+    <h1>Procedural Building</h1>
+    <p id="stats-text">MANIFOLD open-world substrate | Loading...</p>
+</div>
+
+<div id="controls">
+    <button class="btn" id="reset-cam">Reset View</button>
+    <button class="btn" id="toggle-grid">Toggle Grid</button>
+    <button class="btn" id="toggle-wire">Wireframe</button>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x05070f);
+scene.fog = new THREE.FogExp2(0x05070f, 0.015);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 500);
+camera.position.set(45, 30, 45);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.maxDistance = 250;
+controls.minDistance = 5;
+
+// Light rigging
+scene.add(new THREE.AmbientLight(0x22223b, 1.5));
+
+const sun = new THREE.DirectionalLight(0xffecd2, 3.5);
+sun.position.set(60, 80, 40);
+sun.castShadow = true;
+sun.shadow.mapSize.width = 2048;
+sun.shadow.mapSize.height = 2048;
+sun.shadow.bias = -0.0001;
+scene.add(sun);
+
+const skyLight = new THREE.DirectionalLight(0xa78bfa, 1.2);
+skyLight.position.set(-60, 40, -40);
+scene.add(skyLight);
+
+const ambientGlow = new THREE.PointLight(0x8b5cf6, 2, 80);
+ambientGlow.position.set(0, 10, 0);
+scene.add(ambientGlow);
+
+// Floor grid
+const grid = new THREE.GridHelper(100, 50, 0x8b5cf6, 0x1e1b4b);
+grid.position.y = -0.02;
+grid.material.transparent = true;
+grid.material.opacity = 0.3;
+scene.add(grid);
+
+// Load GLB
+const loader = new GLTFLoader();
+let model = null;
+let wireframeMode = false;
+
+loader.load('./buildin.glb', (gltf) => {
+    model = gltf.scene;
+
+    // Apply soft shadows & standard metal/roughness settings to loaded meshes
+    model.traverse((node) => {
+        if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+            
+            // Adjust materials to look consistent with high-end PBR standards
+            if (node.material) {
+                node.material.roughness = Math.max(node.material.roughness, 0.25);
+                node.material.envMapIntensity = 1.0;
+            }
+        }
+    });
+
+    // Compute bounding box to center the model properly
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    
+    // Position model at origin centered in X/Z, but base resting on the grid
+    model.position.set(-center.x, -box.min.y, -center.z);
+    scene.add(model);
+
+    // Adjust camera to fit the model dimensions perfectly
+    const maxDim = Math.max(size.x, size.y, size.z);
+    camera.position.set(maxDim * 1.2, maxDim * 0.9, maxDim * 1.2);
+    controls.target.set(0, size.y / 2, 0);
+    controls.update();
+
+    // Update stats UI
+    const vertCount = countVertices(model);
+    document.getElementById('stats-text').textContent = `Vertices: ${vertCount.toLocaleString()} | Resting on grid coordinate system`;
+
+    // Fade out overlay
+    const overlay = document.getElementById('loading-overlay');
+    overlay.style.opacity = 0;
+    setTimeout(() => overlay.style.display = 'none', 400);
+
+}, undefined, (error) => {
+    console.error(error);
+    document.getElementById('loading-text').textContent = `LOAD ERROR: ${error.message}`;
+});
+
+function countVertices(obj) {
+    let count = 0;
+    obj.traverse((child) => {
+        if (child.isMesh && child.geometry.attributes.position) {
+            count += child.geometry.attributes.position.count;
+        }
+    });
+    return count;
+}
+
+// Interactive handlers
+document.getElementById('reset-cam').addEventListener('click', () => {
+    if (model) {
+        const box = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        camera.position.set(maxDim * 1.2, maxDim * 0.9, maxDim * 1.2);
+        controls.target.set(0, size.y / 2, 0);
+        controls.update();
+    }
+});
+
+document.getElementById('toggle-grid').addEventListener('click', (e) => {
+    grid.visible = !grid.visible;
+    e.target.textContent = grid.visible ? 'Grid Off' : 'Grid On';
+});
+
+document.getElementById('toggle-wire').addEventListener('click', (e) => {
+    wireframeMode = !wireframeMode;
+    if (model) {
+        model.traverse((node) => {
+            if (node.isMesh && node.material) {
+                node.material.wireframe = wireframeMode;
+            }
+        });
+    }
+    e.target.textContent = wireframeMode ? 'Shaded' : 'Wireframe';
+});
+
+// Render loop
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

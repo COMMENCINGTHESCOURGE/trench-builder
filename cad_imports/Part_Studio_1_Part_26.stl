@@ -1,0 +1,86 @@
+solid Mesh
+  facet normal -1 0 0
+    outer loop
+      vertex 1.10306 2.04181 0.832656
+      vertex 1.10306 1.74654 1.02951
+      vertex 1.10306 2.15101 0.996445
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex 1.10306 1.74654 1.02951
+      vertex 1.10306 1.85573 1.1933
+      vertex 1.10306 2.15101 0.996445
+    endloop
+  endfacet
+  facet normal 0 0.5547 0.83205
+    outer loop
+      vertex 1.1811 1.85573 1.1933
+      vertex 1.1811 2.15101 0.996445
+      vertex 1.10306 1.85573 1.1933
+    endloop
+  endfacet
+  facet normal 0 0.5547 0.83205
+    outer loop
+      vertex 1.1811 2.15101 0.996445
+      vertex 1.10306 2.15101 0.996445
+      vertex 1.10306 1.85573 1.1933
+    endloop
+  endfacet
+  facet normal 0 -0.83205 0.5547
+    outer loop
+      vertex 1.1811 1.74654 1.02951
+      vertex 1.1811 1.85573 1.1933
+      vertex 1.10306 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 0 -0.83205 0.5547
+    outer loop
+      vertex 1.1811 1.85573 1.1933
+      vertex 1.10306 1.85573 1.1933
+      vertex 1.10306 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 0 -0.5547 -0.83205
+    outer loop
+      vertex 1.10306 2.04181 0.832656
+      vertex 1.1811 2.04181 0.832656
+      vertex 1.10306 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 0 -0.5547 -0.83205
+    outer loop
+      vertex 1.1811 2.04181 0.832656
+      vertex 1.1811 1.74654 1.02951
+      vertex 1.10306 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex 1.1811 2.04181 0.832656
+      vertex 1.1811 2.15101 0.996445
+      vertex 1.1811 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex 1.1811 2.15101 0.996445
+      vertex 1.1811 1.85573 1.1933
+      vertex 1.1811 1.74654 1.02951
+    endloop
+  endfacet
+  facet normal 0 0.83205 -0.5547
+    outer loop
+      vertex 1.1811 2.15101 0.996445
+      vertex 1.1811 2.04181 0.832656
+      vertex 1.10306 2.15101 0.996445
+    endloop
+  endfacet
+  facet normal 0 0.83205 -0.5547
+    outer loop
+      vertex 1.1811 2.04181 0.832656
+      vertex 1.10306 2.04181 0.832656
+      vertex 1.10306 2.15101 0.996445
+    endloop
+  endfacet
+endsolid Mesh

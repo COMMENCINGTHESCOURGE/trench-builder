@@ -1,0 +1,40 @@
+{
+  "model_id": "utility_tailgate_soundbar_v1",
+  "domain": "vehicle_audio",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "vehicle_audio",
+    "constraints": {
+      "hinge_angle_deg": {
+        "kind": "range",
+        "key": "hinge_angle_deg",
+        "min": 0.0,
+        "max": 180.0
+      }
+    }
+  },
+  "metadata": {
+    "use_case": "Deployable utility truck tailgate Soundbar foldout",
+    "manufacturing": "Dual-hinged 3mm structural composite folding plates"
+  },
+  "components": [
+    {
+      "name": "tailgate_panel",
+      "component_type": "kirigami_sheet",
+      "parent": "cargo_bed",
+      "joint_type": "revolute",
+      "parameters": {
+        "flat_width": 1.2,
+        "flat_depth": 0.4,
+        "panel_gap": 0.004,
+        "fold_angle_deg": 180.0,
+        "solidify_thickness": 0.003,
+        "color": [0.15, 0.15, 0.15, 1.0]
+      },
+      "relief_cuts": [
+        { "type": "acoustic_mesh_pattern", "spacing": 0.02 },
+        { "type": "mounting_flange", "width": 0.1 }
+      ]
+    }
+  ]
+}
