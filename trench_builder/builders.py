@@ -163,7 +163,7 @@ class ReverseEngineerableBuilder:
         if spec.global_vinculum:
             manifest["global_vinculum"] = spec.global_vinculum.to_dict()
 
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
 
         return str(output_path)

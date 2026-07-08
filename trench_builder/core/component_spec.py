@@ -175,11 +175,11 @@ class AssemblySpec:
 
     # -- File I/O --
     def save_json(self, path: str):
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             f.write(self.to_json())
 
     def save_yaml(self, path: str):
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             f.write(self.to_yaml())
 
     @classmethod
