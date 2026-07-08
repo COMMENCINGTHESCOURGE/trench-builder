@@ -14,8 +14,11 @@ with open(token_path) as f:
 env = os.environ.copy()
 env['KAGGLE_API_TOKEN'] = token
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 KERNEL = 'commencethescourge/vinculum-interiors'
-OUTPUT_DIR = os.path.expanduser('~/Projects/trench_builder/kaggle_logs')
+OUTPUT_DIR = str(BASE_DIR / 'kaggle_logs')
 
 def run(cmd, timeout=120):
     print(f"  Running: {' '.join(cmd)}")
@@ -35,7 +38,7 @@ run(['kaggle', 'kernels', 'status', KERNEL])
 
 # Step 2: Push a new version
 print("\n[2] Pushing kernel update / triggering new run...")
-push_dir = os.path.expanduser('~/Projects/trench_builder/kaggle_push')
+push_dir = str(BASE_DIR / 'kaggle_push')
 if os.path.isdir(push_dir):
     print(f"  Push dir exists: {push_dir}")
     # List contents

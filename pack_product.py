@@ -17,10 +17,10 @@ import zipfile
 from pathlib import Path
 from datetime import datetime
 
-HOME = Path(os.path.expanduser("~"))
-RIGGED_DIR = HOME / "trench-builder" / "output" / "rigged"
-CAD_DIR = HOME / "trench-builder" / "cad_imports"
-PACKS_DIR = HOME / "trench-builder" / "output" / "packs"
+BASE_DIR = Path(__file__).resolve().parent
+RIGGED_DIR = BASE_DIR / "output" / "rigged"
+CAD_DIR = BASE_DIR / "cad_imports"
+PACKS_DIR = BASE_DIR / "output" / "packs"
 
 # === PRODUCT CATALOG ===
 
@@ -476,7 +476,7 @@ def build_bundle(product_key):
                 glb_files[tier].append(dest)
     
     # Copy Unity loader script
-    loader_src = HOME / "trench-builder" / "ConstraintLoader.cs"
+    loader_src = BASE_DIR / "ConstraintLoader.cs"
     if not loader_src.exists():
         # Generate a minimal loader if not found
         loader_content = """// ConstraintLoader.cs — Auto-configures physics from JSON manifest.

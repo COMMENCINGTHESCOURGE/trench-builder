@@ -2,8 +2,12 @@
 """Build updated Kaggle notebook with GitHub fallback for input data."""
 import json
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 # Read local scithary_genrator.py
-with open('C:/Users/dasha/Projects/trench_builder/scithary_genrator.py') as f:
+with open(BASE_DIR / 'scithary_genrator.py') as f:
     script = f.read()
 
 # Modifications for Kaggle environment:
