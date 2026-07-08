@@ -81,7 +81,7 @@ def build_and_export(spec):
         # Running outside Blender — just export the spec JSON
         spec_path = OUTPUT_DIR / f"{spec.model_id}_spec.json"
         spec_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(spec_path, "w") as f:
+        with open(spec_path, "w", encoding="utf-8") as f:
             f.write(spec.to_json())
         print(f"Spec exported (no Blender): {spec_path}")
         print(f"Run inside Blender to generate GLB + manifest.")
@@ -95,7 +95,7 @@ def build_and_export(spec):
     glb_path = builder.export_glb(str(OUTPUT_DIR / f"{spec.model_id}_HP.glb"))
     manifest_path = builder.export_manifest(spec, str(OUTPUT_DIR / f"{spec.model_id}_manifest.json"))
     spec_path = OUTPUT_DIR / f"{spec.model_id}_spec.json"
-    with open(spec_path, "w") as f:
+    with open(spec_path, "w", encoding="utf-8") as f:
         f.write(spec.to_json())
 
     print(f"  GLB:      {glb_path}")

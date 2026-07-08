@@ -491,7 +491,7 @@ public class ConstraintLoader : MonoBehaviour {
 }
 """
         loader_src = bundle_dir / "ConstraintLoader.cs"
-        with open(loader_src, "w") as f:
+        with open(loader_src, "w", encoding="utf-8") as f:
             f.write(loader_content)
     
     loader_dest = bundle_dir / "ConstraintLoader.cs"
@@ -500,7 +500,7 @@ public class ConstraintLoader : MonoBehaviour {
     
     # Generate README
     readme_path = bundle_dir / "README.md"
-    with open(readme_path, "w") as f:
+    with open(readme_path, "w", encoding="utf-8") as f:
         f.write(generate_readme(product))
     
     # Count
@@ -640,7 +640,7 @@ def build_catalog():
     lines.append("")
     
     catalog_path = PACKS_DIR / "CATALOG.md"
-    with open(catalog_path, "w") as f:
+    with open(catalog_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
     
     print(f"\nCatalog: {catalog_path}")

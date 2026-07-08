@@ -8,13 +8,19 @@ Stripe checkout flow, and a render queue worker.
 
 DaShawn / Guinea Pig Trench LLC — May 2026
 """
-import os, json, hashlib, time, hmac, uuid
+import os, json, hashlib, time, hmac, uuid, sys
 import stripe
 from datetime import datetime, timedelta
 from pathlib import Path
 from functools import wraps
 from flask import Flask, request, jsonify, send_file, abort
 from flask_cors import CORS
+
+# Force UTF-8 encoding for standard streams on Windows
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
 
 # ═══════════════════════════════════════════════════════
 # CONFIG
