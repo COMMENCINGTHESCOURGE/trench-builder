@@ -33,3 +33,4 @@ desktop.ini
 # Large binary intermediates
 *.stl
 >>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
+__pycache__/
