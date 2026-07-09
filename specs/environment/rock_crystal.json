@@ -1,0 +1,46 @@
+{
+  "model_id": "rock_crystal_v1",
+  "domain": "environment",
+  "version": "1.0",
+  "global_vinculum": null,
+  "metadata": {},
+  "components": [
+    {
+      "name": "body",
+      "component_type": "rock",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "size": 1.8,
+        "subdivisions": 2,
+        "displacement": 0.5,
+        "color": [
+          0.35,
+          0.25,
+          0.45,
+          1.0
+        ],
+        "shape": "crystal"
+      },
+      "mount_points": [],
+      "tags": []
+    }
+  ],
+  "asset_type": "rock",
+  "variant": "crystal",
+  "biome": "mountain",
+  "scale_range": [
+    0.5,
+    1.5
+  ],
+  "material_color": [
+    0.35,
+    0.25,
+    0.45,
+    1.0
+  ],
+  "glb_export_name": "rock_crystal.glb"
+}

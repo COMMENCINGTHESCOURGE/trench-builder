@@ -109,7 +109,12 @@ cam.position.set(8,5,8);cam.lookAt(0,0,0);
 
 // Ground
 const gGeo=new THREE.PlaneGeometry(30,30,40,40);gGeo.rotateX(-Math.PI/2);
-const gMat=new THREE.MeshStandardMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true});
+const gMat=new THREE.MeshPhysicalMaterial({color:0x1a1408,roughness:.85,metalness:.02,flatShading:true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const terrainHeights=new Float32Array(gGeo.attributes.position.count);
 for(let i=0;i<gGeo.attributes.position.count;i++){
   const x=gGeo.attributes.position.getX(i),z=gGeo.attributes.position.getY(i);
@@ -129,17 +134,32 @@ sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;s
 S.add(sun);S.add(new THREE.AmbientLight(0x221111,.5));S.add(new THREE.HemisphereLight(0x8899cc,0x332211,.3));
 
 // ── Subject: Copper winding ring (our "helta" target) ──
-const copperMat=new THREE.MeshStandardMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100,emissiveIntensity:.15});
+const copperMat=new THREE.MeshPhysicalMaterial({color:0xdd8844,metalness:.98,roughness:.22,emissive:0x331100,emissiveIntensity:.15,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 const subject=new THREE.Group();
 // Magnet core
-subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.8,48),new THREE.MeshStandardMaterial({color:0x444455,metalness:.7,roughness:.45}))).position.y=-.4;
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.8,48),new THREE.MeshPhysicalMaterial({color:0x444455,metalness:.7,roughness:.45,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }))).position.y=-.4;
 // Copper windings (the helta shot target)
 for(let i=0;i<5;i++){
   const r=new THREE.Mesh(new THREE.TorusGeometry(.65,.04,32,80),copperMat);
   r.rotation.x=Math.PI/2;r.position.y=-.2+i*.2;subject.add(r);
 }
 // Top plate
-subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.58,.64,.1,48),new THREE.MeshStandardMaterial({color:0xaaaacc,metalness:.85,roughness:.25}))).position.y=.4;
+subject.add(new THREE.Mesh(new THREE.CylinderGeometry(.58,.64,.1,48),new THREE.MeshPhysicalMaterial({color:0xaaaacc,metalness:.85,roughness:.25,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }))).position.y=.4;
 // EM field ring (subtle glow)
 const emRing=new THREE.Mesh(new THREE.TorusGeometry(.72,.015,16,120),new THREE.MeshBasicMaterial({color:0xff6644,transparent:true,opacity:.3}));
 emRing.rotation.x=Math.PI/2;emRing.position.y=.25;emRing.name='emRing';subject.add(emRing);
@@ -148,9 +168,42 @@ subject.position.set(0,.5,0);S.add(subject);
 // ── Background structures (B-roll context) ──
 for(let i=0;i<6;i++){
   const a=i/6*Math.PI*2,r=4+Math.random()*3;
-  const p=new THREE.Mesh(new THREE.BoxGeometry(.3,.05,1.5+Math.random()),new THREE.MeshStandardMaterial({color:0x887766,roughness:.7}));
+  const p=new THREE.Mesh(new THREE.BoxGeometry(.3,.05,1.5+Math.random()),new THREE.MeshPhysicalMaterial({color:0x887766,roughness:.7,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
   p.position.set(Math.cos(a)*r,hAt(Math.cos(a)*r,Math.sin(a)*r)+.75,Math.sin(a)*r);p.castShadow=true;S.add(p);
 }
+
+// ── WebGPU/flux-chamber GradientAgent Tracer Visualization ──
+const tracerGeo = new THREE.BufferGeometry();
+const tracerPoints = [];
+for (let i = 0; i < 100; i++) {
+  // Simulate GradientAgent path walking the density field gradient
+  const tx = (i - 50) * 0.3;
+  const tz = Math.sin(tx * 0.5) * 4.0;
+  const ty = hAt(tx, tz) + 0.1;
+  tracerPoints.push(new THREE.Vector3(tx, ty, tz));
+}
+tracerGeo.setFromPoints(tracerPoints);
+const tracerMat = new THREE.LineBasicMaterial({
+  color: 0x00ffcc,
+  transparent: true,
+  opacity: 0.8,
+  linewidth: 2
+});
+const tracerLine = new THREE.Line(tracerGeo, tracerMat);
+S.add(tracerLine);
+
+// Glowing agent marker
+const agentMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.12, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0x00ffcc, toneMapped: false })
+);
+S.add(agentMarker);
+
 
 // ═══════════════════════════════════════════
 // CINEMATOGRAPHY SYSTEM
@@ -209,6 +262,9 @@ let recording=false,recordedShots=[],recordStartTime=0;
 let manualControl=false;
 let debugMode=false,wireframeOn=false;
 
+// Transition state parameters
+let activeTransition=null,transitionTime=0,transitionDuration=1.5;
+
 // ── Execute shot ──
 function executeShot(shotId){
   const shot=shotTypes[shotId];if(!shot)return;
@@ -220,6 +276,28 @@ function executeShot(shotId){
     else{currentShot=null}
     return;
   }
+  
+  // Set transition type matching the STORYBOARD_REFERENCE.md mapping
+  if (shotId === 'helta-copper' || shotId === 'dolly') {
+    activeTransition = 'motion_blur';
+    transitionDuration = 1.0;
+  } else if (shotId === 'helta-thermal') {
+    activeTransition = 'match_cut';
+    transitionDuration = 0.1;
+  } else if (shotId === 'helta-em') {
+    activeTransition = 'dissolve';
+    transitionDuration = 1.5;
+  } else if (shotId === 'build') {
+    activeTransition = 'wipe';
+    transitionDuration = 1.2;
+  } else if (shotId === 'victory') {
+    activeTransition = 'fade_to_black';
+    transitionDuration = 1.5;
+  } else {
+    activeTransition = null;
+  }
+  transitionTime = 0;
+
   currentShot=shot;shotTime=0;shotDuration=shot.duration;
   $('shot-name').textContent='◈ '+shot.name;$('shot-name').className='active';
   $('cam-info').textContent='CAM: '+shotId.toUpperCase();
@@ -272,12 +350,58 @@ function loop(){
   // Execute current shot
   if(currentShot){
     shotTime+=dt;
-    if(shotTime>=shotDuration){currentShot=null;$('shot-name').textContent='◈ CUT';$('shot-name').className='';$('viewfinder').style.opacity='0';setTimeout(()=>{$('shot-name').textContent='◈ IDLE'},1000)}
-    else{
-      const p=currentShot.path(shotTime,shotDuration);
-      cam.position.lerp(new THREE.Vector3(p.x,p.y,p.z),.15);
-      cam.lookAt(p.lookX,p.lookY,p.lookZ);
-      if(p.tilt)cam.rotation.z+=(p.tilt-cam.rotation.z)*.1;
+    if(shotTime>=shotDuration){
+      currentShot=null;
+      $('shot-name').textContent='◈ CUT';
+      $('shot-name').className='';
+      $('viewfinder').style.opacity='0';
+      setTimeout(()=>{$('shot-name').textContent='◈ IDLE'},1000);
+    } else {
+      const p = currentShot.path(shotTime, shotDuration);
+      const targetPos = new THREE.Vector3(p.x, p.y, p.z);
+      
+      // Apply transitions based on current frame position & parameters
+      if (activeTransition) {
+        transitionTime += dt;
+        const progress = Math.min(transitionTime / transitionDuration, 1.0);
+        
+        if (activeTransition === 'motion_blur') {
+          // Volumetric dolly push with radial blur approximation
+          cam.position.lerp(targetPos, 0.35); // Fast snap
+          R.toneMappingExposure = 1.3 + Math.sin(progress * Math.PI) * 1.5; // Exposure spike
+        } else if (activeTransition === 'match_cut') {
+          // Direct position interpolation bypass, focus lock
+          cam.position.copy(targetPos);
+          transitionTime = transitionDuration; // Instant
+        } else if (activeTransition === 'dissolve') {
+          // Opacity fade of rendering
+          cam.position.lerp(targetPos, progress);
+          const overlay = $('clapper');
+          overlay.style.background = '#060812';
+          overlay.style.opacity = Math.sin(progress * Math.PI) * 0.7;
+        } else if (activeTransition === 'wipe') {
+          // Camera pan pass simulation via horizontal dark mask
+          cam.position.lerp(targetPos, 0.15);
+          const overlay = $('clapper');
+          overlay.style.background = '#000';
+          overlay.style.opacity = Math.sin(progress * Math.PI) * 0.9;
+        } else if (activeTransition === 'fade_to_black') {
+          // Ramping exposure to 0
+          cam.position.lerp(targetPos, 0.1);
+          R.toneMappingExposure = 1.3 * (1.0 - Math.sin(progress * Math.PI));
+        }
+        
+        if (transitionTime >= transitionDuration) {
+          activeTransition = null;
+          R.toneMappingExposure = 1.3;
+          $('clapper').style.opacity = '0';
+        }
+      } else {
+        cam.position.lerp(targetPos, 0.15);
+      }
+      
+      cam.lookAt(p.lookX, p.lookY, p.lookZ);
+      if(p.tilt) cam.rotation.z += (p.tilt - cam.rotation.z) * 0.1;
     }
   }
 
@@ -288,10 +412,17 @@ function loop(){
   emRing.material.opacity=.2+Math.sin(t*4)*.15;
   subject.rotation.y+=dt*.15;
 
+  // Animate agent marker along the generated tracer path
+  const markerIdx = Math.floor((t * 15) % 100);
+  const mx = (markerIdx - 50) * 0.3;
+  const mz = Math.sin(mx * 0.5) * 4.0;
+  const my = hAt(mx, mz) + 0.12;
+  agentMarker.position.set(mx, my, mz);
+
   // GameShark Creative Mode — wireframe + parameter inspection
   if(debugMode){
     copperMat.wireframe=wireframeOn;
-    $('cam-info').textContent=`WIRE:${wireframeOn?'ON':'OFF'} | Cu-emiss:${copperMat.emissiveIntensity.toFixed(2)} | EM-opac:${emRing.material.opacity.toFixed(2)} | Rot:${(subject.rotation.y%6.283).toFixed(2)}`;
+    $('cam-info').textContent=`WIRE:${wireframeOn?'ON':'OFF'} | Cu-emiss:${copperMat.emissiveIntensity.toFixed(2)} | EM-opac:${emRing.material.opacity.toFixed(2)} | Rot:${(subject.rotation.y%6.283).toFixed(2)} | AgentPos:[${mx.toFixed(1)},${my.toFixed(1)},${mz.toFixed(1)}]`;
     // Cycle wireframe with 'W' key
   }
 

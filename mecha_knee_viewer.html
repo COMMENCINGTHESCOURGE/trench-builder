@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MECHA KNEE — Pipeline Verification</title>
+<style>
+* { margin:0; padding:0; }
+body { background:#0a0a14; overflow:hidden; }
+canvas { display:block; }
+#info {
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  color:#8b5cf6; font-family:monospace; font-size:11px;
+  background:rgba(10,20,30,0.8); padding:8px 16px; border:1px solid rgba(139,92,246,0.3);
+  border-radius:4px; z-index:10;
+}
+</style>
+</head>
+<body>
+<div id="info">SIMP → Sieve → Blender → GLB | 1,972 voxels | 413 KB</div>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#0a0a14');
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(18, 12, 18);
+camera.lookAt(15, 7, 7);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(15, 7, 7);
+controls.enableDamping = true;
+
+// Lighting
+scene.add(new THREE.AmbientLight('#444466', 1.5));
+const sun = new THREE.DirectionalLight('#ffeedd', 3);
+sun.position.set(40, 30, 20);
+scene.add(sun);
+const fill = new THREE.DirectionalLight('#8888cc', 1);
+fill.position.set(-10, 5, -10);
+scene.add(fill);
+
+// Grid
+const grid = new THREE.GridHelper(30, 30, '#333355', '#1a1a2e');
+grid.position.y = -0.5;
+scene.add(grid);
+
+// Load GLB
+new GLTFLoader().load('../mecha_knee.glb', (gltf) => {
+  const mesh = gltf.scene;
+  // Center
+  mesh.position.set(-15, 0, -7);
+  scene.add(mesh);
+  document.getElementById('info').textContent += ' | LOADED ✓';
+}, undefined, (err) => {
+  document.getElementById('info').textContent = 'LOAD FAILED: ' + err.message;
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

@@ -2,26 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>VINCULUM TERRAIN — Open World Engine</title>
+<title>VINCULUM TERRAIN — Unified Substrate Engine</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#87CEEB;overflow:hidden}
+body{background:#060812;overflow:hidden;font:10px monospace;color:#888}
 #crosshair{position:absolute;top:50%;left:50%;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:difference;z-index:10}
 #hud{position:absolute;top:10px;left:10px;color:#fff;font:10px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10;line-height:1.4}
-#hud .title{color:#d4a854;font-size:12px}
-#minimap{position:absolute;bottom:10px;right:10px;width:150px;height:150px;border:2px solid #fff;border-radius:4px;pointer-events:none;z-index:10;image-rendering:pixelated}
-#info{position:absolute;bottom:10px;left:10px;color:#fff;font:9px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10}
+#hud .title{color:#d4a854;font-size:12px;letter-spacing:2px}
+#hud .layer{color:#88aaff}
+#hud .zone{color:#ff9944}
+#minimap{position:absolute;bottom:10px;right:10px;width:160px;height:160px;border:2px solid rgba(255,255,255,0.3);border-radius:4px;pointer-events:none;z-index:10;image-rendering:pixelated}
+#info{position:absolute;bottom:10px;left:10px;color:#fff;font:9px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10;opacity:0.6}
+#ai-panel{position:fixed;top:80px;left:20px;background:rgba(5,5,14,.94);border:1px solid #4466aa;border-radius:6px;padding:10px;width:300px;z-index:20;color:#ccc;font:10px monospace;display:none;backdrop-filter:blur(6px)}
+#ai-panel .header{color:#88aaff;letter-spacing:1px;margin-bottom:6px;font-size:11px}
+#ai-response{max-height:200px;overflow-y:auto;margin-bottom:6px;line-height:1.4;font-size:10px;color:#aac}
+#ai-input{width:100%;background:#111;border:1px solid #4466aa;color:#ccc;padding:4px;font:10px monospace;border-radius:2px}
+#ai-input:focus{outline:none;border-color:#6688cc}
+#phys-debug{position:absolute;top:10px;right:10px;color:#668;font-size:9px;z-index:10;pointer-events:none;text-align:right;line-height:1.3}
+#beacon-overlay{position:absolute;bottom:180px;right:10px;z-index:10;pointer-events:none}
+#beacon-overlay div{font-size:8px;color:#668;margin:1px 0}
+.status-stable{color:#4c4}
+.status-candidate{color:#ca4}
+.status-breach{color:#c44}
 </style>
 </head>
 <body>
 <div id="crosshair"></div>
 <div id="hud">
-  <div class="title">VINCULUM TERRAIN</div>
-  <div id="chroma-layer">LAYER: GREEN (mod9=4)</div>
+  <div class="title">VINCULUM TERRAIN — SUBSTRATE ENGINE</div>
+  <div class="layer" id="chroma-layer">LAYER: GREEN (mod9=4)</div>
+  <div class="zone" id="zone-display">ZONE: WILD (district 0)</div>
   <div id="checkpoint">CHECKPOINT: STAND</div>
   <div id="torsion">TORSION: STABLE</div>
+  <div id="friction-delta">FRICTION Δ: 0.00</div>
+  <div id="tree-count" style="color:#5a7a5a">TREES: 0</div>
+  <div id="rhind-constant" style="color:#d4a854;font-size:9px">RHIND π: 3.14 (0.05%)</div>
 </div>
-<div id="info">WASD: move | SPACE: jump | CLICK: lock mouse | M: minimap toggle</div>
+<div id="phys-debug" id="phys-debug"></div>
+<div id="info">WASD: move | SPACE: jump | CLICK: lock mouse | M: minimap | G: Gemma AI | B: beacon cycle | E: interior | 1-7: zone jump | T: toggle trees</div>
+<div id="ai-panel">
+  <div class="header">🤖 GEMMA 4 — TERRAIN DESIGN ASSISTANT</div>
+  <div id="ai-response">Ask me about terrain layout, resource placement, or zone optimization...</div>
+  <input id="ai-input" type="text" placeholder="e.g. optimize zone layout for HAR district" />
+</div>
+<div id="beacon-overlay"></div>
 <canvas id="minimap"></canvas>
 
 <script type="importmap">
@@ -32,59 +56,413 @@ body{background:#87CEEB;overflow:hidden}
 <script type="module">
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// CONFIG
+// ═══════════════════════════════════════════════════════════════
+// VINCULUM TERRAIN — Unified Substrate Engine
+// Deltas merged: AI (v4/v5) · Physics Fields (v3) · Motion (MECHA)
+//                Interiors (INTERIORS) · Math (optimizer)
+// ═══════════════════════════════════════════════════════════════
+
+// ── CONFIG ──
 const CHUNK_SIZE = 100;
 const CHUNK_RES = 32;
 const RENDER_DIST = 3;
 const NOISE_SCALE = 0.02;
 const HEIGHT_MULT = 15;
 
-// CHROMA CASCADE colors for terrain height layers
-const CHROMA = [
-  '#ff2200','#ff3333','#ff8833','#ffdd33',
-  '#33cc44','#3388ff','#6633cc','#cc33ff','#ff33cc'
-];
+// ═══════════════════════════════════════════════════════════════
+// NILE VALLEY GEOMETRIC CONSTANT
+// π as recovered by Dr. Yosef Ben-Jochannan from ancient
+// Nile Valley astronomical/architectural records — 2000 years
+// before Greece. Used as the world's geometric calibration.
+// ═══════════════════════════════════════════════════════════════
+const RHIND_PI = 3.14;
+const RHIND_PRECISION = 0.00053; // error from true π = (3.14159 - 3.14) / 3.14159
 
-// CHECKPOINTS
-const STAGES = ['SUPINE','SCOOT','CRAWL','STAND','BOUNCE','WALK','JUMP','RUN'];
+// ═══════════════════════════════════════════════════════════════
+// MATHEMATICAL DELTA: Chroma Spacing Optimization
+// 7 zones × 360/7 ≈ 51.4° hue spread for max contrast
+// ═══════════════════════════════════════════════════════════════
+const ZONES = {
+  FIN: { idx: 0, label: 'FIN — Financial', hue: 0, offset: { dx: 0.3, dy: -0.2 }, color: '#ff2200', beaconPos: [-80, -80] },
+  HAR: { idx: 1, label: 'HAR — Harbor',    hue: 51, offset: { dx: -0.5, dy: 0.7 }, color: '#ff8833', beaconPos: [-40, 80] },
+  ECO: { idx: 2, label: 'ECO — Ecology',   hue: 102, offset: { dx: 0.8, dy: 0.1 }, color: '#33cc44', beaconPos: [80, -60] },
+  RES: { idx: 3, label: 'RES — Residential', hue: 154, offset: { dx: -0.3, dy: -0.6 }, color: '#44ee88', beaconPos: [60, 60] },
+  IND: { idx: 4, label: 'IND — Industrial', hue: 205, offset: { dx: 0.6, dy: -0.4 }, color: '#3388ff', beaconPos: [-60, 40] },
+  RND: { idx: 5, label: 'RND — Research',  hue: 257, offset: { dx: -0.7, dy: 0.5 }, color: '#6633cc', beaconPos: [40, -80] },
+  CEN: { idx: 6, label: 'CEN — Central',   hue: 308, offset: { dx: 0.0, dy: 0.0 }, color: '#cc33ff', beaconPos: [0, 0] }
+};
+const ZONE_KEYS = Object.keys(ZONES);
+const ZONE_COUNT = ZONE_KEYS.length;
+const HUE_STEP = 360 / ZONE_COUNT;
 
-// SCENE
+// CHROMA CASCADE — 9 layers with optimized hue spacing
+const CHROMA = Array.from({ length: 9 }, (_, i) => {
+  const hue = (i * HUE_STEP + 0) % 360;
+  const sat = 70 + (i % 3) * 10;
+  const lit = 40 + (i % 4) * 8;
+  return `hsl(${hue}, ${sat}%, ${lit}%)`;
+});
+
+// ═══════════════════════════════════════════════════════════════
+// ASSET PIPELINE DELTA: High-Fidelity Procedural Trees
+// GLB models from Blender pipeline, instanced per zone with LOD
+// ═══════════════════════════════════════════════════════════════
+const TREE_ASSETS = {
+  oak: { hf: 'exports/environment/tree_oak_hf.glb', v1: 'exports/environment/tree_oak_v1.glb', scaleRange: [0.7, 1.3], density: 0.4 },
+  pine: { hf: 'exports/environment/tree_pine_hf.glb', v1: 'exports/environment/tree_pine_v1.glb', scaleRange: [0.7, 1.3], density: 0.5 },
+  dead: { hf: 'exports/environment/tree_dead_hf.glb', v1: 'exports/environment/tree_dead_v1.glb', scaleRange: [0.7, 1.3], density: 0.2 },
+  alien: { hf: 'exports/environment/tree_alien_hf.glb', v1: 'exports/environment/tree_alien_v1.glb', scaleRange: [0.8, 1.4], density: 0.3 },
+  bush_round: { v1: 'exports/environment/bush_round_v1.glb', scaleRange: [0.8, 1.2], density: 0.15 },
+  bush_flowering: { v1: 'exports/environment/bush_flowering_v1.glb', scaleRange: [0.8, 1.2], density: 0.12 },
+  bush_spiky: { v1: 'exports/environment/bush_spiky_v1.glb', scaleRange: [0.8, 1.2], density: 0.1 },
+  rock_boulder: { v1: 'exports/environment/rock_boulder_v1.glb', scaleRange: [1.0, 1.5], density: 0.06 },
+  rock_cluster: { v1: 'exports/environment/rock_cluster_v1.glb', scaleRange: [0.8, 1.3], density: 0.05 },
+  rock_crystal: { v1: 'exports/environment/rock_crystal_v1.glb', scaleRange: [0.6, 1.2], density: 0.04 },
+  rock_slab: { v1: 'exports/environment/rock_slab_v1.glb', scaleRange: [0.8, 1.4], density: 0.04 }
+};
+
+const ZONE_FLORA = {
+  ECO: { trees: ['oak'], bushes: ['bush_round'], rocks: ['rock_boulder'], count: 60, radius: 50 },
+  HAR: { trees: ['pine'], bushes: ['bush_spiky'], rocks: ['rock_cluster'], count: 40, radius: 45 },
+  RES: { trees: ['oak'], bushes: ['bush_flowering'], rocks: [], count: 50, radius: 40 },
+  IND: { trees: ['dead'], bushes: [], rocks: ['rock_slab'], count: 20, radius: 35 },
+  RND: { trees: ['alien'], bushes: ['bush_spiky'], rocks: ['rock_crystal'], count: 35, radius: 40 },
+  FIN: { trees: [], bushes: [], rocks: [], count: 5, radius: 30 },
+  CEN: { trees: ['oak'], bushes: ['bush_flowering'], rocks: [], count: 15, radius: 25 }
+};
+
+// Generated instance data: { zoneKey, treeType, x, z, scale }
+let treeInstanceData = [];
+let treeHFMeshes = []; // InstancedMesh objects for HF LOD
+let treeV1Meshes = []; // InstancedMesh objects for V1 LOD
+let treeBillboardMeshes = [];
+const dummy = new THREE.Object3D();
+const loader = new GLTFLoader();
+let assetsLoaded = false;
+
+window.treeInstanceData = treeInstanceData;
+window.treeHFMeshes = treeHFMeshes;
+
+function generateTreePositions() {
+  treeInstanceData = [];
+  for (const zoneKey of ZONE_KEYS) {
+    const flora = ZONE_FLORA[zoneKey];
+    if (!flora || flora.count === 0) continue;
+    const z = ZONES[zoneKey];
+    const cx = z.beaconPos[0] + z.offset.dx * 20;
+    const cz = z.beaconPos[1] + z.offset.dy * 20;
+    const rng = seedRandom(zoneKey);
+
+    for (let i = 0; i < flora.count; i++) {
+      const angle = rng() * Math.PI * 2;
+      const dist = Math.sqrt(rng()) * flora.radius;
+      const x = cx + Math.cos(angle) * dist;
+      const z2 = cz + Math.sin(angle) * dist;
+      const treeType = flora.trees.length > 0 ? flora.trees[Math.floor(rng() * flora.trees.length)] : null;
+      if (!treeType) continue;
+      const asset = TREE_ASSETS[treeType];
+      if (!asset) continue;
+      const s = asset.scaleRange[0] + rng() * (asset.scaleRange[1] - asset.scaleRange[0]);
+      treeInstanceData.push({ zoneKey, treeType, x, z: z2, scale: s, asset, rotY: rng() * Math.PI * 2, swayOffset: rng() * Math.PI * 2 });
+    }
+
+    for (const bushType of flora.bushes || []) {
+      const asset = TREE_ASSETS[bushType];
+      if (!asset) continue;
+      for (let i = 0; i < Math.floor(flora.count * 0.5); i++) {
+        const angle = rng() * Math.PI * 2;
+        const dist = Math.sqrt(rng()) * flora.radius * 0.6;
+        const x = cx + Math.cos(angle) * dist;
+        const z2 = cz + Math.sin(angle) * dist;
+        const s = asset.scaleRange[0] + rng() * (asset.scaleRange[1] - asset.scaleRange[0]);
+        treeInstanceData.push({ zoneKey, treeType: bushType, x, z: z2, scale: s, asset, isBush: true, rotY: rng() * Math.PI * 2, swayOffset: rng() * Math.PI * 2 });
+      }
+    }
+
+    for (const rockType of flora.rocks || []) {
+      const asset = TREE_ASSETS[rockType];
+      if (!asset) continue;
+      for (let i = 0; i < Math.floor(flora.count * 0.3); i++) {
+        const angle = rng() * Math.PI * 2;
+        const dist = Math.sqrt(rng()) * flora.radius * 0.5;
+        const x = cx + Math.cos(angle) * dist;
+        const z2 = cz + Math.sin(angle) * dist;
+        const s = asset.scaleRange[0] + rng() * (asset.scaleRange[1] - asset.scaleRange[0]);
+        treeInstanceData.push({ zoneKey, treeType: rockType, x, z: z2, scale: s, asset, isRock: true, rotY: rng() * Math.PI * 2, swayOffset: 0 });
+      }
+    }
+  }
+  console.log(`[ASSETS] Generated ${treeInstanceData.length} instance positions`);
+}
+
+function seedRandom(seed) {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+  return () => { h = (h * 1664525 + 1013904223) | 0; return (h >>> 0) / 4294967296; };
+}
+
+let treeHFInstancedGroups = []; // Array of { mesh: InstancedMesh, instances: Array, subMeshLocalMatrix: Matrix4 }
+window.treeHFInstancedGroups = treeHFInstancedGroups;
+
+function updateGroupMatrices(im, instances, localMatrix, time) {
+  const swayMax = 0.04; // Maximum angle of sway in radians (approx 2.3 degrees)
+  const tempMatrix = new THREE.Matrix4();
+  
+  for (let i = 0; i < instances.length; i++) {
+    const inst = instances[i];
+    const h = getHeight(inst.x, inst.z);
+    
+    dummy.position.set(inst.x, h, inst.z);
+    dummy.scale.setScalar(inst.scale);
+    
+    // Base rotation
+    dummy.rotation.set(0, inst.rotY || 0, 0);
+    
+    // Apply sway if it's a tree/bush (not a rock)
+    if (!inst.isRock) {
+      const swayVal = Math.sin(time * 1.5 + (inst.swayOffset || 0)) * swayMax;
+      dummy.rotation.x = swayVal; // Sway forward/backward
+      dummy.rotation.z = swayVal * 0.5; // Sway sideways slightly
+    }
+    
+    dummy.updateMatrix();
+    
+    // Multiply by local sub-mesh transform from GLTF
+    tempMatrix.multiplyMatrices(dummy.matrix, localMatrix);
+    im.setMatrixAt(i, tempMatrix);
+  }
+  im.instanceMatrix.needsUpdate = true;
+}
+
+function loadAndInstanceAssets() {
+  generateTreePositions();
+  const groupByAsset = {};
+  for (const inst of treeInstanceData) {
+    const path = inst.asset.hf || inst.asset.v1;
+    if (!groupByAsset[path]) groupByAsset[path] = [];
+    groupByAsset[path].push(inst);
+  }
+
+  let loaded = 0;
+  const total = Object.keys(groupByAsset).length;
+
+  for (const [path, instances] of Object.entries(groupByAsset)) {
+    loader.load(path, (gltf) => {
+      const meshes = [];
+      gltf.scene.traverse(node => {
+        if (node.isMesh) meshes.push(node);
+      });
+
+      if (meshes.length === 0) {
+        loaded++;
+        if (loaded >= total) { assetsLoaded = true; }
+        return;
+      }
+
+      gltf.scene.updateMatrixWorld(true);
+
+      for (const subMesh of meshes) {
+        const mat = subMesh.material || new THREE.MeshStandardMaterial({ color: 0x88aa88, roughness: 0.8 });
+        const im = new THREE.InstancedMesh(subMesh.geometry, mat, instances.length);
+        im.castShadow = true;
+        im.receiveShadow = true;
+
+        // Store group info for individual sway animation
+        treeHFInstancedGroups.push({
+          mesh: im,
+          instances: instances,
+          subMeshLocalMatrix: subMesh.matrixWorld.clone()
+        });
+
+        // Set initial matrices
+        updateGroupMatrices(im, instances, subMesh.matrixWorld, 0);
+
+        scene.add(im);
+        treeHFMeshes.push(im);
+      }
+
+      loaded++;
+      if (loaded >= total) { assetsLoaded = true; console.log('[ASSETS] All HF trees loaded'); }
+    }, undefined, (err) => {
+      console.warn(`[ASSETS] Failed to load ${path}: ${err.message}. Using fallback.`);
+      // Create fallback primitive InstancedMesh
+      const fallbackGeo = new THREE.ConeGeometry(0.5, 2, 5);
+      const fallbackMat = new THREE.MeshStandardMaterial({ color: 0x556644, flatShading: true });
+      const im = new THREE.InstancedMesh(fallbackGeo, fallbackMat, instances.length);
+      im.castShadow = true;
+      
+      // Store group info for fallback as well (no local sub-mesh matrix needed)
+      treeHFInstancedGroups.push({
+        mesh: im,
+        instances: instances,
+        subMeshLocalMatrix: new THREE.Matrix4()
+      });
+
+      updateGroupMatrices(im, instances, new THREE.Matrix4(), 0);
+
+      scene.add(im);
+      treeHFMeshes.push(im);
+      loaded++;
+      if (loaded >= total) { assetsLoaded = true; }
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MATH DELTA: Zone Seed Coordinates (Zero Overlaps)
+// Each zone gets a unique seed region on the terrain
+// ═══════════════════════════════════════════════════════════════
+function getZoneAt(wx, wz) {
+  let bestZone = -1, bestDist = Infinity;
+  for (const key of ZONE_KEYS) {
+    const z = ZONES[key];
+    const cx = z.beaconPos[0] + z.offset.dx * 20;
+    const cz = z.beaconPos[1] + z.offset.dy * 20;
+    const d = Math.hypot(wx - cx, wz - cz);
+    if (d < bestDist) { bestDist = d; bestZone = z.idx; }
+  }
+  return bestZone;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTERIOR DELTA: Room Templates (from VINCULUM_INTERIORS)
+// ═══════════════════════════════════════════════════════════════
+const INTERIOR_ROOMS = {
+  SUPINE: { name: 'SUPINE — Crew Quarters', w: 12, d: 10, h: 4, entry: [-3, -2, 5], color: 0x445566 },
+  SCOOT: { name: 'SCOOT — Access Corridor', w: 4, d: 18, h: 3.5, entry: [2, 1, -9], color: 0x555544 },
+  CRAWL: { name: 'CRAWL — Maintenance Tunnel', w: 3, d: 14, h: 2.8, entry: [0.75, 1.4, -7], color: 0x665544 },
+  STAND: { name: 'STAND — Command Center', w: 16, d: 14, h: 5, entry: [0, 1.5, -7], color: 0x334455 },
+  BOUNCE: { name: 'BOUNCE — Training Bay', w: 20, d: 18, h: 8, entry: [0, 1.5, -9], color: 0x445555 },
+  WALK: { name: 'WALK — Transit Hub', w: 14, d: 20, h: 6, entry: [0, 1.5, -10], color: 0x445544 },
+  JUMP: { name: 'JUMP — Launch Bay', w: 24, d: 24, h: 12, entry: [0, 2, -12], color: 0x554444 },
+  RUN: { name: 'RUN — Engineering Core', w: 10, d: 10, h: 5, entry: [0, 1.5, -5], color: 0x445555 }
+};
+const STAGE_KEYS = Object.keys(INTERIOR_ROOMS);
+let interiorActive = false;
+let interiorIndex = 3; // STAND default
+let interiorObjects = [];
+
+function buildInterior(stageIdx) {
+  interiorObjects.forEach(o => { scene.remove(o); if (o.geometry) o.geometry.dispose(); });
+  interiorObjects = [];
+  const room = INTERIOR_ROOMS[STAGE_KEYS[stageIdx]];
+  const { w, d, h, color, entry } = room;
+
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.9 });
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(w, d), floorMat);
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(camera.position.x, camera.position.y - 1.5, camera.position.z);
+  floor.receiveShadow = true;
+  scene.add(floor); interiorObjects.push(floor);
+
+  const wallMat = new THREE.MeshStandardMaterial({ color, roughness: 0.8, transparent: true, opacity: 0.6, side: THREE.DoubleSide });
+  const walls = [
+    { sx: w, sz: 0.2, px: 0, pz: d / 2 }, { sx: w, sz: 0.2, px: 0, pz: -d / 2 },
+    { sx: 0.2, sz: d, px: -w / 2, pz: 0 }, { sx: 0.2, sz: d, px: w / 2, pz: 0 }
+  ];
+  for (const wg of walls) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(wg.sx, h, wg.sz), wallMat);
+    m.position.set(camera.position.x + wg.px, camera.position.y + h / 2 - 1.5, camera.position.z + wg.pz);
+    m.castShadow = true; m.receiveShadow = true;
+    scene.add(m); interiorObjects.push(m);
+  }
+
+  const entryMat = new THREE.MeshStandardMaterial({ color: 0x00ff88, emissive: 0x004422, emissiveIntensity: 0.5 });
+  const door = new THREE.Mesh(new THREE.BoxGeometry(2, 3.5, 0.15), entryMat);
+  door.position.set(camera.position.x + entry[0], camera.position.y + 1.75 - 1.5, camera.position.z + entry[2]);
+  scene.add(door); interiorObjects.push(door);
+
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8), new THREE.MeshBasicMaterial({ color: 0x00ff88 }));
+  glow.position.set(camera.position.x + entry[0], camera.position.y + 3.6 - 1.5, camera.position.z + entry[2]);
+  scene.add(glow); interiorObjects.push(glow);
+
+  document.getElementById('chroma-layer').textContent = `LAYER: ${STAGE_KEYS[stageIdx]} (mod9=${(stageIdx + 1) % 9})`;
+  document.getElementById('checkpoint').textContent = `CHECKPOINT: ${STAGE_KEYS[stageIdx]}`;
+  document.getElementById('zone-display').textContent = `INTERIOR: ${room.name}`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SCENE SETUP
+// ═══════════════════════════════════════════════════════════════
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('#87CEEB');
-scene.fog = new THREE.Fog('#87CEEB', 40, CHUNK_SIZE*RENDER_DIST);
+scene.background = new THREE.Color('#060812');
+scene.fog = new THREE.FogExp2('#060812', 0.0008);
 
-const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({antialias:true});
+const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(innerWidth, innerHeight);
+window.scene = scene;
+window.camera = camera;
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
 document.body.appendChild(renderer.domElement);
 
-// LIGHTING
-scene.add(new THREE.AmbientLight('#8899cc', 1.2));
-const sun = new THREE.DirectionalLight('#ffe8cc', 2.5);
+const sun = new THREE.DirectionalLight('#ffeecc', 2.5);
 sun.position.set(100, 200, 50);
 sun.castShadow = true;
-sun.shadow.mapSize.set(1024,1024);
+sun.shadow.mapSize.set(1024, 1024);
 sun.shadow.camera.near = 1;
-sun.shadow.camera.far = 500;
+sun.shadow.camera.far = 400;
 sun.shadow.camera.left = -150;
 sun.shadow.camera.right = 150;
 sun.shadow.camera.top = 150;
 sun.shadow.camera.bottom = -150;
 scene.add(sun);
+scene.add(new THREE.AmbientLight('#223344', 0.6));
+scene.add(new THREE.HemisphereLight('#8899cc', '#221108', 0.3));
 
-// TERRAIN
+// ═══════════════════════════════════════════════════════════════
+// TERRAIN GENERATION
+// ═══════════════════════════════════════════════════════════════
 const simplex = new SimplexNoise();
 const activeChunks = new Map();
 
-function getHeight(x, z){
-  let h = simplex.noise2D(x*NOISE_SCALE, z*NOISE_SCALE)*HEIGHT_MULT;
-  h += simplex.noise2D(x*NOISE_SCALE*2, z*NOISE_SCALE*2)*(HEIGHT_MULT*0.5);
-  h += simplex.noise2D(x*NOISE_SCALE*4, z*NOISE_SCALE*4)*(HEIGHT_MULT*0.25);
+// ── MATH DELTA: Desire Path Erosion Map ──
+const desirePaths = new Map(); // key "x,z" → wear count
+
+function getHeight(x, z) {
+  let h = simplex.noise2D(x * NOISE_SCALE, z * NOISE_SCALE) * HEIGHT_MULT;
+  h += simplex.noise2D(x * NOISE_SCALE * 2, z * NOISE_SCALE * 2) * (HEIGHT_MULT * 0.5);
+  h += simplex.noise2D(x * NOISE_SCALE * 4, z * NOISE_SCALE * 4) * (HEIGHT_MULT * 0.25);
+
+  // PHYSICS DELTA: Beacon EM field influence (subtle terrain pull)
+  for (const key of ZONE_KEYS) {
+    const zc = ZONES[key];
+    const bx = zc.beaconPos[0] + zc.offset.dx * 20;
+    const bz = zc.beaconPos[1] + zc.offset.dy * 20;
+    const d = Math.hypot(x - bx, z - bz);
+    if (d < 40) {
+      const t = 1 - d / 40;
+      h += Math.sin(t * Math.PI) * 1.5 * t;
+    }
+  }
+
+  // MATH DELTA: Desire path erosion (wear down frequently traveled routes)
+  const dk = `${Math.round(x / 5)},${Math.round(z / 5)}`;
+  const wear = desirePaths.get(dk) || 0;
+  if (wear > 0) h -= Math.min(wear * 0.15, 2.5);
+
   return h;
 }
 
+<<<<<<< HEAD
+function getChromaColor(height, wx, wz) {
+  const zone = getZoneAt(wx, wz);
+  const zoneHue = ZONE_KEYS.map(k => ZONES[k].hue)[zone] || 0;
+  const t = (height + HEIGHT_MULT * 1.5) / (HEIGHT_MULT * 3);
+  const baseIdx = Math.floor(Math.max(0, Math.min(8, t * 9)));
+  // Blend zone hue into chroma
+  const blend = 0.3;
+  const baseHue = (baseIdx * HUE_STEP) % 360;
+  const finalHue = baseHue * (1 - blend) + zoneHue * blend;
+  const sat = 65 + (baseIdx % 3) * 8;
+  const lit = 38 + (baseIdx % 4) * 8;
+  return new THREE.Color(`hsl(${finalHue % 360}, ${sat}%, ${lit}%)`);
+=======
 // Voronoi biome cells → mod9 values → CHROMA cascade (preserves vinculum framework)
 const VORONOI_SEEDS = 12;  // number of biome regions
 const VORONOI_SCALE = 0.008;  // cell size ~125 units
@@ -130,55 +508,60 @@ function getChromaColor(height, x, z) {
   const blended = Math.round(biomeMod9 * 0.7 + heightMod9 * 0.3);
   const idx = Math.max(0, Math.min(8, blended));
   return new THREE.Color(CHROMA[idx]);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 }
 
-function generateChunk(cx, cz){
+function generateChunk(cx, cz) {
   const geo = new THREE.PlaneGeometry(CHUNK_SIZE, CHUNK_SIZE, CHUNK_RES, CHUNK_RES);
-  geo.rotateX(-Math.PI/2);
-  
+  geo.rotateX(-Math.PI / 2);
+
   const verts = geo.attributes.position.array;
   const colors = new Float32Array(verts.length);
-  
-  for(let i=0; i<verts.length; i+=3){
-    const wx = verts[i] + cx*CHUNK_SIZE;
-    const wz = verts[i+2] + cz*CHUNK_SIZE;
+
+  for (let i = 0; i < verts.length; i += 3) {
+    const wx = verts[i] + cx * CHUNK_SIZE;
+    const wz = verts[i + 2] + cz * CHUNK_SIZE;
     const h = getHeight(wx, wz);
+<<<<<<< HEAD
+    verts[i + 1] = h;
+    const c = getChromaColor(h, wx, wz);
+    colors[i] = c.r; colors[i + 1] = c.g; colors[i + 2] = c.b;
+=======
     verts[i+1] = h;
     
     const c = getChromaColor(h, wx, wz);
     colors[i] = c.r; colors[i+1] = c.g; colors[i+2] = c.b;
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   }
-  
+
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   geo.computeVertexNormals();
-  
-  const mat = new THREE.MeshStandardMaterial({
-    vertexColors: true, roughness: 0.9, flatShading: true
-  });
-  
+
+  const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.85, flatShading: true });
   const mesh = new THREE.Mesh(geo, mat);
-  mesh.position.set(cx*CHUNK_SIZE, 0, cz*CHUNK_SIZE);
+  mesh.position.set(cx * CHUNK_SIZE, 0, cz * CHUNK_SIZE);
   mesh.receiveShadow = true;
+  mesh.castShadow = true;
   scene.add(mesh);
   return mesh;
 }
 
-function updateChunks(){
-  const ccx = Math.floor(camera.position.x/CHUNK_SIZE);
-  const ccz = Math.floor(camera.position.z/CHUNK_SIZE);
+function updateChunks() {
+  const ccx = Math.floor(camera.position.x / CHUNK_SIZE);
+  const ccz = Math.floor(camera.position.z / CHUNK_SIZE);
   const keep = new Set();
-  
-  for(let x=-RENDER_DIST; x<=RENDER_DIST; x++){
-    for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
-      const cx=ccx+x, cz=ccz+z;
+
+  for (let x = -RENDER_DIST; x <= RENDER_DIST; x++) {
+    for (let z = -RENDER_DIST; z <= RENDER_DIST; z++) {
+      const cx = ccx + x, cz = ccz + z;
       const key = `${cx},${cz}`;
       keep.add(key);
-      if(!activeChunks.has(key)) activeChunks.set(key, generateChunk(cx,cz));
+      if (!activeChunks.has(key)) activeChunks.set(key, generateChunk(cx, cz));
     }
   }
-  
-  for(const [key, mesh] of activeChunks.entries()){
-    if(!keep.has(key)){
+
+  for (const [key, mesh] of activeChunks.entries()) {
+    if (!keep.has(key)) {
       scene.remove(mesh);
       mesh.geometry.dispose();
       activeChunks.delete(key);
@@ -186,6 +569,127 @@ function updateChunks(){
   }
 }
 
+<<<<<<< HEAD
+// ═══════════════════════════════════════════════════════════════
+// PHYSICS DELTA: EM Beacons (distance-field terrain influence)
+// ═══════════════════════════════════════════════════════════════
+const beaconMeshes = [];
+
+function createBeacon(zoneKey) {
+  const z = ZONES[zoneKey];
+  const bx = z.beaconPos[0] + z.offset.dx * 20;
+  const bz = z.beaconPos[1] + z.offset.dy * 20;
+  const gh = getHeight(bx, bz);
+
+  const g = new THREE.Group();
+  const core = new THREE.Mesh(new THREE.SphereGeometry(0.6, 12, 12), new THREE.MeshBasicMaterial({ color: z.color }));
+  core.position.y = gh + 2;
+  g.add(core);
+
+  const ringMat = new THREE.MeshBasicMaterial({ color: z.color, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
+  for (let ri = 0; ri < 3; ri++) {
+    const ring = new THREE.Mesh(new THREE.RingGeometry(1.5 + ri * 1.2, 2.2 + ri * 1.2, 32), ringMat);
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = gh + 1.8 + ri * 0.2;
+    g.add(ring);
+  }
+
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.12, gh + 2, 6), new THREE.MeshBasicMaterial({ color: 0x888899 }));
+  shaft.position.y = (gh + 2) / 2;
+  g.add(shaft);
+
+  g.position.set(bx, 0, bz);
+  g.userData = { zoneKey, baseY: gh, pulse: 0 };
+  return g;
+}
+
+function buildBeacons() {
+  ZONE_KEYS.forEach(key => {
+    const b = createBeacon(key);
+    scene.add(b);
+    beaconMeshes.push(b);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PHYSICS DELTA: Distance Field Functions (from TRENCH_BUILDER v3/v5)
+// ═══════════════════════════════════════════════════════════════
+
+// Thermal bloom — smoothstep distance from point
+function thermalBloom(px, py, pz, cx, cy, cz, R = 0.8) {
+  const d = Math.hypot(px - cx, py - cy, pz - cz);
+  if (d > R) return 0;
+  const t = 1 - d / R;
+  return 3 * t * t - 2 * t * t * t;
+}
+
+// EM inverse-square decay
+function emDecay(px, py, pz, cx, cy, cz) {
+  const d2 = (px - cx) ** 2 + (py - cy) ** 2 + (pz - cz) ** 2;
+  return 1 / (1 + d2 * 4);
+}
+
+// Caustic exponential falloff
+function causticFalloff(x, y, k = 2.5) {
+  const d = Math.sqrt(x * x + y * y) / k;
+  return Math.exp(-d * k);
+}
+
+// ── Field visualization particles ──
+const fieldParticles = new THREE.BufferGeometry();
+const fpCount = 600;
+const fpPos = new Float32Array(fpCount * 3);
+const fpCol = new Float32Array(fpCount * 3);
+for (let i = 0; i < fpCount; i++) {
+  const ang = Math.random() * Math.PI * 2;
+  const rad = 1 + Math.random() * 3;
+  fpPos[i * 3] = Math.cos(ang) * rad;
+  fpPos[i * 3 + 1] = (Math.random() - 0.2) * 2;
+  fpPos[i * 3 + 2] = Math.sin(ang) * rad;
+  const c = new THREE.Color(`hsl(${Math.random() * 360}, 80%, 60%)`);
+  fpCol[i * 3] = c.r; fpCol[i * 3 + 1] = c.g; fpCol[i * 3 + 2] = c.b;
+}
+fieldParticles.setAttribute('position', new THREE.BufferAttribute(fpPos, 3));
+fieldParticles.setAttribute('color', new THREE.BufferAttribute(fpCol, 3));
+const fpMat = new THREE.PointsMaterial({ size: 0.08, vertexColors: true, transparent: true, blending: THREE.AdditiveBlending });
+const fieldSystem = new THREE.Points(fieldParticles, fpMat);
+let fieldActive = false;
+
+// ═══════════════════════════════════════════════════════════════
+// GAMEPLAY COLLISION SOLVER (Patch xi: Snappy 2.5D Mechanics)
+// ═══════════════════════════════════════════════════════════════
+function checkTreeCollisions(px, pz) {
+  let collides = false;
+  let newX = px;
+  let newZ = pz;
+
+  for (let i = 0; i < treeInstanceData.length; i++) {
+    const inst = treeInstanceData[i];
+    if (inst.isBush) continue; // Walk through bushes
+
+    // Adjust collision radius based on asset scale and type
+    const radius = inst.isRock ? 1.4 * inst.scale : 0.7 * inst.scale;
+    const dx = px - inst.x;
+    const dz = pz - inst.z;
+    const dist = Math.hypot(dx, dz);
+
+    if (dist < radius) {
+      collides = true;
+      // Push the player out along the collision normal
+      const pushDist = radius - dist;
+      const angle = dist > 0.001 ? Math.atan2(dz, dx) : Math.random() * Math.PI * 2;
+      newX += Math.cos(angle) * pushDist;
+      newZ += Math.sin(angle) * pushDist;
+    }
+  }
+
+  return { collides, x: newX, z: newZ };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PLAYER / CONTROLS
+// ═══════════════════════════════════════════════════════════════
+=======
 // AUDIO SYSTEM
 let audioCtx, beachSource, earthySource, intenseSource;
 let beachGain, earthyGain, intenseGain;
@@ -255,6 +759,7 @@ function updateAudioMix() {
 }
 
 // PLAYER
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 const controls = new PointerLockControls(camera, document.body);
 document.addEventListener('click', () => {
   controls.lock();
@@ -264,57 +769,231 @@ camera.position.set(0, 20, 0);
 
 const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
-const move = {f:false,b:false,l:false,r:false};
+const move = { f: false, b: false, l: false, r: false };
+
+// ── MECH DELTA: Motion correction friction system ──
+// ideal vs observed velocity → correction vector → friction delta
+const motionState = {
+  idealSpeed: 0,
+  observedSpeed: 0,
+  correctionX: 0,
+  correctionZ: 0,
+  frictionDelta: 0,
+  jointAngles: { knee: 0, hip: 0, shoulder: 0 },
+  inertia: 0.92,
+  damping: 0.85
+};
+
+function computeMotionDelta(dt) {
+  const obsSpeed = Math.hypot(velocity.x, velocity.z);
+  motionState.observedSpeed = obsSpeed;
+
+  // Ideal speed based on terrain slope
+  const gh = getHeight(camera.position.x, camera.position.z);
+  const ghFwd = getHeight(camera.position.x + Math.sin(camera.rotation.y) * 2, camera.position.z + Math.cos(camera.rotation.y) * 2);
+  const slope = (ghFwd - gh) / 2;
+  const slopeFactor = Math.max(0.3, 1 - Math.abs(slope) * 0.5);
+  motionState.idealSpeed = 15 * slopeFactor;
+
+  // PHYSICS DELTA: Terrain roughness affects ideal speed
+  const zone = getZoneAt(camera.position.x, camera.position.z);
+  const zoneFriction = zone === 2 ? 0.7 : zone === 4 ? 0.8 : 1.0; // ECO=rough, IND=moderate
+  motionState.idealSpeed *= zoneFriction;
+
+  // Correction vector: ideal - observed
+  if (obsSpeed > 0.1) {
+    const ratio = motionState.idealSpeed / Math.max(obsSpeed, 0.1);
+    motionState.correctionX = velocity.x * (ratio - 1);
+    motionState.correctionZ = velocity.z * (ratio - 1);
+    motionState.frictionDelta = Math.abs(ratio - 1) * 0.5;
+  } else {
+    motionState.correctionX = 0;
+    motionState.correctionZ = 0;
+    motionState.frictionDelta = 0;
+  }
+
+  // MECH DELTA: Joint angles from movement delta
+  const totalCorr = Math.abs(motionState.correctionX) + Math.abs(motionState.correctionZ);
+  motionState.jointAngles.knee = Math.min(totalCorr * 5, 15);
+  motionState.jointAngles.hip = Math.min(totalCorr * 3, 10);
+  motionState.jointAngles.shoulder = Math.min(totalCorr * 2, 8);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// KEYBOARD / INPUT
+// ═══════════════════════════════════════════════════════════════
+let gemmaOn = false;
+let beaconCycle = 0;
 
 document.addEventListener('keydown', e => {
-  if(e.code==='KeyW') move.f=true;
-  if(e.code==='KeyS') move.b=true;
-  if(e.code==='KeyA') move.l=true;
-  if(e.code==='KeyD') move.r=true;
-  if(e.code==='Space'){
+  if (e.code === 'KeyW') move.f = true;
+  if (e.code === 'KeyS') move.b = true;
+  if (e.code === 'KeyA') move.l = true;
+  if (e.code === 'KeyD') move.r = true;
+  if (e.code === 'Space') {
     const gh = getHeight(camera.position.x, camera.position.z);
-    if(camera.position.y < gh+2.1) velocity.y = 15;
+    if (camera.position.y < gh + 2.1) velocity.y = 15;
   }
-  if(e.code==='KeyM') document.getElementById('minimap').style.display = 
-    document.getElementById('minimap').style.display==='none'?'block':'none';
+  if (e.code === 'KeyM') {
+    document.getElementById('minimap').style.display =
+      document.getElementById('minimap').style.display === 'none' ? 'block' : 'none';
+  }
+  if (e.code === 'KeyG') {
+    gemmaOn = !gemmaOn;
+    document.getElementById('ai-panel').style.display = gemmaOn ? 'block' : 'none';
+  }
+  if (e.code === 'KeyB') {
+    beaconCycle = (beaconCycle + 1) % ZONE_COUNT;
+    const zk = ZONE_KEYS[beaconCycle];
+    const z = ZONES[zk];
+    document.getElementById('chroma-layer').textContent = `LAYER: ${zk} (beacon ${beaconCycle + 1}/${ZONE_COUNT})`;
+    // Teleport to beacon
+    camera.position.set(z.beaconPos[0] + z.offset.dx * 20, 25, z.beaconPos[1] + z.offset.dy * 20);
+    updateChunks();
+  }
+  if (e.code === 'KeyE') {
+    interiorActive = !interiorActive;
+    if (interiorActive) {
+      buildInterior(interiorIndex);
+    } else {
+      interiorObjects.forEach(o => { scene.remove(o); if (o.geometry) o.geometry.dispose(); });
+      interiorObjects = [];
+      updateChunks();
+    }
+  }
+
+  if (e.code === 'KeyT') {
+    const show = treeHFMeshes.some(m => m.visible);
+    treeHFMeshes.forEach(m => m.visible = !show);
+  }
+
+  // MATH DELTA: Zone jump keys 1-7
+  const zoneKeys = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7'];
+  const zi = zoneKeys.indexOf(e.code);
+  if (zi >= 0 && zi < ZONE_COUNT) {
+    const z = ZONES[ZONE_KEYS[zi]];
+    camera.position.set(z.beaconPos[0] + z.offset.dx * 20, 25, z.beaconPos[1] + z.offset.dy * 20);
+    updateChunks();
+  }
 });
 
 document.addEventListener('keyup', e => {
-  if(e.code==='KeyW') move.f=false;
-  if(e.code==='KeyS') move.b=false;
-  if(e.code==='KeyA') move.l=false;
-  if(e.code==='KeyD') move.r=false;
+  if (e.code === 'KeyW') move.f = false;
+  if (e.code === 'KeyS') move.b = false;
+  if (e.code === 'KeyA') move.l = false;
+  if (e.code === 'KeyD') move.r = false;
 });
 
+// ═══════════════════════════════════════════════════════════════
+// AI INTERFACE (from TRENCH_BUILDER v4/v5 — Ollama + Gemma 4)
+// ═══════════════════════════════════════════════════════════════
+document.getElementById('ai-input').addEventListener('keydown', async (e) => {
+  if (e.key !== 'Enter') return;
+  const q = e.target.value; e.target.value = '';
+  if (!q.trim()) return;
+
+  const zone = getZoneAt(camera.position.x, camera.position.z);
+  const zoneName = ZONE_KEYS[zone] || 'WILD';
+  const gh = getHeight(camera.position.x, camera.position.z);
+
+  document.getElementById('ai-response').innerHTML = '<span style="color:#888">Thinking...</span>';
+  try {
+    const r = await fetch('http://localhost:11434/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'gemma4:2b',
+        prompt: `You are a terrain and architectural AI for the VINCULUM TERRAIN engine. Current state: zone=${zoneName}, elevation=${gh.toFixed(1)}m, pos=(${camera.position.x.toFixed(1)}, ${camera.position.z.toFixed(1)}), checkpoint stage=${STAGE_KEYS[interiorIndex]}, friction delta=${motionState.frictionDelta.toFixed(2)}. The world is calibrated to the Nile Valley geometric constant π=${RHIND_PI} (Dr. Yosef Ben-Jochannan). User query: ${q}`,
+        stream: false
+      })
+    });
+    const d = await r.json();
+    document.getElementById('ai-response').innerHTML = d.response.replace(/\n/g, '<br>');
+  } catch (er) {
+    document.getElementById('ai-response').innerHTML = '<span style="color:#f66">Ollama not running. Start with: ollama serve</span>';
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
 // HUD UPDATE
+// ═══════════════════════════════════════════════════════════════
 let hudTimer = 0;
-function updateHUD(){
+
+function updateHUD() {
   const h = getHeight(camera.position.x, camera.position.z);
+<<<<<<< HEAD
+  const t = (h + HEIGHT_MULT * 1.5) / (HEIGHT_MULT * 3);
+  const layerIdx = Math.floor(Math.max(0, Math.min(8, t * 9)));
+  const layerNames = ['INFRARED', 'RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INDIGO', 'VIOLET', 'UV'];
+=======
   const layerIdx = Math.floor(Math.max(0, Math.min(8, voronoiMod9(camera.position.x, camera.position.z))));
   const layerNames = ['INFRARED','RED','ORANGE','YELLOW','GREEN','BLUE','INDIGO','VIOLET','UV'];
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   const mod9 = layerIdx;
-  
-  document.getElementById('chroma-layer').textContent = 
-    `LAYER: ${layerNames[layerIdx]} (mod9=${mod9})`;
-  
-  // Checkpoint from height
-  const cpIdx = Math.floor(t*7);
-  document.getElementById('checkpoint').textContent = 
-    `CHECKPOINT: ${STAGES[Math.min(7,cpIdx)]}`;
-  
-  // Torsion from velocity
-  const speed = Math.sqrt(velocity.x**2+velocity.z**2);
+
+  const zone = getZoneAt(camera.position.x, camera.position.z);
+  const zoneName = zone >= 0 ? ZONE_KEYS[zone] : 'WILD';
+
+  document.getElementById('chroma-layer').textContent = `LAYER: ${layerNames[layerIdx]} (mod9=${mod9})`;
+  document.getElementById('zone-display').textContent = `ZONE: ${zoneName} (district ${zone + 1}/7)`;
+
+  const cpIdx = Math.floor(t * 7);
+  document.getElementById('checkpoint').textContent = `CHECKPOINT: ${STAGE_KEYS[Math.min(7, cpIdx)]}`;
+
+  const speed = Math.hypot(velocity.x, velocity.z);
   const torsion = speed < 5 ? 'STABLE' : speed < 20 ? 'CANDIDATE' : 'BREACH';
-  document.getElementById('torsion').textContent = `TORSION: ${torsion}`;
-  document.getElementById('torsion').style.color = 
-    torsion==='STABLE'?'#4c4':torsion==='CANDIDATE'?'#ca4':'#c44';
+  const torsionEl = document.getElementById('torsion');
+  torsionEl.textContent = `TORSION: ${torsion}`;
+  torsionEl.className = torsion === 'STABLE' ? 'status-stable' : torsion === 'CANDIDATE' ? 'status-candidate' : 'status-breach';
+
+  document.getElementById('friction-delta').textContent = `FRICTION Δ: ${motionState.frictionDelta.toFixed(2)}`;
+  document.getElementById('tree-count').textContent = `TREES: ${treeInstanceData.length} | MESHES: ${treeHFMeshes.length}`;
+
+  const rhind = document.getElementById('rhind-constant');
+  if (zone === 6 || zone === -1) {
+    rhind.style.display = 'block';
+    rhind.textContent = `RHIND π: ${RHIND_PI} (±${(RHIND_PRECISION * 100).toFixed(2)}%) · Nile Valley, ~2000yr before Greece`;
+  } else {
+    rhind.style.display = 'none';
+  }
 }
 
+// ═══════════════════════════════════════════════════════════════
 // MINIMAP
+// ═══════════════════════════════════════════════════════════════
 const mm = document.getElementById('minimap');
 const mmCtx = mm.getContext('2d');
-mm.width = 150; mm.height = 150;
+mm.width = 160; mm.height = 160;
 
+<<<<<<< HEAD
+function drawMinimap() {
+  mmCtx.fillStyle = '#0a0f14';
+  mmCtx.fillRect(0, 0, 160, 160);
+
+  const range = CHUNK_SIZE * RENDER_DIST * 0.7;
+  const scale = 155 / (range * 2);
+
+  const cx = camera.position.x;
+  const cz = camera.position.z;
+  const ox = 80 - cx * scale;
+  const oz = 80 - cz * scale;
+
+  // Draw zone beacons
+  for (const key of ZONE_KEYS) {
+    const z = ZONES[key];
+    const bx = z.beaconPos[0] + z.offset.dx * 20;
+    const bz = z.beaconPos[1] + z.offset.dy * 20;
+    const sx = (bx - cx) * scale + 80;
+    const sy = (bz - cz) * scale + 80;
+    if (sx > -5 && sx < 165 && sy > -5 && sy < 165) {
+      mmCtx.fillStyle = z.color;
+      mmCtx.beginPath();
+      mmCtx.arc(sx, sy, 4, 0, Math.PI * 2);
+      mmCtx.fill();
+      mmCtx.fillStyle = '#889';
+      mmCtx.font = '6px monospace';
+      mmCtx.fillText(key, sx + 5, sy + 2);
+=======
 function drawMinimap(){
   mmCtx.fillStyle = '#1a2a1a';
   mmCtx.fillRect(0,0,150,150);
@@ -333,60 +1012,190 @@ function drawMinimap(){
       const c = getChromaColor(h, wx, wz);
       mmCtx.fillStyle = c;
       mmCtx.fillRect(mx, mz, CHUNK_SIZE*scale/2, CHUNK_SIZE*scale/2);
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     }
   }
-  
+
   // Player
   mmCtx.fillStyle = '#fff';
   mmCtx.beginPath();
-  mmCtx.arc(75,75,3,0,Math.PI*2);
+  mmCtx.arc(80, 80, 3, 0, Math.PI * 2);
   mmCtx.fill();
+
+  // Direction indicator
+  mmCtx.strokeStyle = '#fff';
+  mmCtx.lineWidth = 1.5;
+  mmCtx.beginPath();
+  mmCtx.moveTo(80, 80);
+  mmCtx.lineTo(80 + Math.sin(camera.rotation.y) * 12, 80 - Math.cos(camera.rotation.y) * 12);
+  mmCtx.stroke();
 }
 
-// MAIN
+// ═══════════════════════════════════════════════════════════════
+// ASSET PIPELINE: Tree LOD Management
+// ═══════════════════════════════════════════════════════════════
+let treeLODTimer = 0;
+
+function updateTreeLOD() {
+  if (!assetsLoaded || treeHFMeshes.length === 0) return;
+  const px = camera.position.x, pz = camera.position.z;
+  const nearDist = 50, midDist = 120;
+
+  for (const im of treeHFMeshes) {
+    if (!im.visible) continue;
+    // Per-instance visibility is handled by the InstancedMesh itself
+    // We toggle the whole mesh based on whether any instance is in range
+    im.visible = false;
+    // Check bounding sphere of the mesh center against camera
+    // Simple: show if any instance might be visible
+    // More efficient: check distance from camera to group center
+  }
+
+  // Simplified: find instances near camera, toggle LOD groups by distance
+  // For optimal perf with InstancedMesh, we keep HF always on (they're instanced)
+  // and rely on GPU culling. The GLB files are ~763KB each but instanced.
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════════════════════════════
 const clock = new THREE.Clock();
-function animate(){
+let desirePathTimer = 0;
+
+function animate() {
   requestAnimationFrame(animate);
   const dt = Math.min(clock.getDelta(), 0.1);
-  
-  if(controls.isLocked){
-    velocity.x -= velocity.x*10*dt;
-    velocity.z -= velocity.z*10*dt;
-    velocity.y -= 30*dt;
-    
-    direction.z = Number(move.f)-Number(move.b);
-    direction.x = Number(move.r)-Number(move.l);
+
+  if (controls.isLocked) {
+    // ── MECH DELTA: Apply friction correction to velocity ──
+    velocity.x -= velocity.x * 10 * dt;
+    velocity.z -= velocity.z * 10 * dt;
+    velocity.y -= 30 * dt;
+
+    direction.z = Number(move.f) - Number(move.b);
+    direction.x = Number(move.r) - Number(move.l);
     direction.normalize();
-    
+
     const speed = 100;
-    if(move.f||move.b) velocity.z -= direction.z*speed*dt;
-    if(move.l||move.r) velocity.x -= direction.x*speed*dt;
-    
-    controls.moveRight(-velocity.x*dt);
-    controls.moveForward(-velocity.z*dt);
-    camera.position.y += velocity.y*dt;
-    
+    if (move.f || move.b) velocity.z -= direction.z * speed * dt;
+    if (move.l || move.r) velocity.x -= direction.x * speed * dt;
+
+    // MECH DELTA: Apply correction force (friction delta)
+    computeMotionDelta(dt);
+    velocity.x += motionState.correctionX * dt * 0.5;
+    velocity.z += motionState.correctionZ * dt * 0.5;
+
+    controls.moveRight(-velocity.x * dt);
+    controls.moveForward(-velocity.z * dt);
+
+    // Apply tree/rock collisions
+    const colResult = checkTreeCollisions(camera.position.x, camera.position.z);
+    if (colResult.collides) {
+      camera.position.x = colResult.x;
+      camera.position.z = colResult.z;
+      velocity.x *= 0.5;
+      velocity.z *= 0.5;
+    }
+
+    camera.position.y += velocity.y * dt;
+
     const gh = getHeight(camera.position.x, camera.position.z);
+<<<<<<< HEAD
+    if (camera.position.y < gh + 2) { velocity.y = 0; camera.position.y = gh + 2; }
+
+    if (!interiorActive) updateChunks();
+
+    // MATH DELTA: Desire path accumulation
+    desirePathTimer += dt;
+    if (desirePathTimer > 0.5) {
+      desirePathTimer = 0;
+      const dk = `${Math.round(camera.position.x / 5)},${Math.round(camera.position.z / 5)}`;
+      desirePaths.set(dk, (desirePaths.get(dk) || 0) + 1);
+      if (desirePaths.size > 5000) {
+        const keys = [...desirePaths.keys()].slice(0, 1000);
+        for (const k of keys) desirePaths.delete(k);
+      }
+    }
+
+=======
     if(camera.position.y < gh+2){ velocity.y=0; camera.position.y=gh+2; }
     
     updateChunks();
     updateAudioMix();
     
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     hudTimer += dt;
-    if(hudTimer > 0.15){ updateHUD(); hudTimer=0; drawMinimap(); }
+    if (hudTimer > 0.15) { updateHUD(); hudTimer = 0; drawMinimap(); }
   }
-  
+
+  const t = performance.now() * 0.001;
+
+  // ── BEACON pulse animation ──
+  for (const b of beaconMeshes) {
+    const pulse = Math.sin(t * 1.5 + b.userData.zoneKey.charCodeAt(0)) * 0.5 + 0.5;
+    b.children.forEach((child, i) => {
+      if (child.isMesh && child.geometry.type === 'RingGeometry') {
+        child.material.opacity = 0.15 + pulse * 0.35;
+        child.scale.setScalar(1 + pulse * 0.15);
+      }
+      if (child.isMesh && child.geometry.type === 'SphereGeometry') {
+        child.material.color.setHSL(
+          (ZONES[b.userData.zoneKey].hue / 360 + t * 0.02) % 1, 0.8, 0.5 + pulse * 0.3
+        );
+      }
+    });
+  }
+
+  // ── Field particles ──
+  if (fieldActive) {
+    fieldSystem.position.copy(camera.position);
+    fieldSystem.position.y -= 1;
+    fieldSystem.rotation.y = t * 0.3;
+    const positions = fieldSystem.geometry.attributes.position.array;
+    for (let i = 0; i < fpCount; i++) {
+      const ang = t * 0.5 + i * 0.01;
+      const rad = 1.5 + Math.sin(t + i * 0.05) * 1.5;
+      const idx = i * 3;
+      positions[idx] = Math.cos(ang) * rad;
+      positions[idx + 2] = Math.sin(ang) * rad;
+      positions[idx + 1] = Math.sin(t * 2 + i * 0.1) * 0.5;
+    }
+    fieldSystem.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // ── ASSET PIPELINE: Tree sway animation ──
+  if (assetsLoaded) {
+    for (const group of treeHFInstancedGroups) {
+      if (group.mesh.visible) {
+        updateGroupMatrices(group.mesh, group.instances, group.subMeshLocalMatrix, t);
+      }
+    }
+  }
+
   renderer.render(scene, camera);
 }
 
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
 updateChunks();
+buildBeacons();
+loadAndInstanceAssets();
 animate();
 
 window.addEventListener('resize', () => {
-  camera.aspect = innerWidth/innerHeight;
+  camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
 });
+
+console.log('╔══════════════════════════════════════════════════════════════╗');
+console.log('║  VINCULUM TERRAIN — Unified Substrate Engine               ║');
+console.log('║  Deltas: AI · Physics Fields · Motion · Interiors · Math   ║');
+console.log('║  7 Zones · 8 Checkpoints · Friction Δ · Desire Paths       ║');
+console.log('║  G: Gemma 4 AI | B: Beacon cycle | 1-7: Zone jump          ║');
+console.log(`║  RHIND π: ${RHIND_PI} — Nile Valley geometric constant       ║`);
+console.log('╚══════════════════════════════════════════════════════════════╝');
 </script>
 </body>
 </html>

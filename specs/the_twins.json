@@ -1,0 +1,299 @@
+{
+  "model_id": "the_twins_v1",
+  "domain": "character",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "character",
+    "constraints": {
+      "arm_span_to_height": {
+        "kind": "ratio",
+        "key": "arm_span_to_height",
+        "target": 1.0,
+        "min": null,
+        "max": null,
+        "tolerance": 0.05,
+        "description": "Wingspan \u2248 height"
+      },
+      "head_to_body": {
+        "kind": "ratio",
+        "key": "head_to_body",
+        "target": 0.125,
+        "min": null,
+        "max": null,
+        "tolerance": 0.02,
+        "description": "Head \u2248 1/8 total height"
+      },
+      "leg_to_torso": {
+        "kind": "ratio",
+        "key": "leg_to_torso",
+        "target": 1.1,
+        "min": null,
+        "max": null,
+        "tolerance": 0.08,
+        "description": "Legs slightly longer than torso"
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "torso",
+      "component_type": "torso",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "torso_height_to_total": {
+            "kind": "ratio",
+            "key": "torso_height_to_total",
+            "target": 0.35,
+            "min": null,
+            "max": null,
+            "tolerance": 0.05,
+            "description": "Torso ~35% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "torso_type": "standard",
+        "scale": 0.95
+      },
+      "mount_points": [
+        "head",
+        "l_shoulder",
+        "r_shoulder",
+        "hips"
+      ],
+      "tags": [
+        "torso",
+        "standard"
+      ]
+    },
+    {
+      "name": "left_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "organic left arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "organic",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "organic",
+        "left_arm"
+      ]
+    },
+    {
+      "name": "right_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "organic right arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "organic",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "organic",
+        "right_arm"
+      ]
+    },
+    {
+      "name": "left_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "organic left leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "organic",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "organic",
+        "left_leg"
+      ]
+    },
+    {
+      "name": "right_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "organic right leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "organic",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "organic",
+        "right_leg"
+      ]
+    },
+    {
+      "name": "head",
+      "component_type": "head",
+      "parent": "torso",
+      "joint_type": "ball_socket",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -70,
+        70
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "head_height_to_total": {
+            "kind": "ratio",
+            "key": "head_height_to_total",
+            "target": 0.125,
+            "min": null,
+            "max": null,
+            "tolerance": 0.03,
+            "description": "Head ~12.5% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "head_type": "standard",
+        "scale": 0.8075
+      },
+      "mount_points": [
+        "neck"
+      ],
+      "tags": [
+        "head",
+        "standard"
+      ]
+    }
+  ],
+  "character_name": "The Twins (Mir + Kor)",
+  "role": "Split Personality Crew",
+  "archetype": "One honest, one corrupt",
+  "lore": "You never know which twin you're dealing with. Mir runs fair trades. Kor skims 20% off every deal. Their ship transponder is identical. You must learn their behavioral tells \u2014 or always assume Kor. There are no twins. It's one person with a personality disorder who genuinely believes they are two people. The skimmed credits go to an account neither personality knows about.",
+  "dialogue_seeds": [
+    "\"I'm Mir today. Yesterday I was Kor. Tomorrow? Depends who's asking.\"",
+    "\"Mir made this deal. I'm just... delivering it. With a surcharge.\""
+  ],
+  "sprite_params": {
+    "sheet": "void_runner_ship.png",
+    "alt_sheet": "mecha_walk_4_stealth.png",
+    "frame_count": 4,
+    "palette": "split_duality",
+    "variant": "dual",
+    "mir_palette": "pure_white",
+    "kor_palette": "shadow_black"
+  },
+  "glb_export_name": "the_twins.glb",
+  "faction": "mecha_station",
+  "abilities": [
+    "personality_swap",
+    "skimmer",
+    "dual_transponder"
+  ],
+  "mission_triggers": [
+    "inside_man",
+    "grey_market"
+  ],
+  "stats": {
+    "loyalty": 0.5,
+    "combat": 0.4,
+    "stealth": 0.7,
+    "negotiation": 0.6
+  },
+  "glb_path": null,
+  "sprite_sheet_path": null
+}

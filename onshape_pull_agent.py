@@ -101,12 +101,12 @@ def pull_all(doc_id, export_dir):
                 stats['exported'] += 1
                 stats['total'] += 1
                 stats['size'] += len(stl_data)
-                print(f'  ✓ {safe} ({len(stl_data):,} bytes)')
+                print(f'  [OK] {safe} ({len(stl_data):,} bytes)')
                 
         except Exception as e:
             stats['failed'] += 1
             body = e.read().decode() if hasattr(e, 'read') else str(e)
-            print(f'  ✗ {ename} [{etype}]: {body[:100]}')
+            print(f'  [ERR] {ename} [{etype}]: {body[:100]}')
     
     # Summary
     print(f'\n{"="*50}')

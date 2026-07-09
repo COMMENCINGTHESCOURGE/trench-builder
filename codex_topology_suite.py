@@ -376,6 +376,140 @@ class ETSProperties(bpy.types.PropertyGroup):
     symmetry_x: BoolProperty(name="X", default=True)
     symmetry_y: BoolProperty(name="Y", default=False)
     symmetry_z: BoolProperty(name="Z", default=False)
+    voxel_path: StringProperty(
+        name="Voxel Path",
+        subtype="FILE_PATH",
+        description="JSON manifest containing voxel density to import",
+        default="soil_tensor_manifest.json",
+    )
+
+
+class ETS_OT_import_voxel_manifest(bpy.types.Operator):
+    bl_idname = "ets.import_voxel_manifest"
+    bl_label = "Import Voxel Manifest Mesh"
+    bl_description = "Convert 3D voxel density channel from JSON manifest into a polygonal mesh"
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, context):
+        import numpy as np
+        props = context.scene.ets_props
+        if not props.voxel_path:
+            self.report({"ERROR"}, "Please choose a Voxel Path first.")
+            return {"CANCELLED"}
+
+        filepath = bpy.path.abspath(props.voxel_path)
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            self.report({"ERROR"}, f"Failed to read file: {e}")
+            return {"CANCELLED"}
+
+        if "channels" not in data or "density" not in data["channels"]:
+            self.report({"ERROR"}, "Invalid JSON manifest: density channel missing.")
+            return {"CANCELLED"}
+
+        density = data["channels"]["density"]
+        density_arr = np.array(density)
+        nz, ny, nx = density_arr.shape
+
+        # Resolve diagonal checkerboard contacts to ensure manifoldness
+        solid = (density_arr >= 0.2)
+        # 1. Z-axis edges (dx=1, dy=1, dz=0)
+        for z in range(nz):
+            for y in range(ny - 1):
+                for x in range(nx - 1):
+                    if solid[z, y, x] and solid[z, y+1, x+1]:
+                        if not solid[z, y+1, x] and not solid[z, y, x+1]:
+                            density_arr[z, y+1, x] = 0.2
+                            solid[z, y+1, x] = True
+                    if solid[z, y, x+1] and solid[z, y+1, x]:
+                        if not solid[z, y, x] and not solid[z, y+1, x+1]:
+                            density_arr[z, y, x] = 0.2
+                            solid[z, y, x] = True
+                            
+        # 2. Y-axis edges (dx=1, dy=0, dz=1)
+        for z in range(nz - 1):
+            for y in range(ny):
+                for x in range(nx - 1):
+                    if solid[z, y, x] and solid[z+1, y, x+1]:
+                        if not solid[z+1, y, x] and not solid[z, y, x+1]:
+                            density_arr[z+1, y, x] = 0.2
+                            solid[z+1, y, x] = True
+                    if solid[z, y, x+1] and solid[z+1, y, x]:
+                        if not solid[z, y, x] and not solid[z+1, y, x+1]:
+                            density_arr[z, y, x] = 0.2
+                            solid[z, y, x] = True
+
+        # 3. X-axis edges (dx=0, dy=1, dz=1)
+        for z in range(nz - 1):
+            for y in range(ny - 1):
+                for x in range(nx):
+                    if solid[z, y, x] and solid[z+1, y+1, x]:
+                        if not solid[z+1, y, x] and not solid[z, y+1, x]:
+                            density_arr[z+1, y, x] = 0.2
+                            solid[z+1, y, x] = True
+                    if solid[z, y+1, x] and solid[z+1, y, x]:
+                        if not solid[z, y, x] and not solid[z+1, y+1, x]:
+                            density_arr[z, y, x] = 0.2
+                            solid[z, y, x] = True
+
+        mesh_name = "Voxelized_SIMP_Mesh"
+        mesh_data = bpy.data.meshes.new(mesh_name)
+        obj = bpy.data.objects.new(mesh_name, mesh_data)
+        context.collection.objects.link(obj)
+
+        bm = bmesh.new()
+        vert_map = {}
+
+        def get_vert(x_c, y_c, z_c):
+            key = (x_c, y_c, z_c)
+            if key not in vert_map:
+                vert_map[key] = bm.verts.new((x_c, y_c, z_c))
+            return vert_map[key]
+
+        for z in range(nz):
+            for y in range(ny):
+                for x in range(nx):
+                    if density_arr[z, y, x] >= 0.2:
+                        v0 = get_vert(x,     y,     z)
+                        v1 = get_vert(x + 1, y,     z)
+                        v2 = get_vert(x + 1, y + 1, z)
+                        v3 = get_vert(x,     y + 1, z)
+                        v4 = get_vert(x,     y,     z + 1)
+                        v5 = get_vert(x + 1, y,     z + 1)
+                        v6 = get_vert(x + 1, y + 1, z + 1)
+                        v7 = get_vert(x,     y + 1, z + 1)
+
+                        faces_to_add = []
+                        
+                        if z == 0 or density_arr[z-1, y, x] < 0.2:
+                            faces_to_add.append((v3, v2, v1, v0))
+                        if z == nz - 1 or density_arr[z+1, y, x] < 0.2:
+                            faces_to_add.append((v4, v5, v6, v7))
+                        if x == 0 or density_arr[z, y, x-1] < 0.2:
+                            faces_to_add.append((v0, v3, v7, v4))
+                        if x == nx - 1 or density_arr[z, y, x+1] < 0.2:
+                            faces_to_add.append((v1, v5, v6, v2))
+                        if y == 0 or density_arr[z, y-1, x] < 0.2:
+                            faces_to_add.append((v0, v4, v5, v1))
+                        if y == ny - 1 or density_arr[z, y+1, x] < 0.2:
+                            faces_to_add.append((v2, v6, v7, v3))
+
+                        for f_verts in faces_to_add:
+                            try:
+                                bm.faces.new(f_verts)
+                            except ValueError:
+                                pass
+
+        bm.to_mesh(mesh_data)
+        bm.free()
+
+        context.view_layer.objects.active = obj
+        obj.select_set(True)
+        
+        self.report({"INFO"}, f"Successfully imported voxel mesh: {nx}x{ny}x{nz} grid.")
+        return {"FINISHED"}
 
 
 class ETS_OT_import_validate(bpy.types.Operator):
@@ -546,7 +680,7 @@ class ETS_OT_cleanup_to_base(bpy.types.Operator):
             set_edge_bevel_weight(obj.data, crease_edges, props.bevel_weight)
 
         if props.use_quadriflow and props.rebuild_quad_topology and hasattr(bpy.ops.object, "quadriflow_remesh"):
-            bpy.ops.object.quadriflow_remesh(target_faces=cleanup_target_faces(props), preserve_sharp=True)
+            bpy.ops.object.quadriflow_remesh(target_faces=cleanup_target_faces(props))
 
         if props.rebuild_bevel_weights and props.preserve_creases:
             bevel = obj.modifiers.get("ETS Crease Bevel") or obj.modifiers.new("ETS Crease Bevel", "BEVEL")
@@ -764,6 +898,12 @@ class ETS_PT_topology_suite(bpy.types.Panel):
         sym.prop(props, "symmetry_z")
         box.operator("ets.apply_template_guides", text="Generate Template", icon="CURVE_DATA")
 
+        box = layout.box()
+        box.label(text="E) Voxel Tensor Optimization Bridge", icon="CUBE")
+        row = box.row(align=True)
+        row.operator("ets.import_voxel_manifest", text="Import Voxel Mesh", icon="MESH_CUBE")
+        row.prop(props, "voxel_path", text="")
+
 
 classes = (
     ETSProperties,
@@ -773,6 +913,7 @@ classes = (
     ETS_OT_continuity_overlay,
     ETS_OT_cleanup_to_base,
     ETS_OT_apply_template_guides,
+    ETS_OT_import_voxel_manifest,
     ETS_PT_topology_suite,
 )
 

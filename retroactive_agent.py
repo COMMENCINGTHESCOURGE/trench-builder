@@ -19,12 +19,21 @@ from trench_config import PATHS
 # AUDIT SCOPE — Everything we've built
 # ═══════════════════════════════════════════════════════
 
+base_scratch = Path("C:/Users/dasha/.gemini/antigravity-ide/scratch")
 AUDIT_PATHS = {
+<<<<<<< HEAD
+    "trench_builder": base_scratch / "trench-builder" if (base_scratch / "trench-builder").exists() else Path.home() / "Projects/trench_builder",
+    "erdos_straus":   base_scratch / "erdos-straus-solver" if (base_scratch / "erdos-straus-solver").exists() else Path.home() / "Projects/erdos-straus",
+    "gdrive_trench":  Path("G:/My Drive/Trench_Builder"),
+    "gdrive_resonance": Path("G:/My Drive/Resonance_Archive"),
+    "desktop":        Path.home() / "Desktop",
+=======
     "trench_builder": PATHS.trench_builder,
     "erdos_straus":   PATHS.erdos_straus,
     "gdrive_trench":  PATHS.gdrive_trench,
     "gdrive_resonance": PATHS.gdrive_resonance,
     "desktop":        PATHS.home / "Desktop",
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 }
 
 # ═══════════════════════════════════════════════════════
@@ -90,7 +99,16 @@ RULES = [
         "id": "python_uses_python3_not_python",
         "description": "Flag scripts using 'python3' in shebang — should use explicit Python path or 'python'",
         "pattern": "*.py",
-        "check_content": "#!/usr/bin/env python",
+        "check_content": "#!/usr/bin/env py" + "thon3",
+        "suggest": "Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
+        "action": "flag_for_review",
+        "severity": "info"
+    },
+    {
+        "id": "python_uses_python3_direct_path",
+        "description": "Flag scripts using direct /usr/bin/python3 path in shebang",
+        "pattern": "*.py",
+        "check_content": "#!/usr/bin/py" + "thon3",
         "suggest": "Use explicit Python path or '#!/usr/bin/env python' for Windows compatibility",
         "action": "flag_for_review",
         "severity": "info"
@@ -99,16 +117,16 @@ RULES = [
         "id": "python_fcntl_import",
         "description": "Flag any scripts importing fcntl (doesn't exist on Windows)",
         "pattern": "*.py",
-        "check_content": "import fcntl",
+        "check_content": "import " + "fcntl",
         "suggest": "Replace with file-based locking (atomic_writer.py pattern)",
         "action": "flag_for_review",
         "severity": "critical"
     },
     {
         "id": "python_statistics_unused",
-        "description": "Flag scripts importing 'statistics' module (replaced by numpy in video learner)",
+        "description": "Flag scripts importing 'statistics' module",
         "pattern": "*.py",
-        "check_content": "import statistics",
+        "check_content": "import " + "statistics",
         "suggest": "Replace with numpy (np.mean, np.std) — already done in procedural_video_learner.py",
         "action": "flag_for_review",
         "severity": "info"
@@ -241,12 +259,12 @@ class RetroactiveAuditor:
         return matches
     
     def run_audit(self):
-        print("╔══════════════════════════════════════════╗")
-        print("║  RETROACTIVE CORRECTION AGENT           ║")
-        print("║  The Auditor — Fixes what was built     ║")
-        print("║  before the rules existed.              ║")
-        print(f"║  {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}                  ║")
-        print("╚══════════════════════════════════════════╝")
+        print("+------------------------------------------+")
+        print("|  RETROACTIVE CORRECTION AGENT            |")
+        print("|  The Auditor - Fixes what was built      |")
+        print("|  before the rules existed.               |")
+        print(f"|  {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}                   |")
+        print("+------------------------------------------+")
         print()
         
         total_fixes = 0
@@ -300,7 +318,7 @@ class RetroactiveAuditor:
         for severity in ["critical", "warning", "enhancement", "info"]:
             if severity in self.findings:
                 label = severity.upper()
-                print(f"═══ {label} ═══")
+                print(f"=== {label} ===")
                 for f in self.findings[severity][:20]:
                     print(f"  {f}")
                 if len(self.findings[severity]) > 20:
@@ -308,7 +326,7 @@ class RetroactiveAuditor:
                 print()
         
         # Summary
-        print("═══ SUMMARY ═══")
+        print("=== SUMMARY ===")
         print(f"  Auto-fixes applied:  {total_fixes}")
         print(f"  Issues flagged:      {total_flags}")
         print(f"  Total rules run:     {len(RULES)}")
@@ -341,7 +359,11 @@ if __name__ == "__main__":
     report = auditor.run_audit()
     
     # Save report
+<<<<<<< HEAD
+    report_path = AUDIT_PATHS["trench_builder"] / "retroactive_audit.json"
+=======
     report_path = PATHS.retroactive_audit
+>>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     with open(report_path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
-    print(f"\n✓ Audit report saved to {report_path}")
+    print(f"\n[OK] Audit report saved to {report_path}")

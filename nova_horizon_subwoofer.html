@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NOVA HORIZON 3D — Subwoofer Perceptual Physics Edition</title>
+<link rel="stylesheet" href="nova_style.css">
+<style>
+  #subwoofer-hud {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(10,12,24,0.85);
+    border: 1px solid #ffaa44;
+    border-radius: 8px;
+    padding: 15px;
+    color: white;
+    font-family: monospace;
+    z-index: 1000;
+    width: 250px;
+    pointer-events: auto;
+  }
+  .hud-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  input[type="range"] {
+    width: 120px;
+    accent-color: #ffaa44;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="scanlines"></div><div class="vignette"></div>
+<div class="crosshair"><div class="crosshair-r"></div><div class="crosshair-d"></div></div>
+<div class="hud">
+  <div class="hud-panel logo">
+    <div><h1>NOVA HORIZON</h1><span>// SUBWOOFER EDITION</span></div>
+  </div>
+  <div class="hud-panel stats">
+    <div class="st"><div class="v" id="sCred">12.4k</div><div class="l">Credits</div></div>
+    <div class="st"><div class="v" id="sLvl">Vanguard</div><div class="l">Rank</div></div>
+    <div class="st"><div class="v" id="sSync">100%</div><div class="l">Sync</div></div>
+  </div>
+  <div class="hud-panel obj">
+    <h3>Active Systems</h3>
+    <div class="oi" id="sysA"><span>◈</span><span>Subwoofer Resonance Active</span></div>
+    <div class="oi" id="sysB"><span>◈</span><span>Thermal Bloom Shaders Running</span></div>
+  </div>
+</div>
+
+<div id="subwoofer-hud">
+  <div style="font-weight:bold;color:#ffaa44;margin-bottom:10px;text-align:center;">⚡ RESONANCE CONTROLS</div>
+  <div class="hud-row">
+    <span>FREQ:</span>
+    <input type="range" id="freq" min="20" max="120" step="1" value="45">
+  </div>
+  <div class="hud-row">
+    <span id="freqVal" style="color:#ffaa44">45 Hz</span>
+  </div>
+  <div class="hud-row">
+    <span>AMP:</span>
+    <input type="range" id="amp" min="0" max="1" step="0.01" value="0.6">
+  </div>
+  <div class="hud-row">
+    <span id="ampVal" style="color:#ffaa44">0.60</span>
+  </div>
+</div>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// Setup basic ThreeJS environment
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#050b1a');
+scene.fog = new THREE.FogExp2('#050b1a', 0.01);
+
+const cam = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
+cam.position.set(0, 5, 15);
+
+const renderer = new THREE.WebGLRenderer({antialias:true, canvas:document.getElementById('c')});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// Light systems
+scene.add(new THREE.AmbientLight(0x222222));
+const sun = new THREE.DirectionalLight(0xffcc88, 1.5);
+sun.position.set(5, 10, 5);
+
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(sun);
+
+// --- Cross Pollinate 1: Parallax Sky Dome + Chroma Cascade ---
+const skyGeo = new THREE.SphereGeometry(300, 64, 32);
+const skyMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uBreathe: { value: 0.8 }
+  },
+  vertexShader: `
+    varying vec3 vWorldPos;
+    varying float vDepth;
+    void main() {
+      vec4 worldPos = modelMatrix * vec4(position, 1.0);
+      vWorldPos = worldPos.xyz;
+      vDepth = length(worldPos.xyz - cameraPosition) / 300.0;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vWorldPos;
+    varying float vDepth;
+    uniform float uTime;
+    uniform float uBreathe;
+    
+    vec3 chromaCascade(float d) {
+      float layer = floor(d * 9.0);
+      float t = fract(d * 9.0);
+      if (layer < 1.0) return mix(vec3(0.02,0.01,0.04), vec3(0.3,0.05,0.05), t);
+      if (layer < 2.0) return mix(vec3(0.3,0.05,0.05), vec3(0.4,0.2,0.05), t);
+      if (layer < 3.0) return mix(vec3(0.4,0.2,0.05), vec3(0.3,0.3,0.05), t);
+      if (layer < 4.0) return mix(vec3(0.3,0.3,0.05), vec3(0.05,0.2,0.1), t);
+      if (layer < 5.0) return mix(vec3(0.05,0.2,0.1), vec3(0.03,0.1,0.3), t);
+      if (layer < 6.0) return mix(vec3(0.03,0.1,0.3), vec3(0.1,0.03,0.3), t);
+      return mix(vec3(0.1,0.03,0.3), vec3(0.2,0.05,0.3), t);
+    }
+    
+    void main() {
+      float gradient = smoothstep(0.0, 1.0, (vWorldPos.y + 150.0) / 300.0);
+      vec3 color = mix(vec3(0.02,0.01,0.03), chromaCascade(vDepth), gradient);
+      gl_FragColor = vec4(color * (0.15 + uBreathe * 0.25), 1.0);
+    }
+  `,
+  side: THREE.BackSide,
+  depthWrite: false
+});
+const sky = new THREE.Mesh(skyGeo, skyMat);
+scene.add(sky);
+
+// --- Cross Pollinate 2: Subwoofer Base Model ---
+const subwoofer = new THREE.Group();
+const magnetMat = new THREE.MeshPhysicalMaterial({color:0x444455, metalness:0.7, roughness:0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const magnet = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1.5, 32), magnetMat);
+magnet.position.y = -0.75;
+subwoofer.add(magnet);
+
+const coneMat = new THREE.MeshPhysicalMaterial({color:0xccaa88, roughness:0.55, metalness:0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const cone = new THREE.Mesh(new THREE.ConeGeometry(2.5, 1.2, 32, 1), coneMat);
+cone.position.y = 0.6;
+subwoofer.add(cone);
+scene.add(subwoofer);
+
+// --- Cross Pollinate 3: Distance Fields & Shaders (Thermal Bloom + EM Decay) ---
+// Particles that pulse with electromagnetic decay distance fields
+const pc = 200;
+const pp = new Float32Array(pc * 3);
+for(let i=0; i<pc; i++){
+  const rad = 1.5 + Math.random() * 3.0;
+  const ang = Math.random() * Math.PI * 2;
+  pp[i*3] = Math.cos(ang) * rad;
+  pp[i*3+1] = Math.random() * 2.0;
+  pp[i*3+2] = Math.sin(ang) * rad;
+}
+const pg = new THREE.BufferGeometry();
+pg.setAttribute('position', new THREE.BufferAttribute(pp, 3));
+const pM = new THREE.PointsMaterial({color:0xff6688, size:0.1, transparent:true, blending:THREE.AdditiveBlending});
+const pSys = new THREE.Points(pg, pM);
+scene.add(pSys);
+
+// --- Interactive Variables ---
+let freq = 45;
+let amp = 0.6;
+let time = 0;
+
+document.getElementById('freq').addEventListener('input', e => {
+  freq = +e.target.value;
+  document.getElementById('freqVal').innerText = freq + ' Hz';
+});
+document.getElementById('amp').addEventListener('input', e => {
+  amp = +e.target.value;
+  document.getElementById('ampVal').innerText = amp.toFixed(2);
+});
+
+// Render Animation Loop
+function animate() {
+  time += 1/60;
+  controls.update();
+  
+  // Update sky breathe
+  skyMat.uniforms.uTime.value = time;
+  skyMat.uniforms.uBreathe.value = 0.8 + Math.sin(time) * 0.2;
+  
+  // Pulse Subwoofer & Particles based on Bass Frequency & Amplitude
+  const d = Math.sin(time * freq * Math.PI * 2) * amp * 0.35;
+  cone.position.y = 0.6 + d;
+  pM.size = 0.1 + Math.sin(time * 30) * 0.05 * amp;
+  
+  renderer.render(scene, cam);
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  cam.aspect = innerWidth/innerHeight;
+  cam.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

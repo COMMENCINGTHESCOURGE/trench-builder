@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>MANIFOLD CAD Bridge — Onshape Viewer</title>
+    <style>
+        :root {
+            --bg-color: #060913;
+            --panel-bg: rgba(10, 15, 30, 0.7);
+            --border-color: rgba(68, 136, 255, 0.2);
+            --text-color: #88aacc;
+            --accent-color: #4488ff;
+            --accent-hover: #66aaff;
+            --glass-blur: blur(12px);
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', -apple-system, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Sleek Glassmorphic Overlay UI */
+        #header-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 25px;
+            z-index: 10;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            pointer-events: auto;
+        }
+
+        #header-panel h1 {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
+            color: #aaccee;
+            text-transform: uppercase;
+        }
+
+        #header-panel p {
+            font-size: 11px;
+            margin: 0;
+            color: #557799;
+            font-family: monospace;
+        }
+
+        #parts-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            bottom: 20px;
+            width: 320px;
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 10;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            pointer-events: auto;
+        }
+
+        #parts-panel h2 {
+            font-size: 13px;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+            color: #aaccee;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats-badge {
+            background: rgba(68, 136, 255, 0.15);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-family: monospace;
+        }
+
+        .parts-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-right: -10px;
+            padding-right: 10px;
+        }
+
+        /* Custom Scrollbar for parts list */
+        .parts-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .parts-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .parts-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        .part-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .part-item:hover {
+            background: rgba(68, 136, 255, 0.08);
+            border-color: rgba(68, 136, 255, 0.3);
+        }
+
+        .part-item.hidden {
+            opacity: 0.4;
+            text-decoration: line-through;
+        }
+
+        .part-color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: inline-block;
+        }
+
+        .part-info-left {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .part-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 180px;
+        }
+
+        .visibility-btn {
+            background: transparent;
+            border: none;
+            color: #557799;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px;
+            transition: color 0.2s;
+        }
+
+        .visibility-btn:hover {
+            color: #aaccee;
+        }
+
+        #view-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: rgba(68, 136, 255, 0.1);
+            border: 1px solid var(--border-color);
+            color: #aaccee;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: monospace;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #060913;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(68, 136, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        #loading-text {
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--text-color);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="loading-text">LOAD PROTOCOL INITIATING... [0/44]</div>
+    </div>
+
+    <div id="header-panel">
+        <h1>MANIFOLD CAD BRIDGE</h1>
+        <p>Document: 472710b10023b9b951681bfb (Part Studio 1)</p>
+    </div>
+
+    <div id="parts-panel">
+        <h2>Parts <span class="stats-badge" id="parts-count">0 Loaded</span></h2>
+        <div class="parts-list" id="parts-list"></div>
+    </div>
+
+    <div id="view-controls">
+        <button class="btn" id="reset-cam">RESET CAMERA</button>
+        <button class="btn" id="toggle-grid">GRID OFF</button>
+        <button class="btn" id="explode-view">EXPLODE ASSEMBLY</button>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+        // --- Core WebGL Engine Setup ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x060913);
+        scene.fog = new THREE.FogExp2(0x060913, 0.008);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(120, 80, 120);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.maxDistance = 500;
+        controls.minDistance = 10;
+
+        // --- Lights ---
+        scene.add(new THREE.AmbientLight(0x1a243a, 1.2));
+
+        const mainLight = new THREE.DirectionalLight(0xffeedd, 3.5);
+        mainLight.position.set(150, 200, 100);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.bias = -0.0001;
+        
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(mainLight);
+
+        const blueFillLight = new THREE.DirectionalLight(0x4488ff, 1.5);
+        blueFillLight.position.set(-150, 50, -100);
+        scene.add(blueFillLight);
+
+        const redAccentLight = new THREE.PointLight(0xff5533, 1, 150);
+        redAccentLight.position.set(0, 50, 0);
+        scene.add(redAccentLight);
+
+        // --- Grid Helper ---
+        const gridHelper = new THREE.GridHelper(300, 50, 0x4488ff, 0x112244);
+        gridHelper.position.y = -40;
+        gridHelper.material.transparent = true;
+        gridHelper.material.opacity = 0.25;
+        scene.add(gridHelper);
+
+        // --- Assembly Group ---
+        const assemblyGroup = new THREE.Group();
+        scene.add(assemblyGroup);
+
+        // --- Load Config & Parts list ---
+        const totalParts = 44;
+        const loader = new STLLoader();
+        let loadedCount = 0;
+        const loadedMeshes = [];
+        let exploded = false;
+
+        // Generate nice curated palette for premium design
+        const palette = [
+            0x4488ff, 0x5c7cfa, 0x7048e8, 0xae3ec9, 0xd6336c, 0xf03e3e, 0xf76707, 0xf59f00, 
+            0x74b816, 0x37b24d, 0x0ca678, 0x1098ad, 0x15aabf, 0x228be6, 0x3b5bdb, 0x4263eb
+        ];
+
+        function getPartColor(index) {
+            return palette[index % palette.length];
+        }
+
+        // List of parts to load (Part 2 to Part 45)
+        const partsToLoad = [];
+        for (let i = 2; i <= 45; i++) {
+            partsToLoad.push({
+                index: i,
+                filename: `Part_Studio_1_Part_${i}.stl`,
+                name: `Part ${i}`
+            });
+        }
+
+        async function loadAssembly() {
+            const loadingText = document.getElementById('loading-text');
+
+            for (const part of partsToLoad) {
+                try {
+                    const path = `./cad_imports/${part.filename}`;
+                    const geometry = await new Promise((resolve, reject) => {
+                        loader.load(path, resolve, undefined, reject);
+                    });
+
+                    // Premium PBR Material
+                    const color = getPartColor(part.index);
+                    const material = new THREE.MeshPhysicalMaterial({
+                        color: color,
+                        metalness: 0.7,
+                        roughness: 0.3,
+                        flatShading: false,
+                        envMapIntensity: 1.0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    mesh.userData = { 
+                        name: part.name, 
+                        color: color,
+                        originalPos: mesh.position.clone() 
+                    };
+
+                    assemblyGroup.add(mesh);
+                    loadedMeshes.push(mesh);
+                    
+                    // Add to UI panel list
+                    addPartToUI(part.name, color, mesh);
+
+                } catch (e) {
+                    console.error(`Failed to load part: ${part.filename}`, e);
+                }
+
+                loadedCount++;
+                loadingText.textContent = `PULLING GEOMETRY TENSORS... [${loadedCount}/${totalParts}]`;
+            }
+
+            // Center Assembly Group
+            const box = new THREE.Box3().setFromObject(assemblyGroup);
+            const center = box.getCenter(new THREE.Vector3());
+            assemblyGroup.position.sub(center);
+            
+            // Adjust grid height slightly below bounding box
+            gridHelper.position.y = box.min.y - center.y - 5;
+
+            // Animate entrance: zoom camera to fit
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim / 2 * Math.tan(fov * 2));
+            cameraZ *= 1.5; // Zoom out slightly
+
+            camera.position.set(cameraZ * 0.8, cameraZ * 0.6, cameraZ * 0.8);
+            controls.target.copy(new THREE.Vector3(0, 0, 0));
+            controls.update();
+
+            document.getElementById('parts-count').textContent = `${loadedMeshes.length} Components`;
+
+            // Fade out loader
+            const loaderOverlay = document.getElementById('loading-overlay');
+            loaderOverlay.style.opacity = 0;
+            setTimeout(() => loaderOverlay.style.display = 'none', 500);
+        }
+
+        function addPartToUI(name, color, mesh) {
+            const list = document.getElementById('parts-list');
+            const item = document.createElement('div');
+            item.className = 'part-item';
+            
+            const colorHex = '#' + color.toString(16).padStart(6, '0');
+
+            item.innerHTML = `
+                <div class="part-info-left">
+                    <span class="part-color-dot" style="background-color: ${colorHex}"></span>
+                    <span class="part-name">${name}</span>
+                </div>
+                <button class="visibility-btn" title="Toggle Visibility">👁</button>
+            `;
+
+            const visBtn = item.querySelector('.visibility-btn');
+            
+            // Interaction: Toggle Part Visibility
+            const toggleVisibility = (e) => {
+                e.stopPropagation();
+                mesh.visible = !mesh.visible;
+                if (mesh.visible) {
+                    item.classList.remove('hidden');
+                    visBtn.textContent = '👁';
+                } else {
+                    item.classList.add('hidden');
+                    visBtn.textContent = '🕶';
+                }
+            };
+
+            item.addEventListener('click', toggleVisibility);
+            visBtn.addEventListener('click', toggleVisibility);
+
+            list.appendChild(item);
+        }
+
+        // --- Controls and Actions ---
+        document.getElementById('reset-cam').addEventListener('click', () => {
+            const box = new THREE.Box3().setFromObject(assemblyGroup);
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            camera.position.set(maxDim * 1.1, maxDim * 0.9, maxDim * 1.1);
+            controls.target.set(0, 0, 0);
+            controls.update();
+        });
+
+        document.getElementById('toggle-grid').addEventListener('click', (e) => {
+            gridHelper.visible = !gridHelper.visible;
+            e.target.textContent = gridHelper.visible ? 'GRID OFF' : 'GRID ON';
+        });
+
+        document.getElementById('explode-view').addEventListener('click', (e) => {
+            exploded = !exploded;
+            e.target.textContent = exploded ? 'COLLAPSE ASSEMBLY' : 'EXPLODE ASSEMBLY';
+
+            // Explode / Collapse animation target offsets
+            loadedMeshes.forEach((mesh) => {
+                // Compute direction vector from group center
+                const meshCenter = new THREE.Vector3();
+                if (mesh.geometry.boundingSphere) {
+                    meshCenter.copy(mesh.geometry.boundingSphere.center);
+                } else {
+                    mesh.geometry.computeBoundingSphere();
+                    meshCenter.copy(mesh.geometry.boundingSphere.center);
+                }
+                
+                const dir = meshCenter.clone().normalize();
+                const targetPos = exploded ? dir.multiplyScalar(50) : new THREE.Vector3(0, 0, 0);
+
+                // Simple linear slide animation
+                const duration = 800; // ms
+                const start = performance.now();
+                const startPos = mesh.position.clone();
+
+                function slide() {
+                    const elapsed = performance.now() - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Ease out quadratic
+                    const ease = progress * (2 - progress);
+
+                    mesh.position.lerpVectors(startPos, targetPos, ease);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(slide);
+                    }
+                }
+                slide();
+            });
+        });
+
+        // --- Loop ---
+        function animate(time) {
+            requestAnimationFrame(animate);
+            controls.update();
+            
+            // Subtle rotation of assembly
+            if (!exploded) {
+                assemblyGroup.rotation.y = time * 0.0001;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Start
+        loadAssembly();
+        animate(0);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

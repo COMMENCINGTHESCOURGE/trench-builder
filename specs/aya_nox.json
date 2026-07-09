@@ -1,0 +1,297 @@
+{
+  "model_id": "aya_nox_v1",
+  "domain": "character",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "mecha",
+    "constraints": {
+      "arm_to_torso": {
+        "kind": "ratio",
+        "key": "arm_to_torso",
+        "target": 0.85,
+        "min": null,
+        "max": null,
+        "tolerance": 0.05,
+        "description": "Arms 85% of torso height"
+      },
+      "head_to_body": {
+        "kind": "ratio",
+        "key": "head_to_body",
+        "target": 0.15,
+        "min": null,
+        "max": null,
+        "tolerance": 0.03,
+        "description": "Mecha heads are larger proportionally"
+      },
+      "joint_torque_nm": {
+        "kind": "range",
+        "key": "joint_torque_nm",
+        "target": null,
+        "min": 10,
+        "max": 5000,
+        "tolerance": 0.05,
+        "description": "Joint torque in newton-meters"
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "torso",
+      "component_type": "torso",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "torso_height_to_total": {
+            "kind": "ratio",
+            "key": "torso_height_to_total",
+            "target": 0.35,
+            "min": null,
+            "max": null,
+            "tolerance": 0.05,
+            "description": "Torso ~35% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "torso_type": "standard",
+        "scale": 1.0
+      },
+      "mount_points": [
+        "head",
+        "l_shoulder",
+        "r_shoulder",
+        "hips"
+      ],
+      "tags": [
+        "torso",
+        "standard"
+      ]
+    },
+    {
+      "name": "left_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "mecha left arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "mecha",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "mecha",
+        "left_arm"
+      ]
+    },
+    {
+      "name": "right_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "mecha right arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "mecha",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "mecha",
+        "right_arm"
+      ]
+    },
+    {
+      "name": "left_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "mecha left leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "mecha",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "mecha",
+        "left_leg"
+      ]
+    },
+    {
+      "name": "right_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "mecha right leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "mecha",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "mecha",
+        "right_leg"
+      ]
+    },
+    {
+      "name": "head",
+      "component_type": "head",
+      "parent": "torso",
+      "joint_type": "ball_socket",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -70,
+        70
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "head_height_to_total": {
+            "kind": "ratio",
+            "key": "head_height_to_total",
+            "target": 0.125,
+            "min": null,
+            "max": null,
+            "tolerance": 0.03,
+            "description": "Head ~12.5% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "head_type": "standard",
+        "scale": 0.85
+      },
+      "mount_points": [
+        "neck"
+      ],
+      "tags": [
+        "head",
+        "standard"
+      ]
+    }
+  ],
+  "character_name": "Aya Nox",
+  "role": "The Rival",
+  "archetype": "Respects you, will destroy you",
+  "lore": "Runs identical routes. Undercuts your prices. Saves your life from a police raid \u2014 then sends you the bill. The rivalry is genuine, the respect is genuine, and one of you will put the other out of business. She's your character from a previous playthrough. The game remembers. She has your old inventory, your old rank, your old debts.",
+  "dialogue_seeds": [
+    "\"I don't hate you. I am you, six months from now, if you make the choices I made. I'm trying to stop that.\"",
+    "\"Check your old cargo manifest. Every item I sell, you owned first. I'm just... returning the favor.\""
+  ],
+  "sprite_params": {
+    "sheet": "grief_warrior_sprite_sheet.jpg",
+    "frame_count": 8,
+    "palette": "ghost_mirror",
+    "variant": "overcharge"
+  },
+  "glb_export_name": "aya_nox.glb",
+  "faction": "aku_aku",
+  "abilities": [
+    "mirror_route",
+    "undercut",
+    "previous_save_data"
+  ],
+  "mission_triggers": [
+    "ransom_run",
+    "debt_trap",
+    "mutiny"
+  ],
+  "stats": {
+    "loyalty": 0.0,
+    "combat": 0.7,
+    "stealth": 0.6,
+    "negotiation": 0.8
+  },
+  "glb_path": null,
+  "sprite_sheet_path": null
+}

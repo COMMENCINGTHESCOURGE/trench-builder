@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Pull balance_patch.json from Kaggle kernel output and apply to STACK_CATHEDRAL.html."""
 import json, re, sys
 from pathlib import Path

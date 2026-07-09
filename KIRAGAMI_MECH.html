@@ -66,7 +66,13 @@ composer.addPass(new OutputPass());
 
 // Lighting
 const ambient = new THREE.AmbientLight('#334466', 0.8);
-scene.add(ambient);
+
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(ambient);
 const key = new THREE.DirectionalLight('#ffe8cc', 2.5);
 key.position.set(5, 8, 3);
 key.castShadow = true;
@@ -83,23 +89,39 @@ const STAGES = ['SUPINE','SCOOT','CRAWL','STAND','BOUNCE','WALK','JUMP','RUN'];
 let stage = 3; // Start at STAND
 
 // Materials — Titanium Silver base, Ceramic White highlight, Champagne Gold edge, Carbon Black joint
-const tiMat = new THREE.MeshStandardMaterial({
+const tiMat = new THREE.MeshPhysicalMaterial({
   color: '#c0c5cc', roughness: 0.35, metalness: 0.85,
-  flatShading: true
-});
-const whMat = new THREE.MeshStandardMaterial({
+  flatShading: true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const whMat = new THREE.MeshPhysicalMaterial({
   color: '#f0f2f5', roughness: 0.2, metalness: 0.3,
-  flatShading: true
-});
-const auMat = new THREE.MeshStandardMaterial({
+  flatShading: true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const auMat = new THREE.MeshPhysicalMaterial({
   color: '#d4a854', roughness: 0.15, metalness: 0.95,
   emissive: '#442200', emissiveIntensity: 0.4,
-  flatShading: true
-});
-const cbMat = new THREE.MeshStandardMaterial({
+  flatShading: true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const cbMat = new THREE.MeshPhysicalMaterial({
   color: '#1a1a22', roughness: 0.5, metalness: 0.6,
-  flatShading: true
-});
+  flatShading: true,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 // Build Kirigami Mech — single-sheet folded construction
 const mech = new THREE.Group();
@@ -201,7 +223,12 @@ scene.add(mech);
 // Ground — subtle reflective plane
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(10, 10),
-  new THREE.MeshStandardMaterial({color:'#0a0a15', roughness:0.9, metalness:0.2})
+  new THREE.MeshPhysicalMaterial({color:'#0a0a15', roughness:0.9, metalness:0.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })
 );
 ground.rotation.x = -Math.PI/2;
 ground.position.y = -0.6;

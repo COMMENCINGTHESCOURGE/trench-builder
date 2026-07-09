@@ -1,0 +1,15 @@
+{
+  "name": "mecha_knee",
+  "tensor_path": "../mecha_knee_tensor.json",
+  "density_threshold": 0.3,
+  "modifiers": [
+    {"type": "WELD", "params": {"merge_threshold": 0.001}, "apply": true},
+    {"type": "SUBSURF", "params": {"levels": 2, "render_levels": 3}, "apply": true}
+  ],
+  "material": {
+    "color": [0.545, 0.361, 0.455, 1.0],
+    "metallic": 0.3,
+    "roughness": 0.6
+  },
+  "output": "../mecha_knee_template_test.glb"
+}

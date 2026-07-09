@@ -1,0 +1,45 @@
+{
+  "model_id": "bush_round_v1",
+  "domain": "environment",
+  "version": "1.0",
+  "global_vinculum": null,
+  "metadata": {},
+  "components": [
+    {
+      "name": "body",
+      "component_type": "bush",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": null,
+      "parameters": {
+        "size": 1.0,
+        "cluster_count": 5,
+        "color": [
+          0.12,
+          0.38,
+          0.18,
+          1.0
+        ],
+        "shape": "round"
+      },
+      "mount_points": [],
+      "tags": []
+    }
+  ],
+  "asset_type": "bush",
+  "variant": "round",
+  "biome": "plains",
+  "scale_range": [
+    0.6,
+    1.4
+  ],
+  "material_color": [
+    0.12,
+    0.38,
+    0.18,
+    1.0
+  ],
+  "glb_export_name": "bush_round.glb"
+}

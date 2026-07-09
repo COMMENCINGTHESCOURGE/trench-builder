@@ -75,7 +75,13 @@ sun.shadow.camera.left = -50;
 sun.shadow.camera.right = 50;
 sun.shadow.camera.top = 50;
 sun.shadow.camera.bottom = -50;
-scene.add(sun);
+
+        // Programmatic Rim Light Addition (Hyperrealism Baseline)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 5, -5); // Position behind the subject
+        scene.add(rimLight);
+        
+        scene.add(sun);
 scene.add(new THREE.HemisphereLight('#8899cc','#221108',0.3));
 
 // Config
@@ -112,11 +118,36 @@ const bisections = [];
 const deadEnds = [];
 
 // Materials
-const asphaltMat = new THREE.MeshStandardMaterial({color:'#222222', roughness:0.9});
-const sidewalkMat = new THREE.MeshStandardMaterial({color:'#555555', roughness:0.7});
-const crosswalkMat = new THREE.MeshStandardMaterial({color:'#cccccc', roughness:0.6, emissive:'#111111', emissiveIntensity:0.2});
-const deadEndMat = new THREE.MeshStandardMaterial({color:'#ff0000', roughness:0.3, emissive:'#440000', emissiveIntensity:0.6});
-const bisectMat = new THREE.MeshStandardMaterial({color:'#ffffff', roughness:0.2, emissive:'#333333', emissiveIntensity:0.4});
+const asphaltMat = new THREE.MeshPhysicalMaterial({color:'#222222', roughness:0.9,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const sidewalkMat = new THREE.MeshPhysicalMaterial({color:'#555555', roughness:0.7,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const crosswalkMat = new THREE.MeshPhysicalMaterial({color:'#cccccc', roughness:0.6, emissive:'#111111', emissiveIntensity:0.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const deadEndMat = new THREE.MeshPhysicalMaterial({color:'#ff0000', roughness:0.3, emissive:'#440000', emissiveIntensity:0.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const bisectMat = new THREE.MeshPhysicalMaterial({color:'#ffffff', roughness:0.2, emissive:'#333333', emissiveIntensity:0.4,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 let viewMode = 'city';
 const deadEndMarkers = [];
@@ -136,7 +167,12 @@ function buildWorld(){
   // Ground
   const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(SIZE, SIZE),
-    new THREE.MeshStandardMaterial({color:'#1a2a1a', roughness:1})
+    new THREE.MeshPhysicalMaterial({color:'#1a2a1a', roughness:1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })
   );
   ground.rotation.x = -Math.PI/2;
   ground.position.y = -0.01;
@@ -212,7 +248,12 @@ function buildWorld(){
       // Plot base
       const pGeo = new THREE.PlaneGeometry(pw-0.2, pd-0.2);
       const pColor = ZONES[zone.startsWith('corner')?'corner_L':zone] || '#ff9944';
-      const pMat = new THREE.MeshStandardMaterial({color:pColor, roughness:0.8});
+      const pMat = new THREE.MeshPhysicalMaterial({color:pColor, roughness:0.8,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
       const pMesh = new THREE.Mesh(pGeo, pMat);
       pMesh.rotation.x = -Math.PI/2; pMesh.position.set(cx, 0.015, cz); pMesh.receiveShadow = true;
       scene.add(pMesh);
@@ -229,7 +270,12 @@ function buildWorld(){
         
         const bGeo = new THREE.BoxGeometry(bw, bh, bd);
         const bColor = new THREE.Color(pColor).multiplyScalar(0.6);
-        const bMat = new THREE.MeshStandardMaterial({color:bColor, roughness:0.6});
+        const bMat = new THREE.MeshPhysicalMaterial({color:bColor, roughness:0.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
         const bMesh = new THREE.Mesh(bGeo, bMat);
         bMesh.position.set(cx+ox, bh/2, cz+oz);
         bMesh.castShadow = true; bMesh.receiveShadow = true;

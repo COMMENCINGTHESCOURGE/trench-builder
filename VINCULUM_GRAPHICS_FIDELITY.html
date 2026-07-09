@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinculum Graphics Fidelity — Real-Time Scissor Sieve Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07070b;
+      --panel-bg: rgba(10, 10, 18, 0.82);
+      --border-color: rgba(68, 102, 170, 0.25);
+      --gold-accent: #d4a854;
+      --blue-accent: #3a86ff;
+      --pink-accent: #ff007f;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Draggable Split Slider */
+    #slider-bar {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--blue-accent), var(--pink-accent));
+      z-index: 10;
+      cursor: ew-resize;
+      box-shadow: 0 0 15px rgba(58, 134, 255, 0.6);
+      transform: translateX(-50%);
+    }
+
+    #slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: #11111c;
+      border: 2px solid var(--gold-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(212, 168, 84, 0.5);
+      pointer-events: none;
+    }
+
+    #slider-handle::before, #slider-handle::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+
+    #slider-handle::before {
+      border-right: 6px solid var(--gold-accent);
+      margin-right: 4px;
+    }
+
+    #slider-handle::after {
+      border-left: 6px solid var(--gold-accent);
+      margin-left: 4px;
+    }
+
+    /* Floating Panels */
+    .glass-panel {
+      position: absolute;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      z-index: 5;
+      padding: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    #title-panel {
+      top: 20px;
+      left: 20px;
+      width: 320px;
+    }
+
+    #title-panel h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--gold-accent);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    #title-panel p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    #stats-panel {
+      bottom: 20px;
+      left: 20px;
+      width: 320px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 4px;
+    }
+
+    .stat-row:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .stat-val {
+      font-weight: bold;
+    }
+
+    .val-stable { color: #4ade80; }
+    .val-breach { color: #f87171; }
+    .val-metric { color: var(--blue-accent); }
+
+    #controls-panel {
+      top: 20px;
+      right: 20px;
+      width: 280px;
+    }
+
+    #controls-panel h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      color: var(--gold-accent);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    .control-group {
+      margin-bottom: 12px;
+    }
+
+    .control-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn {
+      width: 100%;
+      background: rgba(58, 134, 255, 0.15);
+      border: 1px solid var(--blue-accent);
+      color: var(--text-main);
+      padding: 8px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: var(--blue-accent);
+      box-shadow: 0 0 10px rgba(58, 134, 255, 0.4);
+    }
+
+    .btn-active {
+      background: var(--blue-accent);
+      box-shadow: 0 0 10px rgba(58, 134, 255, 0.4);
+    }
+
+    /* Screen Labels */
+    .screen-label {
+      position: absolute;
+      top: 80px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      pointer-events: none;
+      z-index: 4;
+      backdrop-filter: blur(4px);
+    }
+
+    #label-left {
+      left: 40px;
+      background: rgba(248, 113, 113, 0.15);
+      border-color: rgba(248, 113, 113, 0.3);
+      color: #f87171;
+    }
+
+    #label-right {
+      right: 40px;
+      background: rgba(74, 222, 128, 0.15);
+      border-color: rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+    }
+
+    /* Help Indicator */
+    #help-indicator {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 9px;
+      color: var(--text-muted);
+      z-index: 5;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Panels -->
+  <div class="glass-panel" id="title-panel">
+    <h1>Vinculum Engine</h1>
+    <p>Real-time scissor-test visualization showing Layered 2.5D graphics stability. Drag the central split-bar to compare raw Float-Drift coordinates vs. the Vinculum Sieve alignment.</p>
+  </div>
+
+  <div class="glass-panel" id="stats-panel">
+    <div class="stat-row">
+      <span>SYSTEM MODE:</span>
+      <span class="stat-val" id="mode-val">SYNCHRONIZED</span>
+    </div>
+    <div class="stat-row">
+      <span>LAYER 0: VOLUMETRIC COHERENCE</span>
+      <span class="stat-val" id="l0-val">--</span>
+    </div>
+    <div class="stat-row">
+      <span>LAYER 1: GAMEPLAY COORDINATES</span>
+      <span class="stat-val" id="l1-val">--</span>
+    </div>
+    <div class="stat-row">
+      <span>LAYER 2: FOREGROUND PARALLAX</span>
+      <span class="stat-val" id="l2-val">--</span>
+    </div>
+    <div class="stat-row">
+      <span>JACOBIAN DETERMINANT:</span>
+      <span class="stat-val val-metric" id="jacobian-val">1.000</span>
+    </div>
+    <div class="stat-row">
+      <span>SYMBOLIC DRIFT (Δ):</span>
+      <span class="stat-val" id="drift-val">0.000000</span>
+    </div>
+  </div>
+
+  <div class="glass-panel" id="controls-panel">
+    <h2>Interactive Telemetry</h2>
+    <div class="control-group">
+      <label>Tether Rotation</label>
+      <button class="btn btn-active" id="btn-spin">Auto-Orbit Camera</button>
+    </div>
+    <div class="control-group">
+      <label>Rhind Pi Calibration (3.14)</label>
+      <button class="btn" id="btn-precision">Toggle Precision Sieve</button>
+    </div>
+    <div class="control-group">
+      <label>Resource Sifting</label>
+      <button class="btn btn-active" id="btn-particles">Show EM Particle Fields</button>
+    </div>
+  </div>
+
+  <!-- Screen Labels -->
+  <div class="screen-label" id="label-left">Standard Float-Drift (Unoptimized)</div>
+  <div class="screen-label" id="label-right">Vinculum Sieve (Optimized)</div>
+
+  <!-- Split Drag Bar -->
+  <div id="slider-bar">
+    <div id="slider-handle"></div>
+  </div>
+
+  <!-- 3D Canvas -->
+  <div id="canvas-container"></div>
+
+  <div id="help-indicator">Drag the center slider to inspect | Right-click/Drag to orbit</div>
+
+  <!-- Import Maps & Libraries -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // UI elements
+    const sliderBar = document.getElementById('slider-bar');
+    const l0Val = document.getElementById('l0-val');
+    const l1Val = document.getElementById('l1-val');
+    const l2Val = document.getElementById('l2-val');
+    const jacobianVal = document.getElementById('jacobian-val');
+    const driftVal = document.getElementById('drift-val');
+    const btnSpin = document.getElementById('btn-spin');
+    const btnPrecision = document.getElementById('btn-precision');
+    const btnParticles = document.getElementById('btn-particles');
+
+    let sliderPos = window.innerWidth / 2;
+    let isDragging = false;
+    let isSpinning = true;
+    let highPrecision = false;
+    let showParticles = true;
+
+    // Set up standard and optimized systems
+    const container = document.getElementById('canvas-container');
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.3;
+    container.appendChild(renderer.domElement);
+
+    // Two distinct scenes and cameras to demonstrate the comparison
+    const sceneLeft = new THREE.Scene();
+    sceneLeft.background = new THREE.Color('#050508');
+    sceneLeft.fog = new THREE.FogExp2('#050508', 0.08);
+
+    const sceneRight = new THREE.Scene();
+    sceneRight.background = new THREE.Color('#07070f');
+    sceneRight.fog = new THREE.FogExp2('#07070f', 0.08);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 3, 8);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 0.5, 0);
+
+    // Setup Lights for both scenes
+    const ambientLeft = new THREE.AmbientLight('#223344', 0.8);
+    sceneLeft.add(ambientLeft);
+    const dirLeft = new THREE.DirectionalLight('#ffffff', 1.5);
+    dirLeft.position.set(5, 10, 5);
+    sceneLeft.add(dirLeft);
+
+    const ambientRight = new THREE.AmbientLight('#111a2e', 0.6);
+    sceneRight.add(ambientRight);
+    
+    // Colorful directional lights on right for premium look
+    const dirRight1 = new THREE.DirectionalLight('#ffe6b3', 3.0); // warm gold key
+    dirRight1.position.set(5, 8, 3);
+    sceneRight.add(dirRight1);
+
+    const dirRight2 = new THREE.DirectionalLight('#ff33aa', 1.5); // pink fill
+    dirRight2.position.set(-5, 3, -2);
+    sceneRight.add(dirRight2);
+
+    const dirRight3 = new THREE.DirectionalLight('#3388ff', 1.0); // blue fill
+    dirRight3.position.set(0, -3, 5);
+    sceneRight.add(dirRight3);
+
+    // Build the "Subwoofer & Electromagnetic Coil Assembly" model for both sides
+    const coilGroupLeft = new THREE.Group();
+    const coilGroupRight = new THREE.Group();
+    sceneLeft.add(coilGroupLeft);
+    sceneRight.add(coilGroupRight);
+
+    // Materials Left (Dull, low fidelity, flat)
+    const matBaseLeft = new THREE.MeshLambertMaterial({ color: 0x444449 });
+    const matCopperLeft = new THREE.MeshLambertMaterial({ color: 0xaa7755 });
+    
+    // Materials Right (Premium PBR, anisotropic, emissive bloom)
+    const matBaseRight = new THREE.MeshStandardMaterial({
+      color: 0x111116,
+      roughness: 0.2,
+      metalness: 0.9,
+      bumpScale: 0.05
+    });
+    const matCopperRight = new THREE.MeshStandardMaterial({
+      color: 0xee8844,
+      roughness: 0.15,
+      metalness: 0.95,
+      emissive: 0xff3300,
+      emissiveIntensity: 0.1
+    });
+
+    // Create the geometry
+    // Base ring
+    const geomRing = new THREE.CylinderGeometry(2, 2.2, 0.4, 32);
+    const ringLeft = new THREE.Mesh(geomRing, matBaseLeft);
+    const ringRight = new THREE.Mesh(geomRing, matBaseRight);
+    coilGroupLeft.add(ringLeft);
+    coilGroupRight.add(ringRight);
+
+    // Central Core (Voice Coil)
+    const geomCore = new THREE.CylinderGeometry(1.2, 1.2, 2.2, 32);
+    const coreLeft = new THREE.Mesh(geomCore, matBaseLeft);
+    const coreRight = new THREE.Mesh(geomCore, matBaseRight);
+    coreLeft.position.y = 0.9;
+    coreRight.position.y = 0.9;
+    coilGroupLeft.add(coreLeft);
+    coilGroupRight.add(coreRight);
+
+    // Copper Windings
+    const windingGeometry = new THREE.TorusGeometry(1.35, 0.08, 12, 48);
+    const windingsLeft = [];
+    const windingsRight = [];
+    for (let i = 0; i < 8; i++) {
+      const h = 0.2 + i * 0.22;
+      const wL = new THREE.Mesh(windingGeometry, matCopperLeft);
+      wL.rotation.x = Math.PI / 2;
+      wL.position.y = h;
+      coilGroupLeft.add(wL);
+      windingsLeft.push(wL);
+
+      const wR = new THREE.Mesh(windingGeometry, matCopperRight);
+      wR.rotation.x = Math.PI / 2;
+      wR.position.y = h;
+      coilGroupRight.add(wR);
+      windingsRight.push(wR);
+    }
+
+    // Connective Tethers (representing Layer 1 gameplay hitboxes)
+    // Left: Jittery/floating tethers, Right: Perfect tethers
+    const tetherGeom = new THREE.CylinderGeometry(0.04, 0.04, 2.5, 8);
+    const tethersLeft = [];
+    const tethersRight = [];
+    const anchorPoints = [
+      new THREE.Vector3(1.8, 1.0, 0),
+      new THREE.Vector3(-1.8, 1.0, 0),
+      new THREE.Vector3(0, 1.0, 1.8),
+      new THREE.Vector3(0, 1.0, -1.8)
+    ];
+
+    anchorPoints.forEach((anchor) => {
+      // Unoptimized side tethers
+      const tL = new THREE.Mesh(tetherGeom, matBaseLeft);
+      tL.position.copy(anchor);
+      coilGroupLeft.add(tL);
+      tethersLeft.push(tL);
+
+      // Optimized side tethers
+      const tR = new THREE.Mesh(tetherGeom, matBaseRight);
+      tR.position.copy(anchor);
+      coilGroupRight.add(tR);
+      tethersRight.push(tR);
+    });
+
+    // Ambient EM Particle System (Layer 2 Foreground)
+    const pCount = 800;
+    const pGeometry = new THREE.BufferGeometry();
+    const pPositions = new Float32Array(pCount * 3);
+    const pSpeeds = [];
+
+    for (let i = 0; i < pCount; i++) {
+      // Swirl coordinates around the center core
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 1.3 + Math.random() * 1.5;
+      const y = Math.random() * 3.5 - 0.5;
+
+      pPositions[i * 3] = Math.cos(angle) * radius;
+      pPositions[i * 3 + 1] = y;
+      pPositions[i * 3 + 2] = Math.sin(angle) * radius;
+
+      pSpeeds.push({
+        angle: angle,
+        radius: radius,
+        y: y,
+        rotSpeed: 0.01 + Math.random() * 0.02,
+        ySpeed: 0.005 + Math.random() * 0.01
+      });
+    }
+
+    pGeometry.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+
+    // Left Particles: Dull small points
+    const pMaterialLeft = new THREE.PointsMaterial({
+      color: 0x8899aa,
+      size: 0.03,
+      transparent: true,
+      opacity: 0.3
+    });
+    const particleSystemLeft = new THREE.Points(pGeometry, pMaterialLeft);
+    sceneLeft.add(particleSystemLeft);
+
+    // Right Particles: Vibrant glowing pink/additive blend particles
+    const pMaterialRight = new THREE.PointsMaterial({
+      color: 0xff007f,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const particleSystemRight = new THREE.Points(pGeometry, pMaterialRight);
+    sceneRight.add(particleSystemRight);
+
+    // Slider Event Handlers
+    window.addEventListener('mousedown', (e) => {
+      if (Math.abs(e.clientX - sliderPos) < 20) {
+        isDragging = true;
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        sliderPos = Math.max(10, Math.min(window.innerWidth - 10, e.clientX));
+        sliderBar.style.left = sliderPos + 'px';
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch support
+    window.addEventListener('touchstart', (e) => {
+      if (Math.abs(e.touches[0].clientX - sliderPos) < 30) {
+        isDragging = true;
+      }
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        sliderPos = Math.max(10, Math.min(window.innerWidth - 10, e.touches[0].clientX));
+        sliderBar.style.left = sliderPos + 'px';
+      }
+    });
+
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (!isDragging) {
+        sliderPos = window.innerWidth / 2;
+        sliderBar.style.left = sliderPos + 'px';
+      }
+    });
+
+    // Control buttons
+    btnSpin.addEventListener('click', () => {
+      isSpinning = !isSpinning;
+      btnSpin.classList.toggle('btn-active', isSpinning);
+    });
+
+    btnPrecision.addEventListener('click', () => {
+      highPrecision = !highPrecision;
+      btnPrecision.classList.toggle('btn-active', highPrecision);
+    });
+
+    btnParticles.addEventListener('click', () => {
+      showParticles = !showParticles;
+      btnParticles.classList.toggle('btn-active', showParticles);
+      particleSystemLeft.visible = showParticles;
+      particleSystemRight.visible = showParticles;
+    });
+
+    // Main animation loop
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const elapsed = clock.getElapsedTime();
+      const delta = clock.getDelta();
+
+      // Slow orbital spin
+      if (isSpinning) {
+        coilGroupLeft.rotation.y = elapsed * 0.15;
+        coilGroupRight.rotation.y = elapsed * 0.15;
+      }
+
+      // Update particles
+      if (showParticles) {
+        const positions = pGeometry.attributes.position.array;
+        for (let i = 0; i < pCount; i++) {
+          const speed = pSpeeds[i];
+          speed.angle += speed.rotSpeed;
+          speed.y += speed.ySpeed;
+          if (speed.y > 3.0) speed.y = -0.5;
+
+          // Introduce drift in position coordinates on the left side
+          // The left scene reads the buffer direct but with floating drift
+          const driftX = Math.sin(elapsed * 12 + i) * 0.08;
+          const driftZ = Math.cos(elapsed * 10 + i) * 0.08;
+
+          positions[i * 3] = Math.cos(speed.angle) * speed.radius;
+          positions[i * 3 + 1] = speed.y;
+          positions[i * 3 + 2] = Math.sin(speed.angle) * speed.radius;
+        }
+        pGeometry.attributes.position.needsUpdate = true;
+      }
+
+      // Left Jitter / Drift (simulating standard float-drift in graphics pipeline)
+      const driftMult = highPrecision ? 0.1 : 1.0;
+      const timeJitter = Math.sin(elapsed * 25) * 0.03 * driftMult;
+      
+      tethersLeft.forEach((t, idx) => {
+        // Displace position and scaling of tethers
+        t.position.x = anchorPoints[idx].x + Math.sin(elapsed * 15 + idx) * 0.06 * driftMult;
+        t.position.z = anchorPoints[idx].z + Math.cos(elapsed * 18 + idx) * 0.06 * driftMult;
+        t.scale.set(1 + timeJitter * 2, 1 + timeJitter, 1 + timeJitter * 2);
+      });
+
+      // Left Windings also shear slightly
+      windingsLeft.forEach((w, idx) => {
+        w.position.x = Math.sin(elapsed * 8 + idx) * 0.03 * driftMult;
+        w.position.z = Math.cos(elapsed * 6 + idx) * 0.03 * driftMult;
+      });
+
+      // Right Side is perfectly anchored (Vinculum Coherence)
+      tethersRight.forEach((t, idx) => {
+        t.position.copy(anchorPoints[idx]);
+        t.scale.set(1, 1, 1);
+      });
+      windingsRight.forEach((w, idx) => {
+        w.position.set(0, w.position.y, 0);
+      });
+
+      // Update controls
+      controls.update();
+
+      // Scissor Render Pass
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      // Enable scissor test
+      renderer.setScissorTest(true);
+
+      // Left Scene (Unoptimized)
+      renderer.setViewport(0, 0, sliderPos, height);
+      renderer.setScissor(0, 0, sliderPos, height);
+      renderer.render(sceneLeft, camera);
+
+      // Right Scene (Optimized)
+      renderer.setViewport(sliderPos, 0, width - sliderPos, height);
+      renderer.setScissor(sliderPos, 0, width - sliderPos, height);
+      renderer.render(sceneRight, camera);
+
+      // Disable scissor test for full overlay overlays (if any)
+      renderer.setScissorTest(false);
+
+      // Live Telemetry updates
+      const currentDrift = Math.abs(timeJitter * 1.5);
+      driftVal.textContent = currentDrift.toFixed(8);
+      
+      const jacobian = 1.0 - (Math.sin(elapsed * 5) * 0.08 * driftMult);
+      jacobianVal.textContent = jacobian.toFixed(4);
+
+      if (currentDrift > 0.01) {
+        driftVal.className = "stat-val val-breach";
+      } else {
+        driftVal.className = "stat-val val-stable";
+      }
+
+      // Update telemetry text indicators
+      if (sliderPos < 50) {
+        l0Val.textContent = "BREACH (COLLAPSED)"; l0Val.className = "stat-val val-breach";
+        l1Val.textContent = "BREACH (DRIFTING)"; l1Val.className = "stat-val val-breach";
+        l2Val.textContent = "BREACH (SHEARING)"; l2Val.className = "stat-val val-breach";
+      } else if (sliderPos > (width - 50)) {
+        l0Val.textContent = "STABLE (COHERENT)"; l0Val.className = "stat-val val-stable";
+        l1Val.textContent = "STABLE (LOCKED)"; l1Val.className = "stat-val val-stable";
+        l2Val.textContent = "STABLE (ALIGNED)"; l2Val.className = "stat-val val-stable";
+      } else {
+        l0Val.textContent = "HYBRID INTERPOLATION"; l0Val.className = "stat-val val-metric";
+        l1Val.textContent = "REAL-TIME SPLIT"; l1Val.className = "stat-val val-metric";
+        l2Val.textContent = "DISSOLVING GAP"; l2Val.className = "stat-val val-metric";
+      }
+    }
+
+    animate();
+  </script>
+</body>
+</html>

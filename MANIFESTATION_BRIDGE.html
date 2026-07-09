@@ -62,9 +62,24 @@ const moon=new THREE.DirectionalLight(0x8899bb,.5);
 moon.position.set(5,8,-3);S.add(moon);
 
 // ── Building Corner ──
-const wallMat=new THREE.MeshStandardMaterial({color:0x889099,roughness:.8,metalness:.05});
-const floorMat2=new THREE.MeshStandardMaterial({color:0x667077,roughness:.7,metalness:.05});
-const stairMat=new THREE.MeshStandardMaterial({color:0x7a8289,roughness:.6,metalness:.1});
+const wallMat=new THREE.MeshPhysicalMaterial({color:0x889099,roughness:.8,metalness:.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const floorMat2=new THREE.MeshPhysicalMaterial({color:0x667077,roughness:.7,metalness:.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const stairMat=new THREE.MeshPhysicalMaterial({color:0x7a8289,roughness:.6,metalness:.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 function box(w,h,d,mat){const g=new THREE.BoxGeometry(w,h,d);const m=new THREE.Mesh(g,mat);m.castShadow=true;m.receiveShadow=true;return m;}
 function wall(x,y,z,w,h,d){return Object.assign(box(w,h,d,wallMat),{position:new THREE.Vector3(x,y,z)});}
@@ -74,10 +89,30 @@ function wall(x,y,z,w,h,d){return Object.assign(box(w,h,d,wallMat),{position:new
 // ═══════════════════════════════════════
 function makeStairs(startX,startY,startZ,rise,run_depth,steps,angle=0){
   const g=new THREE.Group();
-  const treadMat=new THREE.MeshStandardMaterial({color:0x889099,roughness:.5,metalness:.2});
-  const riserMat=new THREE.MeshStandardMaterial({color:0x667077,roughness:.7,metalness:.1});
-  const stringerMat=new THREE.MeshStandardMaterial({color:0x556677,metalness:.75,roughness:.3});
-  const railMat=new THREE.MeshStandardMaterial({color:0x667788,metalness:.8,roughness:.25});
+  const treadMat=new THREE.MeshPhysicalMaterial({color:0x889099,roughness:.5,metalness:.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+  const riserMat=new THREE.MeshPhysicalMaterial({color:0x667077,roughness:.7,metalness:.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+  const stringerMat=new THREE.MeshPhysicalMaterial({color:0x556677,metalness:.75,roughness:.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+  const railMat=new THREE.MeshPhysicalMaterial({color:0x667788,metalness:.8,roughness:.25,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
   const totalRun=steps*run_depth;
   const totalRise=steps*rise;
@@ -98,7 +133,12 @@ function makeStairs(startX,startY,startZ,rise,run_depth,steps,angle=0){
     // Riser
     g.add(Object.assign(box(.9,rise,.04,riserMat),{position:new THREE.Vector3(0,ty+rise*.5,tz)}));
     // Anti-slip nosing
-    g.add(Object.assign(box(.9,.008,.02,new THREE.MeshStandardMaterial({color:0x445566,metalness:.6,roughness:.2})),{position:new THREE.Vector3(0,ty+rise+.02,tz+run_depth)}));
+    g.add(Object.assign(box(.9,.008,.02,new THREE.MeshPhysicalMaterial({color:0x445566,metalness:.6,roughness:.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })),{position:new THREE.Vector3(0,ty+rise+.02,tz+run_depth)}));
   }
 
   // Handrail (left side only)
@@ -126,9 +166,24 @@ S.add(wall(0,.05,0,5,.1,5,floorMat2)); // floor
 S.add(makeStairs(0,.05,-1.5,.18,.35,10,0));
 
 // ── STREETLIGHT — PBR mesh driven by light_system node ──
-const poleMat=new THREE.MeshStandardMaterial({color:0x556677,metalness:.8,roughness:.25});
-const bulbMat=new THREE.MeshStandardMaterial({color:0xffddaa,emissive:0x331100,emissiveIntensity:.4,roughness:.1});
-const glassMat2=new THREE.MeshStandardMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.5});
+const poleMat=new THREE.MeshPhysicalMaterial({color:0x556677,metalness:.8,roughness:.25,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const bulbMat=new THREE.MeshPhysicalMaterial({color:0xffddaa,emissive:0x331100,emissiveIntensity:.4,roughness:.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
+const glassMat2=new THREE.MeshPhysicalMaterial({color:0xccdde8,roughness:.1,metalness:.2,transparent:true,opacity:.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    });
 
 const streetlight=new THREE.Group();
 // Pole
@@ -148,8 +203,18 @@ streetlight.position.set(-1.5,.05,-1);S.add(streetlight);
 
 // ── Junction box on wall (responds to thermal) ──
 const jBox=new THREE.Group();
-jBox.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(.25,.3,.2),new THREE.MeshStandardMaterial({color:0x667788,metalness:.8,roughness:.3,emissive:0x000000})),{position:{y:.15}}));
-const jThermal=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.04,8),new THREE.MeshStandardMaterial({color:0x442200,emissive:0x220000,emissiveIntensity:0}));
+jBox.add(Object.assign(new THREE.Mesh(new THREE.BoxGeometry(.25,.3,.2),new THREE.MeshPhysicalMaterial({color:0x667788,metalness:.8,roughness:.3,emissive:0x000000,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    })),{position:{y:.15}}));
+const jThermal=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.04,8),new THREE.MeshPhysicalMaterial({color:0x442200,emissive:0x220000,emissiveIntensity:0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        transmission: 0.3,
+        thickness: 0.5
+    }));
 jThermal.position.set(0,.32,0);jThermal.name='junction_thermal';jBox.add(jThermal);
 jBox.position.set(-2.4,1,-.5);S.add(jBox);
 

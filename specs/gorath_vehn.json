@@ -1,0 +1,296 @@
+{
+  "model_id": "gorath_vehn_v1",
+  "domain": "character",
+  "version": "1.0",
+  "global_vinculum": {
+    "domain": "mecha",
+    "constraints": {
+      "arm_to_torso": {
+        "kind": "ratio",
+        "key": "arm_to_torso",
+        "target": 0.85,
+        "min": null,
+        "max": null,
+        "tolerance": 0.05,
+        "description": "Arms 85% of torso height"
+      },
+      "head_to_body": {
+        "kind": "ratio",
+        "key": "head_to_body",
+        "target": 0.15,
+        "min": null,
+        "max": null,
+        "tolerance": 0.03,
+        "description": "Mecha heads are larger proportionally"
+      },
+      "joint_torque_nm": {
+        "kind": "range",
+        "key": "joint_torque_nm",
+        "target": null,
+        "min": 10,
+        "max": 5000,
+        "tolerance": 0.05,
+        "description": "Joint torque in newton-meters"
+      }
+    },
+    "metadata": {}
+  },
+  "metadata": {},
+  "components": [
+    {
+      "name": "torso",
+      "component_type": "torso",
+      "parent": null,
+      "joint_type": "fixed",
+      "joint_axis": null,
+      "joint_limits": null,
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "torso_height_to_total": {
+            "kind": "ratio",
+            "key": "torso_height_to_total",
+            "target": 0.35,
+            "min": null,
+            "max": null,
+            "tolerance": 0.05,
+            "description": "Torso ~35% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "torso_type": "reinforced",
+        "scale": 1.15
+      },
+      "mount_points": [
+        "head",
+        "l_shoulder",
+        "r_shoulder",
+        "hips"
+      ],
+      "tags": [
+        "torso",
+        "reinforced"
+      ]
+    },
+    {
+      "name": "left_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "reinforced left arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "reinforced",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "reinforced",
+        "left_arm"
+      ]
+    },
+    {
+      "name": "right_arm",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -90,
+        180
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_arm_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_arm_length_to_torso",
+            "target": 0.8,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "reinforced right arm length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "reinforced",
+        "length": 0.8,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "reinforced",
+        "right_arm"
+      ]
+    },
+    {
+      "name": "left_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "left_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "left_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "reinforced left leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "reinforced",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "reinforced",
+        "left_leg"
+      ]
+    },
+    {
+      "name": "right_leg",
+      "component_type": "limb",
+      "parent": "torso",
+      "joint_type": "revolute",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -45,
+        120
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "right_leg_length_to_torso": {
+            "kind": "ratio",
+            "key": "right_leg_length_to_torso",
+            "target": 1.1,
+            "min": null,
+            "max": null,
+            "tolerance": 0.08,
+            "description": "reinforced right leg length constraint"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "limb_type": "reinforced",
+        "length": 1.1,
+        "scale": 1.0
+      },
+      "mount_points": [],
+      "tags": [
+        "limb",
+        "reinforced",
+        "right_leg"
+      ]
+    },
+    {
+      "name": "head",
+      "component_type": "head",
+      "parent": "torso",
+      "joint_type": "ball_socket",
+      "joint_axis": "Z",
+      "joint_limits": [
+        -70,
+        70
+      ],
+      "vinculum": {
+        "domain": "character",
+        "constraints": {
+          "head_height_to_total": {
+            "kind": "ratio",
+            "key": "head_height_to_total",
+            "target": 0.125,
+            "min": null,
+            "max": null,
+            "tolerance": 0.03,
+            "description": "Head ~12.5% of height"
+          }
+        },
+        "metadata": {}
+      },
+      "parameters": {
+        "head_type": "standard",
+        "scale": 0.9774999999999999
+      },
+      "mount_points": [
+        "neck"
+      ],
+      "tags": [
+        "head",
+        "standard"
+      ]
+    }
+  ],
+  "character_name": "Gorath Vehn",
+  "role": "The Old Guard",
+  "archetype": "Retired legend, pulled back in",
+  "lore": "Was Galactic Overlord for 12 consecutive cycles before 'retiring.' He mentors you. Every piece of advice is correct. Every piece of advice also advances his hidden agenda: reclaiming his throne by making you dependent on him. He's dying. He has 30 days. He's not training a successor \u2014 he's writing his legacy through your story.",
+  "dialogue_seeds": [
+    "\"I built this empire. I can rebuild it through you. The question is: will you step aside when I ask?\"",
+    "\"Thirty days. That's what the medic gave me. But empires aren't built in thirty days. They're built in thirty years. And I've already spent those.\""
+  ],
+  "sprite_params": {
+    "sheet": "kraken_mech_render.jpg",
+    "frame_count": 4,
+    "palette": "kraken_gold",
+    "variant": "reinforced"
+  },
+  "glb_export_name": "gorath_vehn.glb",
+  "faction": "kraken",
+  "abilities": [
+    "overlord_tactics",
+    "mentor_aura",
+    "legacy_burn"
+  ],
+  "mission_triggers": [
+    "ransom_run",
+    "debt_trap"
+  ],
+  "stats": {
+    "loyalty": 0.9,
+    "combat": 0.95,
+    "stealth": 0.6,
+    "negotiation": 0.85
+  },
+  "glb_path": null,
+  "sprite_sheet_path": null
+}
