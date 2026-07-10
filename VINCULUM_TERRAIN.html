@@ -449,20 +449,6 @@ function getHeight(x, z) {
   return h;
 }
 
-<<<<<<< HEAD
-function getChromaColor(height, wx, wz) {
-  const zone = getZoneAt(wx, wz);
-  const zoneHue = ZONE_KEYS.map(k => ZONES[k].hue)[zone] || 0;
-  const t = (height + HEIGHT_MULT * 1.5) / (HEIGHT_MULT * 3);
-  const baseIdx = Math.floor(Math.max(0, Math.min(8, t * 9)));
-  // Blend zone hue into chroma
-  const blend = 0.3;
-  const baseHue = (baseIdx * HUE_STEP) % 360;
-  const finalHue = baseHue * (1 - blend) + zoneHue * blend;
-  const sat = 65 + (baseIdx % 3) * 8;
-  const lit = 38 + (baseIdx % 4) * 8;
-  return new THREE.Color(`hsl(${finalHue % 360}, ${sat}%, ${lit}%)`);
-=======
 // Voronoi biome cells → mod9 values → CHROMA cascade (preserves vinculum framework)
 const VORONOI_SEEDS = 12;  // number of biome regions
 const VORONOI_SCALE = 0.008;  // cell size ~125 units
@@ -508,7 +494,6 @@ function getChromaColor(height, x, z) {
   const blended = Math.round(biomeMod9 * 0.7 + heightMod9 * 0.3);
   const idx = Math.max(0, Math.min(8, blended));
   return new THREE.Color(CHROMA[idx]);
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
 }
 
 function generateChunk(cx, cz) {
@@ -522,16 +507,9 @@ function generateChunk(cx, cz) {
     const wx = verts[i] + cx * CHUNK_SIZE;
     const wz = verts[i + 2] + cz * CHUNK_SIZE;
     const h = getHeight(wx, wz);
-<<<<<<< HEAD
-    verts[i + 1] = h;
-    const c = getChromaColor(h, wx, wz);
-    colors[i] = c.r; colors[i + 1] = c.g; colors[i + 2] = c.b;
-=======
     verts[i+1] = h;
-    
     const c = getChromaColor(h, wx, wz);
     colors[i] = c.r; colors[i+1] = c.g; colors[i+2] = c.b;
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
   }
 
   geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -687,10 +665,8 @@ function checkTreeCollisions(px, pz) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// PLAYER / CONTROLS
-// ═══════════════════════════════════════════════════════════════
-=======
 // AUDIO SYSTEM
+// ═══════════════════════════════════════════════════════════════
 let audioCtx, beachSource, earthySource, intenseSource;
 let beachGain, earthyGain, intenseGain;
 let audioInitialized = false;
@@ -758,8 +734,9 @@ function updateAudioMix() {
   intenseGain.gain.setTargetAtTime(intenseVol * 0.7, audioCtx.currentTime, 0.15);
 }
 
-// PLAYER
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
+// ═══════════════════════════════════════════════════════════════
+// PLAYER / CONTROLS
+// ═══════════════════════════════════════════════════════════════
 const controls = new PointerLockControls(camera, document.body);
 document.addEventListener('click', () => {
   controls.lock();
@@ -921,14 +898,9 @@ let hudTimer = 0;
 
 function updateHUD() {
   const h = getHeight(camera.position.x, camera.position.z);
-<<<<<<< HEAD
   const t = (h + HEIGHT_MULT * 1.5) / (HEIGHT_MULT * 3);
-  const layerIdx = Math.floor(Math.max(0, Math.min(8, t * 9)));
-  const layerNames = ['INFRARED', 'RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INDIGO', 'VIOLET', 'UV'];
-=======
   const layerIdx = Math.floor(Math.max(0, Math.min(8, voronoiMod9(camera.position.x, camera.position.z))));
-  const layerNames = ['INFRARED','RED','ORANGE','YELLOW','GREEN','BLUE','INDIGO','VIOLET','UV'];
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
+  const layerNames = ['INFRARED', 'RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INDIGO', 'VIOLET', 'UV'];
   const mod9 = layerIdx;
 
   const zone = getZoneAt(camera.position.x, camera.position.z);
@@ -965,20 +937,31 @@ const mm = document.getElementById('minimap');
 const mmCtx = mm.getContext('2d');
 mm.width = 160; mm.height = 160;
 
-<<<<<<< HEAD
 function drawMinimap() {
-  mmCtx.fillStyle = '#0a0f14';
-  mmCtx.fillRect(0, 0, 160, 160);
-
-  const range = CHUNK_SIZE * RENDER_DIST * 0.7;
-  const scale = 155 / (range * 2);
-
+  mmCtx.fillStyle = '#1a2a1a';
+  mmCtx.fillRect(0,0,160,160);
+  
+  const scale = 150/(CHUNK_SIZE*RENDER_DIST*2);
   const cx = camera.position.x;
   const cz = camera.position.z;
-  const ox = 80 - cx * scale;
-  const oz = 80 - cz * scale;
+  const ox = 80 - (cx%(CHUNK_SIZE*RENDER_DIST))*scale;
+  const oz = 80 - (cz%(CHUNK_SIZE*RENDER_DIST))*scale;
+  
+  // Draw chunk chroma map
+  for(let x=-RENDER_DIST; x<=RENDER_DIST; x++){
+    for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
+      const mx = ox + x*CHUNK_SIZE*scale;
+      const mz = oz + z*CHUNK_SIZE*scale;
+      const wx = cx + x*CHUNK_SIZE/2;
+      const wz = cz + z*CHUNK_SIZE/2;
+      const h = getHeight(wx, wz);
+      const c = getChromaColor(h, wx, wz);
+      mmCtx.fillStyle = c;
+      mmCtx.fillRect(mx, mz, CHUNK_SIZE*scale/2, CHUNK_SIZE*scale/2);
+    }
+  }
 
-  // Draw zone beacons
+  // Draw zone beacons on top
   for (const key of ZONE_KEYS) {
     const z = ZONES[key];
     const bx = z.beaconPos[0] + z.offset.dx * 20;
@@ -993,26 +976,6 @@ function drawMinimap() {
       mmCtx.fillStyle = '#889';
       mmCtx.font = '6px monospace';
       mmCtx.fillText(key, sx + 5, sy + 2);
-=======
-function drawMinimap(){
-  mmCtx.fillStyle = '#1a2a1a';
-  mmCtx.fillRect(0,0,150,150);
-  
-  const scale = 150/(CHUNK_SIZE*RENDER_DIST*2);
-  const ox = 75 - (camera.position.x%(CHUNK_SIZE*RENDER_DIST))*scale;
-  const oz = 75 - (camera.position.z%(CHUNK_SIZE*RENDER_DIST))*scale;
-  
-  for(let x=-RENDER_DIST; x<=RENDER_DIST; x++){
-    for(let z=-RENDER_DIST; z<=RENDER_DIST; z++){
-      const mx = ox + x*CHUNK_SIZE*scale;
-      const mz = oz + z*CHUNK_SIZE*scale;
-      const wx = camera.position.x + x*CHUNK_SIZE/2;
-      const wz = camera.position.z + z*CHUNK_SIZE/2;
-      const h = getHeight(wx, wz);
-      const c = getChromaColor(h, wx, wz);
-      mmCtx.fillStyle = c;
-      mmCtx.fillRect(mx, mz, CHUNK_SIZE*scale/2, CHUNK_SIZE*scale/2);
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     }
   }
 
@@ -1100,7 +1063,6 @@ function animate() {
     camera.position.y += velocity.y * dt;
 
     const gh = getHeight(camera.position.x, camera.position.z);
-<<<<<<< HEAD
     if (camera.position.y < gh + 2) { velocity.y = 0; camera.position.y = gh + 2; }
 
     if (!interiorActive) updateChunks();
@@ -1117,13 +1079,7 @@ function animate() {
       }
     }
 
-=======
-    if(camera.position.y < gh+2){ velocity.y=0; camera.position.y=gh+2; }
-    
-    updateChunks();
     updateAudioMix();
-    
->>>>>>> e33760a2baa509c93816854eb255d4ccf3a05b64
     hudTimer += dt;
     if (hudTimer > 0.15) { updateHUD(); hudTimer = 0; drawMinimap(); }
   }
