@@ -13,7 +13,7 @@ body{background:#060812;overflow:hidden;font:10px monospace;color:#888}
 #hud .zone{color:#ff9944}
 #minimap{position:absolute;bottom:10px;right:10px;width:160px;height:160px;border:2px solid rgba(255,255,255,0.3);border-radius:4px;pointer-events:none;z-index:10;image-rendering:pixelated}
 #info{position:absolute;bottom:10px;left:10px;color:#fff;font:9px monospace;text-shadow:1px 1px 2px #000;pointer-events:none;z-index:10;opacity:0.6}
-#ai-panel{position:fixed;top:80px;left:20px;background:rgba(5,5,14,.94);border:1px solid #4466aa;border-radius:6px;padding:10px;width:300px;z-index:20;color:#ccc;font:10px monospace;display:none;backdrop-filter:blur(6px)}
+#ai-panel{position:fixed;top:80px;left:20px;background:rgba(5,5,14,.94);border:1px solid #4466aa;border-radius:6px;padding:10px;width:300px;z-index:20;color:#ccc;font:10px monospace;display:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #ai-panel .header{color:#88aaff;letter-spacing:1px;margin-bottom:6px;font-size:11px}
 #ai-response{max-height:200px;overflow-y:auto;margin-bottom:6px;line-height:1.4;font-size:10px;color:#aac}
 #ai-input{width:100%;background:#111;border:1px solid #4466aa;color:#ccc;padding:4px;font:10px monospace;border-radius:2px}
@@ -24,6 +24,8 @@ body{background:#060812;overflow:hidden;font:10px monospace;color:#888}
 .status-stable{color:#4c4}
 .status-candidate{color:#ca4}
 .status-breach{color:#c44}
+#tree-count{color:#5a7a5a}
+#rhind-constant{color:#d4a854;font-size:9px}
 </style>
 </head>
 <body>
@@ -35,8 +37,8 @@ body{background:#060812;overflow:hidden;font:10px monospace;color:#888}
   <div id="checkpoint">CHECKPOINT: STAND</div>
   <div id="torsion">TORSION: STABLE</div>
   <div id="friction-delta">FRICTION Δ: 0.00</div>
-  <div id="tree-count" style="color:#5a7a5a">TREES: 0</div>
-  <div id="rhind-constant" style="color:#d4a854;font-size:9px">RHIND π: 3.14 (0.05%)</div>
+  <div id="tree-count">TREES: 0</div>
+  <div id="rhind-constant">RHIND π: 3.14 (0.05%)</div>
 </div>
 <div id="phys-debug" id="phys-debug"></div>
 <div id="info">WASD: move | SPACE: jump | CLICK: lock mouse | M: minimap | G: Gemma AI | B: beacon cycle | E: interior | 1-7: zone jump | T: toggle trees</div>
@@ -547,7 +549,6 @@ function updateChunks() {
   }
 }
 
-<<<<<<< HEAD
 // ═══════════════════════════════════════════════════════════════
 // PHYSICS DELTA: EM Beacons (distance-field terrain influence)
 // ═══════════════════════════════════════════════════════════════

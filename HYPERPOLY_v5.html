@@ -6,7 +6,7 @@
 <title>HYPERPOLY v5 | Structural Survival</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{overflow:hidden;background:#000;font-family:'Segoe UI',sans-serif;user-select:none}
+body{overflow:hidden;background:#000;font-family:'Segoe UI',sans-serif;-webkit-user-select:none;user-select:none}
 #c{width:100vw;height:100vh;position:absolute;top:0;left:0;z-index:1}
 #ui{position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;pointer-events:none}
 #cross{position:absolute;top:50%;left:50%;width:24px;height:24px;transform:translate(-50%,-50%)}
@@ -20,11 +20,11 @@ body{overflow:hidden;background:#000;font-family:'Segoe UI',sans-serif;user-sele
 #time{position:absolute;top:20px;right:24px;color:#fff;font-size:14px;letter-spacing:3px;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 #prompt{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:0;transition:opacity .25s;white-space:nowrap}
 #hotbar{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;gap:8px;pointer-events:auto}
-.slot{width:56px;height:56px;background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;position:relative;transition:all .15s;cursor:pointer;backdrop-filter:blur(4px)}
+.slot{width:56px;height:56px;background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;position:relative;transition:all .15s;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .slot.active{border-color:rgba(255,255,255,.9);background:rgba(255,255,255,.12);transform:scale(1.08);box-shadow:0 0 12px rgba(255,255,255,.15)}
 .slot .lb{position:absolute;bottom:3px;right:5px;font-size:8px;color:rgba(255,255,255,.7)}
 .slot .kh{position:absolute;top:3px;left:5px;font-size:8px;color:rgba(255,255,255,.4)}
-#craft{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(8,8,12,.92);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px;display:none;pointer-events:auto;min-width:320px;box-shadow:0 20px 60px rgba(0,0,0,.7);backdrop-filter:blur(12px);color:#fff}
+#craft{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(8,8,12,.92);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px;display:none;pointer-events:auto;min-width:320px;box-shadow:0 20px 60px rgba(0,0,0,.7);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff}
 #craft h2{font-size:14px;letter-spacing:4px;text-transform:uppercase;font-weight:400;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px;margin-bottom:16px}
 .rc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
 .rc:hover:not(.no){background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);transform:translateX(4px)}
@@ -35,6 +35,7 @@ body{overflow:hidden;background:#000;font-family:'Segoe UI',sans-serif;user-sele
 #load{position:absolute;top:0;left:0;width:100%;height:100%;background:#030305;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:100;transition:opacity .6s}
 #load .t{font-size:28px;letter-spacing:8px;text-transform:uppercase;font-weight:300;margin-bottom:10px}
 #load .st{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px}
+.close-prompt{color:rgba(255,255,255,.4);font-size:10px;text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
@@ -47,7 +48,7 @@ body{overflow:hidden;background:#000;font-family:'Segoe UI',sans-serif;user-sele
 <div id="time">8:00 AM</div>
 <div id="prompt"></div>
 <div id="hotbar"></div>
-<div id="craft"><h2>Crafting</h2><div id="recipes"></div><div style="color:rgba(255,255,255,.4);font-size:10px;text-align:center;margin-top:12px">Press C to Close</div></div>
+<div id="craft"><h2>Crafting</h2><div id="recipes"></div><div class="close-prompt">Press C to Close</div></div>
 </div>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
@@ -174,7 +175,62 @@ function updateStructural(){
 
 // STARS + DAY/NIGHT
 function createStars(){const geo=new THREE.BufferGeometry();const count=1200;const pos=new Float32Array(count*3);for(let i=0;i<count;i++){const r=250+Math.random()*150,theta=Math.random()*Math.PI*2,phi=Math.acos(2*Math.random()-1);pos[i*3]=r*Math.sin(phi)*Math.cos(theta);pos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);pos[i*3+2]=r*Math.cos(phi)}geo.setAttribute('position',new THREE.BufferAttribute(pos,3));return new THREE.Points(geo,new THREE.PointsMaterial({color:0xffffff,size:.6,transparent:true,opacity:0}))}
-function updateDayNight(dt,sun,moon,stars,sc){G.time+=(dt/CFG.DD)*24;if(G.time>=24)G.time-=24;const t=G.time,angle=((t-6)/24)*Math.PI*2,sy=Math.sin(angle),sx=Math.cos(angle);sun.position.set(sx*180,sy*180,-60);sun.intensity=Math.max(0,sy)*2.2;moon.position.set(-sx*120,-sy*120,-60);moon.intensity=Math.max(0,-sy)*.4;let sc2,fc,fd;if(t<5||t>21){sc2=new THREE.Color(0x04060a);fc=new THREE.Color(0x04060a);fd=.018}else if(t<7){const p=(t-5)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0x04060a),new THREE.Color(0xff9966),p);fc=sc2;fd=.012}else if(t<17){sc2=new THREE.Color(0x87ceeb);fc=new THREE.Color(0xcce8ff);fd=.005}else if(t<19){const p=(t-17)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0x87ceeb),new THREE.Color(0xff6644),p);fc=sc2;fd=.008}else{const p=(t-19)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0xff6644),new THREE.Color(0x04060a),p);fc=sc2;fd=.014}sc.background=sc2;sc.fog.color=fc;sc.fog.density=fd;stars.material.opacity=(t<6||t>20)?Math.min(1,(t<6?1-(t-5):t-20)):0;const hrs=Math.floor(t),mins=Math.floor((t-hrs)*60);document.getElementById('time').textContent=`${hrs%12||12}:${mins.toString().padStart(2,'0')} ${hrs>=12?'PM':'AM'}`}
+function legendre(a, p) {
+  if (a % p === 0) return 0;
+  let val = 1;
+  for (let i = 0; i < (p - 1) / 2; i++) { val = (val * (a % p)) % p; }
+  return val === p - 1 ? -1 : 1;
+}
+
+function updateDayNight(dt,sun,moon,stars,sc){
+  G.time+=(dt/CFG.DD)*24;
+  if(G.time>=24)G.time-=24;
+  const t=G.time,angle=((t-6)/24)*Math.PI*2,sy=Math.sin(angle),sx=Math.cos(angle);
+  sun.position.set(sx*180,sy*180,-60);
+  sun.intensity=Math.max(0,sy)*2.2;
+  moon.position.set(-sx*120,-sy*120,-60);
+  moon.intensity=Math.max(0,-sy)*.4;
+  
+  let sc2,fc,fd;
+  if(t<5||t>21){sc2=new THREE.Color(0x04060a);fc=new THREE.Color(0x04060a);fd=.018}
+  else if(t<7){const p=(t-5)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0x04060a),new THREE.Color(0xff9966),p);fc=sc2;fd=.012}
+  else if(t<17){sc2=new THREE.Color(0x87ceeb);fc=new THREE.Color(0xcce8ff);fd=.005}
+  else if(t<19){const p=(t-17)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0x87ceeb),new THREE.Color(0xff6644),p);fc=sc2;fd=.008}
+  else {const p=(t-19)/2;sc2=new THREE.Color().lerpColors(new THREE.Color(0xff6644),new THREE.Color(0x04060a),p);fc=sc2;fd=.014}
+  
+  // --- STRIDE-24 CELESTIAL RESONANCE ---
+  const activeResidues = [1, 5, 7, 11, 13, 17, 19, 23];
+  const currentHour = Math.floor(t);
+  const isActive = activeResidues.includes(currentHour);
+  
+  let skyR = sc2.r;
+  let skyG = sc2.g;
+  let skyB = sc2.b;
+  
+  if (isActive) {
+    const leg7 = legendre(currentHour, 7);
+    const leg11 = legendre(currentHour, 11);
+    // Active phase: neon interference waves (auroras)
+    skyR += leg7 * 0.08 * Math.sin(t * 4.0);
+    skyG += leg11 * 0.12 * Math.cos(t * 3.0);
+    skyB += (leg7 * leg11) * 0.09 * Math.sin(t * 2.0);
+    stars.material.opacity = Math.max(stars.material.opacity, 0.45 + 0.35 * leg7 * Math.sin(t * 12.0));
+  } else {
+    // Ghost phase: subdued sky tones
+    skyR *= 0.8;
+    skyG *= 0.78;
+    skyB *= 0.88;
+  }
+  
+  sc2.setRGB(Math.max(0, Math.min(1, skyR)), Math.max(0, Math.min(1, skyG)), Math.max(0, Math.min(1, skyB)));
+  
+  sc.background=sc2;
+  sc.fog.color=fc;
+  sc.fog.density=fd;
+  stars.material.opacity=(t<6||t>20)?Math.min(1,(t<6?1-(t-5):t-20)):0;
+  const hrs=Math.floor(t),mins=Math.floor((t-hrs)*60);
+  document.getElementById('time').textContent=`${hrs%12||12}:${mins.toString().padStart(2,'0')} ${hrs>=12?'PM':'AM'}`;
+}
 
 // PLAYER
 function updatePlayer(dt,cam,ctl){if(!ctl.isLocked)return;const d=new THREE.Vector3();if(G.keys['KeyW'])d.z-=1;if(G.keys['KeyS'])d.z+=1;if(G.keys['KeyA'])d.x-=1;if(G.keys['KeyD'])d.x+=1;if(d.lengthSq()>0){d.normalize().applyQuaternion(cam.quaternion);d.y=0;d.normalize();cam.position.x+=d.x*CFG.SPD*dt;cam.position.z+=d.z*CFG.SPD*dt}G.pl.vel.y-=CFG.G*dt;cam.position.y+=G.pl.vel.y*dt;const gh=gth(cam.position.x,cam.position.z);if(cam.position.y<gh+1.7){cam.position.y=gh+1.7;G.pl.vel.y=0;G.pl.on=true}else{G.pl.on=false}const lim=CFG.WS/2-4;cam.position.x=THREE.MathUtils.clamp(cam.position.x,-lim,lim);cam.position.z=THREE.MathUtils.clamp(cam.position.z,-lim,lim)}
