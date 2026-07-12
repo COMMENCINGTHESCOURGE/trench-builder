@@ -5,8 +5,12 @@ on:
     - cron: '0 * * * *'  # Run hourly
   workflow_dispatch:      # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   manifold-sync:
+
     runs-on: windows-latest
     steps:
       - name: Checkout Code
