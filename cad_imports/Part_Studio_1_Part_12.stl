@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b4011f89964d5350046959b9e27808b4d582271c2222ed01bc1a9e2518ef7780
-size 776
+solid Mesh
+  facet normal -0.990275 0.139121 0
+    outer loop
+      vertex 1.02903 3.26807 1.73852
+      vertex 1.02754 3.2575 1.72653
+      vertex 1.02903 3.26807 1.79722
+    endloop
+  endfacet
+  facet normal -0.0619041 0.998082 0
+    outer loop
+      vertex 1.05713 3.26982 1.79722
+      vertex 1.02903 3.26807 1.73852
+      vertex 1.02903 3.26807 1.79722
+    endloop
+  endfacet
+  facet normal 0.84087 0.350001 -0.41284
+    outer loop
+      vertex 1.02754 3.2575 1.72653
+      vertex 1.02903 3.26807 1.73852
+      vertex 1.05713 3.26982 1.79722
+    endloop
+  endfacet
+  facet normal 0.0612375 -0.987335 0.146352
+    outer loop
+      vertex 1.02903 3.26807 1.79722
+      vertex 1.02754 3.2575 1.72653
+      vertex 1.05713 3.26982 1.79722
+    endloop
+  endfacet
+endsolid Mesh

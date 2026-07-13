@@ -1,3 +1,128 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d1f8ebaaad1da872ef14051ece6d06b224a1f66c85c4567d43ecb469a86241f3
-size 3540
+solid Mesh
+  facet normal 0 -1 0
+    outer loop
+      vertex 0.916873 -0.466205 1.69362
+      vertex 0.909182 -0.466205 1.69515
+      vertex 0.917699 -0.466205 1.67368
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex 0.909182 -0.466205 1.69515
+      vertex 0.909182 -0.466205 1.65943
+      vertex 0.917699 -0.466205 1.67368
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex 0.917699 -0.466205 1.67368
+      vertex 0.909182 -0.466205 1.65943
+      vertex 0.918534 -0.466205 1.6535
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex 0.909182 -0.466205 1.65943
+      vertex 0.909182 -0.466205 1.6535
+      vertex 0.918534 -0.466205 1.6535
+    endloop
+  endfacet
+  facet normal -0.968145 0.250389 0.000220645
+    outer loop
+      vertex 0.917699 -0.433525 1.67907
+      vertex 0.918534 -0.430281 1.65943
+      vertex 0.913915 -0.44814 1.65943
+    endloop
+  endfacet
+  facet normal -0.968123 0.250476 0.000151549
+    outer loop
+      vertex 0.917699 -0.433525 1.67907
+      vertex 0.913915 -0.44814 1.65943
+      vertex 0.917082 -0.43592 1.69358
+    endloop
+  endfacet
+  facet normal -0.967344 0.253465 -0.000990038
+    outer loop
+      vertex 0.913915 -0.44814 1.65943
+      vertex 0.909182 -0.466205 1.65943
+      vertex 0.917082 -0.43592 1.69358
+    endloop
+  endfacet
+  facet normal -0.967618 0.25242 0
+    outer loop
+      vertex 0.917082 -0.43592 1.69358
+      vertex 0.909182 -0.466205 1.65943
+      vertex 0.909182 -0.466205 1.69515
+    endloop
+  endfacet
+  facet normal -0.968145 0.250389 3.96145e-5
+    outer loop
+      vertex 0.918534 -0.430281 1.65943
+      vertex 0.91389 -0.448235 1.65646
+      vertex 0.913915 -0.44814 1.65943
+    endloop
+  endfacet
+  facet normal -0.967339 0.253485 -6.67124e-5
+    outer loop
+      vertex 0.91389 -0.448235 1.65646
+      vertex 0.909182 -0.466205 1.6535
+      vertex 0.913915 -0.44814 1.65943
+    endloop
+  endfacet
+  facet normal -0.967345 0.253465 0
+    outer loop
+      vertex 0.913915 -0.44814 1.65943
+      vertex 0.909182 -0.466205 1.6535
+      vertex 0.909182 -0.466205 1.65943
+    endloop
+  endfacet
+  facet normal -4.3722e-6 0.162923 -0.986639
+    outer loop
+      vertex 0.918534 -0.430281 1.65943
+      vertex 0.918534 -0.466205 1.6535
+      vertex 0.91389 -0.448235 1.65646
+    endloop
+  endfacet
+  facet normal 0 0.162924 -0.986639
+    outer loop
+      vertex 0.918534 -0.466205 1.6535
+      vertex 0.909182 -0.466205 1.6535
+      vertex 0.91389 -0.448235 1.65646
+    endloop
+  endfacet
+  facet normal 0.195087 2.16051e-6 0.980786
+    outer loop
+      vertex 0.909182 -0.466205 1.69515
+      vertex 0.916873 -0.466205 1.69362
+      vertex 0.917082 -0.43592 1.69358
+    endloop
+  endfacet
+  facet normal 0.999119 -0.00684044 0.0414132
+    outer loop
+      vertex 0.917082 -0.43592 1.69358
+      vertex 0.916873 -0.466205 1.69362
+      vertex 0.917699 -0.466205 1.67368
+    endloop
+  endfacet
+  facet normal 0.999119 -0.00683778 0.0414091
+    outer loop
+      vertex 0.917082 -0.43592 1.69358
+      vertex 0.917699 -0.466205 1.67368
+      vertex 0.917699 -0.433525 1.67907
+    endloop
+  endfacet
+  facet normal 0.999123 -0.00682221 0.0413149
+    outer loop
+      vertex 0.917699 -0.466205 1.67368
+      vertex 0.918534 -0.466205 1.6535
+      vertex 0.917699 -0.433525 1.67907
+    endloop
+  endfacet
+  facet normal 0.999123 -0.00682234 0.041315
+    outer loop
+      vertex 0.917699 -0.433525 1.67907
+      vertex 0.918534 -0.466205 1.6535
+      vertex 0.918534 -0.430281 1.65943
+    endloop
+  endfacet
+endsolid Mesh
