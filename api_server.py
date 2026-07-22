@@ -37,41 +37,127 @@ STRIPE_WEBHOOK_SECRET = _stripe_webhook()
 if STRIPE_SECRET and not STRIPE_SECRET.startswith("sk_test_mock"):
     stripe.api_key = STRIPE_SECRET
 
-# License database — JSON file persistence
-STATE_PATH = PATHS.api_state
-licenses = {}      # key → {tier, expires, max_requests, used_requests}
-api_keys = {}      # api_key → license_key
-sessions = {}      # session_token → user_data
+# Initialize SQLite database
+import sqlite3
 
+class SQLiteDB:
+    def __init__(self, db_path):
+        self.db_path = db_path
+        self._init_db()
 
-def _load_state():
-    """Load persisted state from disk on startup."""
-    if STATE_PATH.exists():
-        try:
-            data = json.loads(STATE_PATH.read_text())
-            licenses.update(data.get("licenses", {}))
-            api_keys.update(data.get("api_keys", {}))
-            sessions.update(data.get("sessions", {}))
-            return True
-        except (json.JSONDecodeError, OSError):
-            return False
-    return False
+    def _get_conn(self):
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        return conn
 
+    def _init_db(self):
+        with self._get_conn() as conn:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS licenses (
+                    key TEXT PRIMARY KEY,
+                    tier TEXT,
+                    expires TEXT,
+                    max_requests INTEGER,
+                    used_requests INTEGER,
+                    created TEXT,
+                    stripe_customer TEXT,
+                    stripe_subscription TEXT,
+                    stripe_session_id TEXT,
+                    status TEXT
+                )
+            """)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS api_keys (
+                    api_key TEXT PRIMARY KEY,
+                    license_key TEXT,
+                    FOREIGN KEY(license_key) REFERENCES licenses(key)
+                )
+            """)
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS sessions (
+                    session_token TEXT PRIMARY KEY,
+                    user_data TEXT
+                )
+            """)
+            conn.commit()
 
-def _save_state():
-    """Persist state atomically — temp file + rename (NTFS-safe)."""
-    tmp = STATE_PATH.with_suffix(".tmp")
-    payload = {
-        "licenses": licenses,
-        "api_keys": api_keys,
-        "sessions": sessions,
-    }
-    tmp.write_text(json.dumps(payload, indent=2, default=str))
-    tmp.replace(STATE_PATH)  # atomic on NTFS
+    def get_license(self, key):
+        with self._get_conn() as conn:
+            row = conn.execute("SELECT * FROM licenses WHERE key = ?", (key,)).fetchone()
+            return dict(row) if row else None
 
+    def get_license_by_api_key(self, api_key):
+        with self._get_conn() as conn:
+            row = conn.execute("""
+                SELECT l.* FROM licenses l
+                JOIN api_keys a ON a.license_key = l.key
+                WHERE a.api_key = ?
+            """, (api_key,)).fetchone()
+            return dict(row) if row else None
 
-# Load persisted state at import time
-_loaded = _load_state()
+    def save_license(self, key, tier, expires, max_requests, used_requests, created, stripe_customer=None, stripe_subscription=None, stripe_session_id=None, status=None):
+        with self._get_conn() as conn:
+            conn.execute("""
+                INSERT OR REPLACE INTO licenses 
+                (key, tier, expires, max_requests, used_requests, created, stripe_customer, stripe_subscription, stripe_session_id, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (key, tier, expires, max_requests, used_requests, created, stripe_customer, stripe_subscription, stripe_session_id, status))
+            conn.commit()
+
+    def increment_used_requests(self, key):
+        with self._get_conn() as conn:
+            conn.execute("UPDATE licenses SET used_requests = used_requests + 1 WHERE key = ?", (key,))
+            conn.commit()
+
+    def update_license_stripe(self, key, customer_id, subscription_id, session_id):
+        with self._get_conn() as conn:
+            conn.execute("""
+                UPDATE licenses SET stripe_customer = ?, stripe_subscription = ?, stripe_session_id = ?
+                WHERE key = ?
+            """, (customer_id, subscription_id, session_id, key))
+            conn.commit()
+
+    def update_license_status(self, key, status, expires=None):
+        with self._get_conn() as conn:
+            if expires:
+                conn.execute("UPDATE licenses SET status = ?, expires = ? WHERE key = ?", (status, expires, key))
+            else:
+                conn.execute("UPDATE licenses SET status = ? WHERE key = ?", (status, key))
+            conn.commit()
+
+    def get_api_key_by_session_id(self, session_id):
+        with self._get_conn() as conn:
+            row = conn.execute("""
+                SELECT a.api_key, a.license_key, l.tier, l.expires FROM api_keys a
+                JOIN licenses l ON a.license_key = l.key
+                WHERE l.stripe_session_id = ?
+            """, (session_id,)).fetchone()
+            return dict(row) if row else None
+
+    def get_api_key_by_subscription_id(self, subscription_id):
+        with self._get_conn() as conn:
+            row = conn.execute("""
+                SELECT a.api_key, a.license_key FROM api_keys a
+                JOIN licenses l ON a.license_key = l.key
+                WHERE l.stripe_subscription = ?
+            """, (subscription_id,)).fetchone()
+            return dict(row) if row else None
+
+    def save_api_key(self, api_key, license_key):
+        with self._get_conn() as conn:
+            conn.execute("INSERT OR REPLACE INTO api_keys (api_key, license_key) VALUES (?, ?)", (api_key, license_key))
+            conn.commit()
+
+    def get_license_count(self):
+        with self._get_conn() as conn:
+            return conn.execute("SELECT COUNT(*) FROM licenses").fetchone()[0]
+
+    def get_api_key_count(self):
+        with self._get_conn() as conn:
+            return conn.execute("SELECT COUNT(*) FROM api_keys").fetchone()[0]
+
+# Setup active SQLite DB
+db = SQLiteDB(PATHS.trench_builder / "api_state.db")
 
 TIERS = {
     "free":    {"requests": 100,   "render_minutes": 10,  "models": ["gemma4:2b"], "price": 0},
@@ -98,14 +184,14 @@ def generate_license(tier="free", duration_days=30):
     ).hexdigest()[:16]
     
     key = f"TB-{tier.upper()}-{lid[:8]}-{signature}".upper()
-    licenses[key] = {
-        "tier": tier,
-        "expires": expires,
-        "max_requests": TIERS[tier]["requests"],
-        "used_requests": 0,
-        "created": datetime.utcnow().isoformat()
-    }
-    _save_state()
+    db.save_license(
+        key=key,
+        tier=tier,
+        expires=expires,
+        max_requests=TIERS[tier]["requests"],
+        used_requests=0,
+        created=datetime.utcnow().isoformat()
+    )
     return key
 
 def require_license(f):
@@ -113,10 +199,10 @@ def require_license(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         api_key = request.headers.get("X-API-Key") or request.args.get("api_key")
-        if not api_key or api_key not in api_keys:
+        if not api_key:
             return jsonify({"error": "Invalid or missing API key", "code": "UNAUTHORIZED"}), 401
         
-        lic = licenses.get(api_keys[api_key])
+        lic = db.get_license_by_api_key(api_key)
         if not lic:
             return jsonify({"error": "License not found", "code": "LICENSE_MISSING"}), 403
         
@@ -126,8 +212,8 @@ def require_license(f):
         if lic["max_requests"] > 0 and lic["used_requests"] >= lic["max_requests"]:
             return jsonify({"error": "Rate limit exceeded", "code": "RATE_LIMITED", "limit": lic["max_requests"]}), 429
         
+        db.increment_used_requests(lic["key"])
         lic["used_requests"] += 1
-        _save_state()
         request.license = lic
         return f(*args, **kwargs)
     return wrapper
@@ -225,15 +311,15 @@ def create_license():
     
     key = generate_license(tier)
     api_key = f"tb_{uuid.uuid4().hex[:24]}"
-    api_keys[api_key] = key
-    _save_state()
+    db.save_api_key(api_key, key)
     
+    lic = db.get_license(key)
     return jsonify({
         "license_key": key,
         "api_key": api_key,
         "tier": tier,
         "limits": TIERS[tier],
-        "expires": licenses[key]["expires"]
+        "expires": lic["expires"]
     })
 
 @app.route("/v1/mock-stripe-checkout", methods=["GET"])
@@ -363,15 +449,16 @@ def mock_checkout_pay():
         resp = ur.urlopen(req, timeout=5)
         resp_data = json.loads(resp.read())
         
-        created_key = None
-        created_api = None
-        for key, val in licenses.items():
-            if val.get("tier") == tier:
-                created_key = key
-                for a_k, l_k in api_keys.items():
-                    if l_k == key:
-                        created_api = a_k
-                        break
+        # Query mock details from DB
+        with db._get_conn() as conn:
+            row = conn.execute("""
+                SELECT a.api_key, a.license_key FROM api_keys a
+                JOIN licenses l ON a.license_key = l.key
+                WHERE l.tier = ?
+                ORDER BY l.created DESC LIMIT 1
+            """, (tier,)).fetchone()
+        created_key = row["license_key"] if row else None
+        created_api = row["api_key"] if row else None
         
         html = f"""
         <!DOCTYPE html>
@@ -553,8 +640,8 @@ def health():
         "status": "ok",
         "deepseek": bool(DEEPSEEK_KEY),
         "openai": bool(OPENAI_KEY),
-        "licenses_active": len(licenses),
-        "api_keys_issued": len(api_keys),
+        "licenses_active": db.get_license_count(),
+        "api_keys_issued": db.get_api_key_count(),
         "uptime": datetime.utcnow().isoformat()
     })
 
@@ -602,13 +689,8 @@ def stripe_webhook():
         
         license_key = generate_license(tier, duration_days=30)
         api_key = f"tb_{uuid.uuid4().hex[:24]}"
-        api_keys[api_key] = license_key
-        
-        licenses[license_key]["stripe_customer"] = customer_id
-        licenses[license_key]["stripe_subscription"] = subscription_id
-        licenses[license_key]["stripe_session_id"] = session_id
-        
-        _save_state()
+        db.save_api_key(api_key, license_key)
+        db.update_license_stripe(license_key, customer_id, subscription_id, session_id)
         print(f"[STRIPE WEBHOOK] Issued license {license_key} for tier {tier} (Sub: {subscription_id})")
         
     elif event_type in ["customer.subscription.updated", "customer.subscription.deleted"]:
@@ -616,25 +698,21 @@ def stripe_webhook():
         sub_id = subscription.get("id")
         status = subscription.get("status")
         
-        target_license_key = None
-        for key, lic in licenses.items():
-            if lic.get("stripe_subscription") == sub_id:
-                target_license_key = key
-                break
+        with db._get_conn() as conn:
+            row = conn.execute("SELECT key FROM licenses WHERE stripe_subscription = ?", (sub_id,)).fetchone()
+        target_license_key = row["key"] if row else None
                 
         if target_license_key:
             if status in ["canceled", "unpaid"]:
-                licenses[target_license_key]["expires"] = datetime.utcnow().isoformat()
+                db.update_license_status(target_license_key, status, expires=datetime.utcnow().isoformat())
                 print(f"[STRIPE WEBHOOK] Suspended license {target_license_key} (status: {status})")
             elif status == "past_due":
-                licenses[target_license_key]["status"] = "past_due"
+                db.update_license_status(target_license_key, "past_due")
                 print(f"[STRIPE WEBHOOK] Flagged license {target_license_key} as past_due")
             elif status == "active":
                 new_expiry = (datetime.utcnow() + timedelta(days=30)).isoformat()
-                licenses[target_license_key]["expires"] = new_expiry
-                licenses[target_license_key]["status"] = "active"
+                db.update_license_status(target_license_key, "active", expires=new_expiry)
                 print(f"[STRIPE WEBHOOK] Renewed license {target_license_key} to {new_expiry}")
-            _save_state()
             
     return jsonify({"received": True})
 
@@ -649,17 +727,16 @@ def retrieve_checkout_license():
     if not session_id:
         return jsonify({"error": "Missing session_id"}), 400
         
-    # Search for license with this stripe_session_id
-    for api_key, lic_key in api_keys.items():
-        lic = licenses.get(lic_key, {})
-        if lic.get("stripe_session_id") == session_id:
-            return jsonify({
-                "success": True,
-                "api_key": api_key,
-                "license_key": lic_key,
-                "tier": lic.get("tier"),
-                "expires": lic.get("expires")
-            })
+    # Search for license with this stripe_session_id in DB
+    row = db.get_api_key_by_session_id(session_id)
+    if row:
+        return jsonify({
+            "success": True,
+            "api_key": row["api_key"],
+            "license_key": row["license_key"],
+            "tier": row["tier"],
+            "expires": row["expires"]
+        })
             
     # Fallback: check Stripe directly
     if STRIPE_SECRET and not STRIPE_SECRET.startswith("sk_test_mock"):
@@ -672,29 +749,28 @@ def retrieve_checkout_license():
                 subscription_id = stripe_session.subscription
                 
                 # Prevent duplicates
-                for ak, lk in list(api_keys.items()):
-                    if licenses.get(lk, {}).get("stripe_subscription") == subscription_id:
-                        return jsonify({
-                            "success": True,
-                            "api_key": ak,
-                            "license_key": lk,
-                            "tier": licenses[lk].get("tier"),
-                            "expires": licenses[lk].get("expires")
-                        })
+                dup = db.get_api_key_by_subscription_id(subscription_id)
+                if dup:
+                    lic = db.get_license(dup["license_key"])
+                    return jsonify({
+                        "success": True,
+                        "api_key": dup["api_key"],
+                        "license_key": dup["license_key"],
+                        "tier": lic["tier"],
+                        "expires": lic["expires"]
+                    })
                 
                 license_key = generate_license(tier, duration_days=30)
                 api_key = f"tb_{uuid.uuid4().hex[:24]}"
-                api_keys[api_key] = license_key
-                licenses[license_key]["stripe_customer"] = customer_id
-                licenses[license_key]["stripe_subscription"] = subscription_id
-                licenses[license_key]["stripe_session_id"] = session_id
-                _save_state()
+                db.save_api_key(api_key, license_key)
+                db.update_license_stripe(license_key, customer_id, subscription_id, session_id)
+                lic = db.get_license(license_key)
                 return jsonify({
                     "success": True,
                     "api_key": api_key,
                     "license_key": license_key,
                     "tier": tier,
-                    "expires": licenses[license_key]["expires"]
+                    "expires": lic["expires"]
                 })
         except Exception as e:
             return jsonify({"error": f"Failed to retrieve session from Stripe: {str(e)}"}), 500
@@ -705,10 +781,10 @@ def retrieve_checkout_license():
 def verify_license():
     """Verify a license key without consuming a request."""
     key = (request.json or {}).get("license_key", "")
-    if key not in licenses:
+    lic = db.get_license(key)
+    if not lic:
         return jsonify({"valid": False, "reason": "unknown_key"}), 404
     
-    lic = licenses[key]
     if datetime.fromisoformat(lic["expires"]) < datetime.utcnow():
         return jsonify({"valid": False, "reason": "expired"}), 403
     
@@ -727,12 +803,12 @@ if __name__ == "__main__":
     # Generate a test license on startup
     test_key = generate_license("pro", 365)
     test_api = f"tb_{uuid.uuid4().hex[:24]}"
-    api_keys[test_api] = test_key
+    db.save_api_key(test_api, test_key)
     
     print("╔══════════════════════════════════════════╗")
     print("║  TRENCH BUILDER API v1.1               ║")
     print("╠══════════════════════════════════════════╣")
-    print(f"║  State:   {'✓ LOADED' if _loaded else '○ FRESH'} ({len(licenses)} licenses)     ║")
+    print(f"║  State:   SQLite API DB ({db.get_license_count()} licenses)           ║")
     print("╠══════════════════════════════════════════╣")
     print(f"║  DeepSeek: {'✓ ONLINE' if DEEPSEEK_KEY else '✗ OFFLINE'}                         ║")
     print(f"║  OpenAI:   {'✓ ONLINE' if OPENAI_KEY else '✗ OFFLINE'}                         ║")

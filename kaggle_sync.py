@@ -6,9 +6,11 @@ import json
 import time
 import subprocess
 
-# Auth — use API key approach via env vars
-os.environ['KAGGLE_USERNAME'] = 'commencethescourge'
-os.environ['KAGGLE_KEY'] = '1dbec0a5f26a276b1dc879ce0bb37933'
+# Auth — use API key approach via env vars (should be set in environment or ~/.kaggle/kaggle.json)
+if 'KAGGLE_USERNAME' not in os.environ:
+    os.environ['KAGGLE_USERNAME'] = os.getenv('KAGGLE_USERNAME', '')
+if 'KAGGLE_KEY' not in os.environ:
+    os.environ['KAGGLE_KEY'] = os.getenv('KAGGLE_KEY', '')
 
 try:
     from kaggle.api.kaggle_api_extended import KaggleApi
