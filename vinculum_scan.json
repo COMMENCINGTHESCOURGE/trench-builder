@@ -1,13 +1,13 @@
 {
   "total_files": 22425,
-  "total_vinculums": 5475478,
+  "total_vinculums": 5475489,
   "patterns": {
     "fraction": 50312,
     "group_brace": 471092,
-    "auto_close": 4791371,
+    "auto_close": 4791375,
     "chain": 61810,
-    "hyphen_bind": 79596,
-    "repeat": 11503,
+    "hyphen_bind": 79602,
+    "repeat": 11504,
     "negation": 4607,
     "overline": 5187
   },
@@ -464,8 +464,8 @@
     },
     "trench_builder": {
       "files": 1152,
-      "v": 136413,
-      "kb": 11997.4482421875
+      "v": 136424,
+      "kb": 11997.59765625
     },
     "trenchos": {
       "files": 1,
@@ -751,5 +751,5 @@
       ]
     }
   ],
-  "runtime_s": 114.7
+  "runtime_s": 115.8
 }
