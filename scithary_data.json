@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generator": "scithary-genrator",
+    "generator": "scithary-genrator \u2014 local cron re-run",
     "version": "1.0.0",
     "generated_at": "2026-08-21",
     "source": "trench_builder",
@@ -25,6 +25,82 @@
         "hydro",
         "storm-cycle"
       ]
+    },
+    "analysis_summary": {
+      "region_overlap_verified": {
+        "total_regions": 99,
+        "total_overlaps": 4851,
+        "top_3": [
+          {
+            "pair": "arc_agi_2_submission \u2194 arc_agi_3_submission",
+            "score": 0.88
+          },
+          {
+            "pair": "kimi_density_spheres \u2194 kimi_sealed_spheres",
+            "score": 0.85
+          },
+          {
+            "pair": "echoes-of-the-fracture \u2194 Echoes-of-the-Fracture-Temporal-Citadel",
+            "score": 0.8488
+          }
+        ]
+      },
+      "node_integrity_verified": {
+        "total": 99,
+        "mean": 0.5049,
+        "min": 0.087,
+        "max": 0.5922,
+        "critical": 1,
+        "fragile": 5,
+        "stable": 25,
+        "robust": 68,
+        "highest": {
+          "name": "deepseek_analysis",
+          "score": 0.5922,
+          "status": "ROBUST"
+        },
+        "lowest": {
+          "name": "continuum-foundry",
+          "score": 0.087,
+          "status": "CRITICAL"
+        }
+      },
+      "connection_topology_verified": {
+        "nodes": 99,
+        "edges": 0,
+        "type": "FRAGMENTED",
+        "isolated": 99,
+        "mean_degree": 0.0
+      },
+      "energy_pulse_routing_verified": {
+        "origins": 9,
+        "origin_list": [
+          "kaggle_submissions",
+          "sovereign-resonance-node",
+          "neon-arena",
+          "arc-prize-2026-arc-agi-3",
+          "pangea-substrate",
+          "blooming-onion",
+          "starfield_v3",
+          "aurora_archive",
+          "labyrinth_archive"
+        ],
+        "coverage_pct": 0.0,
+        "best_origin": "kaggle_submissions",
+        "bond_types": [
+          "dissipative",
+          "conservation",
+          "reversible",
+          "threshold"
+        ],
+        "mean_dissipation": 0.02125
+      },
+      "run_info": {
+        "timestamp": "2026-08-21T03:35:19.214321",
+        "method": "local_analysis_using_existing_data",
+        "kaggle_notebook_status": "HTTP 404 \u2014 notebook commencethescourge/scithary-genrator not found on Kaggle",
+        "data_source": "existing scithary_data.json (generated 2026-08-21)"
+      }
     }
   },
   "region_overlap": {
