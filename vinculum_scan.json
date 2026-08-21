@@ -1,100 +1,146 @@
 {
-  "total_files": 2568,
-  "total_vinculums": 314588,
+  "total_files": 22424,
+  "total_vinculums": 5475184,
   "patterns": {
-    "fraction": 7359,
-    "group_brace": 61980,
-    "auto_close": 217876,
-    "chain": 8817,
-    "hyphen_bind": 17015,
-    "repeat": 1483,
-    "negation": 58
+    "fraction": 50312,
+    "group_brace": 471062,
+    "auto_close": 4791383,
+    "chain": 61724,
+    "hyphen_bind": 79407,
+    "repeat": 11502,
+    "negation": 4607,
+    "overline": 5187
   },
   "projects": {
     "acoustic_archive": {
-      "files": 1,
+      "files": 1365,
+      "v": 378414,
+      "kb": 24732.701171875
+    },
+    "adk_prototype_project": {
+      "files": 2,
       "v": 52,
-      "kb": 3.4052734375
+      "kb": 4.1396484375
     },
     "advra_archive": {
       "files": 1,
       "v": 34,
-      "kb": 2.115234375
+      "kb": 2.11328125
     },
     "aegis_archive": {
       "files": 1,
       "v": 73,
-      "kb": 4.0771484375
+      "kb": 4.0595703125
     },
     "aetherion-continuum": {
-      "files": 77,
-      "v": 3448,
-      "kb": 194.162109375
+      "files": 618,
+      "v": 27294,
+      "kb": 1103.287109375
     },
     "aetheris_archive": {
       "files": 21,
       "v": 3883,
-      "kb": 236.61328125
+      "kb": 235.9560546875
     },
     "agent_swarm": {
       "files": 3,
-      "v": 209,
-      "kb": 24.2490234375
+      "v": 216,
+      "kb": 22.1171875
+    },
+    "ai_agent_security_submission": {
+      "files": 2,
+      "v": 20,
+      "kb": 1.4921875
     },
     "ale": {
       "files": 15,
       "v": 1860,
-      "kb": 141.9326171875
+      "kb": 139.1162109375
+    },
+    "arc-prize-2026-arc-agi-3": {
+      "files": 80,
+      "v": 30835,
+      "kb": 2088.9873046875
+    },
+    "arc_agi_2_submission": {
+      "files": 2,
+      "v": 37,
+      "kb": 2.1494140625
+    },
+    "arc_agi_3_submission": {
+      "files": 2,
+      "v": 37,
+      "kb": 2.1494140625
     },
     "ascii_research_presentation": {
       "files": 2,
       "v": 110,
-      "kb": 14.328125
+      "kb": 14.232421875
     },
     "asset_pack": {
       "files": 7,
-      "v": 1697,
-      "kb": 108.96484375
+      "v": 1715,
+      "kb": 104.4033203125
     },
     "aurora_archive": {
       "files": 6,
-      "v": 2058,
-      "kb": 97.5830078125
+      "v": 2141,
+      "kb": 101.5849609375
     },
     "avatar": {
       "files": 1,
-      "v": 191,
-      "kb": 12.943359375
+      "v": 209,
+      "kb": 12.1416015625
     },
     "avatar-core": {
       "files": 4,
       "v": 696,
-      "kb": 70.720703125
+      "kb": 70.73046875
     },
     "blooming-onion": {
       "files": 18,
-      "v": 6558,
-      "kb": 320.7060546875
+      "v": 6819,
+      "kb": 313.1298828125
+    },
+    "bounty_scout_agent": {
+      "files": 5,
+      "v": 194,
+      "kb": 10.859375
     },
     "bridge": {
       "files": 16,
-      "v": 2246,
-      "kb": 141.927734375
+      "v": 2265,
+      "kb": 141.6484375
     },
     "chronos": {
-      "files": 16,
-      "v": 4665,
-      "kb": 302.99609375
+      "files": 17,
+      "v": 4734,
+      "kb": 302.689453125
     },
     "collatz-exploration": {
       "files": 3,
       "v": 351,
-      "kb": 19.4931640625
+      "kb": 19.4921875
+    },
+    "commencethescourge-erdos": {
+      "files": 150,
+      "v": 17347,
+      "kb": 896.5732421875
     },
     "COMMENCINGTHESCOURGE": {
-      "files": 245,
-      "v": 18210,
-      "kb": 1612.109375
+      "files": 250,
+      "v": 18493,
+      "kb": 1611.7548828125
+    },
+    "continuum-foundry": {
+      "files": 3,
+      "v": 30,
+      "kb": 114.3583984375
+    },
+    "copilot-worktrees": {
+      "files": 225,
+      "v": 45262,
+      "kb": 2000.412109375
     },
     "deepbio-prompt-pack": {
       "files": 3,
@@ -102,104 +148,159 @@
       "kb": 11.2197265625
     },
     "deepseek_analysis": {
-      "files": 4,
-      "v": 676,
-      "kb": 20.9716796875
+      "files": 5,
+      "v": 738,
+      "kb": 23.908203125
+    },
+    "demo-repository": {
+      "files": 2,
+      "v": 3,
+      "kb": 0.45703125
     },
     "density_spheres": {
       "files": 1,
       "v": 240,
-      "kb": 17.8994140625
+      "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 533,
-      "v": 62780,
-      "kb": 3892.6083984375
+      "files": 535,
+      "v": 63745,
+      "kb": 3853.658203125
+    },
+    "echoes-of-the-fracture": {
+      "files": 6,
+      "v": 384,
+      "kb": 46.97265625
+    },
+    "Echoes-of-the-Fracture-Temporal-Citadel": {
+      "files": 4,
+      "v": 462,
+      "kb": 43.193359375
     },
     "erdos-straus": {
-      "files": 12,
-      "v": 877,
-      "kb": 45.458984375
+      "files": 15,
+      "v": 1122,
+      "kb": 54.5478515625
+    },
+    "erdos-straus-solver": {
+      "files": 130,
+      "v": 17479,
+      "kb": 968.04296875
     },
     "ernie_agent": {
       "files": 1,
       "v": 148,
-      "kb": 9.849609375
+      "kb": 9.2802734375
     },
     "fleet": {
-      "files": 3,
-      "v": 236,
-      "kb": 13.232421875
+      "files": 9,
+      "v": 875,
+      "kb": 49.69921875
     },
     "flux-chamber": {
       "files": 10,
-      "v": 1030,
-      "kb": 113.224609375
+      "v": 1071,
+      "kb": 112.00390625
     },
     "forensics": {
       "files": 1,
-      "v": 133,
-      "kb": 6.8701171875
+      "v": 139,
+      "kb": 6.8447265625
     },
     "fractype": {
-      "files": 23,
-      "v": 2649,
-      "kb": 177.2255859375
+      "files": 58,
+      "v": 6172,
+      "kb": 450.6015625
+    },
+    "gcp_integrations": {
+      "files": 6,
+      "v": 269,
+      "kb": 17.408203125
+    },
+    "guinea-pig-trench-portal": {
+      "files": 144,
+      "v": 13006,
+      "kb": 873.3046875
     },
     "headroom": {
       "files": 1077,
-      "v": 138268,
-      "kb": 12191.837890625
+      "v": 139050,
+      "kb": 12152.767578125
     },
     "hyperpoly-terrain": {
-      "files": 29,
-      "v": 4367,
-      "kb": 283.8564453125
+      "files": 32,
+      "v": 3162,
+      "kb": 195.5732421875
+    },
+    "jules-proxy": {
+      "files": 15,
+      "v": 367,
+      "kb": 39.3583984375
     },
     "kaggle_submissions": {
-      "files": 5,
-      "v": 427,
-      "kb": 28.3671875
+      "files": 415,
+      "v": 1026031,
+      "kb": 33309.53515625
     },
     "kimi_density_spheres": {
       "files": 8,
       "v": 1205,
-      "kb": 106.2958984375
+      "kb": 106.328125
     },
     "kimi_sealed_spheres": {
       "files": 8,
       "v": 1205,
-      "kb": 106.248046875
+      "kb": 106.2802734375
     },
     "labyrinth_archive": {
       "files": 2,
-      "v": 659,
-      "kb": 39.990234375
+      "v": 673,
+      "kb": 39.326171875
     },
     "lavish_furniture": {
       "files": 9,
       "v": 1273,
-      "kb": 116.6259765625
+      "kb": 116.6103515625
     },
     "legal": {
       "files": 2,
       "v": 11,
-      "kb": 3.345703125
+      "kb": 3.3447265625
+    },
+    "lenticular-3d-pipeline": {
+      "files": 1,
+      "v": 53,
+      "kb": 3.3759765625
     },
     "lenticular_pipeline": {
       "files": 6,
-      "v": 584,
-      "kb": 51.95703125
+      "v": 589,
+      "kb": 50.6044921875
     },
     "manifold": {
       "files": 6,
-      "v": 497,
-      "kb": 48.8134765625
+      "v": 595,
+      "kb": 47.8583984375
     },
     "manifold-model-router": {
       "files": 1,
-      "v": 77,
-      "kb": 7.869140625
+      "v": 81,
+      "kb": 7.73046875
+    },
+    "manifold-risk-engine": {
+      "files": 8,
+      "v": 723,
+      "kb": 53.705078125
+    },
+    "manifold_orchestrator": {
+      "files": 4,
+      "v": 80,
+      "kb": 5.2177734375
+    },
+    "manta_flight_feel": {
+      "files": 1,
+      "v": 21,
+      "kb": 3.1396484375
     },
     "mantra-fm": {
       "files": 5,
@@ -213,113 +314,198 @@
     },
     "minicity": {
       "files": 3,
-      "v": 774,
-      "kb": 32.646484375
+      "v": 809,
+      "kb": 34.35546875
     },
     "mycelia_game": {
       "files": 6,
       "v": 789,
       "kb": 63.146484375
     },
+    "neon-arena": {
+      "files": 1,
+      "v": 562,
+      "kb": 22.5947265625
+    },
+    "neon-ghost-drift": {
+      "files": 1,
+      "v": 18,
+      "kb": 6.787109375
+    },
     "neon_dissection": {
-      "files": 17,
-      "v": 1576,
-      "kb": 88.6435546875
+      "files": 83,
+      "v": 3452,
+      "kb": 170.7099609375
+    },
+    "node24-ci-guard-complete": {
+      "files": 3,
+      "v": 495,
+      "kb": 52.5341796875
+    },
+    "pangea-substrate": {
+      "files": 36,
+      "v": 13656,
+      "kb": 870.1962890625
+    },
+    "pangea_core": {
+      "files": 13,
+      "v": 413,
+      "kb": 23.919921875
     },
     "parallax": {
       "files": 1,
-      "v": 126,
-      "kb": 7.623046875
+      "v": 127,
+      "kb": 7.5283203125
     },
     "part_affordance": {
       "files": 2,
-      "v": 587,
-      "kb": 46.7216796875
+      "v": 601,
+      "kb": 45.7138671875
+    },
+    "ProceduralCarGenerator": {
+      "files": 1,
+      "v": 181,
+      "kb": 8.5400390625
     },
     "project_manager": {
       "files": 5,
-      "v": 1169,
-      "kb": 141.8837890625
+      "v": 1289,
+      "kb": 140.6630859375
+    },
+    "prompt-asset-demo-pipeline": {
+      "files": 4,
+      "v": 489,
+      "kb": 51.0849609375
+    },
+    "prompt-asset-writer": {
+      "files": 12,
+      "v": 866,
+      "kb": 91.412109375
+    },
+    "prompt-asset-writer-templates": {
+      "files": 7,
+      "v": 632,
+      "kb": 64.822265625
     },
     "quantum_garden": {
       "files": 8,
       "v": 1201,
-      "kb": 106.154296875
+      "kb": 106.1865234375
     },
     "research": {
       "files": 17,
-      "v": 2093,
-      "kb": 205.9150390625
+      "v": 2186,
+      "kb": 199.4794921875
     },
     "roto_extractor": {
       "files": 3,
-      "v": 342,
-      "kb": 15.15234375
+      "v": 380,
+      "kb": 17.4384765625
+    },
+    "sieve_api_deployment": {
+      "files": 2,
+      "v": 157,
+      "kb": 12.203125
+    },
+    "soilmachine-api": {
+      "files": 4,
+      "v": 163,
+      "kb": 9.50390625
+    },
+    "SOVEREIGN RESONANCE": {
+      "files": 1,
+      "v": 1,
+      "kb": 0.0966796875
     },
     "sovereign-resonance-node": {
-      "files": 19,
-      "v": 916,
-      "kb": 62.91796875
+      "files": 425,
+      "v": 1026977,
+      "kb": 33399.4990234375
     },
     "sovereign_archive": {
       "files": 14,
-      "v": 1689,
-      "kb": 106.916015625
+      "v": 1703,
+      "kb": 105.09375
     },
     "sovereign_resonance": {
-      "files": 3,
-      "v": 421,
-      "kb": 20.8515625
+      "files": 5,
+      "v": 1286,
+      "kb": 65.6103515625
     },
     "starfield_v3": {
       "files": 4,
-      "v": 1422,
-      "kb": 80.3515625
+      "v": 1452,
+      "kb": 79.1484375
     },
     "SubstrateDeltaSieve": {
       "files": 2,
-      "v": 79,
-      "kb": 7.53125
+      "v": 76,
+      "kb": 7.6083984375
     },
     "sync": {
       "files": 1,
       "v": 89,
-      "kb": 3.6826171875
+      "kb": 3.6806640625
+    },
+    "THROWN PLANET Phase 1": {
+      "files": 1,
+      "v": 2,
+      "kb": 0.2412109375
     },
     "thrown-planet": {
       "files": 4,
-      "v": 967,
-      "kb": 52.697265625
+      "v": 1006,
+      "kb": 50.9384765625
     },
     "trench_builder": {
-      "files": 254,
-      "v": 32161,
-      "kb": 2593.6474609375
+      "files": 1152,
+      "v": 136230,
+      "kb": 11994.2783203125
+    },
+    "trenchos": {
+      "files": 1,
+      "v": 49,
+      "kb": 2.3095703125
     },
     "vestibular_proof_kaggle": {
       "files": 2,
       "v": 308,
-      "kb": 14.8720703125
+      "kb": 14.8662109375
     },
     "victus_bios_tool": {
       "files": 3,
-      "v": 327,
-      "kb": 26.15625
+      "v": 330,
+      "kb": 26.05078125
+    },
+    "vinc-engine": {
+      "files": 3,
+      "v": 177,
+      "kb": 12.794921875
+    },
+    "vinculum-agent": {
+      "files": 15227,
+      "v": 2448515,
+      "kb": 237484.6298828125
+    },
+    "vinculum-self-audit": {
+      "files": 4,
+      "v": 538,
+      "kb": 58.068359375
     },
     "void_archive": {
       "files": 3,
       "v": 368,
-      "kb": 23.1044921875
+      "kb": 23.076171875
     },
     "voxel_atelier": {
       "files": 8,
       "v": 1205,
-      "kb": 106.3095703125
+      "kb": 106.341796875
     },
     "xpbd_solver": {
       "files": 1,
-      "v": 242,
-      "kb": 10.5654296875
+      "v": 259,
+      "kb": 10.873046875
     }
   },
   "top_files": [
@@ -336,22 +522,34 @@
       ]
     },
     {
-      "p": "advra_archive",
-      "f": "ADVRA_KADEBRA_RESONATOR.py",
-      "l": 63,
-      "v": 34,
-      "d": 54.0,
+      "p": "acoustic_archive",
+      "f": "audio_engine.py",
+      "l": 340,
+      "v": 229,
+      "d": 67.4,
+      "t": [
+        "fraction",
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "batch_stretch_remaining.py",
+      "l": 34,
+      "v": 30,
+      "d": 88.2,
       "t": [
         "group_brace",
         "auto_close"
       ]
     },
     {
-      "p": "aegis_archive",
-      "f": "AEGIS_TERMINAL.py",
-      "l": 114,
-      "v": 73,
-      "d": 64.0,
+      "p": "acoustic_archive",
+      "f": "batch_transcribe.py",
+      "l": 38,
+      "v": 24,
+      "d": 63.2,
       "t": [
         "fraction",
         "group_brace",
@@ -360,218 +558,193 @@
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "flight_demo.html",
-      "l": 406,
-      "v": 345,
-      "d": 85.0,
-      "t": [
-        "fraction",
-        "group_brace",
-        "hyphen_bind",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "index.html",
-      "l": 432,
-      "v": 342,
-      "d": 79.2,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "README.md",
-      "l": 107,
-      "v": 25,
-      "d": 23.4,
-      "t": [
-        "fraction",
-        "chain",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "VINCULUM_REHABILITATION_PLAN.md",
-      "l": 37,
-      "v": 5,
-      "d": 13.5,
-      "t": [
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "cat_baseline.json",
-      "l": 159,
-      "v": 31,
-      "d": 19.5,
-      "t": [
-        "group_brace",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "hypercat.html",
-      "l": 253,
-      "v": 272,
-      "d": 107.5,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "hypercat_world.html",
-      "l": 327,
-      "v": 565,
-      "d": 172.8,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "colab_hunyuan.ipynb",
-      "l": 161,
-      "v": 82,
-      "d": 50.9,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "hyphen_bind",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "kaggle_hunyuan_kernel.py",
-      "l": 143,
-      "v": 106,
-      "d": 74.1,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "hyphen_bind",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "phase5_kaggle.py",
-      "l": 217,
-      "v": 149,
-      "d": 68.7,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "hyphen_bind",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "phase5_lightning.py",
+      "p": "acoustic_archive",
+      "f": "dj_mix_engine.py",
       "l": 162,
-      "v": 107,
-      "d": 66.0,
+      "v": 116,
+      "d": 71.6,
       "t": [
         "fraction",
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "inspect_db_schema.py",
+      "l": 15,
+      "v": 12,
+      "d": 80.0,
+      "t": [
         "group_brace",
         "hyphen_bind",
         "auto_close"
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "phase5_tripo.py",
-      "l": 226,
-      "v": 169,
-      "d": 74.8,
+      "p": "acoustic_archive",
+      "f": "profile_session_audio.py",
+      "l": 31,
+      "v": 26,
+      "d": 83.9,
       "t": [
-        "fraction",
         "group_brace",
         "auto_close"
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "reconstruct_gltf_from_sprites.py",
-      "l": 266,
-      "v": 182,
-      "d": 68.4,
+      "p": "acoustic_archive",
+      "f": "remix_older_projects.py",
+      "l": 22,
+      "v": 11,
+      "d": 50.0,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "search_old_conversations.py",
+      "l": 46,
+      "v": 29,
+      "d": 63.0,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_virtualenv.py",
+      "l": 121,
+      "v": 47,
+      "d": 38.8,
+      "t": [
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close",
+        "repeat"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "conftest.py",
+      "l": 249,
+      "v": 79,
+      "d": 31.7,
+      "t": [
+        "group_brace",
+        "chain",
+        "hyphen_bind",
+        "auto_close",
+        "negation"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "dtypes.py",
+      "l": 86,
+      "v": 17,
+      "d": 19.8,
       "t": [
         "fraction",
-        "group_brace",
         "chain",
         "auto_close"
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "render_gltf_sprites.py",
-      "l": 262,
-      "v": 166,
-      "d": 63.4,
-      "t": [
-        "fraction",
-        "group_brace",
-        "chain",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "aetherion-continuum",
-      "f": "sprite_bars.json",
-      "l": 48,
+      "p": "acoustic_archive",
+      "f": "exceptions.py",
+      "l": 246,
       "v": 39,
-      "d": 81.2,
+      "d": 15.9,
       "t": [
         "group_brace",
         "auto_close"
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "sprite_pipeline.py",
-      "l": 330,
-      "v": 353,
-      "d": 107.0,
+      "p": "acoustic_archive",
+      "f": "matlib.py",
+      "l": 380,
+      "v": 121,
+      "d": 31.8,
       "t": [
         "fraction",
         "group_brace",
+        "chain",
+        "hyphen_bind",
         "auto_close"
       ]
     },
     {
-      "p": "aetherion-continuum",
-      "f": "SPRITE_REFINEMENT_PLAN.md",
-      "l": 29,
-      "v": 10,
-      "d": 34.5,
+      "p": "acoustic_archive",
+      "f": "version.py",
+      "l": 11,
+      "v": 2,
+      "d": 18.2,
       "t": [
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_array_api_info.py",
+      "l": 346,
+      "v": 111,
+      "d": 32.1,
+      "t": [
+        "group_brace",
         "chain",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_configtool.py",
+      "l": 39,
+      "v": 12,
+      "d": 30.8,
+      "t": [
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_expired_attrs_2_0.py",
+      "l": 78,
+      "v": 8,
+      "d": 10.3,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_globals.py",
+      "l": 121,
+      "v": 26,
+      "d": 21.5,
+      "t": [
+        "group_brace",
+        "auto_close"
+      ]
+    },
+    {
+      "p": "acoustic_archive",
+      "f": "_pytesttester.py",
+      "l": 186,
+      "v": 37,
+      "d": 19.9,
+      "t": [
+        "group_brace",
         "auto_close",
         "repeat"
       ]
     }
   ],
-  "runtime_s": 11.3
+  "runtime_s": 116.4
 }
