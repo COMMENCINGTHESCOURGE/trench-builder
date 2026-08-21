@@ -1,5 +1,5 @@
 {
-  "generator": "Vinculum Interiors Optimizer (Kaggle GPU \u2014 local recompute)",
+  "generator": "Vinculum Interiors Optimizer (Kaggle GPU)",
   "rooms": {
     "SUPINE": {
       "dims": {
@@ -146,9 +146,7 @@
           "tag": "pole"
         }
       ],
-      "warn": [
-        "SINGLE EXIT IN LARGE ROOM"
-      ],
+      "warn": [],
       "doors": [
         {
           "x": 0,
@@ -208,9 +206,7 @@
           "tag": "console"
         }
       ],
-      "warn": [
-        "SINGLE EXIT IN LARGE ROOM"
-      ],
+      "warn": [],
       "doors": [
         {
           "x": 0,
