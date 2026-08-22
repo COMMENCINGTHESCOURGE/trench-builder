@@ -1,15 +1,15 @@
 {
-  "total_files": 22427,
-  "total_vinculums": 5475661,
+  "total_files": 22438,
+  "total_vinculums": 5476396,
   "patterns": {
-    "fraction": 50313,
-    "group_brace": 471169,
-    "auto_close": 4791467,
-    "chain": 61811,
-    "hyphen_bind": 79603,
-    "repeat": 11504,
+    "fraction": 50337,
+    "group_brace": 471289,
+    "auto_close": 4792012,
+    "chain": 61822,
+    "hyphen_bind": 79610,
+    "repeat": 11526,
     "negation": 4607,
-    "overline": 5187
+    "overline": 5193
   },
   "projects": {
     "acoustic_archive": {
@@ -34,8 +34,8 @@
     },
     "aetherion-continuum": {
       "files": 618,
-      "v": 27294,
-      "kb": 1103.287109375
+      "v": 27290,
+      "kb": 1103.41015625
     },
     "aetheris_archive": {
       "files": 21,
@@ -128,9 +128,9 @@
       "kb": 896.5732421875
     },
     "COMMENCINGTHESCOURGE": {
-      "files": 251,
-      "v": 18495,
-      "kb": 1612.2724609375
+      "files": 252,
+      "v": 18847,
+      "kb": 1633.0009765625
     },
     "continuum-foundry": {
       "files": 3,
@@ -163,9 +163,9 @@
       "kb": 16.78515625
     },
     "dev_archive": {
-      "files": 535,
-      "v": 63745,
-      "kb": 3853.658203125
+      "files": 538,
+      "v": 63921,
+      "kb": 3865.01953125
     },
     "echoes-of-the-fracture": {
       "files": 6,
@@ -178,9 +178,14 @@
       "kb": 43.193359375
     },
     "erdos-straus": {
-      "files": 15,
-      "v": 1124,
-      "kb": 54.6328125
+      "files": 20,
+      "v": 1199,
+      "kb": 59.50390625
+    },
+    "Erdos-Straus conjecture solver": {
+      "files": 1,
+      "v": 5,
+      "kb": 0.75390625
     },
     "erdos-straus-solver": {
       "files": 130,
@@ -278,9 +283,9 @@
       "kb": 50.6044921875
     },
     "manifold": {
-      "files": 6,
-      "v": 595,
-      "kb": 47.8583984375
+      "files": 7,
+      "v": 724,
+      "kb": 53.880859375
     },
     "manifold-model-router": {
       "files": 1,
@@ -374,8 +379,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1396,
-      "kb": 144.7919921875
+      "v": 1398,
+      "kb": 144.783203125
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -465,7 +470,7 @@
     "trench_builder": {
       "files": 1153,
       "v": 136594,
-      "kb": 12002.703125
+      "kb": 12002.6171875
     },
     "trenchos": {
       "files": 1,
@@ -751,5 +756,5 @@
       ]
     }
   ],
-  "runtime_s": 119.2
+  "runtime_s": 146.6
 }
