@@ -1,0 +1,1245 @@
+{
+  "version": "1.0",
+  "generated": "2026-08-23T15:32:04.217769+00:00",
+  "parts_extracted": 76,
+  "errors": 2,
+  "watertight_count": 67,
+  "classes": [
+    "CARBURETOR",
+    "CONNECTING",
+    "CRANK",
+    "DRILL",
+    "ENG",
+    "GEARBOX",
+    "NEW",
+    "Part"
+  ],
+  "features": [
+    {
+      "file": "CARBURETOR_AIR_FILTER_COVER.stl",
+      "triangles": 68298,
+      "vertices": 34135,
+      "watertight": true,
+      "bbox_mm": [
+        3.85,
+        3.35,
+        2.83
+      ],
+      "volume_cm3": 0.003,
+      "area_cm2": 0.7,
+      "genus": 8,
+      "elongation": 1.36,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_CARBURETOR.stl",
+      "triangles": 20912,
+      "vertices": 10445,
+      "watertight": false,
+      "bbox_mm": [
+        2.2,
+        1.87,
+        1.34
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.14,
+      "genus": null,
+      "elongation": 1.64,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_CARBURETOR_CONTROL_ARM.stl",
+      "triangles": 876,
+      "vertices": 438,
+      "watertight": true,
+      "bbox_mm": [
+        2.11,
+        1.68,
+        0.04
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 1,
+      "elongation": 53.51,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_CARBURETOR_GASKET.stl",
+      "triangles": 1504,
+      "vertices": 748,
+      "watertight": true,
+      "bbox_mm": [
+        1.54,
+        1.38,
+        0.04
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 3,
+      "elongation": 39.01,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_CARBURETOR_LEVER.stl",
+      "triangles": 1358,
+      "vertices": 679,
+      "watertight": true,
+      "bbox_mm": [
+        0.96,
+        0.75,
+        0.3
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.01,
+      "genus": 1,
+      "elongation": 3.24,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_CARBURETOR_PLATE.stl",
+      "triangles": 15154,
+      "vertices": 7567,
+      "watertight": true,
+      "bbox_mm": [
+        3.7,
+        2.67,
+        2.21
+      ],
+      "volume_cm3": 0.004,
+      "area_cm2": 0.56,
+      "genus": 6,
+      "elongation": 1.67,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_MANIFOLD.stl",
+      "triangles": 11420,
+      "vertices": 5702,
+      "watertight": true,
+      "bbox_mm": [
+        2.49,
+        1.61,
+        0.98
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.13,
+      "genus": 5,
+      "elongation": 2.53,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_Surface_1.stl",
+      "triangles": 9769,
+      "vertices": 4987,
+      "watertight": false,
+      "bbox_mm": [
+        3.7,
+        2.7,
+        1.46
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.21,
+      "genus": null,
+      "elongation": 2.54,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CARBURETOR_Surface_2.stl",
+      "triangles": 337,
+      "vertices": 335,
+      "watertight": false,
+      "bbox_mm": [
+        3.7,
+        2.67,
+        1.89
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.15,
+      "genus": null,
+      "elongation": 1.96,
+      "class": "CARBURETOR"
+    },
+    {
+      "file": "CONNECTING_ROD_CONNECTING_ROD.stl",
+      "triangles": 12876,
+      "vertices": 6436,
+      "watertight": true,
+      "bbox_mm": [
+        2.68,
+        0.77,
+        0.31
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.04,
+      "genus": 2,
+      "elongation": 8.5,
+      "class": "CONNECTING"
+    },
+    {
+      "file": "CRANK_CRANKSHAFT.stl",
+      "triangles": 15328,
+      "vertices": 7666,
+      "watertight": true,
+      "bbox_mm": [
+        4.72,
+        1.87,
+        1.77
+      ],
+      "volume_cm3": 0.002,
+      "area_cm2": 0.17,
+      "genus": 0,
+      "elongation": 2.67,
+      "class": "CRANK"
+    },
+    {
+      "file": "CRANK_FLYWHEEL.stl",
+      "triangles": 221542,
+      "vertices": 110749,
+      "watertight": false,
+      "bbox_mm": [
+        3.49,
+        3.49,
+        1.5
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.47,
+      "genus": null,
+      "elongation": 2.33,
+      "class": "CRANK"
+    },
+    {
+      "file": "DRILL_BIT_DRILL_BIT.stl",
+      "triangles": 32104,
+      "vertices": 16054,
+      "watertight": true,
+      "bbox_mm": [
+        9.84,
+        0.47,
+        0.47
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.16,
+      "genus": 0,
+      "elongation": 20.83,
+      "class": "DRILL"
+    },
+    {
+      "file": "DRILL_BIT_Main.stl",
+      "triangles": 144,
+      "vertices": 144,
+      "watertight": false,
+      "bbox_mm": [
+        7.87,
+        0.47,
+        0.47
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.12,
+      "genus": null,
+      "elongation": 16.67,
+      "class": "DRILL"
+    },
+    {
+      "file": "DRILL_CHUCK_CHUCK.stl",
+      "triangles": 7104,
+      "vertices": 3548,
+      "watertight": true,
+      "bbox_mm": [
+        2.6,
+        1.26,
+        1.26
+      ],
+      "volume_cm3": 0.002,
+      "area_cm2": 0.19,
+      "genus": 3,
+      "elongation": 2.06,
+      "class": "DRILL"
+    },
+    {
+      "file": "DRILL_CHUCK_CHUCK_COLLAR.stl",
+      "triangles": 2976,
+      "vertices": 1488,
+      "watertight": true,
+      "bbox_mm": [
+        1.92,
+        1.64,
+        1.64
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.2,
+      "genus": 1,
+      "elongation": 1.17,
+      "class": "DRILL"
+    },
+    {
+      "file": "ENG_BEARING_ENG_BEARING.stl",
+      "triangles": 1728,
+      "vertices": 864,
+      "watertight": true,
+      "bbox_mm": [
+        1.08,
+        1.08,
+        0.31
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.04,
+      "genus": 1,
+      "elongation": 3.44,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_CYLINDER.stl",
+      "triangles": 46912,
+      "vertices": 23422,
+      "watertight": true,
+      "bbox_mm": [
+        3.21,
+        3.02,
+        2.44
+      ],
+      "volume_cm3": 0.006,
+      "area_cm2": 1.02,
+      "genus": 18,
+      "elongation": 1.31,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_ENG_BLOCK_FRONT.stl",
+      "triangles": 48988,
+      "vertices": 24482,
+      "watertight": true,
+      "bbox_mm": [
+        3.41,
+        3.4,
+        1.97
+      ],
+      "volume_cm3": 0.004,
+      "area_cm2": 0.41,
+      "genus": 7,
+      "elongation": 1.73,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_ENG_BLOCK_REAR.stl",
+      "triangles": 74806,
+      "vertices": 37389,
+      "watertight": true,
+      "bbox_mm": [
+        4.88,
+        3.66,
+        1.69
+      ],
+      "volume_cm3": 0.004,
+      "area_cm2": 0.53,
+      "genus": 8,
+      "elongation": 2.88,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_FUEL_CAP.stl",
+      "triangles": 33360,
+      "vertices": 16682,
+      "watertight": true,
+      "bbox_mm": [
+        1.82,
+        1.82,
+        1.65
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.14,
+      "genus": 0,
+      "elongation": 1.1,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_FUEL_TANK.stl",
+      "triangles": 108068,
+      "vertices": 54028,
+      "watertight": false,
+      "bbox_mm": [
+        7.29,
+        3.5,
+        2.34
+      ],
+      "volume_cm3": null,
+      "area_cm2": 1.21,
+      "genus": null,
+      "elongation": 3.11,
+      "class": "ENG"
+    },
+    {
+      "file": "ENG_BLOCK_Surface_1.stl",
+      "triangles": 144,
+      "vertices": 144,
+      "watertight": false,
+      "bbox_mm": [
+        1.24,
+        1.24,
+        1.13
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.02,
+      "genus": null,
+      "elongation": 1.1,
+      "class": "ENG"
+    },
+    {
+      "file": "GEARBOX_FINAL_GEAR_SHAFT.stl",
+      "triangles": 13008,
+      "vertices": 6506,
+      "watertight": true,
+      "bbox_mm": [
+        2.4,
+        1.84,
+        1.84
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.14,
+      "genus": 0,
+      "elongation": 1.31,
+      "class": "GEARBOX"
+    },
+    {
+      "file": "GEARBOX_GEARBOX_FRONT.stl",
+      "triangles": 88120,
+      "vertices": 44051,
+      "watertight": false,
+      "bbox_mm": [
+        3.78,
+        2.87,
+        2.05
+      ],
+      "volume_cm3": null,
+      "area_cm2": 0.58,
+      "genus": null,
+      "elongation": 1.85,
+      "class": "GEARBOX"
+    },
+    {
+      "file": "GEARBOX_GEARBOX_REAR.stl",
+      "triangles": 146314,
+      "vertices": 73143,
+      "watertight": true,
+      "bbox_mm": [
+        4.44,
+        3.94,
+        1.97
+      ],
+      "volume_cm3": 0.008,
+      "area_cm2": 0.68,
+      "genus": 8,
+      "elongation": 2.26,
+      "class": "GEARBOX"
+    },
+    {
+      "file": "GEARBOX_PRIMARY_GEAR_SHAFT.stl",
+      "triangles": 8638,
+      "vertices": 4321,
+      "watertight": true,
+      "bbox_mm": [
+        2.28,
+        2.09,
+        2.05
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.19,
+      "genus": 0,
+      "elongation": 1.11,
+      "class": "GEARBOX"
+    },
+    {
+      "file": "GEARBOX_REDUCTION_GEAR_SHAFT.stl",
+      "triangles": 16222,
+      "vertices": 8113,
+      "watertight": true,
+      "bbox_mm": [
+        2.01,
+        1.84,
+        1.84
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.12,
+      "genus": 0,
+      "elongation": 1.09,
+      "class": "GEARBOX"
+    },
+    {
+      "file": "NEW_PART_PISTON.stl",
+      "triangles": 17486,
+      "vertices": 8741,
+      "watertight": true,
+      "bbox_mm": [
+        1.22,
+        1.2,
+        1.2
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.1,
+      "genus": 2,
+      "elongation": 1.02,
+      "class": "NEW"
+    },
+    {
+      "file": "NEW_PART_PISTON_PIN.stl",
+      "triangles": 576,
+      "vertices": 288,
+      "watertight": true,
+      "bbox_mm": [
+        0.98,
+        0.31,
+        0.31
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 1,
+      "elongation": 3.13,
+      "class": "NEW"
+    },
+    {
+      "file": "NEW_PART_PISTON_RING.stl",
+      "triangles": 580,
+      "vertices": 292,
+      "watertight": true,
+      "bbox_mm": [
+        1.2,
+        1.2,
+        0.06
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.01,
+      "genus": 0,
+      "elongation": 20.33,
+      "class": "NEW"
+    },
+    {
+      "file": "Part_Studio_1_Part_1.stl",
+      "triangles": 12,
+      "vertices": 8,
+      "watertight": true,
+      "bbox_mm": [
+        2.73,
+        2.06,
+        0.7
+      ],
+      "volume_cm3": 0.004,
+      "area_cm2": 0.18,
+      "genus": 0,
+      "elongation": 3.91,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_10.stl",
+      "triangles": 36,
+      "vertices": 20,
+      "watertight": true,
+      "bbox_mm": [
+        8.55,
+        1.65,
+        0.04
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.27,
+      "genus": 0,
+      "elongation": 217.12,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_11.stl",
+      "triangles": 10,
+      "vertices": 7,
+      "watertight": true,
+      "bbox_mm": [
+        0.52,
+        0.16,
+        0.07
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 7.12,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_12.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.07,
+        0.03,
+        0.01
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 5.74,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_13.stl",
+      "triangles": 6,
+      "vertices": 5,
+      "watertight": true,
+      "bbox_mm": [
+        0.08,
+        0.07,
+        0.05
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 1.6,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_14.stl",
+      "triangles": 1440,
+      "vertices": 722,
+      "watertight": true,
+      "bbox_mm": [
+        1.44,
+        1.44,
+        0.51
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.06,
+      "genus": 0,
+      "elongation": 2.85,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_15.stl",
+      "triangles": 1152,
+      "vertices": 578,
+      "watertight": true,
+      "bbox_mm": [
+        1.47,
+        1.47,
+        0.51
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.06,
+      "genus": 0,
+      "elongation": 2.92,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_16.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.05,
+        0.03,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 1.98,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_17.stl",
+      "triangles": 288,
+      "vertices": 146,
+      "watertight": true,
+      "bbox_mm": [
+        0.86,
+        0.86,
+        0.2
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 0,
+      "elongation": 4.39,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_18.stl",
+      "triangles": 244,
+      "vertices": 124,
+      "watertight": true,
+      "bbox_mm": [
+        5.68,
+        1.65,
+        0.79
+      ],
+      "volume_cm3": 0.002,
+      "area_cm2": 0.19,
+      "genus": 0,
+      "elongation": 7.21,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_19.stl",
+      "triangles": 1440,
+      "vertices": 722,
+      "watertight": true,
+      "bbox_mm": [
+        1.44,
+        1.44,
+        0.51
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.06,
+      "genus": 0,
+      "elongation": 2.85,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_2.stl",
+      "triangles": 288,
+      "vertices": 146,
+      "watertight": true,
+      "bbox_mm": [
+        1.63,
+        1.62,
+        1.62
+      ],
+      "volume_cm3": 0.003,
+      "area_cm2": 0.12,
+      "genus": 0,
+      "elongation": 1.0,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_20.stl",
+      "triangles": 1152,
+      "vertices": 578,
+      "watertight": true,
+      "bbox_mm": [
+        1.47,
+        1.47,
+        0.51
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.06,
+      "genus": 0,
+      "elongation": 2.92,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_21.stl",
+      "triangles": 12,
+      "vertices": 8,
+      "watertight": true,
+      "bbox_mm": [
+        11.04,
+        7.27,
+        0.13
+      ],
+      "volume_cm3": 0.01,
+      "area_cm2": 1.65,
+      "genus": 0,
+      "elongation": 85.21,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_22.stl",
+      "triangles": 64,
+      "vertices": 34,
+      "watertight": true,
+      "bbox_mm": [
+        3.04,
+        0.5,
+        0.22
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 0,
+      "elongation": 13.9,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_23.stl",
+      "triangles": 64,
+      "vertices": 32,
+      "watertight": true,
+      "bbox_mm": [
+        1.35,
+        1.12,
+        1.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.05,
+      "genus": 1,
+      "elongation": 1.32,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_24.stl",
+      "triangles": 12,
+      "vertices": 8,
+      "watertight": true,
+      "bbox_mm": [
+        0.93,
+        0.2,
+        0.08
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 11.92,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_25.stl",
+      "triangles": 28,
+      "vertices": 16,
+      "watertight": true,
+      "bbox_mm": [
+        1.66,
+        1.15,
+        0.55
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.06,
+      "genus": 0,
+      "elongation": 3.01,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_26.stl",
+      "triangles": 12,
+      "vertices": 8,
+      "watertight": true,
+      "bbox_mm": [
+        0.4,
+        0.36,
+        0.08
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 5.18,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_27.stl",
+      "triangles": 130,
+      "vertices": 65,
+      "watertight": true,
+      "bbox_mm": [
+        1.06,
+        0.59,
+        0.39
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 1,
+      "elongation": 2.68,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_28.stl",
+      "triangles": 142,
+      "vertices": 71,
+      "watertight": true,
+      "bbox_mm": [
+        1.06,
+        0.59,
+        0.39
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.02,
+      "genus": 1,
+      "elongation": 2.68,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_29.stl",
+      "triangles": 246,
+      "vertices": 123,
+      "watertight": true,
+      "bbox_mm": [
+        2.82,
+        1.19,
+        0.89
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.03,
+      "genus": 1,
+      "elongation": 3.16,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_3.stl",
+      "triangles": 328,
+      "vertices": 166,
+      "watertight": true,
+      "bbox_mm": [
+        1.63,
+        1.62,
+        1.62
+      ],
+      "volume_cm3": 0.003,
+      "area_cm2": 0.12,
+      "genus": 0,
+      "elongation": 1.0,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_30.stl",
+      "triangles": 28,
+      "vertices": 16,
+      "watertight": true,
+      "bbox_mm": [
+        0.95,
+        0.26,
+        0.2
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.01,
+      "genus": 0,
+      "elongation": 4.82,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_31.stl",
+      "triangles": 32,
+      "vertices": 16,
+      "watertight": true,
+      "bbox_mm": [
+        5.46,
+        0.79,
+        0.36
+      ],
+      "volume_cm3": 0.002,
+      "area_cm2": 0.14,
+      "genus": 1,
+      "elongation": 15.21,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_32.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.02,
+        0.0,
+        0.0
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 30.75,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_33.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.02,
+        0.0,
+        0.0
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 30.75,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_34.stl",
+      "triangles": 16,
+      "vertices": 10,
+      "watertight": true,
+      "bbox_mm": [
+        0.11,
+        0.04,
+        0.03
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 3.53,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_35.stl",
+      "triangles": 16,
+      "vertices": 10,
+      "watertight": true,
+      "bbox_mm": [
+        0.11,
+        0.04,
+        0.03
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 3.53,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_36.stl",
+      "triangles": 364,
+      "vertices": 184,
+      "watertight": true,
+      "bbox_mm": [
+        1.16,
+        1.02,
+        1.0
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.04,
+      "genus": 0,
+      "elongation": 1.16,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_37.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.18,
+        0.07,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 11.67,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_38.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.18,
+        0.07,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 11.66,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_39.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.18,
+        0.07,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 11.67,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_4.stl",
+      "triangles": 20,
+      "vertices": 12,
+      "watertight": true,
+      "bbox_mm": [
+        1.94,
+        0.63,
+        0.21
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.03,
+      "genus": 0,
+      "elongation": 9.15,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_40.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.18,
+        0.07,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 11.66,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_41.stl",
+      "triangles": 308,
+      "vertices": 156,
+      "watertight": true,
+      "bbox_mm": [
+        1.16,
+        1.01,
+        1.0
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.04,
+      "genus": 0,
+      "elongation": 1.16,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_42.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.02,
+        0.0,
+        0.0
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 67.0,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_43.stl",
+      "triangles": 18,
+      "vertices": 11,
+      "watertight": true,
+      "bbox_mm": [
+        0.04,
+        0.04,
+        0.01
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 4.45,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_44.stl",
+      "triangles": 18,
+      "vertices": 11,
+      "watertight": true,
+      "bbox_mm": [
+        0.04,
+        0.04,
+        0.01
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 4.45,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_45.stl",
+      "triangles": 8916,
+      "vertices": 4322,
+      "watertight": false,
+      "bbox_mm": [
+        7.79,
+        3.9,
+        1.98
+      ],
+      "volume_cm3": null,
+      "area_cm2": 1.66,
+      "genus": null,
+      "elongation": 3.93,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_5.stl",
+      "triangles": 4,
+      "vertices": 4,
+      "watertight": true,
+      "bbox_mm": [
+        0.06,
+        0.01,
+        0.01
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 6.33,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_6.stl",
+      "triangles": 44,
+      "vertices": 24,
+      "watertight": true,
+      "bbox_mm": [
+        3.78,
+        1.06,
+        0.42
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.08,
+      "genus": 0,
+      "elongation": 9.04,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_7.stl",
+      "triangles": 6,
+      "vertices": 5,
+      "watertight": true,
+      "bbox_mm": [
+        0.29,
+        0.29,
+        0.02
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 14.43,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_8.stl",
+      "triangles": 108,
+      "vertices": 56,
+      "watertight": true,
+      "bbox_mm": [
+        6.2,
+        1.85,
+        0.2
+      ],
+      "volume_cm3": 0.001,
+      "area_cm2": 0.1,
+      "genus": 0,
+      "elongation": 31.51,
+      "class": "Part"
+    },
+    {
+      "file": "Part_Studio_1_Part_9.stl",
+      "triangles": 8,
+      "vertices": 6,
+      "watertight": true,
+      "bbox_mm": [
+        2.16,
+        0.47,
+        0.28
+      ],
+      "volume_cm3": 0.0,
+      "area_cm2": 0.0,
+      "genus": 0,
+      "elongation": 7.79,
+      "class": "Part"
+    }
+  ],
+  "extract_errors": [
+    {
+      "file": "DRILL_BIT_Curve_1.stl",
+      "error": "'NoneType' object is not iterable"
+    },
+    {
+      "file": "ENG_BLOCK_Curve_1.stl",
+      "error": "'NoneType' object is not iterable"
+    }
+  ]
+}

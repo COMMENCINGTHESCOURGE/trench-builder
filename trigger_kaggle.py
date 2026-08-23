@@ -7,7 +7,7 @@ import json
 import subprocess
 
 # Read token
-token_path = os.path.expanduser('~/.kaggle/api_token')
+token_path = os.path.expanduser('~/.kaggle/access_token')
 with open(token_path) as f:
     token = f.read().strip()
 

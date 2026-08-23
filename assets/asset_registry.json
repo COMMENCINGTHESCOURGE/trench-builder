@@ -2,7 +2,7 @@
   "version": "1.0",
   "generated": "2026-05-28T02:07:40.914848+00:00",
   "project": "trench-builder",
-  "asset_count": 26,
+  "asset_count": 25,
   "assets": [
     {
       "name": "elevator",
@@ -533,130 +533,6 @@
       }
     },
     {
-      "name": "chair",
-      "source_script": "furniture/generate_all_furniture.py",
-      "source_sha256": "generated",
-      "generated_at": "2026-05-28T00:00:00",
-      "parameters": {
-        "type": "furniture",
-        "category": "chair"
-      },
-      "glb": {
-        "filename": "chair.glb",
-        "sha256": "92d9701d3e3d38b22836c2fb3240ea47494a6506893fc59f3b0081dd3b1751f1",
-        "size_bytes": 32080,
-        "size_kb": 31.3
-      },
-      "validation": {
-        "status": "pass",
-        "last_validated": "2026-05-28T00:00:00"
-      },
-      "deployment": {
-        "targets": [
-          "trench-builder"
-        ]
-      }
-    },
-    {
-      "name": "table",
-      "source_script": "furniture/generate_all_furniture.py",
-      "source_sha256": "generated",
-      "generated_at": "2026-05-28T00:00:00",
-      "parameters": {
-        "type": "furniture",
-        "category": "table"
-      },
-      "glb": {
-        "filename": "table.glb",
-        "sha256": "e28870924732d72fc5cbb1e27f77bed5d5611db7e0b2a6704d8b7441739a51a9",
-        "size_bytes": 30560,
-        "size_kb": 29.8
-      },
-      "validation": {
-        "status": "pass",
-        "last_validated": "2026-05-28T00:00:00"
-      },
-      "deployment": {
-        "targets": [
-          "trench-builder"
-        ]
-      }
-    },
-    {
-      "name": "shelf",
-      "source_script": "furniture/generate_all_furniture.py",
-      "source_sha256": "generated",
-      "generated_at": "2026-05-28T00:00:00",
-      "parameters": {
-        "type": "furniture",
-        "category": "shelf"
-      },
-      "glb": {
-        "filename": "shelf.glb",
-        "sha256": "b33be5347f95b549225b09b68b9ca7fd1870438530711141a7aa87ff33f0f217",
-        "size_bytes": 6444,
-        "size_kb": 6.3
-      },
-      "validation": {
-        "status": "pass",
-        "last_validated": "2026-05-28T00:00:00"
-      },
-      "deployment": {
-        "targets": [
-          "trench-builder"
-        ]
-      }
-    },
-    {
-      "name": "bed",
-      "source_script": "furniture/generate_all_furniture.py",
-      "source_sha256": "generated",
-      "generated_at": "2026-05-28T00:00:00",
-      "parameters": {
-        "type": "furniture",
-        "category": "bed"
-      },
-      "glb": {
-        "filename": "bed.glb",
-        "sha256": "be5700d118440a77a4a0b62cce27b60e9f8521633e576bad44884db7adbfcf63",
-        "size_bytes": 3672,
-        "size_kb": 3.6
-      },
-      "validation": {
-        "status": "pass",
-        "last_validated": "2026-05-28T00:00:00"
-      },
-      "deployment": {
-        "targets": [
-          "trench-builder"
-        ]
-      }
-    },
-    {
-      "name": "cabinet",
-      "source_script": "furniture/generate_all_furniture.py",
-      "source_sha256": "generated",
-      "generated_at": "2026-05-28T00:00:00",
-      "parameters": {
-        "type": "furniture",
-        "category": "cabinet"
-      },
-      "glb": {
-        "filename": "cabinet.glb",
-        "sha256": "96dbec6fd0ad8256cd514f2abd65f197a46ea13d912909e34a0557d12d46e1b7",
-        "size_bytes": 11488,
-        "size_kb": 11.2
-      },
-      "validation": {
-        "status": "pass",
-        "last_validated": "2026-05-28T00:00:00"
-      },
-      "deployment": {
-        "targets": [
-          "trench-builder"
-        ]
-      }
-    {
       "name": "hotel_manager",
       "source_script": "generate_hotel_manager.py",
       "source_sha256": "pending",
@@ -674,13 +550,109 @@
         "size_kb": 48.0
       },
       "validation": {
-        "status": "pending",
-        "last_validated": "2026-06-06T13:35:16.000000+00:00"
+        "status": "pass",
+        "last_validated": "2026-08-23T15:01:57.440388+00:00"
       },
       "deployment": {
         "targets": [
           "trench-builder",
           "infinite-hotel-franchise"
+        ]
+      }
+    },
+    {
+      "name": "gearbox_variant_0",
+      "source_script": "generate_from_cad_class_trimesh.py",
+      "derived_from": {
+        "cad_class": "GEARBOX",
+        "measured_members": 4,
+        "seed": 7
+      },
+      "parameters": {
+        "type": "cad_derived",
+        "length_mm": 2.8,
+        "width_mm": 2.32,
+        "bores": 2,
+        "verified_genus": 2
+      },
+      "glb": {
+        "filename": "gearbox_variant_0.glb",
+        "sha256": "4fd61de3d937dbe7e4f6f8632c3d38a79304b4bc92d0065a7b61438aa8dfaf8b",
+        "size_bytes": 6616,
+        "path": "cad_derived/gearbox_variant_0.glb"
+      },
+      "validation": {
+        "status": "pass",
+        "watertight": true,
+        "genus": 2
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gearbox_variant_1",
+      "source_script": "generate_from_cad_class_trimesh.py",
+      "derived_from": {
+        "cad_class": "GEARBOX",
+        "measured_members": 4,
+        "seed": 7
+      },
+      "parameters": {
+        "type": "cad_derived",
+        "length_mm": 3.46,
+        "width_mm": 2.26,
+        "bores": 2,
+        "verified_genus": 2
+      },
+      "glb": {
+        "filename": "gearbox_variant_1.glb",
+        "sha256": "b1c1a990a8a7c13fe1c382df39fe31ee9ca50abcf4c127a153ad3e96c414f124",
+        "size_bytes": 6608,
+        "path": "cad_derived/gearbox_variant_1.glb"
+      },
+      "validation": {
+        "status": "pass",
+        "watertight": true,
+        "genus": 2
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
+        ]
+      }
+    },
+    {
+      "name": "gearbox_variant_2",
+      "source_script": "generate_from_cad_class_trimesh.py",
+      "derived_from": {
+        "cad_class": "GEARBOX",
+        "measured_members": 4,
+        "seed": 7
+      },
+      "parameters": {
+        "type": "cad_derived",
+        "length_mm": 1.92,
+        "width_mm": 1.18,
+        "bores": 2,
+        "verified_genus": 2
+      },
+      "glb": {
+        "filename": "gearbox_variant_2.glb",
+        "sha256": "4fbac67f7c64aff9845c6be96500b226434c79582e2306fce28647d8ea120e7d",
+        "size_bytes": 6616,
+        "path": "cad_derived/gearbox_variant_2.glb"
+      },
+      "validation": {
+        "status": "pass",
+        "watertight": true,
+        "genus": 2
+      },
+      "deployment": {
+        "targets": [
+          "trench-builder"
         ]
       }
     }
