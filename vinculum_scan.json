@@ -1,17 +1,22 @@
 {
-  "total_files": 22438,
-  "total_vinculums": 5476396,
+  "total_files": 23072,
+  "total_vinculums": 5626740,
   "patterns": {
-    "fraction": 50337,
-    "group_brace": 471289,
-    "auto_close": 4792012,
-    "chain": 61822,
-    "hyphen_bind": 79610,
-    "repeat": 11526,
-    "negation": 4607,
-    "overline": 5193
+    "fraction": 51941,
+    "overline": 5399,
+    "group_brace": 483404,
+    "chain": 62647,
+    "hyphen_bind": 82842,
+    "auto_close": 4923815,
+    "repeat": 11950,
+    "negation": 4742
   },
   "projects": {
+    "_archive_vinculum_dedupe": {
+      "files": 2,
+      "v": 1453,
+      "kb": 74.8662109375
+    },
     "acoustic_archive": {
       "files": 1365,
       "v": 378414,
@@ -84,8 +89,8 @@
     },
     "aurora_archive": {
       "files": 6,
-      "v": 2141,
-      "kb": 101.5849609375
+      "v": 2146,
+      "kb": 101.806640625
     },
     "avatar": {
       "files": 1,
@@ -178,14 +183,19 @@
       "kb": 43.193359375
     },
     "erdos-straus": {
-      "files": 20,
-      "v": 1199,
-      "kb": 59.50390625
+      "files": 418,
+      "v": 121888,
+      "kb": 7031.5751953125
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
       "v": 5,
       "kb": 0.75390625
+    },
+    "erdos-straus-github": {
+      "files": 230,
+      "v": 26779,
+      "kb": 1817.533203125
     },
     "erdos-straus-solver": {
       "files": 130,
@@ -379,8 +389,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1398,
-      "kb": 144.783203125
+      "v": 1385,
+      "kb": 145.064453125
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -467,10 +477,15 @@
       "v": 1006,
       "kb": 50.9384765625
     },
+    "trapezoid-canonical": {
+      "files": 2,
+      "v": 1340,
+      "kb": 93.5556640625
+    },
     "trench_builder": {
-      "files": 1153,
-      "v": 136594,
-      "kb": 12002.6171875
+      "files": 1155,
+      "v": 136685,
+      "kb": 12007.638671875
     },
     "trenchos": {
       "files": 1,
@@ -519,6 +534,34 @@
     }
   },
   "top_files": [
+    {
+      "p": "_archive_vinculum_dedupe",
+      "f": "VINCULUM_TERRAIN.html",
+      "l": 1158,
+      "v": 889,
+      "d": 76.8,
+      "t": [
+        "fraction",
+        "overline",
+        "group_brace",
+        "chain",
+        "hyphen_bind"
+      ]
+    },
+    {
+      "p": "_archive_vinculum_dedupe",
+      "f": "VINCULUM_TERRAIN_home_copy.html",
+      "l": 727,
+      "v": 564,
+      "d": 77.6,
+      "t": [
+        "fraction",
+        "overline",
+        "group_brace",
+        "chain",
+        "hyphen_bind"
+      ]
+    },
     {
       "p": "acoustic_archive",
       "f": "ACOUSTIC_HOLOGRAPHY_SIM.py",
@@ -731,30 +774,7 @@
         "group_brace",
         "auto_close"
       ]
-    },
-    {
-      "p": "acoustic_archive",
-      "f": "_globals.py",
-      "l": 121,
-      "v": 26,
-      "d": 21.5,
-      "t": [
-        "group_brace",
-        "auto_close"
-      ]
-    },
-    {
-      "p": "acoustic_archive",
-      "f": "_pytesttester.py",
-      "l": 186,
-      "v": 37,
-      "d": 19.9,
-      "t": [
-        "group_brace",
-        "auto_close",
-        "repeat"
-      ]
     }
   ],
-  "runtime_s": 146.6
+  "runtime_s": 126.7
 }
