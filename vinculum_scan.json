@@ -1,13 +1,13 @@
 {
   "total_files": 23084,
-  "total_vinculums": 5627428,
+  "total_vinculums": 5627425,
   "patterns": {
     "fraction": 51955,
     "overline": 5399,
-    "group_brace": 483532,
+    "group_brace": 483531,
     "chain": 62671,
-    "hyphen_bind": 82856,
-    "auto_close": 4924316,
+    "hyphen_bind": 82855,
+    "auto_close": 4924315,
     "repeat": 11957,
     "negation": 4742
   },
@@ -184,8 +184,8 @@
     },
     "erdos-straus": {
       "files": 421,
-      "v": 121980,
-      "kb": 7036.0498046875
+      "v": 121978,
+      "kb": 7035.9638671875
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
@@ -394,8 +394,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1383,
-      "kb": 145.1103515625
+      "v": 1382,
+      "kb": 145.1259765625
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -490,7 +490,7 @@
     "trench_builder": {
       "files": 1155,
       "v": 136690,
-      "kb": 12008.2138671875
+      "kb": 12008.2412109375
     },
     "trenchos": {
       "files": 1,
@@ -781,5 +781,5 @@
       ]
     }
   ],
-  "runtime_s": 128.9
+  "runtime_s": 130.0
 }
