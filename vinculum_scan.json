@@ -1,15 +1,15 @@
 {
-  "total_files": 23097,
-  "total_vinculums": 5628091,
+  "total_files": 31252,
+  "total_vinculums": 11935263,
   "patterns": {
-    "fraction": 51973,
-    "overline": 5407,
-    "group_brace": 483694,
-    "chain": 62686,
-    "hyphen_bind": 82854,
-    "auto_close": 4924775,
-    "repeat": 11960,
-    "negation": 4742
+    "fraction": 52312,
+    "overline": 5415,
+    "group_brace": 494441,
+    "chain": 65289,
+    "hyphen_bind": 4795139,
+    "auto_close": 6505913,
+    "repeat": 12004,
+    "negation": 4750
   },
   "projects": {
     "_archive_vinculum_dedupe": {
@@ -183,9 +183,9 @@
       "kb": 43.193359375
     },
     "erdos-straus": {
-      "files": 423,
-      "v": 122048,
-      "kb": 7039.6845703125
+      "files": 424,
+      "v": 122046,
+      "kb": 7039.8896484375
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
@@ -198,9 +198,9 @@
       "kb": 1817.533203125
     },
     "erdos-straus-solver": {
-      "files": 130,
-      "v": 17479,
-      "kb": 968.04296875
+      "files": 8266,
+      "v": 6322689,
+      "kb": 719807.72265625
     },
     "ernie_agent": {
       "files": 1,
@@ -223,19 +223,24 @@
       "kb": 6.8447265625
     },
     "fractype": {
-      "files": 63,
-      "v": 6330,
-      "kb": 458.662109375
+      "files": 65,
+      "v": 6691,
+      "kb": 494.0615234375
     },
     "gcp_integrations": {
       "files": 6,
       "v": 269,
       "kb": 17.408203125
     },
+    "gpt-verify": {
+      "files": 6,
+      "v": 283,
+      "kb": 12.4482421875
+    },
     "guinea-pig-trench-portal": {
-      "files": 144,
-      "v": 13006,
-      "kb": 873.3046875
+      "files": 151,
+      "v": 14134,
+      "kb": 986.376953125
     },
     "headroom": {
       "files": 1077,
@@ -243,9 +248,9 @@
       "kb": 12152.767578125
     },
     "hyperpoly-terrain": {
-      "files": 32,
-      "v": 3162,
-      "kb": 195.5732421875
+      "files": 33,
+      "v": 3242,
+      "kb": 205.1953125
     },
     "jules-proxy": {
       "files": 15,
@@ -394,8 +399,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1382,
-      "kb": 145.17578125
+      "v": 1384,
+      "kb": 145.2265625
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -488,9 +493,9 @@
       "kb": 93.5556640625
     },
     "trench_builder": {
-      "files": 1161,
-      "v": 137128,
-      "kb": 12045.6796875
+      "files": 1163,
+      "v": 137238,
+      "kb": 12050.8984375
     },
     "trenchos": {
       "files": 1,
@@ -781,5 +786,5 @@
       ]
     }
   ],
-  "runtime_s": 126.4
+  "runtime_s": 297.2
 }
