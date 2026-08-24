@@ -1,53 +1,53 @@
-[{"stream_name":"stderr","time":5.52072185,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
-,{"stream_name":"stderr","time":5.520826228,"data":"  validate(nb)\n"}
-,{"stream_name":"stderr","time":6.34383869,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":6.343868907,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":6.34387439,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":6.343885373,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stderr","time":6.944526986,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
-,{"stream_name":"stderr","time":6.944561093,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
-,{"stream_name":"stderr","time":6.944564656,"data":"0.00s - to python to disable frozen modules.\n"}
-,{"stream_name":"stderr","time":6.944567185,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
-,{"stream_name":"stdout","time":8.218430411,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":8.218499935,"data":"  SCITHARY GENRATOR — Territory Analysis\n"}
-,{"stream_name":"stdout","time":8.218506456,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":8.218510669,"data":"\n"}
-,{"stream_name":"stdout","time":8.218514568,"data":"[1/5] Loading territory data...\n"}
-,{"stream_name":"stdout","time":8.218518403,"data":"  Downloading https://raw.githubusercontent.com/COMMENCINGTHESCOURGE/trench-builder/master/vinculum_scan.json...\n"}
-,{"stream_name":"stdout","time":8.442023545,"data":"  Loaded 62 regions, 2560 files, 316,344 vinculums\n"}
-,{"stream_name":"stdout","time":9.096692786,"data":"  Loaded 4 bonds: ['erosion', 'freeze', 'hydro', 'storm-cycle']\n"}
-,{"stream_name":"stdout","time":9.096725183,"data":"  Downloading https://raw.githubusercontent.com/COMMENCINGTHESCOURGE/trench-builder/master/mecha_optimization.json...\n"}
-,{"stream_name":"stdout","time":9.09673024,"data":"  Loaded mecha optimization data\n"}
-,{"stream_name":"stdout","time":9.096733861,"data":"\n"}
-,{"stream_name":"stdout","time":9.096737041,"data":"[2/5] Computing region overlap...\n"}
-,{"stream_name":"stdout","time":9.096740503,"data":"  Found 1891 significant overlaps (mean score: 0.4897)\n"}
-,{"stream_name":"stdout","time":9.096744303,"data":"\n"}
-,{"stream_name":"stdout","time":9.096747448,"data":"[3/5] Computing node integrity...\n"}
-,{"stream_name":"stdout","time":9.096751086,"data":"  Analyzed 62 nodes\n"}
-,{"stream_name":"stdout","time":9.096755451,"data":"  Fortified: 0, Robust: 50, Stable: 11, Fragile: 1, Critical: 0\n"}
-,{"stream_name":"stdout","time":9.096759001,"data":"\n"}
-,{"stream_name":"stdout","time":9.096763076,"data":"[4/5] Computing connection topology...\n"}
-,{"stream_name":"stdout","time":9.096766255,"data":"  Topology: FRAGMENTED\n"}
-,{"stream_name":"stdout","time":9.096769524,"data":"  0 edges, 62 isolated nodes\n"}
-,{"stream_name":"stdout","time":9.09677317,"data":"  0 hubs, 62 components\n"}
-,{"stream_name":"stdout","time":9.096813417,"data":"  Largest component: 1.6% of network\n"}
-,{"stream_name":"stdout","time":9.096822519,"data":"\n"}
-,{"stream_name":"stdout","time":9.096826028,"data":"[5/5] Computing energy pulse routing...\n"}
-,{"stream_name":"stdout","time":9.096829455,"data":"  6 pulse origins\n"}
-,{"stream_name":"stdout","time":9.096832936,"data":"  Network coverage: 0.0%\n"}
-,{"stream_name":"stdout","time":9.096836383,"data":"  Mean routing efficiency: 0.0\n"}
-,{"stream_name":"stdout","time":9.096840017,"data":"  Best origin: blooming-onion\n"}
-,{"stream_name":"stdout","time":9.096843896,"data":"\n"}
-,{"stream_name":"stdout","time":9.096847037,"data":"============================================================\n"}
-,{"stream_name":"stdout","time":9.096850383,"data":"  Output: /kaggle/working/scithary_data.json\n"}
-,{"stream_name":"stdout","time":9.096853707,"data":"  Size: 450.0 KB\n"}
-,{"stream_name":"stdout","time":9.096856982,"data":"============================================================\n"}
-,{"stream_name":"stderr","time":11.518129224,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
-,{"stream_name":"stderr","time":11.518161328,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
-,{"stream_name":"stderr","time":11.669768954,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
-,{"stream_name":"stderr","time":11.66981733,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
-,{"stream_name":"stderr","time":12.248048677,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
-,{"stream_name":"stderr","time":12.544429699,"data":"[NbConvertApp] Writing 26505 bytes to __notebook__.ipynb\n"}
-,{"stream_name":"stderr","time":14.852857998,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
-,{"stream_name":"stderr","time":15.721372949,"data":"[NbConvertApp] Writing 367033 bytes to __results__.html\n"}
+[{"stream_name":"stderr","time":5.581927193,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":5.582000035,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":6.344531426,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.3445687379999995,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.344572476,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.344574947,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.929291096,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.929321355,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.929326155,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.929329843,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":8.196127344,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":8.196290202,"data":"  SCITHARY GENRATOR — Territory Analysis\n"}
+,{"stream_name":"stdout","time":8.196309724,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":8.196313354,"data":"\n"}
+,{"stream_name":"stdout","time":8.196315682,"data":"[1/5] Loading territory data...\n"}
+,{"stream_name":"stdout","time":8.196318035000001,"data":"  Downloading https://raw.githubusercontent.com/COMMENCINGTHESCOURGE/trench-builder/master/vinculum_scan.json...\n"}
+,{"stream_name":"stdout","time":8.428021799,"data":"  Loaded 105 regions, 23097 files, 5,628,091 vinculums\n"}
+,{"stream_name":"stdout","time":9.134024624,"data":"  Loaded 4 bonds: ['erosion', 'freeze', 'hydro', 'storm-cycle']\n"}
+,{"stream_name":"stdout","time":9.134049788,"data":"  Downloading https://raw.githubusercontent.com/COMMENCINGTHESCOURGE/trench-builder/master/mecha_optimization.json...\n"}
+,{"stream_name":"stdout","time":9.134054636,"data":"  Loaded mecha optimization data\n"}
+,{"stream_name":"stdout","time":9.134058309,"data":"\n"}
+,{"stream_name":"stdout","time":9.134061748,"data":"[2/5] Computing region overlap...\n"}
+,{"stream_name":"stdout","time":9.134065278,"data":"  Found 5460 significant overlaps (mean score: 0.4574)\n"}
+,{"stream_name":"stdout","time":9.134069003,"data":"\n"}
+,{"stream_name":"stdout","time":9.134072383,"data":"[3/5] Computing node integrity...\n"}
+,{"stream_name":"stdout","time":9.134075849,"data":"  Analyzed 105 nodes\n"}
+,{"stream_name":"stdout","time":9.134079441,"data":"  Fortified: 0, Robust: 71, Stable: 26, Fragile: 7, Critical: 1\n"}
+,{"stream_name":"stdout","time":9.134083168,"data":"\n"}
+,{"stream_name":"stdout","time":9.134086456,"data":"[4/5] Computing connection topology...\n"}
+,{"stream_name":"stdout","time":9.134089963,"data":"  Topology: FRAGMENTED\n"}
+,{"stream_name":"stdout","time":9.13409334,"data":"  0 edges, 105 isolated nodes\n"}
+,{"stream_name":"stdout","time":9.134096898,"data":"  0 hubs, 105 components\n"}
+,{"stream_name":"stdout","time":9.134109224,"data":"  Largest component: 1.0% of network\n"}
+,{"stream_name":"stdout","time":9.134112847,"data":"\n"}
+,{"stream_name":"stdout","time":9.134116243,"data":"[5/5] Computing energy pulse routing...\n"}
+,{"stream_name":"stdout","time":9.13411981,"data":"  10 pulse origins\n"}
+,{"stream_name":"stdout","time":9.13412316,"data":"  Network coverage: 0.0%\n"}
+,{"stream_name":"stdout","time":9.134126621,"data":"  Mean routing efficiency: 0.0\n"}
+,{"stream_name":"stdout","time":9.134130205,"data":"  Best origin: kaggle_submissions\n"}
+,{"stream_name":"stdout","time":9.182593843,"data":"\n"}
+,{"stream_name":"stdout","time":9.182616951,"data":"============================================================\n"}
+,{"stream_name":"stdout","time":9.182621376,"data":"  Output: /kaggle/working/scithary_data.json\n"}
+,{"stream_name":"stdout","time":9.182624676,"data":"  Size: 1276.5 KB\n"}
+,{"stream_name":"stdout","time":9.182627959,"data":"============================================================\n"}
+,{"stream_name":"stderr","time":11.584403918,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":11.584434514,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":11.726332777,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":11.726359478,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":12.302214257,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":12.589869254,"data":"[NbConvertApp] Writing 26518 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":14.874320565,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":15.736187154,"data":"[NbConvertApp] Writing 367046 bytes to __results__.html\n"}
 ]
