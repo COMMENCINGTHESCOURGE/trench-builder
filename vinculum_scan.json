@@ -1,14 +1,14 @@
 {
-  "total_files": 31252,
-  "total_vinculums": 11935263,
+  "total_files": 31270,
+  "total_vinculums": 11938692,
   "patterns": {
-    "fraction": 52312,
-    "overline": 5415,
-    "group_brace": 494441,
-    "chain": 65289,
-    "hyphen_bind": 4795139,
-    "auto_close": 6505913,
-    "repeat": 12004,
+    "fraction": 52377,
+    "overline": 5435,
+    "group_brace": 495106,
+    "chain": 65339,
+    "hyphen_bind": 4795281,
+    "auto_close": 6508398,
+    "repeat": 12006,
     "negation": 4750
   },
   "projects": {
@@ -81,6 +81,16 @@
       "files": 2,
       "v": 110,
       "kb": 14.232421875
+    },
+    "ashfall-city": {
+      "files": 1,
+      "v": 472,
+      "kb": 20.0205078125
+    },
+    "ashfall-relic-protocol": {
+      "files": 1,
+      "v": 705,
+      "kb": 28.87890625
     },
     "asset_pack": {
       "files": 7,
@@ -184,8 +194,8 @@
     },
     "erdos-straus": {
       "files": 424,
-      "v": 122046,
-      "kb": 7039.8896484375
+      "v": 122048,
+      "kb": 7039.9755859375
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
@@ -238,9 +248,9 @@
       "kb": 12.4482421875
     },
     "guinea-pig-trench-portal": {
-      "files": 151,
-      "v": 14134,
-      "kb": 986.376953125
+      "files": 167,
+      "v": 16257,
+      "kb": 1082.3408203125
     },
     "headroom": {
       "files": 1077,
@@ -494,8 +504,8 @@
     },
     "trench_builder": {
       "files": 1163,
-      "v": 137238,
-      "kb": 12050.8984375
+      "v": 137365,
+      "kb": 12051.0146484375
     },
     "trenchos": {
       "files": 1,
@@ -786,5 +796,5 @@
       ]
     }
   ],
-  "runtime_s": 297.2
+  "runtime_s": 295.2
 }
