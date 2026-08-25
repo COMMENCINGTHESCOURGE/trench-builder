@@ -1,13 +1,13 @@
 {
   "total_files": 31296,
-  "total_vinculums": 11945623,
+  "total_vinculums": 11945629,
   "patterns": {
-    "fraction": 52547,
+    "fraction": 52548,
     "overline": 5467,
     "group_brace": 496727,
-    "chain": 65372,
-    "hyphen_bind": 4795717,
-    "auto_close": 6513014,
+    "chain": 65371,
+    "hyphen_bind": 4795719,
+    "auto_close": 6513018,
     "repeat": 12029,
     "negation": 4750
   },
@@ -199,8 +199,8 @@
     },
     "erdos-straus": {
       "files": 424,
-      "v": 122048,
-      "kb": 7039.974609375
+      "v": 122046,
+      "kb": 7039.880859375
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
@@ -424,8 +424,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1424,
-      "kb": 145.43359375
+      "v": 1423,
+      "kb": 145.5263671875
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -519,8 +519,8 @@
     },
     "THROWN PLANET Phase 1": {
       "files": 1,
-      "v": 5,
-      "kb": 1.486328125
+      "v": 11,
+      "kb": 3.30859375
     },
     "thrown-planet": {
       "files": 4,
@@ -534,8 +534,8 @@
     },
     "trench_builder": {
       "files": 1165,
-      "v": 138611,
-      "kb": 12247.1455078125
+      "v": 138614,
+      "kb": 12247.2548828125
     },
     "trenchos": {
       "files": 1,
@@ -826,5 +826,5 @@
       ]
     }
   ],
-  "runtime_s": 303.6
+  "runtime_s": 309.1
 }
