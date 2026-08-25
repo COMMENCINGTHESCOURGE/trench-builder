@@ -5,17 +5,17 @@
     "generated_at": "2026-08-25",
     "source": "trench_builder",
     "input_summary": {
-      "total_regions": 112,
-      "total_files": 31293,
-      "total_vinculums": 11943771,
+      "total_regions": 113,
+      "total_files": 31295,
+      "total_vinculums": 11944380,
       "vinculum_patterns": {
-        "fraction": 52533,
+        "fraction": 52535,
         "overline": 5443,
-        "group_brace": 496083,
+        "group_brace": 496514,
         "chain": 65370,
-        "hyphen_bind": 4795546,
-        "auto_close": 6512024,
-        "repeat": 12022,
+        "hyphen_bind": 4795716,
+        "auto_close": 6512029,
+        "repeat": 12023,
         "negation": 4750
       },
       "bonds_loaded": 4,
@@ -28,8 +28,8 @@
     }
   },
   "region_overlap": {
-    "total_regions": 112,
-    "total_overlaps_detected": 6216,
+    "total_regions": 113,
+    "total_overlaps_detected": 6328,
     "top_overlaps": [
       {
         "region_a": "arc_agi_2_submission",
@@ -184,6 +184,14 @@
         "overlap_score": 0.6991
       },
       {
+        "region_a": "headroom",
+        "region_b": "trench_builder",
+        "cosine_similarity": 1.0,
+        "name_affinity": 0.0,
+        "size_proximity": 0.9969,
+        "overlap_score": 0.6991
+      },
+      {
         "region_a": "kimi_density_spheres",
         "region_b": "quantum_garden",
         "cosine_similarity": 1.0,
@@ -214,14 +222,6 @@
         "name_affinity": 0.25,
         "size_proximity": 0.7629,
         "overlap_score": 0.6979
-      },
-      {
-        "region_a": "headroom",
-        "region_b": "trench_builder",
-        "cosine_similarity": 1.0,
-        "name_affinity": 0.0,
-        "size_proximity": 0.9925,
-        "overlap_score": 0.6977
       },
       {
         "region_a": "ashfall-relic-protocol",
@@ -294,6 +294,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.9899,
         "overlap_score": 0.6959
+      },
+      {
+        "region_a": "Erdos-Straus conjecture solver",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9875,
+        "name_affinity": 0.0,
+        "size_proximity": 1.0,
+        "overlap_score": 0.695
       },
       {
         "region_a": "echoes-of-the-fracture",
@@ -422,14 +430,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.9779,
         "overlap_score": 0.6901
-      },
-      {
-        "region_a": "bridge",
-        "region_b": "research",
-        "cosine_similarity": 0.9995,
-        "name_affinity": 0.0,
-        "size_proximity": 0.9651,
-        "overlap_score": 0.6893
       }
     ],
     "all_overlaps": [
@@ -586,6 +586,14 @@
         "overlap_score": 0.6991
       },
       {
+        "region_a": "headroom",
+        "region_b": "trench_builder",
+        "cosine_similarity": 1.0,
+        "name_affinity": 0.0,
+        "size_proximity": 0.9969,
+        "overlap_score": 0.6991
+      },
+      {
         "region_a": "kimi_density_spheres",
         "region_b": "quantum_garden",
         "cosine_similarity": 1.0,
@@ -616,14 +624,6 @@
         "name_affinity": 0.25,
         "size_proximity": 0.7629,
         "overlap_score": 0.6979
-      },
-      {
-        "region_a": "headroom",
-        "region_b": "trench_builder",
-        "cosine_similarity": 1.0,
-        "name_affinity": 0.0,
-        "size_proximity": 0.9925,
-        "overlap_score": 0.6977
       },
       {
         "region_a": "ashfall-relic-protocol",
@@ -696,6 +696,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.9899,
         "overlap_score": 0.6959
+      },
+      {
+        "region_a": "Erdos-Straus conjecture solver",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9875,
+        "name_affinity": 0.0,
+        "size_proximity": 1.0,
+        "overlap_score": 0.695
       },
       {
         "region_a": "echoes-of-the-fracture",
@@ -1000,6 +1008,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.9448,
         "overlap_score": 0.6834
+      },
+      {
+        "region_a": "PCRA CP-02-CR-0005640-2024",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9583,
+        "name_affinity": 0.0,
+        "size_proximity": 1.0,
+        "overlap_score": 0.6833
       },
       {
         "region_a": "lavish_furniture",
@@ -1626,6 +1642,14 @@
         "overlap_score": 0.6705
       },
       {
+        "region_a": "THROWN PLANET",
+        "region_b": "thrown-planet",
+        "cosine_similarity": 0.9244,
+        "name_affinity": 1.0,
+        "size_proximity": 0.002,
+        "overlap_score": 0.6704
+      },
+      {
         "region_a": "fleet",
         "region_b": "mycelia_game",
         "cosine_similarity": 0.9986,
@@ -1648,14 +1672,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.8996,
         "overlap_score": 0.6699
-      },
-      {
-        "region_a": "PCRA CP-02-CR-0005640-2024",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9243,
-        "name_affinity": 0.0,
-        "size_proximity": 1.0,
-        "overlap_score": 0.6697
       },
       {
         "region_a": "commencethescourge-erdos",
@@ -1839,7 +1855,7 @@
         "cosine_similarity": 0.9998,
         "name_affinity": 0.6667,
         "size_proximity": 0.2194,
-        "overlap_score": 0.6657
+        "overlap_score": 0.6658
       },
       {
         "region_a": "jules-proxy",
@@ -1890,14 +1906,6 @@
         "overlap_score": 0.6651
       },
       {
-        "region_a": "erdos-straus",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9987,
-        "name_affinity": 0.0,
-        "size_proximity": 0.8844,
-        "overlap_score": 0.6648
-      },
-      {
         "region_a": "avatar-core",
         "region_b": "mycelia_game",
         "cosine_similarity": 0.999,
@@ -1943,6 +1951,14 @@
         "cosine_similarity": 0.9915,
         "name_affinity": 0.0,
         "size_proximity": 0.8901,
+        "overlap_score": 0.6636
+      },
+      {
+        "region_a": "erdos-straus",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9987,
+        "name_affinity": 0.0,
+        "size_proximity": 0.8805,
         "overlap_score": 0.6636
       },
       {
@@ -2247,6 +2263,14 @@
         "cosine_similarity": 0.9998,
         "name_affinity": 0.0,
         "size_proximity": 0.8581,
+        "overlap_score": 0.6573
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9682,
+        "name_affinity": 0.5,
+        "size_proximity": 0.4,
         "overlap_score": 0.6573
       },
       {
@@ -5491,11 +5515,11 @@
       },
       {
         "region_a": "demo-repository",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9934,
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.993,
         "name_affinity": 0.0,
         "size_proximity": 0.6667,
-        "overlap_score": 0.5974
+        "overlap_score": 0.5972
       },
       {
         "region_a": "labyrinth_archive",
@@ -7743,7 +7767,7 @@
         "cosine_similarity": 0.9982,
         "name_affinity": 0.0,
         "size_proximity": 0.5552,
-        "overlap_score": 0.5658
+        "overlap_score": 0.5659
       },
       {
         "region_a": "sieve_api_deployment",
@@ -8367,7 +8391,7 @@
         "cosine_similarity": 0.9993,
         "name_affinity": 0.0,
         "size_proximity": 0.5237,
-        "overlap_score": 0.5568
+        "overlap_score": 0.5569
       },
       {
         "region_a": "eclipse-of-the-vale",
@@ -8632,6 +8656,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.5229,
         "overlap_score": 0.5534
+      },
+      {
+        "region_a": "demo-repository",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9332,
+        "name_affinity": 0.0,
+        "size_proximity": 0.6,
+        "overlap_score": 0.5533
       },
       {
         "region_a": "_archive_vinculum_dedupe",
@@ -9103,6 +9135,14 @@
         "cosine_similarity": 0.9934,
         "name_affinity": 0.0,
         "size_proximity": 0.5004,
+        "overlap_score": 0.5475
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "thrown-planet",
+        "cosine_similarity": 0.9901,
+        "name_affinity": 0.5,
+        "size_proximity": 0.005,
         "overlap_score": 0.5475
       },
       {
@@ -9890,14 +9930,6 @@
         "overlap_score": 0.5393
       },
       {
-        "region_a": "SOVEREIGN RESONANCE",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9733,
-        "name_affinity": 0.0,
-        "size_proximity": 0.5,
-        "overlap_score": 0.5393
-      },
-      {
         "region_a": "eclipse-of-the-vale",
         "region_b": "sovereign_resonance",
         "cosine_similarity": 0.9958,
@@ -9927,14 +9959,6 @@
         "cosine_similarity": 0.9675,
         "name_affinity": 0.0,
         "size_proximity": 0.5061,
-        "overlap_score": 0.5388
-      },
-      {
-        "region_a": "dev_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9996,
-        "name_affinity": 0.0,
-        "size_proximity": 0.4632,
         "overlap_score": 0.5388
       },
       {
@@ -10016,6 +10040,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.4633,
         "overlap_score": 0.5384
+      },
+      {
+        "region_a": "dev_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9996,
+        "name_affinity": 0.0,
+        "size_proximity": 0.4611,
+        "overlap_score": 0.5382
       },
       {
         "region_a": "ashfall-city",
@@ -10282,6 +10314,14 @@
         "overlap_score": 0.5354
       },
       {
+        "region_a": "legal",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9977,
+        "name_affinity": 0.0,
+        "size_proximity": 0.4545,
+        "overlap_score": 0.5354
+      },
+      {
         "region_a": "gcp_integrations",
         "region_b": "parallax",
         "cosine_similarity": 0.9838,
@@ -10312,6 +10352,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.4602,
         "overlap_score": 0.5347
+      },
+      {
+        "region_a": "SOVEREIGN RESONANCE",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9614,
+        "name_affinity": 0.0,
+        "size_proximity": 0.5,
+        "overlap_score": 0.5346
       },
       {
         "region_a": "forensics",
@@ -11072,6 +11120,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.4184,
         "overlap_score": 0.5251
+      },
+      {
+        "region_a": "Erdos-Straus-conjecture-solver",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9374,
+        "name_affinity": 0.0,
+        "size_proximity": 0.5,
+        "overlap_score": 0.525
       },
       {
         "region_a": "neon-arena",
@@ -12362,6 +12418,14 @@
         "overlap_score": 0.513
       },
       {
+        "region_a": "Erdos-Straus conjecture solver",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9825,
+        "name_affinity": 0.0,
+        "size_proximity": 0.4,
+        "overlap_score": 0.513
+      },
+      {
         "region_a": "obsidian-city",
         "region_b": "part_affordance",
         "cosine_similarity": 0.9918,
@@ -12482,6 +12546,14 @@
         "overlap_score": 0.5118
       },
       {
+        "region_a": "PCRA CP-02-CR-0005640-2024",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9792,
+        "name_affinity": 0.0,
+        "size_proximity": 0.4,
+        "overlap_score": 0.5117
+      },
+      {
         "region_a": "avatar",
         "region_b": "vinculum-self-audit",
         "cosine_similarity": 0.9877,
@@ -12543,14 +12615,6 @@
         "cosine_similarity": 0.9996,
         "name_affinity": 0.0,
         "size_proximity": 0.3709,
-        "overlap_score": 0.5111
-      },
-      {
-        "region_a": "Erdos-Straus-conjecture-solver",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9028,
-        "name_affinity": 0.0,
-        "size_proximity": 0.5,
         "overlap_score": 0.5111
       },
       {
@@ -12666,14 +12730,6 @@
         "overlap_score": 0.5101
       },
       {
-        "region_a": "Erdos-Straus conjecture solver",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9751,
-        "name_affinity": 0.0,
-        "size_proximity": 0.4,
-        "overlap_score": 0.5101
-      },
-      {
         "region_a": "node24-ci-guard-complete",
         "region_b": "trapezoid-canonical",
         "cosine_similarity": 0.9983,
@@ -12704,6 +12760,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.3917,
         "overlap_score": 0.5099
+      },
+      {
+        "region_a": "acoustic_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9998,
+        "name_affinity": 0.0,
+        "size_proximity": 0.3663,
+        "overlap_score": 0.5098
       },
       {
         "region_a": "agent_swarm",
@@ -12759,14 +12823,6 @@
         "cosine_similarity": 0.9965,
         "name_affinity": 0.0,
         "size_proximity": 0.3688,
-        "overlap_score": 0.5093
-      },
-      {
-        "region_a": "acoustic_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9998,
-        "name_affinity": 0.0,
-        "size_proximity": 0.3647,
         "overlap_score": 0.5093
       },
       {
@@ -12872,14 +12928,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.3629,
         "overlap_score": 0.5083
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "thrown-planet",
-        "cosine_similarity": 0.8941,
-        "name_affinity": 0.5,
-        "size_proximity": 0.002,
-        "overlap_score": 0.5082
       },
       {
         "region_a": "asset_pack",
@@ -14018,14 +14066,6 @@
         "overlap_score": 0.4977
       },
       {
-        "region_a": "copilot-worktrees",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9977,
-        "name_affinity": 0.0,
-        "size_proximity": 0.328,
-        "overlap_score": 0.4975
-      },
-      {
         "region_a": "adk_prototype_project",
         "region_b": "sieve_api_deployment",
         "cosine_similarity": 0.9952,
@@ -14079,6 +14119,14 @@
         "cosine_similarity": 0.9994,
         "name_affinity": 0.0,
         "size_proximity": 0.3243,
+        "overlap_score": 0.497
+      },
+      {
+        "region_a": "copilot-worktrees",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9977,
+        "name_affinity": 0.0,
+        "size_proximity": 0.3265,
         "overlap_score": 0.497
       },
       {
@@ -14346,14 +14394,6 @@
         "overlap_score": 0.495
       },
       {
-        "region_a": "guinea-pig-trench-portal",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9986,
-        "name_affinity": 0.2,
-        "size_proximity": 0.1178,
-        "overlap_score": 0.4948
-      },
-      {
         "region_a": "ashfall-city",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9929,
@@ -14383,6 +14423,14 @@
         "cosine_similarity": 0.9993,
         "name_affinity": 0.0,
         "size_proximity": 0.3162,
+        "overlap_score": 0.4946
+      },
+      {
+        "region_a": "guinea-pig-trench-portal",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9986,
+        "name_affinity": 0.2,
+        "size_proximity": 0.1173,
         "overlap_score": 0.4946
       },
       {
@@ -16532,7 +16580,7 @@
       {
         "region_a": "adk_prototype_project",
         "region_b": "project_manager",
-        "cosine_similarity": 0.9777,
+        "cosine_similarity": 0.9778,
         "name_affinity": 0.25,
         "size_proximity": 0.0366,
         "overlap_score": 0.4771
@@ -16754,6 +16802,14 @@
         "overlap_score": 0.4758
       },
       {
+        "region_a": "neon-ghost-drift",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9811,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2778,
+        "overlap_score": 0.4758
+      },
+      {
         "region_a": "asset_pack",
         "region_b": "mecha_robotics_kit",
         "cosine_similarity": 0.9929,
@@ -16770,6 +16826,14 @@
         "overlap_score": 0.4756
       },
       {
+        "region_a": "project_manager",
+        "region_b": "void_archive",
+        "cosine_similarity": 0.9944,
+        "name_affinity": 0.0,
+        "size_proximity": 0.259,
+        "overlap_score": 0.4755
+      },
+      {
         "region_a": "starfield_v3",
         "region_b": "void_archive",
         "cosine_similarity": 0.9987,
@@ -16783,14 +16847,6 @@
         "cosine_similarity": 0.9916,
         "name_affinity": 0.0,
         "size_proximity": 0.2625,
-        "overlap_score": 0.4754
-      },
-      {
-        "region_a": "project_manager",
-        "region_b": "void_archive",
-        "cosine_similarity": 0.9944,
-        "name_affinity": 0.0,
-        "size_proximity": 0.259,
         "overlap_score": 0.4754
       },
       {
@@ -16814,7 +16870,7 @@
         "region_b": "erdos-straus",
         "cosine_similarity": 0.9981,
         "name_affinity": 0.0,
-        "size_proximity": 0.2526,
+        "size_proximity": 0.2527,
         "overlap_score": 0.475
       },
       {
@@ -17412,7 +17468,7 @@
       {
         "region_a": "collatz-exploration",
         "region_b": "project_manager",
-        "cosine_similarity": 0.9923,
+        "cosine_similarity": 0.9924,
         "name_affinity": 0.0,
         "size_proximity": 0.247,
         "overlap_score": 0.471
@@ -17591,6 +17647,14 @@
         "cosine_similarity": 0.994,
         "name_affinity": 0.0,
         "size_proximity": 0.2389,
+        "overlap_score": 0.4693
+      },
+      {
+        "region_a": "ai_agent_security_submission",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9857,
+        "name_affinity": 0.0,
+        "size_proximity": 0.25,
         "overlap_score": 0.4693
       },
       {
@@ -17783,6 +17847,14 @@
         "cosine_similarity": 0.982,
         "name_affinity": 0.0,
         "size_proximity": 0.2496,
+        "overlap_score": 0.4677
+      },
+      {
+        "region_a": "manta_flight_feel",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9907,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2381,
         "overlap_score": 0.4677
       },
       {
@@ -18378,14 +18450,6 @@
         "overlap_score": 0.4646
       },
       {
-        "region_a": "arc-prize-2026-arc-agi-3",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9937,
-        "name_affinity": 0.0,
-        "size_proximity": 0.2234,
-        "overlap_score": 0.4645
-      },
-      {
         "region_a": "continuum-foundry",
         "region_b": "manifold-model-router",
         "cosine_similarity": 0.8834,
@@ -18431,6 +18495,14 @@
         "cosine_similarity": 0.9942,
         "name_affinity": 0.0,
         "size_proximity": 0.2218,
+        "overlap_score": 0.4642
+      },
+      {
+        "region_a": "arc-prize-2026-arc-agi-3",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9937,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2225,
         "overlap_score": 0.4642
       },
       {
@@ -19170,14 +19242,6 @@
         "overlap_score": 0.4583
       },
       {
-        "region_a": "aetherion-continuum",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9971,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1977,
-        "overlap_score": 0.4582
-      },
-      {
         "region_a": "manifold-risk-engine",
         "region_b": "neon_dissection",
         "cosine_similarity": 0.9882,
@@ -19226,6 +19290,14 @@
         "overlap_score": 0.4579
       },
       {
+        "region_a": "aetherion-continuum",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9971,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1969,
+        "overlap_score": 0.4579
+      },
+      {
         "region_a": "fractype",
         "region_b": "project_manager",
         "cosine_similarity": 0.9855,
@@ -19258,14 +19330,6 @@
         "overlap_score": 0.4578
       },
       {
-        "region_a": "erdos-straus-github",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.999,
-        "name_affinity": 0.0,
-        "size_proximity": 0.194,
-        "overlap_score": 0.4578
-      },
-      {
         "region_a": "aetherion-continuum",
         "region_b": "headroom",
         "cosine_similarity": 0.997,
@@ -19295,6 +19359,14 @@
         "cosine_similarity": 0.9933,
         "name_affinity": 0.0,
         "size_proximity": 0.2005,
+        "overlap_score": 0.4575
+      },
+      {
+        "region_a": "erdos-straus-github",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.999,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1932,
         "overlap_score": 0.4575
       },
       {
@@ -22074,14 +22146,6 @@
         "overlap_score": 0.4409
       },
       {
-        "region_a": "COMMENCINGTHESCOURGE",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9996,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1366,
-        "overlap_score": 0.4408
-      },
-      {
         "region_a": "advra_archive",
         "region_b": "obsidian-city",
         "cosine_similarity": 0.9922,
@@ -22103,6 +22167,14 @@
         "cosine_similarity": 0.9994,
         "name_affinity": 0.0,
         "size_proximity": 0.1362,
+        "overlap_score": 0.4406
+      },
+      {
+        "region_a": "COMMENCINGTHESCOURGE",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9996,
+        "name_affinity": 0.0,
+        "size_proximity": 0.136,
         "overlap_score": 0.4406
       },
       {
@@ -22135,6 +22207,14 @@
         "cosine_similarity": 0.9997,
         "name_affinity": 0.0,
         "size_proximity": 0.1355,
+        "overlap_score": 0.4405
+      },
+      {
+        "region_a": "legal",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9648,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1818,
         "overlap_score": 0.4405
       },
       {
@@ -22426,11 +22506,27 @@
         "overlap_score": 0.4385
       },
       {
+        "region_a": "sovereign-resonance-node",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9946,
+        "name_affinity": 0.0,
+        "size_proximity": 0.135,
+        "overlap_score": 0.4384
+      },
+      {
         "region_a": "advra_archive",
         "region_b": "Erdos-Straus conjecture solver",
         "cosine_similarity": 0.9856,
         "name_affinity": 0.0,
         "size_proximity": 0.1471,
+        "overlap_score": 0.4383
+      },
+      {
+        "region_a": "kaggle_submissions",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9945,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1351,
         "overlap_score": 0.4383
       },
       {
@@ -22447,22 +22543,6 @@
         "cosine_similarity": 0.9913,
         "name_affinity": 0.0,
         "size_proximity": 0.1387,
-        "overlap_score": 0.4382
-      },
-      {
-        "region_a": "kaggle_submissions",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9945,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1345,
-        "overlap_score": 0.4382
-      },
-      {
-        "region_a": "sovereign-resonance-node",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9946,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1344,
         "overlap_score": 0.4382
       },
       {
@@ -22706,14 +22786,6 @@
         "overlap_score": 0.4369
       },
       {
-        "region_a": "commencethescourge-erdos",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9976,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1257,
-        "overlap_score": 0.4368
-      },
-      {
         "region_a": "pangea-substrate",
         "region_b": "sovereign_archive",
         "cosine_similarity": 0.9985,
@@ -22735,6 +22807,14 @@
         "cosine_similarity": 0.9963,
         "name_affinity": 0.0,
         "size_proximity": 0.1268,
+        "overlap_score": 0.4366
+      },
+      {
+        "region_a": "commencethescourge-erdos",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9976,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1251,
         "overlap_score": 0.4366
       },
       {
@@ -23170,6 +23250,22 @@
         "overlap_score": 0.4352
       },
       {
+        "region_a": "arc_agi_2_submission",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9864,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1351,
+        "overlap_score": 0.4351
+      },
+      {
+        "region_a": "arc_agi_3_submission",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9864,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1351,
+        "overlap_score": 0.4351
+      },
+      {
         "region_a": "ascii_research_presentation",
         "region_b": "prompt-asset-writer",
         "cosine_similarity": 0.9924,
@@ -23182,7 +23278,7 @@
         "region_b": "kaggle_submissions",
         "cosine_similarity": 0.9984,
         "name_affinity": 0.0,
-        "size_proximity": 0.119,
+        "size_proximity": 0.1189,
         "overlap_score": 0.4351
       },
       {
@@ -23240,6 +23336,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.1485,
         "overlap_score": 0.435
+      },
+      {
+        "region_a": "advra_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.977,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1471,
+        "overlap_score": 0.4349
       },
       {
         "region_a": "arc_agi_2_submission",
@@ -23914,6 +24018,14 @@
         "overlap_score": 0.4311
       },
       {
+        "region_a": "Erdos-Straus-conjecture-solver",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9278,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2,
+        "overlap_score": 0.4311
+      },
+      {
         "region_a": "neon_dissection",
         "region_b": "node24-ci-guard-complete",
         "cosine_similarity": 0.9701,
@@ -24186,6 +24298,14 @@
         "overlap_score": 0.4298
       },
       {
+        "region_a": "ProceduralCarGenerator",
+        "region_b": "project_manager",
+        "cosine_similarity": 0.9788,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1274,
+        "overlap_score": 0.4298
+      },
+      {
         "region_a": "arc_agi_2_submission",
         "region_b": "vestibular_proof_kaggle",
         "cosine_similarity": 0.9842,
@@ -24223,14 +24343,6 @@
         "cosine_similarity": 0.9724,
         "name_affinity": 0.0,
         "size_proximity": 0.1358,
-        "overlap_score": 0.4297
-      },
-      {
-        "region_a": "ProceduralCarGenerator",
-        "region_b": "project_manager",
-        "cosine_similarity": 0.9788,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1274,
         "overlap_score": 0.4297
       },
       {
@@ -24407,14 +24519,6 @@
         "cosine_similarity": 0.9766,
         "name_affinity": 0.0,
         "size_proximity": 0.1281,
-        "overlap_score": 0.4291
-      },
-      {
-        "region_a": "legal",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9365,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1818,
         "overlap_score": 0.4291
       },
       {
@@ -24794,6 +24898,14 @@
         "overlap_score": 0.4265
       },
       {
+        "region_a": "adk_prototype_project",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9938,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0962,
+        "overlap_score": 0.4264
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "deepseek_analysis",
         "cosine_similarity": 0.9919,
@@ -25114,14 +25226,6 @@
         "overlap_score": 0.4254
       },
       {
-        "region_a": "pangea-substrate",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9894,
-        "name_affinity": 0.0,
-        "size_proximity": 0.099,
-        "overlap_score": 0.4254
-      },
-      {
         "region_a": "adk_prototype_project",
         "region_b": "Erdos-Straus conjecture solver",
         "cosine_similarity": 0.9912,
@@ -25135,6 +25239,14 @@
         "cosine_similarity": 0.9926,
         "name_affinity": 0.0,
         "size_proximity": 0.0942,
+        "overlap_score": 0.4253
+      },
+      {
+        "region_a": "pangea-substrate",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9894,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0985,
         "overlap_score": 0.4253
       },
       {
@@ -25266,6 +25378,14 @@
         "overlap_score": 0.4248
       },
       {
+        "region_a": "ernie_agent",
+        "region_b": "project_manager",
+        "cosine_similarity": 0.9838,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1042,
+        "overlap_score": 0.4248
+      },
+      {
         "region_a": "forensics",
         "region_b": "kimi_density_spheres",
         "cosine_similarity": 0.9754,
@@ -25288,14 +25408,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.1154,
         "overlap_score": 0.4248
-      },
-      {
-        "region_a": "ernie_agent",
-        "region_b": "project_manager",
-        "cosine_similarity": 0.9838,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1042,
-        "overlap_score": 0.4247
       },
       {
         "region_a": "adk_prototype_project",
@@ -26066,6 +26178,14 @@
         "overlap_score": 0.4215
       },
       {
+        "region_a": "ai_agent_security_submission",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9783,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1,
+        "overlap_score": 0.4213
+      },
+      {
         "region_a": "ProceduralCarGenerator",
         "region_b": "sovereign_archive",
         "cosine_similarity": 0.9735,
@@ -26386,6 +26506,14 @@
         "overlap_score": 0.42
       },
       {
+        "region_a": "lenticular-3d-pipeline",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9792,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0943,
+        "overlap_score": 0.42
+      },
+      {
         "region_a": "legal",
         "region_b": "sync",
         "cosine_similarity": 0.957,
@@ -26455,6 +26583,14 @@
         "cosine_similarity": 0.983,
         "name_affinity": 0.0,
         "size_proximity": 0.0882,
+        "overlap_score": 0.4196
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "trenchos",
+        "cosine_similarity": 0.9726,
+        "name_affinity": 0.0,
+        "size_proximity": 0.102,
         "overlap_score": 0.4196
       },
       {
@@ -26640,14 +26776,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0804,
         "overlap_score": 0.4188
-      },
-      {
-        "region_a": "ai_agent_security_submission",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9718,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1,
-        "overlap_score": 0.4187
       },
       {
         "region_a": "chronos",
@@ -26866,6 +26994,14 @@
         "overlap_score": 0.4177
       },
       {
+        "region_a": "manifold_orchestrator",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9974,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0625,
+        "overlap_score": 0.4177
+      },
+      {
         "region_a": "manta_flight_feel",
         "region_b": "victus_bios_tool",
         "cosine_similarity": 0.9964,
@@ -26999,6 +27135,14 @@
         "cosine_similarity": 0.9877,
         "name_affinity": 0.0,
         "size_proximity": 0.0741,
+        "overlap_score": 0.4173
+      },
+      {
+        "region_a": "SubstrateDeltaSieve",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.994,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0658,
         "overlap_score": 0.4173
       },
       {
@@ -27186,6 +27330,14 @@
         "overlap_score": 0.4167
       },
       {
+        "region_a": "trench_builder",
+        "region_b": "vinculum-agent",
+        "cosine_similarity": 0.9993,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0566,
+        "overlap_score": 0.4167
+      },
+      {
         "region_a": "arc-prize-2026-arc-agi-3",
         "region_b": "aurora_archive",
         "cosine_similarity": 0.9893,
@@ -27199,14 +27351,6 @@
         "cosine_similarity": 0.9895,
         "name_affinity": 0.0,
         "size_proximity": 0.0693,
-        "overlap_score": 0.4166
-      },
-      {
-        "region_a": "trench_builder",
-        "region_b": "vinculum-agent",
-        "cosine_similarity": 0.9993,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0564,
         "overlap_score": 0.4166
       },
       {
@@ -27567,6 +27711,14 @@
         "cosine_similarity": 0.9997,
         "name_affinity": 0.0,
         "size_proximity": 0.0513,
+        "overlap_score": 0.4153
+      },
+      {
+        "region_a": "deepbio-prompt-pack",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.997,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0549,
         "overlap_score": 0.4153
       },
       {
@@ -28130,14 +28282,6 @@
         "overlap_score": 0.4131
       },
       {
-        "region_a": "fractype",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9964,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0485,
-        "overlap_score": 0.4131
-      },
-      {
         "region_a": "prompt-asset-writer",
         "region_b": "sync",
         "cosine_similarity": 0.9556,
@@ -28151,6 +28295,14 @@
         "cosine_similarity": 0.9948,
         "name_affinity": 0.0,
         "size_proximity": 0.05,
+        "overlap_score": 0.413
+      },
+      {
+        "region_a": "fractype",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9964,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0483,
         "overlap_score": 0.413
       },
       {
@@ -28634,6 +28786,14 @@
         "overlap_score": 0.4117
       },
       {
+        "region_a": "aegis_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9777,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0685,
+        "overlap_score": 0.4116
+      },
+      {
         "region_a": "fleet",
         "region_b": "guinea-pig-trench-portal",
         "cosine_similarity": 0.9886,
@@ -28727,6 +28887,14 @@
         "cosine_similarity": 0.9909,
         "name_affinity": 0.0,
         "size_proximity": 0.0491,
+        "overlap_score": 0.4111
+      },
+      {
+        "region_a": "manifold-model-router",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9816,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0617,
         "overlap_score": 0.4111
       },
       {
@@ -29170,6 +29338,14 @@
         "overlap_score": 0.4096
       },
       {
+        "region_a": "ascii_research_presentation",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9898,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0455,
+        "overlap_score": 0.4096
+      },
+      {
         "region_a": "continuum-foundry",
         "region_b": "ernie_agent",
         "cosine_similarity": 0.8719,
@@ -29602,6 +29778,14 @@
         "overlap_score": 0.4084
       },
       {
+        "region_a": "soilmachine-api",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9979,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0307,
+        "overlap_score": 0.4084
+      },
+      {
         "region_a": "ai_agent_security_submission",
         "region_b": "density_spheres",
         "cosine_similarity": 0.9584,
@@ -29810,14 +29994,6 @@
         "overlap_score": 0.4079
       },
       {
-        "region_a": "blooming-onion",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9826,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0494,
-        "overlap_score": 0.4079
-      },
-      {
         "region_a": "chronos",
         "region_b": "vinc-engine",
         "cosine_similarity": 0.9918,
@@ -29856,6 +30032,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0362,
         "overlap_score": 0.4079
+      },
+      {
+        "region_a": "blooming-onion",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9827,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0492,
+        "overlap_score": 0.4078
       },
       {
         "region_a": "bounty_scout_agent",
@@ -30066,6 +30250,14 @@
         "overlap_score": 0.4075
       },
       {
+        "region_a": "continuum-foundry",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.8935,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1667,
+        "overlap_score": 0.4074
+      },
+      {
         "region_a": "pangea-substrate",
         "region_b": "part_affordance",
         "cosine_similarity": 0.9854,
@@ -30111,6 +30303,14 @@
         "cosine_similarity": 0.9712,
         "name_affinity": 0.0,
         "size_proximity": 0.0628,
+        "overlap_score": 0.4073
+      },
+      {
+        "region_a": "bounty_scout_agent",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.999,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0258,
         "overlap_score": 0.4073
       },
       {
@@ -30410,6 +30610,14 @@
         "overlap_score": 0.4066
       },
       {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "vinc-engine",
+        "cosine_similarity": 0.9952,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0282,
+        "overlap_score": 0.4066
+      },
+      {
         "region_a": "aetherion-continuum",
         "region_b": "asset_pack",
         "cosine_similarity": 0.9691,
@@ -30478,7 +30686,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.999,
         "name_affinity": 0.0,
-        "size_proximity": 0.0218,
+        "size_proximity": 0.0219,
         "overlap_score": 0.4062
       },
       {
@@ -30503,6 +30711,14 @@
         "cosine_similarity": 0.9647,
         "name_affinity": 0.0,
         "size_proximity": 0.0678,
+        "overlap_score": 0.4062
+      },
+      {
+        "region_a": "sync",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9734,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0562,
         "overlap_score": 0.4062
       },
       {
@@ -30754,11 +30970,11 @@
         "overlap_score": 0.4056
       },
       {
-        "region_a": "neon_dissection",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9952,
+        "region_a": "sieve_api_deployment",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9901,
         "name_affinity": 0.0,
-        "size_proximity": 0.025,
+        "size_proximity": 0.0318,
         "overlap_score": 0.4056
       },
       {
@@ -30799,6 +31015,14 @@
         "cosine_similarity": 0.9598,
         "name_affinity": 0.0,
         "size_proximity": 0.0719,
+        "overlap_score": 0.4055
+      },
+      {
+        "region_a": "neon_dissection",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9952,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0249,
         "overlap_score": 0.4055
       },
       {
@@ -30882,6 +31106,14 @@
         "overlap_score": 0.4053
       },
       {
+        "region_a": "gcp_integrations",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9994,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0186,
+        "overlap_score": 0.4053
+      },
+      {
         "region_a": "ale",
         "region_b": "manifold-model-router",
         "cosine_similarity": 0.9802,
@@ -30919,6 +31151,14 @@
         "cosine_similarity": 0.9881,
         "name_affinity": 0.0,
         "size_proximity": 0.0332,
+        "overlap_score": 0.4052
+      },
+      {
+        "region_a": "SOVEREIGN RESONANCE",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.8629,
+        "name_affinity": 0.0,
+        "size_proximity": 0.2,
         "overlap_score": 0.4052
       },
       {
@@ -31047,6 +31287,14 @@
         "cosine_similarity": 0.9913,
         "name_affinity": 0.0,
         "size_proximity": 0.0281,
+        "overlap_score": 0.4049
+      },
+      {
+        "region_a": "gpt-verify",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9989,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0177,
         "overlap_score": 0.4049
       },
       {
@@ -31402,14 +31650,6 @@
         "overlap_score": 0.4042
       },
       {
-        "region_a": "hyperpoly-terrain",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9928,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0235,
-        "overlap_score": 0.4042
-      },
-      {
         "region_a": "neon-ghost-drift",
         "region_b": "pangea_core",
         "cosine_similarity": 0.9778,
@@ -31426,14 +31666,6 @@
         "overlap_score": 0.4041
       },
       {
-        "region_a": "chronos",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9844,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0343,
-        "overlap_score": 0.4041
-      },
-      {
         "region_a": "copilot-worktrees",
         "region_b": "prompt-asset-writer",
         "cosine_similarity": 0.996,
@@ -31447,6 +31679,14 @@
         "cosine_similarity": 0.9922,
         "name_affinity": 0.0,
         "size_proximity": 0.024,
+        "overlap_score": 0.4041
+      },
+      {
+        "region_a": "hyperpoly-terrain",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9928,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0234,
         "overlap_score": 0.4041
       },
       {
@@ -31479,6 +31719,14 @@
         "cosine_similarity": 0.9711,
         "name_affinity": 0.0,
         "size_proximity": 0.0519,
+        "overlap_score": 0.404
+      },
+      {
+        "region_a": "chronos",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9844,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0342,
         "overlap_score": 0.404
       },
       {
@@ -31626,6 +31874,14 @@
         "overlap_score": 0.4038
       },
       {
+        "region_a": "agent_swarm",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9921,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0231,
+        "overlap_score": 0.4038
+      },
+      {
         "region_a": "arc-prize-2026-arc-agi-3",
         "region_b": "thrown-planet",
         "cosine_similarity": 0.9851,
@@ -31732,7 +31988,7 @@
       {
         "region_a": "aegis_archive",
         "region_b": "project_manager",
-        "cosine_similarity": 0.9705,
+        "cosine_similarity": 0.9706,
         "name_affinity": 0.0,
         "size_proximity": 0.0514,
         "overlap_score": 0.4036
@@ -31830,7 +32086,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9877,
         "name_affinity": 0.0,
-        "size_proximity": 0.0281,
+        "size_proximity": 0.028,
         "overlap_score": 0.4035
       },
       {
@@ -31938,6 +32194,14 @@
         "overlap_score": 0.4034
       },
       {
+        "region_a": "manta_flight_feel",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.937,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0952,
+        "overlap_score": 0.4034
+      },
+      {
         "region_a": "mantra-fm",
         "region_b": "neon-ghost-drift",
         "cosine_similarity": 0.9997,
@@ -31991,6 +32255,14 @@
         "cosine_similarity": 0.9945,
         "name_affinity": 0.0,
         "size_proximity": 0.0185,
+        "overlap_score": 0.4033
+      },
+      {
+        "region_a": "pangea_core",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9992,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0121,
         "overlap_score": 0.4033
       },
       {
@@ -32055,6 +32327,14 @@
         "cosine_similarity": 0.9781,
         "name_affinity": 0.0,
         "size_proximity": 0.0396,
+        "overlap_score": 0.4031
+      },
+      {
+        "region_a": "parallax",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9783,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0394,
         "overlap_score": 0.4031
       },
       {
@@ -32234,6 +32514,22 @@
         "overlap_score": 0.4028
       },
       {
+        "region_a": "arc_agi_2_submission",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9663,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0541,
+        "overlap_score": 0.4027
+      },
+      {
+        "region_a": "arc_agi_3_submission",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9663,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0541,
+        "overlap_score": 0.4027
+      },
+      {
         "region_a": "erdos-straus-github",
         "region_b": "manifold",
         "cosine_similarity": 0.9864,
@@ -32330,6 +32626,14 @@
         "overlap_score": 0.4024
       },
       {
+        "region_a": "onboarding_tools",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9996,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0084,
+        "overlap_score": 0.4024
+      },
+      {
         "region_a": "arc-prize-2026-arc-agi-3",
         "region_b": "echoes-of-the-fracture",
         "cosine_similarity": 0.9964,
@@ -32367,6 +32671,14 @@
         "cosine_similarity": 0.9806,
         "name_affinity": 0.0,
         "size_proximity": 0.0334,
+        "overlap_score": 0.4023
+      },
+      {
+        "region_a": "jules-proxy",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9954,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0136,
         "overlap_score": 0.4023
       },
       {
@@ -32738,6 +33050,14 @@
         "overlap_score": 0.4015
       },
       {
+        "region_a": "forensics",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9767,
+        "name_affinity": 0.0,
+        "size_proximity": 0.036,
+        "overlap_score": 0.4015
+      },
+      {
         "region_a": "fractype",
         "region_b": "kaggle_submissions",
         "cosine_similarity": 0.9989,
@@ -32767,6 +33087,14 @@
         "cosine_similarity": 0.9825,
         "name_affinity": 0.0,
         "size_proximity": 0.0282,
+        "overlap_score": 0.4014
+      },
+      {
+        "region_a": "ernie_agent",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9781,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0338,
         "overlap_score": 0.4014
       },
       {
@@ -32842,6 +33170,14 @@
         "overlap_score": 0.4012
       },
       {
+        "region_a": "collatz-exploration",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9922,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0142,
+        "overlap_score": 0.4012
+      },
+      {
         "region_a": "flux-chamber",
         "region_b": "lenticular-3d-pipeline",
         "cosine_similarity": 0.9659,
@@ -32914,6 +33250,14 @@
         "overlap_score": 0.401
       },
       {
+        "region_a": "echoes-of-the-fracture",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9928,
+        "name_affinity": 0.0,
+        "size_proximity": 0.013,
+        "overlap_score": 0.401
+      },
+      {
         "region_a": "hyperpoly-terrain",
         "region_b": "manifold_orchestrator",
         "cosine_similarity": 0.9839,
@@ -32975,6 +33319,14 @@
         "cosine_similarity": 0.9677,
         "name_affinity": 0.0,
         "size_proximity": 0.046,
+        "overlap_score": 0.4009
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "victus_bios_tool",
+        "cosine_similarity": 0.9909,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0152,
         "overlap_score": 0.4009
       },
       {
@@ -33050,6 +33402,14 @@
         "overlap_score": 0.4008
       },
       {
+        "region_a": "roto_extractor",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.992,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0132,
+        "overlap_score": 0.4008
+      },
+      {
         "region_a": "advra_archive",
         "region_b": "avatar-core",
         "cosine_similarity": 0.9652,
@@ -33106,11 +33466,27 @@
         "overlap_score": 0.4007
       },
       {
+        "region_a": "fleet",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9976,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0057,
+        "overlap_score": 0.4007
+      },
+      {
         "region_a": "neon_dissection",
         "region_b": "sieve_api_deployment",
         "cosine_similarity": 0.9676,
         "name_affinity": 0.0,
         "size_proximity": 0.0455,
+        "overlap_score": 0.4007
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "void_archive",
+        "cosine_similarity": 0.9915,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0136,
         "overlap_score": 0.4007
       },
       {
@@ -33290,6 +33666,14 @@
         "overlap_score": 0.4004
       },
       {
+        "region_a": "manifold-risk-engine",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9959,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0069,
+        "overlap_score": 0.4004
+      },
+      {
         "region_a": "manta_flight_feel",
         "region_b": "prompt-asset-writer",
         "cosine_similarity": 0.9828,
@@ -33359,6 +33743,14 @@
         "cosine_similarity": 0.9767,
         "name_affinity": 0.0,
         "size_proximity": 0.0321,
+        "overlap_score": 0.4003
+      },
+      {
+        "region_a": "deepseek_analysis",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9956,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0068,
         "overlap_score": 0.4003
       },
       {
@@ -33554,6 +33946,22 @@
         "overlap_score": 0.4001
       },
       {
+        "region_a": "lenticular_pipeline",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9938,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0085,
+        "overlap_score": 0.4001
+      },
+      {
+        "region_a": "manifold",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.995,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0069,
+        "overlap_score": 0.4001
+      },
+      {
         "region_a": "neon-ghost-drift",
         "region_b": "research",
         "cosine_similarity": 0.994,
@@ -33738,14 +34146,6 @@
         "overlap_score": 0.3998
       },
       {
-        "region_a": "eclipse-of-the-vale",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9845,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0198,
-        "overlap_score": 0.3998
-      },
-      {
         "region_a": "legal",
         "region_b": "research",
         "cosine_similarity": 0.9958,
@@ -33775,6 +34175,14 @@
         "cosine_similarity": 0.9877,
         "name_affinity": 0.0,
         "size_proximity": 0.0155,
+        "overlap_score": 0.3997
+      },
+      {
+        "region_a": "eclipse-of-the-vale",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9845,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0198,
         "overlap_score": 0.3997
       },
       {
@@ -33874,6 +34282,14 @@
         "overlap_score": 0.3996
       },
       {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "vestibular_proof_kaggle",
+        "cosine_similarity": 0.9868,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0162,
+        "overlap_score": 0.3996
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "mantra-fm",
         "cosine_similarity": 0.9627,
@@ -33919,6 +34335,14 @@
         "cosine_similarity": 0.9465,
         "name_affinity": 0.0,
         "size_proximity": 0.0695,
+        "overlap_score": 0.3995
+      },
+      {
+        "region_a": "Echoes-of-the-Fracture-Temporal-Citadel",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9905,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0108,
         "overlap_score": 0.3995
       },
       {
@@ -34030,7 +34454,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9862,
         "name_affinity": 0.0,
-        "size_proximity": 0.0164,
+        "size_proximity": 0.0163,
         "overlap_score": 0.3994
       },
       {
@@ -34066,27 +34490,19 @@
         "overlap_score": 0.3994
       },
       {
+        "region_a": "prompt-asset-writer-templates",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9926,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0079,
+        "overlap_score": 0.3994
+      },
+      {
         "region_a": "_archive_vinculum_dedupe",
         "region_b": "erdos-straus-github",
         "cosine_similarity": 0.9575,
         "name_affinity": 0.0,
         "size_proximity": 0.0543,
-        "overlap_score": 0.3993
-      },
-      {
-        "region_a": "arc_agi_2_submission",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9577,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0541,
-        "overlap_score": 0.3993
-      },
-      {
-        "region_a": "arc_agi_3_submission",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9577,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0541,
         "overlap_score": 0.3993
       },
       {
@@ -34178,6 +34594,14 @@
         "overlap_score": 0.3992
       },
       {
+        "region_a": "eclipse-of-the-vale",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9967,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0018,
+        "overlap_score": 0.3992
+      },
+      {
         "region_a": "erdos-straus",
         "region_b": "lavish_furniture",
         "cosine_similarity": 0.9901,
@@ -34223,6 +34647,14 @@
         "cosine_similarity": 0.9978,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
+        "overlap_score": 0.3992
+      },
+      {
+        "region_a": "sovereign_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9958,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0029,
         "overlap_score": 0.3992
       },
       {
@@ -34346,6 +34778,14 @@
         "overlap_score": 0.399
       },
       {
+        "region_a": "prompt-asset-writer",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9932,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0058,
+        "overlap_score": 0.399
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "chronos",
         "cosine_similarity": 0.9879,
@@ -34410,6 +34850,14 @@
         "overlap_score": 0.3989
       },
       {
+        "region_a": "mycelia_game",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9925,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0063,
+        "overlap_score": 0.3989
+      },
+      {
         "region_a": "pangea-substrate",
         "region_b": "vinc-engine",
         "cosine_similarity": 0.9875,
@@ -34430,7 +34878,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9869,
         "name_affinity": 0.0,
-        "size_proximity": 0.0135,
+        "size_proximity": 0.0134,
         "overlap_score": 0.3988
       },
       {
@@ -34455,6 +34903,14 @@
         "cosine_similarity": 0.986,
         "name_affinity": 0.0,
         "size_proximity": 0.0148,
+        "overlap_score": 0.3988
+      },
+      {
+        "region_a": "ProceduralCarGenerator",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9762,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0276,
         "overlap_score": 0.3988
       },
       {
@@ -34530,11 +34986,27 @@
         "overlap_score": 0.3986
       },
       {
+        "region_a": "bridge",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9949,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0022,
+        "overlap_score": 0.3986
+      },
+      {
         "region_a": "COMMENCINGTHESCOURGE",
         "region_b": "deepseek_analysis",
         "cosine_similarity": 0.9671,
         "name_affinity": 0.0,
         "size_proximity": 0.0392,
+        "overlap_score": 0.3986
+      },
+      {
+        "region_a": "prompt-asset-demo-pipeline",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9888,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0102,
         "overlap_score": 0.3986
       },
       {
@@ -34623,6 +35095,14 @@
         "cosine_similarity": 0.9929,
         "name_affinity": 0.0,
         "size_proximity": 0.0043,
+        "overlap_score": 0.3984
+      },
+      {
+        "region_a": "ale",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9939,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0027,
         "overlap_score": 0.3984
       },
       {
@@ -34866,6 +35346,14 @@
         "overlap_score": 0.3982
       },
       {
+        "region_a": "hyperpoly-terrain",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9942,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0015,
+        "overlap_score": 0.3982
+      },
+      {
         "region_a": "legal",
         "region_b": "pangea-substrate",
         "cosine_similarity": 0.9948,
@@ -34962,6 +35450,14 @@
         "overlap_score": 0.398
       },
       {
+        "region_a": "flux-chamber",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9914,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0047,
+        "overlap_score": 0.398
+      },
+      {
         "region_a": "fractype",
         "region_b": "PCRA CP-02-CR-0005640-2024",
         "cosine_similarity": 0.9949,
@@ -34982,7 +35478,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.993,
         "name_affinity": 0.0,
-        "size_proximity": 0.0027,
+        "size_proximity": 0.0026,
         "overlap_score": 0.398
       },
       {
@@ -35023,6 +35519,14 @@
         "cosine_similarity": 0.9792,
         "name_affinity": 0.0,
         "size_proximity": 0.0209,
+        "overlap_score": 0.3979
+      },
+      {
+        "region_a": "aetheris_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9937,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0013,
         "overlap_score": 0.3979
       },
       {
@@ -35090,6 +35594,14 @@
         "overlap_score": 0.3978
       },
       {
+        "region_a": "avatar",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9766,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0239,
+        "overlap_score": 0.3978
+      },
+      {
         "region_a": "chronos",
         "region_b": "parallax",
         "cosine_similarity": 0.9743,
@@ -35138,11 +35650,11 @@
         "overlap_score": 0.3978
       },
       {
-        "region_a": "sovereign_archive",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9851,
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "vinculum-self-audit",
+        "cosine_similarity": 0.9876,
         "name_affinity": 0.0,
-        "size_proximity": 0.0123,
+        "size_proximity": 0.0093,
         "overlap_score": 0.3978
       },
       {
@@ -35178,11 +35690,59 @@
         "overlap_score": 0.3977
       },
       {
+        "region_a": "kimi_density_spheres",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9911,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0041,
+        "overlap_score": 0.3977
+      },
+      {
+        "region_a": "kimi_sealed_spheres",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9911,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0041,
+        "overlap_score": 0.3977
+      },
+      {
+        "region_a": "lavish_furniture",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9912,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0039,
+        "overlap_score": 0.3977
+      },
+      {
         "region_a": "legal",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.9942,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3977
+      },
+      {
+        "region_a": "quantum_garden",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9911,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0042,
+        "overlap_score": 0.3977
+      },
+      {
+        "region_a": "sovereign_archive",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9851,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0123,
+        "overlap_score": 0.3977
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "voxel_atelier",
+        "cosine_similarity": 0.9911,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0041,
         "overlap_score": 0.3977
       },
       {
@@ -35223,6 +35783,14 @@
         "cosine_similarity": 0.9707,
         "name_affinity": 0.0,
         "size_proximity": 0.0311,
+        "overlap_score": 0.3976
+      },
+      {
+        "region_a": "sovereign_resonance",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9912,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0039,
         "overlap_score": 0.3976
       },
       {
@@ -35303,6 +35871,22 @@
         "cosine_similarity": 0.9856,
         "name_affinity": 0.0,
         "size_proximity": 0.0107,
+        "overlap_score": 0.3974
+      },
+      {
+        "region_a": "asset_pack",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9914,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0029,
+        "overlap_score": 0.3974
+      },
+      {
+        "region_a": "blooming-onion",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.993,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0007,
         "overlap_score": 0.3974
       },
       {
@@ -35438,7 +36022,15 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9885,
         "name_affinity": 0.0,
-        "size_proximity": 0.0063,
+        "size_proximity": 0.0062,
+        "overlap_score": 0.3973
+      },
+      {
+        "region_a": "research",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9915,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0023,
         "overlap_score": 0.3973
       },
       {
@@ -35479,6 +36071,22 @@
         "cosine_similarity": 0.9923,
         "name_affinity": 0.0,
         "size_proximity": 0.0009,
+        "overlap_score": 0.3972
+      },
+      {
+        "region_a": "manifold_orchestrator",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9743,
+        "name_affinity": 0.0,
+        "size_proximity": 0.025,
+        "overlap_score": 0.3972
+      },
+      {
+        "region_a": "minicity",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9884,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0062,
         "overlap_score": 0.3972
       },
       {
@@ -35610,11 +36218,35 @@
         "overlap_score": 0.397
       },
       {
+        "region_a": "neon_dissection",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9914,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0014,
+        "overlap_score": 0.397
+      },
+      {
+        "region_a": "aurora_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9906,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0023,
+        "overlap_score": 0.3969
+      },
+      {
         "region_a": "chronos",
         "region_b": "forensics",
         "cosine_similarity": 0.9704,
         "name_affinity": 0.0,
         "size_proximity": 0.0294,
+        "overlap_score": 0.3969
+      },
+      {
+        "region_a": "chronos",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9915,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0011,
         "overlap_score": 0.3969
       },
       {
@@ -35647,6 +36279,14 @@
         "cosine_similarity": 0.9612,
         "name_affinity": 0.0,
         "size_proximity": 0.0414,
+        "overlap_score": 0.3969
+      },
+      {
+        "region_a": "node24-ci-guard-complete",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9847,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0101,
         "overlap_score": 0.3969
       },
       {
@@ -35735,6 +36375,14 @@
         "cosine_similarity": 0.9599,
         "name_affinity": 0.0,
         "size_proximity": 0.0424,
+        "overlap_score": 0.3967
+      },
+      {
+        "region_a": "avatar-core",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9863,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0072,
         "overlap_score": 0.3967
       },
       {
@@ -35882,6 +36530,14 @@
         "overlap_score": 0.3965
       },
       {
+        "region_a": "density_spheres",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9757,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0208,
+        "overlap_score": 0.3965
+      },
+      {
         "region_a": "dev_archive",
         "region_b": "manifold",
         "cosine_similarity": 0.9826,
@@ -35951,6 +36607,14 @@
         "cosine_similarity": 0.9901,
         "name_affinity": 0.0,
         "size_proximity": 0.0014,
+        "overlap_score": 0.3965
+      },
+      {
+        "region_a": "obsidian-city",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9753,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0215,
         "overlap_score": 0.3965
       },
       {
@@ -36026,6 +36690,14 @@
         "overlap_score": 0.3963
       },
       {
+        "region_a": "fractype",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9902,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0007,
+        "overlap_score": 0.3963
+      },
+      {
         "region_a": "kaggle_submissions",
         "region_b": "PCRA CP-02-CR-0005640-2024",
         "cosine_similarity": 0.9908,
@@ -36078,7 +36750,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9848,
         "name_affinity": 0.0,
-        "size_proximity": 0.0078,
+        "size_proximity": 0.0077,
         "overlap_score": 0.3962
       },
       {
@@ -36250,6 +36922,14 @@
         "overlap_score": 0.396
       },
       {
+        "region_a": "pangea-substrate",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9896,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0004,
+        "overlap_score": 0.396
+      },
+      {
         "region_a": "pangea_core",
         "region_b": "PCRA CP-02-CR-0005640-2024",
         "cosine_similarity": 0.9863,
@@ -36279,6 +36959,14 @@
         "cosine_similarity": 0.9859,
         "name_affinity": 0.0,
         "size_proximity": 0.0052,
+        "overlap_score": 0.3959
+      },
+      {
+        "region_a": "commencethescourge-erdos",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9895,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0003,
         "overlap_score": 0.3959
       },
       {
@@ -36319,6 +37007,14 @@
         "cosine_similarity": 0.9896,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
+        "overlap_score": 0.3959
+      },
+      {
+        "region_a": "starfield_v3",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9871,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0034,
         "overlap_score": 0.3959
       },
       {
@@ -36378,11 +37074,27 @@
         "overlap_score": 0.3958
       },
       {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "xpbd_solver",
+        "cosine_similarity": 0.9749,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0193,
+        "overlap_score": 0.3958
+      },
+      {
         "region_a": "adk_prototype_project",
         "region_b": "blooming-onion",
         "cosine_similarity": 0.9836,
         "name_affinity": 0.0,
         "size_proximity": 0.0076,
+        "overlap_score": 0.3957
+      },
+      {
+        "region_a": "ashfall-relic-protocol",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9861,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0042,
         "overlap_score": 0.3957
       },
       {
@@ -36447,6 +37159,14 @@
         "cosine_similarity": 0.9805,
         "name_affinity": 0.0,
         "size_proximity": 0.0114,
+        "overlap_score": 0.3956
+      },
+      {
+        "region_a": "copilot-worktrees",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9889,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
         "overlap_score": 0.3956
       },
       {
@@ -36778,6 +37498,14 @@
         "overlap_score": 0.3952
       },
       {
+        "region_a": "arc-prize-2026-arc-agi-3",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9876,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0002,
+        "overlap_score": 0.3951
+      },
+      {
         "region_a": "ashfall-relic-protocol",
         "region_b": "legal",
         "cosine_similarity": 0.9808,
@@ -36970,6 +37698,22 @@
         "overlap_score": 0.3949
       },
       {
+        "region_a": "guinea-pig-trench-portal",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.987,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0003,
+        "overlap_score": 0.3949
+      },
+      {
+        "region_a": "labyrinth_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9817,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0074,
+        "overlap_score": 0.3949
+      },
+      {
         "region_a": "PCRA CP-02-CR-0005640-2024",
         "region_b": "prompt-asset-writer",
         "cosine_similarity": 0.9856,
@@ -37098,6 +37842,14 @@
         "overlap_score": 0.3947
       },
       {
+        "region_a": "part_affordance",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9804,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0083,
+        "overlap_score": 0.3947
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "pangea_core",
         "cosine_similarity": 0.9856,
@@ -37202,6 +37954,14 @@
         "overlap_score": 0.3946
       },
       {
+        "region_a": "kaggle_submissions",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9864,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3946
+      },
+      {
         "region_a": "legal",
         "region_b": "mantra-fm",
         "cosine_similarity": 0.9811,
@@ -37210,19 +37970,19 @@
         "overlap_score": 0.3946
       },
       {
-        "region_a": "manta_flight_feel",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.915,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0952,
-        "overlap_score": 0.3946
-      },
-      {
         "region_a": "node24-ci-guard-complete",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.9861,
         "name_affinity": 0.0,
         "size_proximity": 0.0005,
+        "overlap_score": 0.3946
+      },
+      {
+        "region_a": "sovereign-resonance-node",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9864,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3946
       },
       {
@@ -37362,11 +38122,27 @@
         "overlap_score": 0.3944
       },
       {
+        "region_a": "neon-ghost-drift",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9027,
+        "name_affinity": 0.0,
+        "size_proximity": 0.1111,
+        "overlap_score": 0.3944
+      },
+      {
         "region_a": "pangea_core",
         "region_b": "trench_builder",
         "cosine_similarity": 0.9838,
         "name_affinity": 0.0,
         "size_proximity": 0.003,
+        "overlap_score": 0.3944
+      },
+      {
+        "region_a": "project_manager",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9834,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0035,
         "overlap_score": 0.3944
       },
       {
@@ -37391,6 +38167,14 @@
         "cosine_similarity": 0.9736,
         "name_affinity": 0.0,
         "size_proximity": 0.0162,
+        "overlap_score": 0.3943
+      },
+      {
+        "region_a": "erdos-straus-github",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9856,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0002,
         "overlap_score": 0.3943
       },
       {
@@ -37682,6 +38466,14 @@
         "overlap_score": 0.3938
       },
       {
+        "region_a": "adk_prototype_project",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9556,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0385,
+        "overlap_score": 0.3938
+      },
+      {
         "region_a": "avatar",
         "region_b": "continuum-foundry",
         "cosine_similarity": 0.8769,
@@ -37719,6 +38511,14 @@
         "cosine_similarity": 0.9825,
         "name_affinity": 0.0,
         "size_proximity": 0.0028,
+        "overlap_score": 0.3938
+      },
+      {
+        "region_a": "erdos-straus",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9846,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3938
       },
       {
@@ -38082,11 +38882,11 @@
         "overlap_score": 0.3933
       },
       {
-        "region_a": "asset_pack",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9736,
+        "region_a": "COMMENCINGTHESCOURGE",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9829,
         "name_affinity": 0.0,
-        "size_proximity": 0.0124,
+        "size_proximity": 0.0003,
         "overlap_score": 0.3932
       },
       {
@@ -38095,6 +38895,14 @@
         "cosine_similarity": 0.8586,
         "name_affinity": 0.0,
         "size_proximity": 0.1657,
+        "overlap_score": 0.3932
+      },
+      {
+        "region_a": "dev_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9829,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
         "overlap_score": 0.3932
       },
       {
@@ -38119,6 +38927,14 @@
         "cosine_similarity": 0.9725,
         "name_affinity": 0.0,
         "size_proximity": 0.0135,
+        "overlap_score": 0.3931
+      },
+      {
+        "region_a": "asset_pack",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9736,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0124,
         "overlap_score": 0.3931
       },
       {
@@ -38223,6 +39039,14 @@
         "cosine_similarity": 0.962,
         "name_affinity": 0.0,
         "size_proximity": 0.027,
+        "overlap_score": 0.3929
+      },
+      {
+        "region_a": "aetherion-continuum",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9821,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0002,
         "overlap_score": 0.3929
       },
       {
@@ -38450,6 +39274,14 @@
         "overlap_score": 0.3925
       },
       {
+        "region_a": "ashfall-city",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9733,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0106,
+        "overlap_score": 0.3925
+      },
+      {
         "region_a": "avatar",
         "region_b": "pangea-substrate",
         "cosine_similarity": 0.9697,
@@ -38519,6 +39351,14 @@
         "cosine_similarity": 0.9571,
         "name_affinity": 0.0,
         "size_proximity": 0.0317,
+        "overlap_score": 0.3924
+      },
+      {
+        "region_a": "advra_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9369,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0588,
         "overlap_score": 0.3924
       },
       {
@@ -38686,7 +39526,15 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9772,
         "name_affinity": 0.0,
-        "size_proximity": 0.0043,
+        "size_proximity": 0.0042,
+        "overlap_score": 0.3922
+      },
+      {
+        "region_a": "mantra-fm",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.978,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0033,
         "overlap_score": 0.3922
       },
       {
@@ -38826,6 +39674,14 @@
         "overlap_score": 0.3921
       },
       {
+        "region_a": "_archive_vinculum_dedupe",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9774,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0034,
+        "overlap_score": 0.392
+      },
+      {
         "region_a": "arc_agi_2_submission",
         "region_b": "bridge",
         "cosine_similarity": 0.9677,
@@ -38880,6 +39736,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0015,
         "overlap_score": 0.392
+      },
+      {
+        "region_a": "acoustic_archive",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9798,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3919
       },
       {
         "region_a": "fleet",
@@ -39074,6 +39938,14 @@
         "overlap_score": 0.3917
       },
       {
+        "region_a": "neon-arena",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9726,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0089,
+        "overlap_score": 0.3917
+      },
+      {
         "region_a": "aetherion-continuum",
         "region_b": "vinculum-self-audit",
         "cosine_similarity": 0.9642,
@@ -39230,7 +40102,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9702,
         "name_affinity": 0.0,
-        "size_proximity": 0.011,
+        "size_proximity": 0.0109,
         "overlap_score": 0.3914
       },
       {
@@ -39418,6 +40290,14 @@
         "overlap_score": 0.3912
       },
       {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "trapezoid-canonical",
+        "cosine_similarity": 0.9752,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0037,
+        "overlap_score": 0.3912
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "project_manager",
         "cosine_similarity": 0.975,
@@ -39460,7 +40340,7 @@
       {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9779,
+        "cosine_similarity": 0.9778,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
         "overlap_score": 0.3911
@@ -39471,6 +40351,14 @@
         "cosine_similarity": 0.977,
         "name_affinity": 0.0,
         "size_proximity": 0.0011,
+        "overlap_score": 0.3911
+      },
+      {
+        "region_a": "headroom",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9777,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3911
       },
       {
@@ -39618,6 +40506,14 @@
         "overlap_score": 0.3909
       },
       {
+        "region_a": "mecha_robotics_kit",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9689,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0111,
+        "overlap_score": 0.3909
+      },
+      {
         "region_a": "minicity",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.9767,
@@ -39639,6 +40535,14 @@
         "cosine_similarity": 0.9769,
         "name_affinity": 0.0,
         "size_proximity": 0.0006,
+        "overlap_score": 0.3909
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9772,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3909
       },
       {
@@ -39743,14 +40647,6 @@
         "cosine_similarity": 0.9753,
         "name_affinity": 0.0,
         "size_proximity": 0.0019,
-        "overlap_score": 0.3907
-      },
-      {
-        "region_a": "manifold_orchestrator",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.958,
-        "name_affinity": 0.0,
-        "size_proximity": 0.025,
         "overlap_score": 0.3907
       },
       {
@@ -39887,6 +40783,14 @@
         "cosine_similarity": 0.9739,
         "name_affinity": 0.0,
         "size_proximity": 0.003,
+        "overlap_score": 0.3905
+      },
+      {
+        "region_a": "pangea_core",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9726,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0048,
         "overlap_score": 0.3905
       },
       {
@@ -40250,6 +41154,14 @@
         "overlap_score": 0.3898
       },
       {
+        "region_a": "shc",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9704,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0054,
+        "overlap_score": 0.3898
+      },
+      {
         "region_a": "_archive_vinculum_dedupe",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.9731,
@@ -40506,14 +41418,6 @@
         "overlap_score": 0.3893
       },
       {
-        "region_a": "sovereign_resonance",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9661,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0093,
-        "overlap_score": 0.3893
-      },
-      {
         "region_a": "ashfall-relic-protocol",
         "region_b": "dev_archive",
         "cosine_similarity": 0.9589,
@@ -40543,6 +41447,14 @@
         "cosine_similarity": 0.9589,
         "name_affinity": 0.0,
         "size_proximity": 0.0189,
+        "overlap_score": 0.3892
+      },
+      {
+        "region_a": "sovereign_resonance",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9661,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0093,
         "overlap_score": 0.3892
       },
       {
@@ -40778,6 +41690,14 @@
         "overlap_score": 0.3888
       },
       {
+        "region_a": "bounty_scout_agent",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9643,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0103,
+        "overlap_score": 0.3888
+      },
+      {
         "region_a": "collatz-exploration",
         "region_b": "erdos-straus",
         "cosine_similarity": 0.9698,
@@ -40882,6 +41802,14 @@
         "overlap_score": 0.3887
       },
       {
+        "region_a": "erdos-straus-solver",
+        "region_b": "THROWN PLANET Phase 1",
+        "cosine_similarity": 0.9719,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3887
+      },
+      {
         "region_a": "aetheris_archive",
         "region_b": "arc_agi_2_submission",
         "cosine_similarity": 0.9643,
@@ -40938,6 +41866,14 @@
         "overlap_score": 0.3886
       },
       {
+        "region_a": "gpt-verify",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9662,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0071,
+        "overlap_score": 0.3886
+      },
+      {
         "region_a": "fractype",
         "region_b": "manifold-model-router",
         "cosine_similarity": 0.9622,
@@ -40983,14 +41919,6 @@
         "cosine_similarity": 0.9704,
         "name_affinity": 0.0,
         "size_proximity": 0.0005,
-        "overlap_score": 0.3883
-      },
-      {
-        "region_a": "advra_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9266,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0588,
         "overlap_score": 0.3883
       },
       {
@@ -41298,6 +42226,14 @@
         "overlap_score": 0.388
       },
       {
+        "region_a": "neon_dissection",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9696,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0006,
+        "overlap_score": 0.388
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9669,
@@ -41386,14 +42322,6 @@
         "overlap_score": 0.3878
       },
       {
-        "region_a": "starfield_v3",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9615,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0105,
-        "overlap_score": 0.3878
-      },
-      {
         "region_a": "_archive_vinculum_dedupe",
         "region_b": "erdos-straus",
         "cosine_similarity": 0.9602,
@@ -41423,6 +42351,30 @@
         "cosine_similarity": 0.945,
         "name_affinity": 0.0,
         "size_proximity": 0.0324,
+        "overlap_score": 0.3877
+      },
+      {
+        "region_a": "soilmachine-api",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9601,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0123,
+        "overlap_score": 0.3877
+      },
+      {
+        "region_a": "starfield_v3",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9615,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0105,
+        "overlap_score": 0.3877
+      },
+      {
+        "region_a": "THROWN PLANET Phase 1",
+        "region_b": "vinculum-agent",
+        "cosine_similarity": 0.9692,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3877
       },
       {
@@ -41742,7 +42694,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9662,
         "name_affinity": 0.0,
-        "size_proximity": 0.0021,
+        "size_proximity": 0.002,
         "overlap_score": 0.3871
       },
       {
@@ -41823,14 +42775,6 @@
         "cosine_similarity": 0.967,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
-        "overlap_score": 0.3868
-      },
-      {
-        "region_a": "adk_prototype_project",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9383,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0385,
         "overlap_score": 0.3868
       },
       {
@@ -41922,6 +42866,14 @@
         "overlap_score": 0.3867
       },
       {
+        "region_a": "jules-proxy",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9627,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0054,
+        "overlap_score": 0.3867
+      },
+      {
         "region_a": "node24-ci-guard-complete",
         "region_b": "trench_builder",
         "cosine_similarity": 0.9641,
@@ -41935,6 +42887,14 @@
         "cosine_similarity": 0.9661,
         "name_affinity": 0.0,
         "size_proximity": 0.0005,
+        "overlap_score": 0.3866
+      },
+      {
+        "region_a": "aetherion-continuum",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9665,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
         "overlap_score": 0.3866
       },
       {
@@ -42143,6 +43103,14 @@
         "cosine_similarity": 0.9604,
         "name_affinity": 0.0,
         "size_proximity": 0.0059,
+        "overlap_score": 0.386
+      },
+      {
+        "region_a": "gcp_integrations",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9595,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0074,
         "overlap_score": 0.386
       },
       {
@@ -42442,6 +43410,14 @@
         "overlap_score": 0.3853
       },
       {
+        "region_a": "onboarding_tools",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9608,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0034,
+        "overlap_score": 0.3853
+      },
+      {
         "region_a": "adk_prototype_project",
         "region_b": "erdos-straus-github",
         "cosine_similarity": 0.9617,
@@ -42551,6 +43527,14 @@
         "cosine_similarity": 0.9624,
         "name_affinity": 0.0,
         "size_proximity": 0.0002,
+        "overlap_score": 0.385
+      },
+      {
+        "region_a": "deepbio-prompt-pack",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.946,
+        "name_affinity": 0.0,
+        "size_proximity": 0.022,
         "overlap_score": 0.385
       },
       {
@@ -42690,6 +43674,14 @@
         "overlap_score": 0.3847
       },
       {
+        "region_a": "THROWN PLANET",
+        "region_b": "trenchos",
+        "cosine_similarity": 0.9312,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0408,
+        "overlap_score": 0.3847
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "pangea-substrate",
         "cosine_similarity": 0.9575,
@@ -42700,7 +43692,7 @@
       {
         "region_a": "manifold_orchestrator",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9611,
+        "cosine_similarity": 0.961,
         "name_affinity": 0.0,
         "size_proximity": 0.0006,
         "overlap_score": 0.3846
@@ -42855,6 +43847,14 @@
         "cosine_similarity": 0.958,
         "name_affinity": 0.0,
         "size_proximity": 0.0032,
+        "overlap_score": 0.3842
+      },
+      {
+        "region_a": "SubstrateDeltaSieve",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9408,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0263,
         "overlap_score": 0.3842
       },
       {
@@ -43044,9 +44044,9 @@
       {
         "region_a": "mecha_robotics_kit",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9567,
+        "cosine_similarity": 0.9568,
         "name_affinity": 0.0,
-        "size_proximity": 0.0033,
+        "size_proximity": 0.0032,
         "overlap_score": 0.3837
       },
       {
@@ -43238,7 +44238,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9575,
         "name_affinity": 0.0,
-        "size_proximity": 0.0006,
+        "size_proximity": 0.0005,
         "overlap_score": 0.3832
       },
       {
@@ -43462,7 +44462,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9526,
         "name_affinity": 0.0,
-        "size_proximity": 0.0059,
+        "size_proximity": 0.0058,
         "overlap_score": 0.3828
       },
       {
@@ -43519,6 +44519,14 @@
         "cosine_similarity": 0.9565,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
+        "overlap_score": 0.3826
+      },
+      {
+        "region_a": "lenticular-3d-pipeline",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9282,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0377,
         "overlap_score": 0.3826
       },
       {
@@ -43642,6 +44650,14 @@
         "overlap_score": 0.3823
       },
       {
+        "region_a": "commencethescourge-erdos",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9556,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
+        "overlap_score": 0.3823
+      },
+      {
         "region_a": "copilot-worktrees",
         "region_b": "neon-arena",
         "cosine_similarity": 0.9463,
@@ -43726,7 +44742,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.953,
         "name_affinity": 0.0,
-        "size_proximity": 0.0028,
+        "size_proximity": 0.0027,
         "overlap_score": 0.382
       },
       {
@@ -43902,7 +44918,7 @@
         "region_b": "trench_builder",
         "cosine_similarity": 0.9504,
         "name_affinity": 0.0,
-        "size_proximity": 0.0044,
+        "size_proximity": 0.0043,
         "overlap_score": 0.3815
       },
       {
@@ -43970,6 +44986,14 @@
         "overlap_score": 0.3812
       },
       {
+        "region_a": "hyperpoly-terrain",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9524,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0006,
+        "overlap_score": 0.3812
+      },
+      {
         "region_a": "sieve_api_deployment",
         "region_b": "trench_builder",
         "cosine_similarity": 0.9522,
@@ -44026,6 +45050,14 @@
         "overlap_score": 0.3811
       },
       {
+        "region_a": "guinea-pig-trench-portal",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9527,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
+        "overlap_score": 0.3811
+      },
+      {
         "region_a": "_archive_vinculum_dedupe",
         "region_b": "Erdos-Straus conjecture solver",
         "cosine_similarity": 0.9498,
@@ -44050,6 +45082,14 @@
         "overlap_score": 0.381
       },
       {
+        "region_a": "copilot-worktrees",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9524,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.381
+      },
+      {
         "region_a": "Erdos-Straus conjecture solver",
         "region_b": "shc",
         "cosine_similarity": 0.9484,
@@ -44063,14 +45103,6 @@
         "cosine_similarity": 0.9523,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
-        "overlap_score": 0.381
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "trenchos",
-        "cosine_similarity": 0.9218,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0408,
         "overlap_score": 0.381
       },
       {
@@ -44114,14 +45146,6 @@
         "overlap_score": 0.3808
       },
       {
-        "region_a": "pangea_core",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9483,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0048,
-        "overlap_score": 0.3808
-      },
-      {
         "region_a": "victus_bios_tool",
         "region_b": "vinculum-agent",
         "cosine_similarity": 0.9519,
@@ -44154,6 +45178,14 @@
         "overlap_score": 0.3807
       },
       {
+        "region_a": "dev_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9518,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3807
+      },
+      {
         "region_a": "ernie_agent",
         "region_b": "guinea-pig-trench-portal",
         "cosine_similarity": 0.9449,
@@ -44167,6 +45199,14 @@
         "cosine_similarity": 0.9516,
         "name_affinity": 0.0,
         "size_proximity": 0.0003,
+        "overlap_score": 0.3807
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "vinc-engine",
+        "cosine_similarity": 0.9432,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0113,
         "overlap_score": 0.3807
       },
       {
@@ -44226,14 +45266,6 @@
         "overlap_score": 0.3806
       },
       {
-        "region_a": "gpt-verify",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.946,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0071,
-        "overlap_score": 0.3805
-      },
-      {
         "region_a": "manifold_orchestrator",
         "region_b": "vinculum-agent",
         "cosine_similarity": 0.9513,
@@ -44274,19 +45306,19 @@
         "overlap_score": 0.3804
       },
       {
-        "region_a": "bounty_scout_agent",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9433,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0103,
-        "overlap_score": 0.3804
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.951,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3804
+      },
+      {
+        "region_a": "fleet",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9492,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0023,
         "overlap_score": 0.3804
       },
       {
@@ -44354,6 +45386,14 @@
         "overlap_score": 0.3802
       },
       {
+        "region_a": "erdos-straus-github",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9504,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
+        "overlap_score": 0.3802
+      },
+      {
         "region_a": "erdos-straus-solver",
         "region_b": "trapezoid-canonical",
         "cosine_similarity": 0.9503,
@@ -44375,6 +45415,14 @@
         "cosine_similarity": 0.949,
         "name_affinity": 0.0,
         "size_proximity": 0.0017,
+        "overlap_score": 0.3801
+      },
+      {
+        "region_a": "COMMENCINGTHESCOURGE",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9502,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
         "overlap_score": 0.3801
       },
       {
@@ -44482,6 +45530,14 @@
         "overlap_score": 0.3799
       },
       {
+        "region_a": "fractype",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9496,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0003,
+        "overlap_score": 0.3799
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "vestibular_proof_kaggle",
         "cosine_similarity": 0.9488,
@@ -44546,6 +45602,14 @@
         "overlap_score": 0.3797
       },
       {
+        "region_a": "eclipse-of-the-vale",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9486,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0007,
+        "overlap_score": 0.3797
+      },
+      {
         "region_a": "guinea-pig-trench-portal",
         "region_b": "obsidian-city",
         "cosine_similarity": 0.9386,
@@ -44580,7 +45644,7 @@
       {
         "region_a": "adk_prototype_project",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9484,
+        "cosine_similarity": 0.9483,
         "name_affinity": 0.0,
         "size_proximity": 0.0004,
         "overlap_score": 0.3795
@@ -44591,6 +45655,14 @@
         "cosine_similarity": 0.9485,
         "name_affinity": 0.0,
         "size_proximity": 0.0003,
+        "overlap_score": 0.3795
+      },
+      {
+        "region_a": "deepseek_analysis",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9467,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0027,
         "overlap_score": 0.3795
       },
       {
@@ -44642,14 +45714,6 @@
         "overlap_score": 0.3794
       },
       {
-        "region_a": "soilmachine-api",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9394,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0123,
-        "overlap_score": 0.3794
-      },
-      {
         "region_a": "advra_archive",
         "region_b": "neon_dissection",
         "cosine_similarity": 0.9409,
@@ -44660,7 +45724,7 @@
       {
         "region_a": "continuum-foundry",
         "region_b": "erdos-straus",
-        "cosine_similarity": 0.9481,
+        "cosine_similarity": 0.948,
         "name_affinity": 0.0,
         "size_proximity": 0.0002,
         "overlap_score": 0.3793
@@ -44786,14 +45850,6 @@
         "overlap_score": 0.3789
       },
       {
-        "region_a": "neon-ghost-drift",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8639,
-        "name_affinity": 0.0,
-        "size_proximity": 0.1111,
-        "overlap_score": 0.3789
-      },
-      {
         "region_a": "erdos-straus-github",
         "region_b": "ernie_agent",
         "cosine_similarity": 0.9428,
@@ -44850,6 +45906,14 @@
         "overlap_score": 0.3787
       },
       {
+        "region_a": "continuum-foundry",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9465,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0002,
+        "overlap_score": 0.3787
+      },
+      {
         "region_a": "demo-repository",
         "region_b": "pangea_core",
         "cosine_similarity": 0.9412,
@@ -44874,12 +45938,12 @@
         "overlap_score": 0.3787
       },
       {
-        "region_a": "continuum-foundry",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9464,
+        "region_a": "sovereign_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.946,
         "name_affinity": 0.0,
-        "size_proximity": 0.0002,
-        "overlap_score": 0.3786
+        "size_proximity": 0.0012,
+        "overlap_score": 0.3787
       },
       {
         "region_a": "part_affordance",
@@ -45026,6 +46090,14 @@
         "overlap_score": 0.3781
       },
       {
+        "region_a": "manifold-risk-engine",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9432,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0028,
+        "overlap_score": 0.3781
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "sovereign-resonance-node",
         "cosine_similarity": 0.945,
@@ -45047,6 +46119,14 @@
         "cosine_similarity": 0.9417,
         "name_affinity": 0.0,
         "size_proximity": 0.0046,
+        "overlap_score": 0.378
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.945,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.378
       },
       {
@@ -45082,6 +46162,14 @@
         "overlap_score": 0.3779
       },
       {
+        "region_a": "erdos-straus",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9447,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3779
+      },
+      {
         "region_a": "aetherion-continuum",
         "region_b": "arc_agi_2_submission",
         "cosine_similarity": 0.9434,
@@ -45106,6 +46194,14 @@
         "overlap_score": 0.3778
       },
       {
+        "region_a": "bridge",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9438,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0009,
+        "overlap_score": 0.3778
+      },
+      {
         "region_a": "continuum-foundry",
         "region_b": "fractype",
         "cosine_similarity": 0.9412,
@@ -45119,6 +46215,14 @@
         "cosine_similarity": 0.9382,
         "name_affinity": 0.0,
         "size_proximity": 0.0086,
+        "overlap_score": 0.3778
+      },
+      {
+        "region_a": "headroom",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9446,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3778
       },
       {
@@ -45176,6 +46280,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0024,
         "overlap_score": 0.3777
+      },
+      {
+        "region_a": "aegis_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9235,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0274,
+        "overlap_score": 0.3776
       },
       {
         "region_a": "erdos-straus-github",
@@ -45266,6 +46378,14 @@
         "overlap_score": 0.3774
       },
       {
+        "region_a": "acoustic_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9434,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.3773
+      },
+      {
         "region_a": "continuum-foundry",
         "region_b": "erdos-straus-github",
         "cosine_similarity": 0.9423,
@@ -45295,6 +46415,14 @@
         "cosine_similarity": 0.9429,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3772
+      },
+      {
+        "region_a": "prompt-asset-writer",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9412,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0023,
         "overlap_score": 0.3772
       },
       {
@@ -45354,6 +46482,14 @@
         "overlap_score": 0.3769
       },
       {
+        "region_a": "ale",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9415,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0011,
+        "overlap_score": 0.3769
+      },
+      {
         "region_a": "COMMENCINGTHESCOURGE",
         "region_b": "ernie_agent",
         "cosine_similarity": 0.9365,
@@ -45375,6 +46511,14 @@
         "cosine_similarity": 0.942,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3768
+      },
+      {
+        "region_a": "aetheris_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9416,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0005,
         "overlap_score": 0.3768
       },
       {
@@ -45426,12 +46570,12 @@
         "overlap_score": 0.3766
       },
       {
-        "region_a": "lenticular-3d-pipeline",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9131,
+        "region_a": "manifold",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9392,
         "name_affinity": 0.0,
-        "size_proximity": 0.0377,
-        "overlap_score": 0.3766
+        "size_proximity": 0.0028,
+        "overlap_score": 0.3765
       },
       {
         "region_a": "roto_extractor",
@@ -45514,14 +46658,6 @@
         "overlap_score": 0.3763
       },
       {
-        "region_a": "neon_dissection",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9404,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0006,
-        "overlap_score": 0.3763
-      },
-      {
         "region_a": "erdos-straus-solver",
         "region_b": "vestibular_proof_kaggle",
         "cosine_similarity": 0.9404,
@@ -45530,19 +46666,19 @@
         "overlap_score": 0.3762
       },
       {
-        "region_a": "gcp_integrations",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9347,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0074,
-        "overlap_score": 0.3761
-      },
-      {
         "region_a": "sieve_api_deployment",
         "region_b": "vinculum-agent",
         "cosine_similarity": 0.9401,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
+        "overlap_score": 0.3761
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "vinculum-agent",
+        "cosine_similarity": 0.9404,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3761
       },
       {
@@ -45591,6 +46727,14 @@
         "cosine_similarity": 0.9376,
         "name_affinity": 0.0,
         "size_proximity": 0.0033,
+        "overlap_score": 0.376
+      },
+      {
+        "region_a": "roto_extractor",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.936,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0053,
         "overlap_score": 0.376
       },
       {
@@ -45666,6 +46810,14 @@
         "overlap_score": 0.3757
       },
       {
+        "region_a": "sync",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9225,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0225,
+        "overlap_score": 0.3757
+      },
+      {
         "region_a": "COMMENCINGTHESCOURGE",
         "region_b": "obsidian-city",
         "cosine_similarity": 0.9297,
@@ -45698,19 +46850,19 @@
         "overlap_score": 0.3755
       },
       {
+        "region_a": "sieve_api_deployment",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9288,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0127,
+        "overlap_score": 0.3754
+      },
+      {
         "region_a": "dev_archive",
         "region_b": "neon-arena",
         "cosine_similarity": 0.9317,
         "name_affinity": 0.0,
         "size_proximity": 0.0088,
-        "overlap_score": 0.3753
-      },
-      {
-        "region_a": "onboarding_tools",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9356,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0034,
         "overlap_score": 0.3753
       },
       {
@@ -45730,11 +46882,27 @@
         "overlap_score": 0.3752
       },
       {
+        "region_a": "collatz-exploration",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9337,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0057,
+        "overlap_score": 0.3752
+      },
+      {
         "region_a": "continuum-foundry",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.9225,
         "name_affinity": 0.0,
         "size_proximity": 0.0207,
+        "overlap_score": 0.3752
+      },
+      {
+        "region_a": "echoes-of-the-fracture",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9342,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0052,
         "overlap_score": 0.3752
       },
       {
@@ -45751,6 +46919,14 @@
         "cosine_similarity": 0.9353,
         "name_affinity": 0.0,
         "size_proximity": 0.0033,
+        "overlap_score": 0.3751
+      },
+      {
+        "region_a": "lenticular_pipeline",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9351,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0034,
         "overlap_score": 0.3751
       },
       {
@@ -45786,6 +46962,14 @@
         "overlap_score": 0.375
       },
       {
+        "region_a": "research",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9367,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0009,
+        "overlap_score": 0.375
+      },
+      {
         "region_a": "commencethescourge-erdos",
         "region_b": "continuum-foundry",
         "cosine_similarity": 0.9359,
@@ -45808,6 +46992,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0023,
         "overlap_score": 0.3749
+      },
+      {
+        "region_a": "ascii_research_presentation",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9235,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0182,
+        "overlap_score": 0.3748
       },
       {
         "region_a": "demo-repository",
@@ -45863,14 +47055,6 @@
         "cosine_similarity": 0.9144,
         "name_affinity": 0.0,
         "size_proximity": 0.0298,
-        "overlap_score": 0.3747
-      },
-      {
-        "region_a": "jules-proxy",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9325,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0054,
         "overlap_score": 0.3747
       },
       {
@@ -45938,6 +47122,14 @@
         "overlap_score": 0.3745
       },
       {
+        "region_a": "agent_swarm",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9292,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0093,
+        "overlap_score": 0.3745
+      },
+      {
         "region_a": "kaggle_submissions",
         "region_b": "sync",
         "cosine_similarity": 0.9361,
@@ -45951,14 +47143,6 @@
         "cosine_similarity": 0.9357,
         "name_affinity": 0.0,
         "size_proximity": 0.0006,
-        "overlap_score": 0.3745
-      },
-      {
-        "region_a": "SubstrateDeltaSieve",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9164,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0263,
         "overlap_score": 0.3745
       },
       {
@@ -45986,6 +47170,14 @@
         "overlap_score": 0.3744
       },
       {
+        "region_a": "blooming-onion",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9354,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0003,
+        "overlap_score": 0.3743
+      },
+      {
         "region_a": "PCRA CP-02-CR-0005640-2024",
         "region_b": "trenchos",
         "cosine_similarity": 0.9051,
@@ -45994,9 +47186,17 @@
         "overlap_score": 0.3743
       },
       {
-        "region_a": "aetherion-continuum",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9355,
+        "region_a": "prompt-asset-writer-templates",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9334,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0032,
+        "overlap_score": 0.3743
+      },
+      {
+        "region_a": "arc-prize-2026-arc-agi-3",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9354,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
         "overlap_score": 0.3742
@@ -46082,12 +47282,12 @@
         "overlap_score": 0.3739
       },
       {
-        "region_a": "deepbio-prompt-pack",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9181,
+        "region_a": "sovereign-resonance-node",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9348,
         "name_affinity": 0.0,
-        "size_proximity": 0.022,
-        "overlap_score": 0.3738
+        "size_proximity": 0.0,
+        "overlap_score": 0.3739
       },
       {
         "region_a": "Erdos-Straus conjecture solver",
@@ -46095,6 +47295,14 @@
         "cosine_similarity": 0.9261,
         "name_affinity": 0.0,
         "size_proximity": 0.0111,
+        "overlap_score": 0.3738
+      },
+      {
+        "region_a": "kaggle_submissions",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9345,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
         "overlap_score": 0.3738
       },
       {
@@ -46194,11 +47402,27 @@
         "overlap_score": 0.3736
       },
       {
+        "region_a": "flux-chamber",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9326,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0019,
+        "overlap_score": 0.3736
+      },
+      {
         "region_a": "manta_flight_feel",
         "region_b": "vinculum-agent",
         "cosine_similarity": 0.9341,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3736
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "void_archive",
+        "cosine_similarity": 0.93,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0054,
         "overlap_score": 0.3736
       },
       {
@@ -46228,7 +47452,7 @@
       {
         "region_a": "ai_agent_security_submission",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9335,
+        "cosine_similarity": 0.9334,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
         "overlap_score": 0.3734
@@ -46242,8 +47466,24 @@
         "overlap_score": 0.3734
       },
       {
+        "region_a": "pangea-substrate",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9331,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0001,
+        "overlap_score": 0.3733
+      },
+      {
         "region_a": "bridge",
         "region_b": "Erdos-Straus-conjecture-solver",
+        "cosine_similarity": 0.9326,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0004,
+        "overlap_score": 0.3732
+      },
+      {
+        "region_a": "chronos",
+        "region_b": "THROWN PLANET",
         "cosine_similarity": 0.9326,
         "name_affinity": 0.0,
         "size_proximity": 0.0004,
@@ -46256,6 +47496,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0017,
         "overlap_score": 0.3732
+      },
+      {
+        "region_a": "mycelia_game",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.931,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0025,
+        "overlap_score": 0.3731
       },
       {
         "region_a": "advra_archive",
@@ -46362,6 +47610,22 @@
         "overlap_score": 0.3725
       },
       {
+        "region_a": "lavish_furniture",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9301,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0016,
+        "overlap_score": 0.3725
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "victus_bios_tool",
+        "cosine_similarity": 0.9266,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0061,
+        "overlap_score": 0.3725
+      },
+      {
         "region_a": "arc_agi_2_submission",
         "region_b": "headroom",
         "cosine_similarity": 0.9308,
@@ -46415,6 +47679,14 @@
         "cosine_similarity": 0.9248,
         "name_affinity": 0.0,
         "size_proximity": 0.0077,
+        "overlap_score": 0.3722
+      },
+      {
+        "region_a": "manifold-model-router",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.912,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0247,
         "overlap_score": 0.3722
       },
       {
@@ -46482,11 +47754,51 @@
         "overlap_score": 0.372
       },
       {
+        "region_a": "erdos-straus-solver",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.93,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.372
+      },
+      {
+        "region_a": "kimi_density_spheres",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9287,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0017,
+        "overlap_score": 0.372
+      },
+      {
+        "region_a": "kimi_sealed_spheres",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9288,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0017,
+        "overlap_score": 0.372
+      },
+      {
+        "region_a": "quantum_garden",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9288,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0017,
+        "overlap_score": 0.372
+      },
+      {
         "region_a": "sovereign-resonance-node",
         "region_b": "trenchos",
         "cosine_similarity": 0.93,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.372
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "voxel_atelier",
+        "cosine_similarity": 0.9287,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0017,
         "overlap_score": 0.372
       },
       {
@@ -46527,6 +47839,14 @@
         "cosine_similarity": 0.9282,
         "name_affinity": 0.0,
         "size_proximity": 0.0015,
+        "overlap_score": 0.3717
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "vestibular_proof_kaggle",
+        "cosine_similarity": 0.9245,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0065,
         "overlap_score": 0.3717
       },
       {
@@ -46578,12 +47898,12 @@
         "overlap_score": 0.3715
       },
       {
-        "region_a": "aegis_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9076,
+        "region_a": "asset_pack",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9276,
         "name_affinity": 0.0,
-        "size_proximity": 0.0274,
-        "overlap_score": 0.3713
+        "size_proximity": 0.0012,
+        "overlap_score": 0.3714
       },
       {
         "region_a": "aetherion-continuum",
@@ -46610,6 +47930,14 @@
         "overlap_score": 0.3712
       },
       {
+        "region_a": "Echoes-of-the-Fracture-Temporal-Citadel",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9247,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0043,
+        "overlap_score": 0.3712
+      },
+      {
         "region_a": "forensics",
         "region_b": "PCRA CP-02-CR-0005640-2024",
         "cosine_similarity": 0.9171,
@@ -46623,6 +47951,14 @@
         "cosine_similarity": 0.9249,
         "name_affinity": 0.0,
         "size_proximity": 0.004,
+        "overlap_score": 0.3712
+      },
+      {
+        "region_a": "sovereign_resonance",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9268,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0016,
         "overlap_score": 0.3712
       },
       {
@@ -46722,14 +48058,6 @@
         "overlap_score": 0.3707
       },
       {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "vinc-engine",
-        "cosine_similarity": 0.9182,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0113,
-        "overlap_score": 0.3707
-      },
-      {
         "region_a": "aetherion-continuum",
         "region_b": "xpbd_solver",
         "cosine_similarity": 0.9194,
@@ -46759,14 +48087,6 @@
         "cosine_similarity": 0.9237,
         "name_affinity": 0.0,
         "size_proximity": 0.0034,
-        "overlap_score": 0.3705
-      },
-      {
-        "region_a": "sync",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9095,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0225,
         "overlap_score": 0.3705
       },
       {
@@ -46826,20 +48146,20 @@
         "overlap_score": 0.3703
       },
       {
+        "region_a": "aurora_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9248,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0009,
+        "overlap_score": 0.3702
+      },
+      {
         "region_a": "commencethescourge-erdos",
         "region_b": "demo-repository",
         "cosine_similarity": 0.9253,
         "name_affinity": 0.0,
         "size_proximity": 0.0002,
         "overlap_score": 0.3702
-      },
-      {
-        "region_a": "deepseek_analysis",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9233,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0027,
-        "overlap_score": 0.3701
       },
       {
         "region_a": "aetherion-continuum",
@@ -46890,6 +48210,14 @@
         "overlap_score": 0.3698
       },
       {
+        "region_a": "minicity",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9227,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0025,
+        "overlap_score": 0.3698
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "lenticular-3d-pipeline",
         "cosine_similarity": 0.9241,
@@ -46903,6 +48231,14 @@
         "cosine_similarity": 0.9242,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
+        "overlap_score": 0.3697
+      },
+      {
+        "region_a": "forensics",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9134,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0144,
         "overlap_score": 0.3697
       },
       {
@@ -46922,6 +48258,14 @@
         "overlap_score": 0.3696
       },
       {
+        "region_a": "parallax",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9122,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0157,
+        "overlap_score": 0.3696
+      },
+      {
         "region_a": "PCRA CP-02-CR-0005640-2024",
         "region_b": "sync",
         "cosine_similarity": 0.9071,
@@ -46936,6 +48280,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0395,
         "overlap_score": 0.3695
+      },
+      {
+        "region_a": "prompt-asset-demo-pipeline",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9204,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0041,
+        "overlap_score": 0.3694
       },
       {
         "region_a": "ashfall-city",
@@ -47090,14 +48442,6 @@
         "overlap_score": 0.3687
       },
       {
-        "region_a": "commencethescourge-erdos",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9217,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0001,
-        "overlap_score": 0.3687
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "lavish_furniture",
         "cosine_similarity": 0.9211,
@@ -47111,14 +48455,6 @@
         "cosine_similarity": 0.9206,
         "name_affinity": 0.0,
         "size_proximity": 0.0016,
-        "overlap_score": 0.3687
-      },
-      {
-        "region_a": "fleet",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9199,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0023,
         "overlap_score": 0.3687
       },
       {
@@ -47234,6 +48570,14 @@
         "overlap_score": 0.3682
       },
       {
+        "region_a": "THROWN PLANET",
+        "region_b": "vinculum-self-audit",
+        "cosine_similarity": 0.9175,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0037,
+        "overlap_score": 0.3681
+      },
+      {
         "region_a": "ai_agent_security_submission",
         "region_b": "Erdos-Straus-conjecture-solver",
         "cosine_similarity": 0.8826,
@@ -47263,14 +48607,6 @@
         "cosine_similarity": 0.9197,
         "name_affinity": 0.0,
         "size_proximity": 0.0004,
-        "overlap_score": 0.368
-      },
-      {
-        "region_a": "hyperpoly-terrain",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9195,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0006,
         "overlap_score": 0.368
       },
       {
@@ -47306,19 +48642,19 @@
         "overlap_score": 0.3674
       },
       {
+        "region_a": "ernie_agent",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9083,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0135,
+        "overlap_score": 0.3674
+      },
+      {
         "region_a": "deepbio-prompt-pack",
         "region_b": "Erdos-Straus-conjecture-solver",
         "cosine_similarity": 0.91,
         "name_affinity": 0.0,
         "size_proximity": 0.011,
-        "overlap_score": 0.3673
-      },
-      {
-        "region_a": "demo-repository",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.9182,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
         "overlap_score": 0.3673
       },
       {
@@ -47330,11 +48666,11 @@
         "overlap_score": 0.3673
       },
       {
-        "region_a": "eclipse-of-the-vale",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9175,
+        "region_a": "demo-repository",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.9181,
         "name_affinity": 0.0,
-        "size_proximity": 0.0007,
+        "size_proximity": 0.0,
         "overlap_score": 0.3672
       },
       {
@@ -47394,11 +48730,11 @@
         "overlap_score": 0.3671
       },
       {
-        "region_a": "guinea-pig-trench-portal",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9177,
+        "region_a": "ProceduralCarGenerator",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9095,
         "name_affinity": 0.0,
-        "size_proximity": 0.0001,
+        "size_proximity": 0.011,
         "overlap_score": 0.3671
       },
       {
@@ -47407,14 +48743,6 @@
         "cosine_similarity": 0.9172,
         "name_affinity": 0.0,
         "size_proximity": 0.0005,
-        "overlap_score": 0.367
-      },
-      {
-        "region_a": "copilot-worktrees",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9176,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
         "overlap_score": 0.367
       },
       {
@@ -47474,11 +48802,35 @@
         "overlap_score": 0.3668
       },
       {
+        "region_a": "starfield_v3",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.916,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0014,
+        "overlap_score": 0.3668
+      },
+      {
+        "region_a": "ashfall-relic-protocol",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9155,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0017,
+        "overlap_score": 0.3667
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "trench_builder",
         "cosine_similarity": 0.9159,
         "name_affinity": 0.0,
         "size_proximity": 0.0005,
+        "overlap_score": 0.3665
+      },
+      {
+        "region_a": "avatar-core",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.914,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0029,
         "overlap_score": 0.3665
       },
       {
@@ -47506,22 +48858,6 @@
         "overlap_score": 0.3664
       },
       {
-        "region_a": "dev_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9159,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3664
-      },
-      {
-        "region_a": "roto_extractor",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9118,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0053,
-        "overlap_score": 0.3663
-      },
-      {
         "region_a": "aetherion-continuum",
         "region_b": "sync",
         "cosine_similarity": 0.9127,
@@ -47546,35 +48882,11 @@
         "overlap_score": 0.3661
       },
       {
-        "region_a": "fractype",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9145,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0003,
-        "overlap_score": 0.3659
-      },
-      {
-        "region_a": "sovereign_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9139,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0012,
-        "overlap_score": 0.3659
-      },
-      {
         "region_a": "dev_archive",
         "region_b": "trenchos",
         "cosine_similarity": 0.9138,
         "name_affinity": 0.0,
         "size_proximity": 0.0008,
-        "overlap_score": 0.3658
-      },
-      {
-        "region_a": "erdos-straus-github",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9145,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0001,
         "overlap_score": 0.3658
       },
       {
@@ -47594,22 +48906,6 @@
         "overlap_score": 0.3656
       },
       {
-        "region_a": "COMMENCINGTHESCOURGE",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.914,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0001,
-        "overlap_score": 0.3656
-      },
-      {
-        "region_a": "manifold-risk-engine",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9119,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0028,
-        "overlap_score": 0.3656
-      },
-      {
         "region_a": "aetherion-continuum",
         "region_b": "trenchos",
         "cosine_similarity": 0.9118,
@@ -47623,6 +48919,14 @@
         "cosine_similarity": 0.9104,
         "name_affinity": 0.0,
         "size_proximity": 0.0035,
+        "overlap_score": 0.3652
+      },
+      {
+        "region_a": "obsidian-city",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9065,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0086,
         "overlap_score": 0.3652
       },
       {
@@ -47642,12 +48946,12 @@
         "overlap_score": 0.3651
       },
       {
-        "region_a": "sieve_api_deployment",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9029,
+        "region_a": "node24-ci-guard-complete",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9098,
         "name_affinity": 0.0,
-        "size_proximity": 0.0127,
-        "overlap_score": 0.365
+        "size_proximity": 0.004,
+        "overlap_score": 0.3651
       },
       {
         "region_a": "avatar",
@@ -47656,14 +48960,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
         "overlap_score": 0.3649
-      },
-      {
-        "region_a": "collatz-exploration",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9076,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0057,
-        "overlap_score": 0.3648
       },
       {
         "region_a": "erdos-straus-solver",
@@ -47690,20 +48986,20 @@
         "overlap_score": 0.3646
       },
       {
-        "region_a": "bridge",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9107,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0009,
-        "overlap_score": 0.3646
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "mycelia_game",
         "cosine_similarity": 0.9102,
         "name_affinity": 0.0,
         "size_proximity": 0.0013,
         "overlap_score": 0.3645
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "xpbd_solver",
+        "cosine_similarity": 0.9053,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0077,
+        "overlap_score": 0.3644
       },
       {
         "region_a": "aegis_archive",
@@ -47716,9 +49012,17 @@
       {
         "region_a": "advra_archive",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.9103,
+        "cosine_similarity": 0.9102,
         "name_affinity": 0.0,
         "size_proximity": 0.0002,
+        "overlap_score": 0.3642
+      },
+      {
+        "region_a": "avatar",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9033,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0096,
         "overlap_score": 0.3642
       },
       {
@@ -47736,14 +49040,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0169,
         "overlap_score": 0.3642
-      },
-      {
-        "region_a": "manifold",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9076,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0028,
-        "overlap_score": 0.3639
       },
       {
         "region_a": "demo-repository",
@@ -47778,36 +49074,20 @@
         "overlap_score": 0.3636
       },
       {
+        "region_a": "project_manager",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9078,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0014,
+        "overlap_score": 0.3635
+      },
+      {
         "region_a": "acoustic_archive",
         "region_b": "trenchos",
         "cosine_similarity": 0.9083,
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
         "overlap_score": 0.3634
-      },
-      {
-        "region_a": "ale",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9075,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0011,
-        "overlap_score": 0.3633
-      },
-      {
-        "region_a": "prompt-asset-writer",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9066,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0023,
-        "overlap_score": 0.3633
-      },
-      {
-        "region_a": "aetheris_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9074,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0005,
-        "overlap_score": 0.3631
       },
       {
         "region_a": "headroom",
@@ -47818,20 +49098,12 @@
         "overlap_score": 0.3631
       },
       {
-        "region_a": "erdos-straus",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9073,
+        "region_a": "labyrinth_archive",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9054,
         "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3629
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.907,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3628
+        "size_proximity": 0.003,
+        "overlap_score": 0.363
       },
       {
         "region_a": "asset_pack",
@@ -47858,28 +49130,12 @@
         "overlap_score": 0.3626
       },
       {
-        "region_a": "headroom",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9064,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3626
-      },
-      {
         "region_a": "sync",
         "region_b": "trench_builder",
-        "cosine_similarity": 0.906,
+        "cosine_similarity": 0.9059,
         "name_affinity": 0.0,
         "size_proximity": 0.0006,
         "overlap_score": 0.3626
-      },
-      {
-        "region_a": "ascii_research_presentation",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8926,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0182,
-        "overlap_score": 0.3625
       },
       {
         "region_a": "Erdos-Straus-conjecture-solver",
@@ -47890,68 +49146,12 @@
         "overlap_score": 0.3625
       },
       {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "void_archive",
-        "cosine_similarity": 0.9021,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0054,
-        "overlap_score": 0.3625
-      },
-      {
-        "region_a": "agent_swarm",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8984,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0093,
-        "overlap_score": 0.3621
-      },
-      {
-        "region_a": "lenticular_pipeline",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9026,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0034,
-        "overlap_score": 0.3621
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "vestibular_proof_kaggle",
-        "cosine_similarity": 0.9003,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0065,
-        "overlap_score": 0.3621
-      },
-      {
-        "region_a": "acoustic_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9051,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.362
-      },
-      {
         "region_a": "deepseek_analysis",
         "region_b": "demo-repository",
         "cosine_similarity": 0.9021,
         "name_affinity": 0.0,
         "size_proximity": 0.0041,
         "overlap_score": 0.362
-      },
-      {
-        "region_a": "manifold-model-router",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8866,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0247,
-        "overlap_score": 0.362
-      },
-      {
-        "region_a": "forensics",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8939,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0144,
-        "overlap_score": 0.3619
       },
       {
         "region_a": "ProceduralCarGenerator",
@@ -47986,14 +49186,6 @@
         "overlap_score": 0.3616
       },
       {
-        "region_a": "echoes-of-the-fracture",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8999,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0052,
-        "overlap_score": 0.3615
-      },
-      {
         "region_a": "demo-repository",
         "region_b": "manifold-risk-engine",
         "cosine_similarity": 0.9005,
@@ -48018,6 +49210,14 @@
         "overlap_score": 0.3614
       },
       {
+        "region_a": "part_affordance",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.9011,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0033,
+        "overlap_score": 0.3614
+      },
+      {
         "region_a": "aegis_archive",
         "region_b": "demo-repository",
         "cosine_similarity": 0.8724,
@@ -48032,6 +49232,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0035,
         "overlap_score": 0.3613
+      },
+      {
+        "region_a": "density_spheres",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8968,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0083,
+        "overlap_score": 0.3612
       },
       {
         "region_a": "advra_archive",
@@ -48050,17 +49258,9 @@
         "overlap_score": 0.361
       },
       {
-        "region_a": "parallax",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8906,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0157,
-        "overlap_score": 0.361
-      },
-      {
         "region_a": "trench_builder",
         "region_b": "trenchos",
-        "cosine_similarity": 0.9021,
+        "cosine_similarity": 0.902,
         "name_affinity": 0.0,
         "size_proximity": 0.0004,
         "overlap_score": 0.3609
@@ -48098,51 +49298,11 @@
         "overlap_score": 0.3606
       },
       {
-        "region_a": "blooming-onion",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9012,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0003,
-        "overlap_score": 0.3606
-      },
-      {
-        "region_a": "prompt-asset-writer-templates",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8992,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0032,
-        "overlap_score": 0.3606
-      },
-      {
-        "region_a": "research",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.9008,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0009,
-        "overlap_score": 0.3606
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "victus_bios_tool",
-        "cosine_similarity": 0.8966,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0061,
-        "overlap_score": 0.3605
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "vinculum-self-audit",
         "cosine_similarity": 0.8997,
         "name_affinity": 0.0,
         "size_proximity": 0.0019,
-        "overlap_score": 0.3604
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "vinculum-agent",
-        "cosine_similarity": 0.901,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
         "overlap_score": 0.3604
       },
       {
@@ -48178,12 +49338,12 @@
         "overlap_score": 0.3599
       },
       {
-        "region_a": "mycelia_game",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8979,
+        "region_a": "ashfall-city",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8955,
         "name_affinity": 0.0,
-        "size_proximity": 0.0025,
-        "overlap_score": 0.3599
+        "size_proximity": 0.0042,
+        "overlap_score": 0.3595
       },
       {
         "region_a": "Erdos-Straus-conjecture-solver",
@@ -48202,11 +49362,11 @@
         "overlap_score": 0.3594
       },
       {
-        "region_a": "flux-chamber",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8969,
+        "region_a": "mantra-fm",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8973,
         "name_affinity": 0.0,
-        "size_proximity": 0.0019,
+        "size_proximity": 0.0013,
         "overlap_score": 0.3593
       },
       {
@@ -48224,22 +49384,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0014,
         "overlap_score": 0.359
-      },
-      {
-        "region_a": "arc-prize-2026-arc-agi-3",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8973,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0001,
-        "overlap_score": 0.3589
-      },
-      {
-        "region_a": "chronos",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8969,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0004,
-        "overlap_score": 0.3589
       },
       {
         "region_a": "demo-repository",
@@ -48282,30 +49426,6 @@
         "overlap_score": 0.3587
       },
       {
-        "region_a": "minicity",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8949,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0025,
-        "overlap_score": 0.3587
-      },
-      {
-        "region_a": "ProceduralCarGenerator",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8884,
-        "name_affinity": 0.0,
-        "size_proximity": 0.011,
-        "overlap_score": 0.3587
-      },
-      {
-        "region_a": "sovereign_resonance",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8957,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0016,
-        "overlap_score": 0.3587
-      },
-      {
         "region_a": "demo-repository",
         "region_b": "kaggle_submissions",
         "cosine_similarity": 0.8964,
@@ -48322,27 +49442,27 @@
         "overlap_score": 0.3586
       },
       {
+        "region_a": "neon-arena",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8938,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0036,
+        "overlap_score": 0.3586
+      },
+      {
+        "region_a": "_archive_vinculum_dedupe",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8952,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0014,
+        "overlap_score": 0.3585
+      },
+      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "SubstrateDeltaSieve",
         "cosine_similarity": 0.886,
         "name_affinity": 0.0,
         "size_proximity": 0.0132,
-        "overlap_score": 0.3584
-      },
-      {
-        "region_a": "pangea-substrate",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8959,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0001,
-        "overlap_score": 0.3584
-      },
-      {
-        "region_a": "sovereign-resonance-node",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8961,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
         "overlap_score": 0.3584
       },
       {
@@ -48362,46 +49482,6 @@
         "overlap_score": 0.3583
       },
       {
-        "region_a": "kaggle_submissions",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8958,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3583
-      },
-      {
-        "region_a": "lavish_furniture",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8946,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0016,
-        "overlap_score": 0.3583
-      },
-      {
-        "region_a": "asset_pack",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8942,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0012,
-        "overlap_score": 0.358
-      },
-      {
-        "region_a": "Echoes-of-the-Fracture-Temporal-Citadel",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8916,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0043,
-        "overlap_score": 0.358
-      },
-      {
-        "region_a": "kimi_sealed_spheres",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8936,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0017,
-        "overlap_score": 0.358
-      },
-      {
         "region_a": "advra_archive",
         "region_b": "vinculum-agent",
         "cosine_similarity": 0.8947,
@@ -48415,38 +49495,6 @@
         "cosine_similarity": 0.8942,
         "name_affinity": 0.0,
         "size_proximity": 0.0008,
-        "overlap_score": 0.3579
-      },
-      {
-        "region_a": "ernie_agent",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8847,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0135,
-        "overlap_score": 0.3579
-      },
-      {
-        "region_a": "kimi_density_spheres",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8936,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0017,
-        "overlap_score": 0.3579
-      },
-      {
-        "region_a": "quantum_garden",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8936,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0017,
-        "overlap_score": 0.3579
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "voxel_atelier",
-        "cosine_similarity": 0.8936,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0017,
         "overlap_score": 0.3579
       },
       {
@@ -48487,14 +49535,6 @@
         "cosine_similarity": 0.8729,
         "name_affinity": 0.0,
         "size_proximity": 0.0273,
-        "overlap_score": 0.3573
-      },
-      {
-        "region_a": "aurora_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8925,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0009,
         "overlap_score": 0.3573
       },
       {
@@ -48546,14 +49586,6 @@
         "overlap_score": 0.3566
       },
       {
-        "region_a": "obsidian-city",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8848,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0086,
-        "overlap_score": 0.3565
-      },
-      {
         "region_a": "agent_swarm",
         "region_b": "demo-repository",
         "cosine_similarity": 0.8806,
@@ -48576,6 +49608,14 @@
         "name_affinity": 0.0,
         "size_proximity": 0.003,
         "overlap_score": 0.3564
+      },
+      {
+        "region_a": "THROWN PLANET",
+        "region_b": "trapezoid-canonical",
+        "cosine_similarity": 0.8895,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0015,
+        "overlap_score": 0.3562
       },
       {
         "region_a": "sync",
@@ -48618,30 +49658,6 @@
         "overlap_score": 0.3556
       },
       {
-        "region_a": "prompt-asset-demo-pipeline",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8858,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0041,
-        "overlap_score": 0.3556
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "xpbd_solver",
-        "cosine_similarity": 0.8832,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0077,
-        "overlap_score": 0.3556
-      },
-      {
-        "region_a": "erdos-straus-solver",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8881,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3552
-      },
-      {
         "region_a": "arc_agi_2_submission",
         "region_b": "SOVEREIGN RESONANCE",
         "cosine_similarity": 0.8671,
@@ -48666,6 +49682,14 @@
         "overlap_score": 0.355
       },
       {
+        "region_a": "shc",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.8857,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0022,
+        "overlap_score": 0.3549
+      },
+      {
         "region_a": "demo-repository",
         "region_b": "mycelia_game",
         "cosine_similarity": 0.8842,
@@ -48679,14 +49703,6 @@
         "cosine_similarity": 0.8866,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
-        "overlap_score": 0.3547
-      },
-      {
-        "region_a": "ashfall-relic-protocol",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8856,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0017,
         "overlap_score": 0.3547
       },
       {
@@ -48722,28 +49738,12 @@
         "overlap_score": 0.3544
       },
       {
-        "region_a": "avatar",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8783,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0096,
-        "overlap_score": 0.3542
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "starfield_v3",
         "cosine_similarity": 0.8849,
         "name_affinity": 0.0,
         "size_proximity": 0.0007,
         "overlap_score": 0.3542
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "vinculum-self-audit",
-        "cosine_similarity": 0.8822,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0037,
-        "overlap_score": 0.354
       },
       {
         "region_a": "collatz-exploration",
@@ -48802,14 +49802,6 @@
         "overlap_score": 0.3538
       },
       {
-        "region_a": "starfield_v3",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8833,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0014,
-        "overlap_score": 0.3538
-      },
-      {
         "region_a": "demo-repository",
         "region_b": "victus_bios_tool",
         "cosine_similarity": 0.8768,
@@ -48824,14 +49816,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0017,
         "overlap_score": 0.3524
-      },
-      {
-        "region_a": "avatar-core",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8783,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0029,
-        "overlap_score": 0.3522
       },
       {
         "region_a": "demo-repository",
@@ -48866,6 +49850,14 @@
         "overlap_score": 0.3521
       },
       {
+        "region_a": "mecha_robotics_kit",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.877,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0045,
+        "overlap_score": 0.3521
+      },
+      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "sieve_api_deployment",
         "cosine_similarity": 0.8746,
@@ -48880,22 +49872,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0023,
         "overlap_score": 0.3517
-      },
-      {
-        "region_a": "node24-ci-guard-complete",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8745,
-        "name_affinity": 0.0,
-        "size_proximity": 0.004,
-        "overlap_score": 0.351
-      },
-      {
-        "region_a": "labyrinth_archive",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8744,
-        "name_affinity": 0.0,
-        "size_proximity": 0.003,
-        "overlap_score": 0.3507
       },
       {
         "region_a": "Erdos-Straus-conjecture-solver",
@@ -48946,14 +49922,6 @@
         "overlap_score": 0.35
       },
       {
-        "region_a": "density_spheres",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8685,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0083,
-        "overlap_score": 0.3499
-      },
-      {
         "region_a": "Erdos-Straus-conjecture-solver",
         "region_b": "minicity",
         "cosine_similarity": 0.8735,
@@ -48970,14 +49938,6 @@
         "overlap_score": 0.3495
       },
       {
-        "region_a": "ashfall-city",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8693,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0042,
-        "overlap_score": 0.349
-      },
-      {
         "region_a": "ashfall-relic-protocol",
         "region_b": "Erdos-Straus-conjecture-solver",
         "cosine_similarity": 0.8716,
@@ -48992,30 +49952,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0056,
         "overlap_score": 0.3485
-      },
-      {
-        "region_a": "project_manager",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8698,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0014,
-        "overlap_score": 0.3484
-      },
-      {
-        "region_a": "part_affordance",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8678,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0033,
-        "overlap_score": 0.3481
-      },
-      {
-        "region_a": "neon-arena",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8671,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0036,
-        "overlap_score": 0.3479
       },
       {
         "region_a": "demo-repository",
@@ -49072,14 +50008,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0032,
         "overlap_score": 0.3454
-      },
-      {
-        "region_a": "_archive_vinculum_dedupe",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.862,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0014,
-        "overlap_score": 0.3452
       },
       {
         "region_a": "Erdos-Straus-conjecture-solver",
@@ -49146,14 +50074,6 @@
         "overlap_score": 0.343
       },
       {
-        "region_a": "shc",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.856,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0022,
-        "overlap_score": 0.343
-      },
-      {
         "region_a": "_archive_vinculum_dedupe",
         "region_b": "Erdos-Straus-conjecture-solver",
         "cosine_similarity": 0.8568,
@@ -49175,14 +50095,6 @@
         "cosine_similarity": 0.8487,
         "name_affinity": 0.0,
         "size_proximity": 0.0116,
-        "overlap_score": 0.3429
-      },
-      {
-        "region_a": "mantra-fm",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8563,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0013,
         "overlap_score": 0.3429
       },
       {
@@ -49208,14 +50120,6 @@
         "name_affinity": 0.0,
         "size_proximity": 0.0001,
         "overlap_score": 0.3421
-      },
-      {
-        "region_a": "THROWN PLANET Phase 1",
-        "region_b": "trapezoid-canonical",
-        "cosine_similarity": 0.8538,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0015,
-        "overlap_score": 0.342
       },
       {
         "region_a": "adk_prototype_project",
@@ -49274,17 +50178,17 @@
         "overlap_score": 0.3403
       },
       {
-        "region_a": "SOVEREIGN RESONANCE",
-        "region_b": "trench_builder",
-        "cosine_similarity": 0.8501,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0,
-        "overlap_score": 0.3401
-      },
-      {
         "region_a": "erdos-straus-github",
         "region_b": "SOVEREIGN RESONANCE",
         "cosine_similarity": 0.8499,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0,
+        "overlap_score": 0.34
+      },
+      {
+        "region_a": "SOVEREIGN RESONANCE",
+        "region_b": "trench_builder",
+        "cosine_similarity": 0.85,
         "name_affinity": 0.0,
         "size_proximity": 0.0,
         "overlap_score": 0.34
@@ -49386,6 +50290,14 @@
         "overlap_score": 0.3368
       },
       {
+        "region_a": "continuum-foundry",
+        "region_b": "THROWN PLANET",
+        "cosine_similarity": 0.7915,
+        "name_affinity": 0.0,
+        "size_proximity": 0.0667,
+        "overlap_score": 0.3366
+      },
+      {
         "region_a": "manta_flight_feel",
         "region_b": "SOVEREIGN RESONANCE",
         "cosine_similarity": 0.8057,
@@ -49463,14 +50375,6 @@
         "cosine_similarity": 0.8159,
         "name_affinity": 0.0,
         "size_proximity": 0.0294,
-        "overlap_score": 0.3352
-      },
-      {
-        "region_a": "mecha_robotics_kit",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.8346,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0045,
         "overlap_score": 0.3352
       },
       {
@@ -49962,14 +50866,6 @@
         "overlap_score": 0.3106
       },
       {
-        "region_a": "continuum-foundry",
-        "region_b": "THROWN PLANET Phase 1",
-        "cosine_similarity": 0.7264,
-        "name_affinity": 0.0,
-        "size_proximity": 0.0667,
-        "overlap_score": 0.3105
-      },
-      {
         "region_a": "forensics",
         "region_b": "SOVEREIGN RESONANCE",
         "cosine_similarity": 0.7706,
@@ -50163,7 +51059,7 @@
       }
     ],
     "summary": {
-      "mean_overlap_score": 0.4577,
+      "mean_overlap_score": 0.4572,
       "max_overlap_score": 0.88
     }
   },
@@ -50578,9 +51474,9 @@
       },
       "erdos-straus": {
         "files": 424,
-        "vinculums": 122048,
-        "size_kb": 7039.98,
-        "vinculum_density": 287.85,
+        "vinculums": 122046,
+        "size_kb": 7039.89,
+        "vinculum_density": 287.84,
         "kb_per_vinculum": 0.0577,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
@@ -51074,9 +51970,9 @@
       "project_manager": {
         "files": 5,
         "vinculums": 1421,
-        "size_kb": 145.47,
+        "size_kb": 145.35,
         "vinculum_density": 284.2,
-        "kb_per_vinculum": 0.1024,
+        "kb_per_vinculum": 0.1023,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
         "integrity_score": 0.5768,
@@ -51258,15 +52154,26 @@
         "integrity_score": 0.5516,
         "status": "ROBUST"
       },
-      "THROWN PLANET Phase 1": {
+      "THROWN PLANET": {
         "files": 1,
         "vinculums": 2,
-        "size_kb": 0.24,
+        "size_kb": 0.43,
         "vinculum_density": 2.0,
-        "kb_per_vinculum": 0.1206,
+        "kb_per_vinculum": 0.2129,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
-        "integrity_score": 0.2301,
+        "integrity_score": 0.2131,
+        "status": "FRAGILE"
+      },
+      "THROWN PLANET Phase 1": {
+        "files": 1,
+        "vinculums": 5,
+        "size_kb": 1.49,
+        "vinculum_density": 5.0,
+        "kb_per_vinculum": 0.2973,
+        "bond_connectivity": 0.0,
+        "isolation_risk": 1.0,
+        "integrity_score": 0.2102,
         "status": "FRAGILE"
       },
       "thrown-planet": {
@@ -51292,14 +52199,14 @@
         "status": "ROBUST"
       },
       "trench_builder": {
-        "files": 1164,
-        "vinculums": 138008,
-        "size_kb": 12149.34,
-        "vinculum_density": 118.56,
-        "kb_per_vinculum": 0.088,
+        "files": 1165,
+        "vinculums": 138614,
+        "size_kb": 12247.04,
+        "vinculum_density": 118.98,
+        "kb_per_vinculum": 0.0884,
         "bond_connectivity": 0.0,
         "isolation_risk": 1.0,
-        "integrity_score": 0.5798,
+        "integrity_score": 0.5797,
         "status": "ROBUST"
       },
       "trenchos": {
@@ -51403,19 +52310,19 @@
       }
     },
     "summary": {
-      "total_nodes": 112,
-      "mean_integrity": 0.5018,
+      "total_nodes": 113,
+      "mean_integrity": 0.4991,
       "min_integrity": 0.087,
       "max_integrity": 0.5922,
       "critical_nodes": 1,
-      "fragile_nodes": 8,
+      "fragile_nodes": 9,
       "stable_nodes": 27,
       "robust_nodes": 76,
       "fortified_nodes": 0
     }
   },
   "connection_topology": {
-    "total_nodes": 112,
+    "total_nodes": 113,
     "total_edges": 0,
     "mean_degree": 0.0,
     "max_degree": 0,
@@ -51520,6 +52427,7 @@
       "starfield_v3",
       "SubstrateDeltaSieve",
       "sync",
+      "THROWN PLANET",
       "THROWN PLANET Phase 1",
       "thrown-planet",
       "trapezoid-canonical",
@@ -51534,9 +52442,10 @@
       "voxel_atelier",
       "xpbd_solver"
     ],
-    "num_isolated": 112,
-    "connected_components": 112,
+    "num_isolated": 113,
+    "connected_components": 113,
     "component_sizes": [
+      1,
       1,
       1,
       1,
@@ -51754,10 +52663,10 @@
     "bond_routing_metadata": {
       "total_bonds": 4,
       "bond_types": [
+        "reversible",
         "threshold",
         "conservation",
-        "dissipative",
-        "reversible"
+        "dissipative"
       ],
       "mean_dissipation_rate": 0.02125
     }
