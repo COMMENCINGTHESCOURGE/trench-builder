@@ -1,14 +1,14 @@
 {
-  "total_files": 31270,
-  "total_vinculums": 11938692,
+  "total_files": 31293,
+  "total_vinculums": 11943759,
   "patterns": {
-    "fraction": 52377,
-    "overline": 5435,
-    "group_brace": 495106,
-    "chain": 65339,
-    "hyphen_bind": 4795281,
-    "auto_close": 6508398,
-    "repeat": 12006,
+    "fraction": 52533,
+    "overline": 5443,
+    "group_brace": 496079,
+    "chain": 65370,
+    "hyphen_bind": 4795539,
+    "auto_close": 6512023,
+    "repeat": 12022,
     "negation": 4750
   },
   "projects": {
@@ -88,9 +88,9 @@
       "kb": 20.0205078125
     },
     "ashfall-relic-protocol": {
-      "files": 1,
-      "v": 705,
-      "kb": 28.87890625
+      "files": 3,
+      "v": 1203,
+      "kb": 51.1865234375
     },
     "asset_pack": {
       "files": 7,
@@ -192,6 +192,11 @@
       "v": 462,
       "kb": 43.193359375
     },
+    "eclipse-of-the-vale": {
+      "files": 17,
+      "v": 2739,
+      "kb": 126.93359375
+    },
     "erdos-straus": {
       "files": 424,
       "v": 122048,
@@ -201,6 +206,11 @@
       "files": 1,
       "v": 5,
       "kb": 0.75390625
+    },
+    "Erdos-Straus-conjecture-solver": {
+      "files": 1,
+      "v": 1,
+      "kb": 0.845703125
     },
     "erdos-straus-github": {
       "files": 230,
@@ -250,7 +260,7 @@
     "guinea-pig-trench-portal": {
       "files": 167,
       "v": 16257,
-      "kb": 1082.3408203125
+      "kb": 1082.3447265625
     },
     "headroom": {
       "files": 1077,
@@ -372,6 +382,11 @@
       "v": 495,
       "kb": 52.5341796875
     },
+    "obsidian-city": {
+      "files": 1,
+      "v": 233,
+      "kb": 10.0859375
+    },
     "onboarding_tools": {
       "files": 9,
       "v": 593,
@@ -409,8 +424,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1384,
-      "kb": 145.2265625
+      "v": 1415,
+      "kb": 145.2861328125
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -441,6 +456,11 @@
       "files": 3,
       "v": 380,
       "kb": 17.4384765625
+    },
+    "shc": {
+      "files": 1,
+      "v": 928,
+      "kb": 38.6376953125
     },
     "sieve_api_deployment": {
       "files": 2,
@@ -503,9 +523,9 @@
       "kb": 93.5556640625
     },
     "trench_builder": {
-      "files": 1163,
-      "v": 137365,
-      "kb": 12051.0146484375
+      "files": 1164,
+      "v": 138002,
+      "kb": 12148.951171875
     },
     "trenchos": {
       "files": 1,
@@ -796,5 +816,5 @@
       ]
     }
   ],
-  "runtime_s": 295.2
+  "runtime_s": 318.9
 }
