@@ -1,12 +1,12 @@
 {
   "total_files": 31296,
-  "total_vinculums": 11945632,
+  "total_vinculums": 11945630,
   "patterns": {
     "fraction": 52549,
     "overline": 5467,
-    "group_brace": 496728,
+    "group_brace": 496727,
     "chain": 65372,
-    "hyphen_bind": 4795719,
+    "hyphen_bind": 4795718,
     "auto_close": 6513018,
     "repeat": 12029,
     "negation": 4750
@@ -199,8 +199,8 @@
     },
     "erdos-straus": {
       "files": 424,
-      "v": 122048,
-      "kb": 7039.9755859375
+      "v": 122046,
+      "kb": 7039.8896484375
     },
     "Erdos-Straus conjecture solver": {
       "files": 1,
@@ -535,7 +535,7 @@
     "trench_builder": {
       "files": 1165,
       "v": 138612,
-      "kb": 12247.2802734375
+      "kb": 12247.3037109375
     },
     "trenchos": {
       "files": 1,
@@ -826,5 +826,5 @@
       ]
     }
   ],
-  "runtime_s": 299.4
+  "runtime_s": 303.8
 }
