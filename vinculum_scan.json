@@ -1,12 +1,12 @@
 {
   "total_files": 31298,
-  "total_vinculums": 11945724,
+  "total_vinculums": 11945708,
   "patterns": {
-    "fraction": 52556,
+    "fraction": 52555,
     "overline": 5469,
-    "group_brace": 496737,
-    "chain": 65375,
-    "hyphen_bind": 4795718,
+    "group_brace": 496738,
+    "chain": 65374,
+    "hyphen_bind": 4795703,
     "auto_close": 6513089,
     "repeat": 12030,
     "negation": 4750
@@ -424,8 +424,8 @@
     },
     "project_manager": {
       "files": 5,
-      "v": 1425,
-      "kb": 145.4287109375
+      "v": 1423,
+      "kb": 145.490234375
     },
     "prompt-asset-demo-pipeline": {
       "files": 4,
@@ -534,8 +534,8 @@
     },
     "trench_builder": {
       "files": 1165,
-      "v": 138609,
-      "kb": 12247.3271484375
+      "v": 138595,
+      "kb": 12247.353515625
     },
     "trenchos": {
       "files": 1,
@@ -826,5 +826,5 @@
       ]
     }
   ],
-  "runtime_s": 298.7
+  "runtime_s": 303.3
 }
